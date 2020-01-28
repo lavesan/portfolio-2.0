@@ -1,0 +1,29 @@
+{
+  "name": "zero-veneno-ecommerce",
+  "version": "1.0.0",
+  "description": "Zero veneno user interactive\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C ecommerce\u001b[2~ user interactive",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [
+    "next",
+    "ecommerce",
+    "react",
+    "axios",
+    "styled-components"
+  ],
+  "author": "Valdery Alves Paes Júnior (http://valderyalves.com)",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^9.2.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "styled-components": "^5.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.7"
+  }
+}
