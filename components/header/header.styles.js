@@ -1,5 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const StyledHeader = styled.header`
-    background-color: red;
+    ${({ theme }) => css`
+        background-color: ${theme.green.primary};
+    `}
 `;

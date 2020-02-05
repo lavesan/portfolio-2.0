@@ -1,27 +1,28 @@
 import React from 'react'
-import App, { Container } from 'next/app'
+import App from 'next/app'
+import { ThemeProvider } from 'styled-components'
 import globalStyle from './style.css'
 
+const theme = {
+  green: {
+    primary: '#1a5914',
+    secondary: '#22962a',
+  },
+  blue: {
+    primary: '#0d1589',
+    secondary: '#058ced',
+  },
+}
+
 export default class MyApp extends App {
-  static async getInitialProps({ Component, router, ctx }) {
-    let pageProps = {}
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
-    }
-
-    return { pageProps }
-  }
-
-  render () {
+  render() {
     const { Component, pageProps } = this.props
-
     return (
-      <Container>
-       <div className={globalStyle.Layout}>
+      <ThemeProvider theme={theme}>
+        <div className={globalStyle.Layout}>
           <Component {...pageProps} />
-       </div>
-      </Container>
+        </div>
+      </ThemeProvider>
     )
   }
 }
