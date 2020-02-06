@@ -2,6 +2,7 @@ import React from 'react'
 import App from 'next/app'
 import { ThemeProvider } from 'styled-components'
 import globalStyle from './style.css'
+import { HeaderComponent } from '../components/header';
 
 const theme = {
   green: {
@@ -20,6 +21,7 @@ export default class MyApp extends App {
     return (
       <ThemeProvider theme={theme}>
         <div className={globalStyle.Layout}>
+          <HeaderComponent />
           <Component {...pageProps} />
         </div>
       </ThemeProvider>
