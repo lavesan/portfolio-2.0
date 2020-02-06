@@ -9,7 +9,7 @@ export default () => {
         <StyledSearchInput>
             <FontAwesomeIcon icon={faSearch} className="search-icon" />
             <input type="text" className="search-input" placeholder="Procurar produtos" />
-            <button type="button" className="search-button">Buscar</button>
+            <button type="button" title="Buscar produtos" className="search-button">Buscar</button>
         </StyledSearchInput>
     )
 }

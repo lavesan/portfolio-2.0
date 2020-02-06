@@ -22,15 +22,42 @@ export const StyledHeader = styled.header`
         }
         
         .header-actions {
-            img {
-                width: 100px;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+
+            .header-acition-logo {
+
+                img {
+                    width: 100px;
+                }
+            }
+
+            .header-actions-aside {
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+
+                .header-actions-aside-divisor {
+                    background-color: ${theme.green.primary};
+                    width: 1px;
+                    height: 20px;
+                    margin: 0 30px;
+                }
+            }
+
+            > * {
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
         
         .header-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-flow: row nowrap;
             background-color: ${theme.green.secondary};
-
-
         }
     `}
 `;

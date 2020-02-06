@@ -1,11 +1,21 @@
-import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faMapMarkerAlt, faUserCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 import { StyledHeader } from './header.styles';
+import { SearchInputComponent } from '../input';
+import { AsideIconComponent } from '../aside-icon';
+import { NavLinkComponent } from './nav-link';
 import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';
 
 export default function HeaderComponent() {
+
+    const login = () => {
+
+    }
+
+    const openCart = () => {
+
+    }
 
     return (
         <StyledHeader>
@@ -18,15 +28,33 @@ export default function HeaderComponent() {
                 </div>
             </div>
             <div className="header-actions">
-                <img src={logo} alt="Logo zero veneno" />
+                <aside className="header-acition-logo">
+                    <img src={logo} alt="Logo zero veneno" />
+                </aside>
+                <div>
+                    <SearchInputComponent />
+                </div>
+                <aside className="header-actions-aside">
+                    <AsideIconComponent
+                        icon={faUserCircle}
+                        text="Login"
+                        title="Efetuar o login"
+                        onClick={login} />
+                    <span className="header-actions-aside-divisor"></span>
+                    <AsideIconComponent
+                        icon={faShoppingCart}
+                        text="Carrinho"
+                        title="Abrir o carrinho"
+                        onClick={openCart} />
+                </aside>
             </div>
             <nav className="header-nav">
-                <Link href="/inicio">
-                    <a href="">Início</a>
-                </Link>
-                <Link href="/sobre">
-                    <a href="">Sobre nós</a>
-                </Link>
+                <NavLinkComponent
+                    href="/inicio"
+                    text="Início" />
+                <NavLinkComponent
+                    href="/sobre"
+                    text="Sobre nós" />
             </nav>
         </StyledHeader>
     )
