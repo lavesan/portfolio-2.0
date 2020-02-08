@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux';
 import withRedux from "next-redux-wrapper";
 import Head from "next/head";
+import styled from 'styled-components';
 
 import { makeStore } from "../store";
 import globalStyle from './style.css'
@@ -20,6 +21,10 @@ const theme = {
   },
 }
 
+const StyledPage = styled.div`
+  padding: 20px 60px;
+`;
+
 class MyApp extends App {
   render() {
     const { Component, pageProps, store } = this.props
@@ -31,7 +36,9 @@ class MyApp extends App {
               <title>Zero veneno</title>
             </Head>
             <HeaderComponent />
-            <Component {...pageProps} />
+            <StyledPage>
+              <Component {...pageProps} />
+            </StyledPage>
           </div>
         </ThemeProvider>
       </Provider>
