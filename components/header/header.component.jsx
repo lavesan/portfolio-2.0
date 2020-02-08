@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faMapMarkerAlt, faUserCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { connect } from "react-redux";
 
 import { StyledHeader } from './header.styles';
 import { SearchInputComponent } from '../input';
@@ -7,7 +8,7 @@ import { AsideIconComponent } from '../aside-icon';
 import { NavLinkComponent } from './nav-link';
 import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';
 
-export default function HeaderComponent() {
+const HeaderComponent = function() {
 
     const login = () => {
 
@@ -60,3 +61,9 @@ export default function HeaderComponent() {
     )
 
 }
+
+const mapStateToProps = state => ({
+
+})
+
+export default connect(mapStateToProps)(HeaderComponent);
