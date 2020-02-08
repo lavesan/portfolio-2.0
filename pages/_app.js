@@ -1,6 +1,11 @@
 import React from 'react'
 import App from 'next/app'
 import { ThemeProvider } from 'styled-components'
+import { Provider } from 'react-redux';
+import withRedux from "next-redux-wrapper";
+import Head from "next/head";
+
+import { makeStore } from "../store";
 import globalStyle from './style.css'
 import { HeaderComponent } from '../components/header';
 
@@ -15,16 +20,23 @@ const theme = {
   },
 }
 
-export default class MyApp extends App {
+class MyApp extends App {
   render() {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, store } = this.props
     return (
-      <ThemeProvider theme={theme}>
-        <div className={globalStyle.Layout}>
-          <HeaderComponent />
-          <Component {...pageProps} />
-        </div>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <div className={globalStyle.Layout}>
+            <Head>
+              <title>Zero veneno</title>
+            </Head>
+            <HeaderComponent />
+            <Component {...pageProps} />
+          </div>
+        </ThemeProvider>
+      </Provider>
     )
   }
 }
+
+export default withRedux(makeStore)(MyApp);
