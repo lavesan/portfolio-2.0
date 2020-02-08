@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import { makeStore } from "../store";
 import globalStyle from './style.css'
 import { HeaderComponent } from '../components/header';
+import { FooterComponent } from '../components/footer';
 
 const theme = {
   green: {
@@ -39,6 +40,7 @@ class MyApp extends App {
             <StyledPage>
               <Component {...pageProps} />
             </StyledPage>
+            <FooterComponent />
           </div>
         </ThemeProvider>
       </Provider>
