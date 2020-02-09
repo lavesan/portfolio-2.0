@@ -10,16 +10,27 @@ import { makeStore } from "../store";
 import globalStyle from './style.css'
 import { HeaderComponent } from '../components/header';
 import { FooterComponent } from '../components/footer';
+import GlobalStyle from './global-styles';
 
 const theme = {
   green: {
-    primary: '#1a5914',
-    secondary: '#22962a',
+    primary: '#3ECD25',
+    secondary: '#008B47',
+    terciary: '#005240',
+    quaternary: '#012D23',
+  },
+  gray: {
+    primary: '#C4C4C4',
+    secondary: '#4E4D4D',
   },
   blue: {
     primary: '#0d1589',
     secondary: '#058ced',
   },
+  fonts: {
+    bobbyJones: 'Bobby Jones Soft',
+    roboto: 'Roboto',
+  }
 }
 
 const StyledPage = styled.div`
@@ -33,6 +44,7 @@ class MyApp extends App {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <div className={globalStyle.Layout}>
+            <GlobalStyle />
             <Head>
               <title>Zero veneno</title>
             </Head>
