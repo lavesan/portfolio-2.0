@@ -11,8 +11,3 @@ module.exports = withPlugins(
     distDir: "./.next",
   },
 );
-
-// module.exports = {
-//     ...withImages(),
-//     ...withFonts(),
-// }
