@@ -11,6 +11,7 @@ export const StyledPeriodCard = styled.div`
             ), url(${imgUrl});
         background-repeat: no-repeat;
         background-size: ${isPromotion ? 'auto' : '100% 100%'};
+        font-family: ;
         color: #fff;
         display: flex;
         justify-content: center;
@@ -38,6 +39,15 @@ export const StyledPeriodCard = styled.div`
 
         p {
             font-size: 1.1rem;
+        }
+
+        .promo-paragraph {
+            margin-bottom: 27px;
+        }
+
+        h2 {
+            font-family: BobbyJonesSoft;
+            font-weight: 300;
         }
 
         button {

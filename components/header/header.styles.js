@@ -5,7 +5,7 @@ export const StyledHeader = styled.header`
         width: 100%;
 
         .header-info {
-            background-color: ${theme.green.primary};
+            background-color: ${theme.green.terciary};
             color: #fff;
             display: flex;
             flex-flow: row nowrap;
@@ -38,7 +38,7 @@ export const StyledHeader = styled.header`
                 align-items: center;
 
                 .header-actions-aside-divisor {
-                    background-color: ${theme.green.primary};
+                    background-color: ${theme.gray.primary};
                     width: 1px;
                     height: 20px;
                     margin: 0 30px;
@@ -57,7 +57,7 @@ export const StyledHeader = styled.header`
             justify-content: center;
             align-items: center;
             flex-flow: row nowrap;
-            background-color: ${theme.green.secondary};
+            background-color: ${theme.green.primary};
         }
     `}
 `;

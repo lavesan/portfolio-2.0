@@ -17,7 +17,7 @@ export default ({ isPromotion, briefDescription, title, imgUrl }) => {
         return (
             <StyledPeriodCard imgUrl={imgUrl} isPromotion={isPromotion}>
                 <h2 className="big-title">{title}</h2>
-                <p>{briefDescription}</p>
+                <p className="promo-paragraph">{briefDescription}</p>
                 <StyledRevSuccessButton onClick={garanteePromotion}>Quero garantir!</StyledRevSuccessButton>
             </StyledPeriodCard>
         )
