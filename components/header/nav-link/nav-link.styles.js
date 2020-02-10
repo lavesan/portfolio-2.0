@@ -6,8 +6,11 @@ export const StyledNavLink = styled.a`
         color: #fff;
         padding: 5px 10px;
 
+        &.active-route {
+            background-color: ${theme.green.terciary};
+        }
         :hover {
-            background-color: ${theme.green.primary};
+            background-color: ${theme.green.terciary};
         }
     `}
 `;
