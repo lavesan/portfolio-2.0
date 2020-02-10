@@ -6,18 +6,30 @@ export const StyledFooter = styled.footer`
 
         .footer-info {
             padding: 20px 60px;
-            background-color: ${theme.green.primary};
+            background-color: ${theme.green.terciary};
             display: grid;
             grid-template-columns: 2fr 2fr 1fr;
             grid-gap: 20px;
 
+            .social-media-container {
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+                
+                > * {
+                    font-size: 1.2rem;
+                    margin: 0 10px 0 0;
+                    cursor: pointer;
+                }
+            }
+
             h3 {
                 font-size: 1rem;
-                color: ${theme.green.secondary};
+                color: ${theme.green.primary};
             }
 
             p {
-                font-size: .8rem;
+                font-size: .7rem;
                 color: #fff;
             }
 
@@ -30,7 +42,7 @@ export const StyledFooter = styled.footer`
 
         .footer-cards {
             padding: 10px 60px;
-            background-color: ${theme.green.secondary};
+            background-color: ${theme.green.quaternary};
             color: #fff;
             display: flex;
             flex-flow: row nowrap;
