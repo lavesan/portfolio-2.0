@@ -1,45 +1,63 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const StyledAboutPage = styled.section`
-    display: flex;
-    flex-flow: column nowrap;
+    ${({ theme }) => css`
+        display: flex;
+        flex-flow: column nowrap;
 
-    .about-info-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        .about-info-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin-top: 45px;
 
-        .images-container {
-            display: flex;
-            flex-flow: column nowrap;
-            padding-right: 35px;
+            .images-container {
+                display: flex;
+                flex-flow: column nowrap;
+                padding-right: 35px;
 
-            img {
-                width: 100%;
-                max-height: 200px;
+                img {
+                    width: 100%;
+                    max-height: 200px;
+                }
+
+                .small-images {
+                    margin-top: 10px;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    grid-gap: 10px;
+
+                    > * {
+                        min-width: 0;
+                    }
+                }
             }
 
-            .small-images {
-                margin-top: 10px;
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                grid-gap: 10px;
+            .text-container {
+                padding-left: 35px;
 
-                > * {
-                    min-width: 0;
+                h1 {
+                    margin: 20px 0 40px 0;
+                    font-size: 1.5rem;
+                    color: ${theme.green.terciary};
                 }
             }
         }
 
-        .text-container {
-            padding-left: 35px;
+        .comments-title {
+            margin: 40px 0;
+            text-align: center;
+            color: ${theme.green.secondary};
         }
-    }
 
-    .comments-title {
-        text-align: center;
-    }
+        .comments-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 30px;
+            margin-bottom: 60px;
 
-    .comments-container {
-
-    }
+            > * {
+                min-width: 0;
+            }
+        }
+    `}
 `;
