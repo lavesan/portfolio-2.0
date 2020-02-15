@@ -11,6 +11,10 @@ import globalStyle from './style.css'
 import { HeaderComponent } from '../components/header';
 import { FooterComponent } from '../components/footer';
 import GlobalStyle from './global-styles';
+import axios from 'axios';
+import environment from '../.env.json';
+
+axios.defaults.baseURL = environment.API_URL;
 
 const theme = {
   green: {

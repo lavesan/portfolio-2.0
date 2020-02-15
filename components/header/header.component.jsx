@@ -1,3 +1,4 @@
+import React, { useEffect, useCallback, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faMapMarkerAlt, faUserCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { connect } from "react-redux";
@@ -7,8 +8,12 @@ import { SearchInputComponent } from '../input';
 import { AsideIconComponent } from '../aside-icon';
 import { NavLinkComponent } from './nav-link';
 import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';
+import { CategoryService } from '../../services/category.service';
+import { NavDropdownComponent } from '../../components/nav-dropdown';
 
 const HeaderComponent = function() {
+
+    const [categories, setCategories] = useState([]);
 
     const login = () => {
 
@@ -17,6 +22,30 @@ const HeaderComponent = function() {
     const openCart = () => {
 
     }
+
+    const showCategoryProducts = ({ id, name }) => {
+        
+    }
+
+    const categoryService = new CategoryService();
+
+    const reloadCategories = useCallback(
+        async () => {
+
+            const categoriesRes = await categoryService.getAll();
+
+            setCategories(categoriesRes.data);
+
+            // id
+            // name
+            // childrens
+
+        }, [categoryService]
+    )
+
+    useEffect(() => {
+        reloadCategories();
+    }, []);
 
     return (
         <StyledHeader>
@@ -56,6 +85,12 @@ const HeaderComponent = function() {
                 <NavLinkComponent
                     href="/sobre"
                     text="Sobre nós" />
+                {categories.map(({ name, childrens }, index) => 
+                    <NavDropdownComponent
+                        key={index}
+                        label={name}
+                        elements={childrens} />
+                )}
             </nav>
         </StyledHeader>
     )
