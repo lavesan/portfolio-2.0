@@ -1,10 +1,10 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons';
 
 import { TalToUsCompoent } from './talk-to-us';
 import { StyledFooter } from './footer.styles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default () => {
     return (

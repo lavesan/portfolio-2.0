@@ -1,61 +1,12 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
 import { StyledDropdown, StyledSubelement } from './nav-dropdown.styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
-const exampleElements = [
-  {
-    name: "Elemento 1",
-    id: 1,
-    childrens: []
-  },
-  {
-    name: "Elemento 2",
-    id: 2,
-    childrens: [
-      {
-        name: "Subelemento 1",
-        id: 1,
-        childrens: []
-      },
-      {
-        name: "Subelemento 2",
-        id: 2,
-        childrens: []
-      }
-    ]
-  },
-  {
-    name: "Elemento 3",
-    id: 3,
-    childrens: []
-  },
-  {
-    name: "Elemento 4",
-    id: 4,
-    childrens: [
-      {
-        name: "Subelemento 1",
-        id: 1,
-        childrens: []
-      },
-      {
-        name: "Subelemento 2",
-        id: 2,
-        childrens: []
-      },
-      {
-        name: "Subelemento 3",
-        id: 3,
-        childrens: []
-      }
-    ]
-  }
-];
+export default ({ elements, orientation = "right", label }) => {
 
-export default ({ elements, orientation = "left", label }) => {
   const [showDrop, setShowDrop] = useState(false);
-  const [showSub, setShowSub] = useState(false);
-  const [onSub, setOnSub] = useState(false);
-  const [onDrop, setOnDrop] = useState(false);
+  const [showSub, setShowSub] = useState([]);
 
   const dropdownRef = useRef(null);
 
@@ -65,11 +16,13 @@ export default ({ elements, orientation = "left", label }) => {
   });
 
   const formatedOrientation = useMemo(() => {
+
     if (orientation === "left") {
       return "";
     } else {
       return "-";
     }
+
   }, [orientation]);
 
   useEffect(() => {
@@ -101,19 +54,22 @@ export default ({ elements, orientation = "left", label }) => {
           className="dropdown-sub-element"
           elemMeasurements={measurements}
           orientation={formatedOrientation}
-          onMouseEnter={() => setOnSub(true)}
-          onMouseLeave={() => {
-            setOnSub(false);
-            if (!onDrop) {
-              setShowDrop(false);
-              setShowSub(false);
-            }
-          }}
         >
-          {childrens.map(({ name, childrens }) => (
-            <li className="dropdown-element">
-              <p>{name}</p>
-              <SideElement childrens={childrens} position={position + 1} />
+          {childrens.map(({ name, childrens }, index) => (
+            <li
+              className="dropdown-element"
+              onMouseEnter={() => {
+                if (childrens.length) {
+                  setShowSub(p => [...p, { index, position: position + 1 }]);
+                } else {
+                  setShowSub(p => p.slice(0, position));
+                }
+              }}
+              key={index}>
+              <p>{name} {childrens.length ? <FontAwesomeIcon icon={faAngleRight} /> : ''}</p>
+              {showSub.find(elem => elem.index === index && elem.position === position + 1) &&
+                <SideElement childrens={childrens} position={position + 1} />
+              }
             </li>
           ))}
         </StyledSubelement>
@@ -124,45 +80,39 @@ export default ({ elements, orientation = "left", label }) => {
   };
 
   return (
-    <>
-      <StyledDropdown
-        elemMeasurements={elemMeasurements}
-        showDropdown={showDrop}
-        onMouseEnter={() => {
-          setOnDrop(true);
-          setShowDrop(true);
-        }}
-        onMouseLeave={() => {
-          setOnDrop(false);
-          if (!onSub) {
-            setShowSub(false);
-            setShowDrop(false);
-          }
-        }}
-      >
-        <p ref={dropdownRef} className="dropdown-input">
-          {label}
-        </p>
-        <ul className="dropdown-list">
-          {elements.map(({ name, childrens }) => (
-            <>
-              <li
-                className="dropdown-element"
-                onMouseEnter={() => {
-                  setShowSub(false);
-                  setOnDrop(true);
-                }}
-                onMouseLeave={() => {
-                  setOnDrop(false);
-                }}
-              >
-                <p>{name}</p>
-                <SideElement childrens={childrens} />
-              </li>
-            </>
-          ))}
-        </ul>
-      </StyledDropdown>
-    </>
+    <StyledDropdown
+      elemMeasurements={elemMeasurements}
+      showDropdown={showDrop && elements.length}
+      onMouseEnter={() => setShowDrop(true)}
+      onMouseLeave={() => {
+        setShowDrop(false);
+        setShowSub([]);
+      }}
+    >
+      <p ref={dropdownRef} className="dropdown-input">
+        {label}
+      </p>
+      <ul className="dropdown-list">
+        {elements.map(({ name, childrens }, index) => (
+          <li
+            className="dropdown-element"
+            onMouseEnter={() => {
+              if (childrens.length) {
+                setShowSub([{ index, position: 1 }]);
+              } else {
+                setShowSub([]);
+              }
+            }}
+            key={index}
+          >
+            <p>{name} {childrens.length ? <FontAwesomeIcon icon={faAngleRight} /> : ''}</p>
+            {showSub.some(elem => elem.index === index && elem.position === 1) &&
+              <SideElement childrens={childrens} />
+            }
+          </li>
+        ))}
+      </ul>
+    </StyledDropdown>
   );
+
 };

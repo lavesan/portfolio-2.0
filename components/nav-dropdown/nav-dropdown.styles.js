@@ -2,15 +2,15 @@ import styled, { css, keyframes } from "styled-components";
 
 const simpaticMargin = keyframes`
   0% {
-    top: 23px;
+    top: 15px;
   }
 
   50% {
-    top: 28px;
+    top: 20px;
   }
 
   100% {
-    top: 23px;
+    top: 15px;
   }
 `;
 
@@ -29,19 +29,25 @@ export const StyledDropdown = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 10px;
+      padding: 5px 10px;
       color: #fff;
+
+      :hover {
+        background-color: ${theme.green.terciary};
+      }
     }
     .dropdown-list {
       background-color: #fff;
       border-radius: 3px;
-      box-shadow: 0 2px 4px 1px #aaa;
+      box-shadow: 0 5px 4px 1px #aaa;
       display: ${showDropdown ? "block" : "none"};
       list-style-type: none;
       padding-inline-start: 0;
       position: absolute;
-      top: 23px;
+      font-size: .8rem;
+      top: 15px;
       width: ${elemMeasurements.offsetWidth}px;
+      z-index: 2;
 
       ${showDropdown &&
         css`
@@ -73,6 +79,7 @@ export const StyledSubelement = styled.div`
   ${({ elemMeasurements, orientation }) => css`
     width: ${elemMeasurements.offsetWidth}px;
     position: absolute;
+    z-index: 2;
     right: ${orientation}${elemMeasurements.offsetWidth}px;
     top: 0;
     border-radius: 3px;
@@ -80,6 +87,7 @@ export const StyledSubelement = styled.div`
     list-style-type: none;
     padding-inline-start: 0;
     color: #000;
+
     > :hover {
       color: #fff;
     }
