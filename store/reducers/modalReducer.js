@@ -1,5 +1,6 @@
 const initialState = {
     openAddressModal: false,
+    openProductModal: false,
 };
 export const modalReducer = (state = initialState, action) => {
     // Este 'state' é o state total passado
@@ -9,6 +10,12 @@ export const modalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 openAddressModal: !state.openAddressModal,
+            }
+        },
+        TOGGLE_PRODUCT_MODAL() {
+            return {
+                ...state,
+                openProductModal: !state.openProductModal,
             }
         },
     }

@@ -1,6 +1,8 @@
 import React from 'react';
 import Modal from "react-responsive-modal";
 
+import { StyledModal } from './modal.styles';
+
 export default class ModalComponent extends React.Component {
 
   render() {
@@ -9,7 +11,10 @@ export default class ModalComponent extends React.Component {
 
     return (
       <Modal open={show} onClose={toggleModal} center>
-          {children}
+        <StyledModal>
+          <button type="button" className="close-button" onClick={toggleModal}>FECHAR</button>
+        </StyledModal>
+        {children}
       </Modal>
     );
   }

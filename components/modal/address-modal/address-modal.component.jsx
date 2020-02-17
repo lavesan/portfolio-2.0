@@ -20,7 +20,6 @@ const AddressModal = ({ dispatch, openAddressModal }) => {
     return (
         <ModalComponent toggleModal={toggleModal} show={openAddressModal}>
             <StyledAddressModal>
-                <button type="button" className="close-button" onClick={toggleModal}>FECHAR</button>
                 <img className="sender-image" src={senderImage} alt="Caricatura do entregador" />
                 <p className="text-paragrah">
                     <span className="highlight-text-paragraph">Seu China,</span> {text1}<br />
