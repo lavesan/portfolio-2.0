@@ -46,7 +46,7 @@ export const StyledDropdown = styled.div`
       position: absolute;
       font-size: .8rem;
       top: 15px;
-      width: ${elemMeasurements.offsetWidth}px;
+      width: ${elemMeasurements.offsetWidth + 20}px;
       z-index: 2;
 
       ${showDropdown &&
@@ -60,6 +60,13 @@ export const StyledDropdown = styled.div`
         background-color: #fff;
         justify-content: space-between;
         position: relative;
+
+        .dropdown-text {
+          width: 100%;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: space-between;
+        }
 
         :last-child {
           border-bottom-right-radius: 3px;
@@ -75,12 +82,12 @@ export const StyledDropdown = styled.div`
   `}
 `;
 
-export const StyledSubelement = styled.div`
+export const StyledSubelement = styled.ul`
   ${({ elemMeasurements, orientation }) => css`
-    width: ${elemMeasurements.offsetWidth}px;
+    width: ${elemMeasurements.offsetWidth + 20}px;
     position: absolute;
     z-index: 2;
-    right: ${orientation}${elemMeasurements.offsetWidth}px;
+    right: ${orientation}${elemMeasurements.offsetWidth + 20}px;
     top: 0;
     border-radius: 3px;
     box-shadow: 2px 2px 4px 1px #aaa;

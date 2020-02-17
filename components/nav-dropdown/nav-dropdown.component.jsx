@@ -3,7 +3,7 @@ import { StyledDropdown, StyledSubelement } from './nav-dropdown.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
-export default ({ elements, orientation = "right", label }) => {
+export default ({ elements, orientation = "right", label, onClick, onDropInfoWhenClicked, closeOnClick }) => {
 
   const [showDrop, setShowDrop] = useState(false);
   const [showSub, setShowSub] = useState([]);
@@ -25,6 +25,22 @@ export default ({ elements, orientation = "right", label }) => {
 
   }, [orientation]);
 
+  const onClickAction = (element, body) => {
+
+    // Stops father onClick events
+    element.stopPropagation();
+
+    if (onClick) {
+      onClick(body);
+    }
+
+    if (closeOnClick) {
+      setShowDrop(false);
+      setShowSub([]);
+    }
+
+  }
+
   useEffect(() => {
 
     setTimeout(() => {
@@ -43,19 +59,15 @@ export default ({ elements, orientation = "right", label }) => {
    * @param {{ position }} param0 position - 'left' or 'right'
    */
   const SideElement = ({ position = 1, childrens = [] }) => {
-    const measurements = {};
-    Object.assign(measurements, elemMeasurements);
-
-    measurements.offsetWidth = measurements.offsetWidth * position;
 
     if (childrens.length) {
       return (
         <StyledSubelement
           className="dropdown-sub-element"
-          elemMeasurements={measurements}
+          elemMeasurements={elemMeasurements}
           orientation={formatedOrientation}
         >
-          {childrens.map(({ name, childrens }, index) => (
+          {childrens.map(({ name, childrens, ...body }, index) => (
             <li
               className="dropdown-element"
               onMouseEnter={() => {
@@ -65,8 +77,12 @@ export default ({ elements, orientation = "right", label }) => {
                   setShowSub(p => p.slice(0, position));
                 }
               }}
+              onClick={(e) => onClickAction(e, { name, ...body })}
               key={index}>
-              <p>{name} {childrens.length ? <FontAwesomeIcon icon={faAngleRight} /> : ''}</p>
+              <div className="dropdown-text">
+                <p>{name}</p>
+                <p>{childrens.length ? <FontAwesomeIcon icon={faAngleRight} /> : ''}</p>
+              </div>
               {showSub.find(elem => elem.index === index && elem.position === position + 1) &&
                 <SideElement childrens={childrens} position={position + 1} />
               }
@@ -77,6 +93,7 @@ export default ({ elements, orientation = "right", label }) => {
     } else {
       return <></>;
     }
+
   };
 
   return (
@@ -89,11 +106,11 @@ export default ({ elements, orientation = "right", label }) => {
         setShowSub([]);
       }}
     >
-      <p ref={dropdownRef} className="dropdown-input">
+      <p ref={dropdownRef} onClick={(e) => onClickAction(e, onDropInfoWhenClicked)} className="dropdown-input">
         {label}
       </p>
       <ul className="dropdown-list">
-        {elements.map(({ name, childrens }, index) => (
+        {elements.map(({ name, childrens, ...body }, index) => (
           <li
             className="dropdown-element"
             onMouseEnter={() => {
@@ -103,9 +120,13 @@ export default ({ elements, orientation = "right", label }) => {
                 setShowSub([]);
               }
             }}
+            onClick={(e) => onClickAction(e, { name, ...body })}
             key={index}
           >
-            <p>{name} {childrens.length ? <FontAwesomeIcon icon={faAngleRight} /> : ''}</p>
+            <div className="dropdown-text">
+              <p>{name}</p>
+              <p>{childrens.length ? <FontAwesomeIcon icon={faAngleRight} /> : ''}</p>
+            </div>
             {showSub.some(elem => elem.index === index && elem.position === 1) &&
               <SideElement childrens={childrens} />
             }

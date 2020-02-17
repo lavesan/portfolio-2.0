@@ -23,8 +23,10 @@ const HeaderComponent = function() {
 
     }
 
-    const showCategoryProducts = ({ id, name }) => {
-        
+    const filterWithCategory = (data) => {
+
+        console.log('cliquei na categoria: ', data);
+
     }
 
     const categoryService = new CategoryService();
@@ -85,10 +87,13 @@ const HeaderComponent = function() {
                 <NavLinkComponent
                     href="/sobre"
                     text="Sobre nós" />
-                {categories.map(({ name, childrens }, index) => 
+                {categories.map(({ name, childrens, ...body }, index) => 
                     <NavDropdownComponent
                         key={index}
+                        onDropInfoWhenClicked={{ name, ...body }}
+                        onClick={filterWithCategory}
                         label={name}
+                        closeOnClick={true}
                         elements={childrens} />
                 )}
             </nav>
