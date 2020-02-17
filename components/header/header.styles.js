@@ -13,6 +13,11 @@ export const StyledHeader = styled.header`
             padding: 5px 30px;
             font-size: .7rem;
 
+            .header-info-actions {
+                cursor: pointer;
+                user-select: none;
+            }
+
             > * {
                 margin-right: 20px;
                 > :first-child {

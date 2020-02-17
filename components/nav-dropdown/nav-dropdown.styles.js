@@ -39,7 +39,6 @@ export const StyledDropdown = styled.div`
     .dropdown-list {
       background-color: #fff;
       border-radius: 3px;
-      box-shadow: 0 5px 4px 1px #aaa;
       display: ${showDropdown ? "block" : "none"};
       list-style-type: none;
       padding-inline-start: 0;
@@ -83,14 +82,14 @@ export const StyledDropdown = styled.div`
 `;
 
 export const StyledSubelement = styled.ul`
-  ${({ elemMeasurements, orientation }) => css`
+  ${({ elemMeasurements, orientation, show }) => css`
+    display: ${show ? 'block' : 'none'};
     width: ${elemMeasurements.offsetWidth + 20}px;
     position: absolute;
     z-index: 2;
     right: ${orientation}${elemMeasurements.offsetWidth + 20}px;
     top: 0;
     border-radius: 3px;
-    box-shadow: 2px 2px 4px 1px #aaa;
     list-style-type: none;
     padding-inline-start: 0;
     color: #000;

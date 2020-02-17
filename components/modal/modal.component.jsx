@@ -1,16 +1,16 @@
 import React from 'react';
-// import Modali from 'modali';
 import Modal from "react-responsive-modal";
 
-export default (show, setShow, children) => {
+export default class ModalComponent extends React.Component {
 
-    const onCloseModal = () => {
-        setShow(false);
-    }
+  render() {
 
-  return (
-    <Modal open={show} onClose={onCloseModal} center>
-        {children}
-    </Modal>
-  );
+    const { show, children, toggleModal } = this.props;
+
+    return (
+      <Modal open={show} onClose={toggleModal} center>
+          {children}
+      </Modal>
+    );
+  }
 };

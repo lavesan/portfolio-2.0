@@ -58,7 +58,7 @@ export default ({ elements, orientation = "right", label, onClick, onDropInfoWhe
    *
    * @param {{ position }} param0 position - 'left' or 'right'
    */
-  const SideElement = ({ position = 1, childrens = [] }) => {
+  const SideElement = ({ position = 1, childrens = [], show }) => {
 
     if (childrens.length) {
       return (
@@ -66,6 +66,7 @@ export default ({ elements, orientation = "right", label, onClick, onDropInfoWhe
           className="dropdown-sub-element"
           elemMeasurements={elemMeasurements}
           orientation={formatedOrientation}
+          show={show}
         >
           {childrens.map(({ name, childrens, ...body }, index) => (
             <li
@@ -83,9 +84,7 @@ export default ({ elements, orientation = "right", label, onClick, onDropInfoWhe
                 <p>{name}</p>
                 <p>{childrens.length ? <FontAwesomeIcon icon={faAngleRight} /> : ''}</p>
               </div>
-              {showSub.find(elem => elem.index === index && elem.position === position + 1) &&
-                <SideElement childrens={childrens} position={position + 1} />
-              }
+              <SideElement show={showSub.some(elem => elem.index === index && elem.position === position + 1)} childrens={childrens} position={position + 1} />
             </li>
           ))}
         </StyledSubelement>
@@ -127,9 +126,7 @@ export default ({ elements, orientation = "right", label, onClick, onDropInfoWhe
               <p>{name}</p>
               <p>{childrens.length ? <FontAwesomeIcon icon={faAngleRight} /> : ''}</p>
             </div>
-            {showSub.some(elem => elem.index === index && elem.position === 1) &&
-              <SideElement childrens={childrens} />
-            }
+            <SideElement show={showSub.some(elem => elem.index === index && elem.position === 1)} childrens={childrens} />
           </li>
         ))}
       </ul>

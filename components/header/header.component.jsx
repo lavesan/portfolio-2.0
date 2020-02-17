@@ -12,11 +12,11 @@ import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';
 import { CategoryService } from '../../services/category.service';
 import { NavDropdownComponent } from '../../components/nav-dropdown';
 import theme from '../../pages/app.theme';
+import { toggleAddressModal } from '../../store/actions/modalActions';
 
-const HeaderComponent = function() {
+const HeaderComponent = ({ dispatch, openAddressModal }) => {
 
     const [categories, setCategories] = useState([]);
-    const [show, setShow] = useState();    
 
     const login = () => {
 
@@ -32,10 +32,6 @@ const HeaderComponent = function() {
 
     }
 
-    const showAddress = () => {
-        setShow(true);
-    }
-
     const categoryService = new CategoryService();
 
     const reloadCategories = useCallback(
@@ -44,10 +40,6 @@ const HeaderComponent = function() {
             const categoriesRes = await categoryService.getAll();
 
             setCategories(categoriesRes.data);
-
-            // id
-            // name
-            // childrens
 
         }, [categoryService]
     )
@@ -60,10 +52,10 @@ const HeaderComponent = function() {
         <>
             <StyledHeader>
                 <div className="header-info">
-                    <div onClick={showAddress}>
+                    <div className="header-info-actions" onClick={() => dispatch(toggleAddressModal())} title="Abrir modal com locais de entrega">
                         <FontAwesomeIcon icon={faMapMarkerAlt}  /> Locais que entregamos
                     </div>
-                    <div>
+                    <div className="header-info-actions" title="Abrir modal com horas de entrega disponíveis">
                         <FontAwesomeIcon icon={faClock}  /> Horários de entrega
                     </div>
                 </div>
@@ -120,8 +112,4 @@ const HeaderComponent = function() {
 
 }
 
-const mapStateToProps = state => ({
-
-})
-
-export default connect(mapStateToProps)(HeaderComponent);
+export default connect()(HeaderComponent);

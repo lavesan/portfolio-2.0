@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import bobbyJonesFont from '../public/static/fonts/Bobby Jones/BobbyJonesSoft.otf';
+import bobbyJonesFont from '../public/static/fonts/Bobby-Jones/BobbyJonesSoft.otf';
 
 export default createGlobalStyle`
     

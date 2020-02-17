@@ -10,6 +10,12 @@ export const removeProduct = id => ({
     id,
 });
 
+const TOGGLE_ADDRESS_MODAL = 'TOGGLE_ADDRESS_MODAL';
+
+export const toggleAddressModal = () => ({
+    type: TOGGLE_ADDRESS_MODAL,
+});
+
 // Se eu for alterar o store dentro do próprio redux:
 // export const getUsers = () => async dispatch => {
 //     const users = await axios.get("/users");

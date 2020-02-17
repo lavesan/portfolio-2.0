@@ -1,4 +1,5 @@
 import { cartReducer } from './cartReducer';
+import { modalReducer } from './modalReducer';
 import { combineReducers } from 'redux';
 
 // Método combineReducers
@@ -6,4 +7,5 @@ import { combineReducers } from 'redux';
 
 export default combineReducers({
   cardState: cartReducer,
+  modalState: modalReducer,
 });

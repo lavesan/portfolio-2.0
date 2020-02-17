@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import withRedux from "next-redux-wrapper";
 import Head from "next/head";
 import styled from 'styled-components';
-import Modal from "react-responsive-modal";
 
 import { makeStore } from "../store";
 import globalStyle from './style.css'
@@ -24,15 +23,6 @@ const StyledPage = styled.div`
 `;
 
 class MyApp extends App {
-
-  state = {
-    show: false,
-  }
-
-  setShow = (show) => {
-    this.setState({ show })
-  }
-
   render() {
     const { Component, pageProps, store } = this.props
     return (
@@ -47,16 +37,9 @@ class MyApp extends App {
             <StyledPage>
               <Component {...pageProps} />
             </StyledPage>
-            <button onClick={() => this.setShow(true)}>Vai abrir um modal, se liga</button>
             <FooterComponent />
           </div>
-          <Modal
-            open={this.state.show}
-            onClose={() => this.setShow(false)}
-            ariaHideApp={false}
-            center>
-              <AddressModal onCloseModal={() => this.setShow(false)} />
-          </Modal>
+          <AddressModal />
         </ThemeProvider>
       </Provider>
     )
