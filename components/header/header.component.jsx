@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faMapMarkerAlt, faUserCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { connect } from "react-redux";
-// import { useModali } from 'modali';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import { StyledHeader } from './header.styles';
 import { SearchInputComponent } from '../input';
@@ -11,7 +11,7 @@ import { NavLinkComponent } from './nav-link';
 import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';
 import { CategoryService } from '../../services/category.service';
 import { NavDropdownComponent } from '../../components/nav-dropdown';
-import { AddressModal } from '../modal/address-modal';
+import theme from '../../pages/app.theme';
 
 const HeaderComponent = function() {
 
@@ -72,7 +72,16 @@ const HeaderComponent = function() {
                         <img src={logo} alt="Logo zero veneno" />
                     </aside>
                     <div>
-                        <SearchInputComponent />
+                        <SearchInputComponent
+                            placeholder="Procurar produtos"
+                            button={{
+                                text: 'Buscar',
+                                color: theme.green.secondary,
+                                backgroundColor: '#fff',
+                                borderColor: theme.gray.primary,
+                                title: 'Buscar produtos',
+                            }}
+                            icon={faSearch} />
                     </div>
                     <aside className="header-actions-aside">
                         <AsideIconComponent

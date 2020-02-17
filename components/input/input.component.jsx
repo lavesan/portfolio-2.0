@@ -1,15 +1,14 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import { StyledSearchInput } from './input.styles';
 
-export default () => {
+export default ({ placeholder, icon, button }) => {
     return (
-        <StyledSearchInput>
-            <FontAwesomeIcon icon={faSearch} className="search-icon" />
-            <input type="text" className="search-input" placeholder="Procurar produtos" />
-            <button type="button" title="Buscar produtos" className="search-button">Buscar</button>
+        <StyledSearchInput icon={icon} button={button}>
+            {icon && <FontAwesomeIcon icon={icon} className="search-icon" />}
+            <input type="text" className="search-input" placeholder={placeholder} />
+            <button type="submit" title={button.title} className="search-button">{button.text}</button>
         </StyledSearchInput>
     )
 }

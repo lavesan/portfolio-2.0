@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const StyledSearchInput = styled.div`
-    ${({ theme }) => css`
+    ${({ theme, icon, button }) => css`
         position: relative;
         width: 100%;
 
@@ -15,6 +15,7 @@ export const StyledSearchInput = styled.div`
         .search-input, .search-button {
             padding: 8px;
             border: thin solid ${theme.gray.primary};
+            border-right: none;
             background: none;
             outline: none;
         }
@@ -23,16 +24,17 @@ export const StyledSearchInput = styled.div`
             width: 70%;
             border-top-left-radius: 4px;
             border-bottom-left-radius: 4px;
-            padding-left: 32px;
+            ${icon && 'padding-left: 32px;'}
         }
 
         .search-button {
             width: 20%;
             cursor: pointer;
-            border-left: none;
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
-            color: ${theme.green.secondary};
+            color: ${button.color};
+            border: thin solid ${button.borderColor};
+            background-color: ${button.backgroundColor};
         }
     `}
 `;
