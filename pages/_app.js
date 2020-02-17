@@ -15,29 +15,9 @@ import GlobalStyle from './global-styles';
 import axios from 'axios';
 import environment from '../.env.json';
 import { AddressModal } from '../components/modal/address-modal';
+import theme from './app.theme';
 
 axios.defaults.baseURL = environment.API_URL;
-
-const theme = {
-  green: {
-    primary: '#3ECD25',
-    secondary: '#008B47',
-    terciary: '#005240',
-    quaternary: '#012D23',
-  },
-  gray: {
-    primary: '#C4C4C4',
-    secondary: '#4E4D4D',
-  },
-  blue: {
-    primary: '#0d1589',
-    secondary: '#058ced',
-  },
-  fonts: {
-    bobbyJones: 'Bobby Jones Soft',
-    roboto: 'Roboto',
-  }
-}
 
 const StyledPage = styled.div`
   padding: 20px 60px;
@@ -75,7 +55,7 @@ class MyApp extends App {
             onClose={() => this.setShow(false)}
             ariaHideApp={false}
             center>
-              <AddressModal />
+              <AddressModal onCloseModal={() => this.setShow(false)} />
           </Modal>
         </ThemeProvider>
       </Provider>
