@@ -1,5 +1,5 @@
-export const PRODUCTS_FILTER = 'PRODUCTS_FILTER';
+export const SET_CATEGORIES = 'SET_CATEGORIES';
 
-export function setProductFilter(filters) {
-  return { type: PRODUCTS_FILTER, filters }
+export function setCategories(categories) {
+  return { type: SET_CATEGORIES, categories }
 }

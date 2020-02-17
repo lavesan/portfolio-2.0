@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useCallback } from 'react';
+
 import { StyledAboutPage } from './sobre.styles';
 import { DarkerImage } from '../../components/darker-image';
 import { CommentCardComponent } from '../../components/comment-card';
+import { CommentService } from '../../services/comment.service';
+import { setComments } from '../../store/actions/commentActions';
 
-export default () => {
+const SobrePage = ({ comments, dispatch }) => {
 
-    const [comments, setComments] = useState([
-        {
-            userImgUrl: 'https://cdn.culturagenial.com/imagens/livro-a-viuvinha-54s.jpg',
-            name: 'Alberta',
-            age: 23,
-            comment: 'Eu gostei para um caramba vei',
+    const commentService = new CommentService();
+
+    const reloadComments = useCallback(
+        async () => {
+
+            const commentsRes = await commentService.getComments();
+
+            console.log('commentsRes: ', commentsRes);
+            // dispatch(setComments(commentsRes));
+
         },
-        {
-            userImgUrl: 'https://cdn.culturagenial.com/imagens/livro-a-viuvinha-54s.jpg',
-            name: 'Rodrigão',
-            age: 23,
-            comment: 'Cê loko, bom demais meu parça!',
-        },
-        {
-            userImgUrl: 'https://cdn.culturagenial.com/imagens/livro-a-viuvinha-54s.jpg',
-            name: 'Lorem',
-            age: 23,
-            comment: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Pariatur, doloremque? Nemo minima, labore, dicta enim vero expedita debitis provident exercitationem fugit ducimus non reprehenderit. A et voluptatem veniam ea vel!',
-        },
-    ]);
+        [commentService]
+    )
+
+    useEffect(() => {
+        reloadComments();
+    }, [reloadComments]);
 
     return (
         <StyledAboutPage>
@@ -51,3 +51,9 @@ export default () => {
         </StyledAboutPage>
     )
 }
+
+const mapStateToProps = store => ({
+    comments: store.commentState.comments,
+})
+
+export default connect(mapStateToProps)(SobrePage);

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faMapMarkerAlt, faUserCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { connect } from "react-redux";
@@ -13,10 +13,9 @@ import { CategoryService } from '../../services/category.service';
 import { NavDropdownComponent } from '../../components/nav-dropdown';
 import theme from '../../pages/app.theme';
 import { toggleAddressModal } from '../../store/actions/modalActions';
+import { setCategories } from '../../store/actions/categoryActions';
 
-const HeaderComponent = ({ dispatch, openAddressModal }) => {
-
-    const [categories, setCategories] = useState([]);
+const HeaderComponent = ({ dispatch, categories }) => {
 
     const login = () => {
 
@@ -39,14 +38,14 @@ const HeaderComponent = ({ dispatch, openAddressModal }) => {
 
             const categoriesRes = await categoryService.getAll();
 
-            setCategories(categoriesRes.data);
+            dispatch(setCategories(categoriesRes))
 
         }, [categoryService]
     )
 
     useEffect(() => {
         reloadCategories();
-    }, []);
+    }, [reloadCategories]);
 
     return (
         <>
@@ -112,4 +111,8 @@ const HeaderComponent = ({ dispatch, openAddressModal }) => {
 
 }
 
-export default connect()(HeaderComponent);
+const mapStateToProps = store => ({
+    categories: store.categoryState.categories,
+})
+
+export default connect(mapStateToProps)(HeaderComponent);

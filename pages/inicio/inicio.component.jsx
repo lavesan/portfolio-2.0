@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import { ProductCardComponent } from '../../components/product-card';
 import { StyledStartPage } from './inicio.styles';
 import { PeriodCardComponent } from '../../components/period-card';
 
-export default () => {
+const InicioPage = ({ comments }) => {
 
     const [products, setProducts] = useState([
         {
@@ -67,3 +68,9 @@ export default () => {
         </StyledStartPage>
     )
 }
+
+const mapStateToProps = store => ({
+    comments: store.commentState.comments,
+})
+
+export default connect(mapStateToProps)(InicioPage);

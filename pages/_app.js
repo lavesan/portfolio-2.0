@@ -17,6 +17,24 @@ import { AddressModal } from '../components/modal/address-modal';
 import theme from './app.theme';
 
 axios.defaults.baseURL = environment.API_URL;
+axios.interceptors.request.use(req => {
+    
+  const token = localStorage.getItem('auth');
+  
+  if (token) {
+      req.headers = {
+         ...req.headers,
+         authorization: token, 
+      }
+  }
+
+  
+  return req;
+})
+axios.interceptors.response.use(
+  res => res.data ? Promise.resolve(res.data) : Promise.resolve(res),
+  err => err.response ? Promise.reject(err.response.data) :  Promise.reject(err.response),
+);
 
 const StyledPage = styled.div`
   padding: 20px 60px;
