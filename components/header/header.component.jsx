@@ -35,12 +35,9 @@ const HeaderComponent = ({ dispatch, categories }) => {
 
     const reloadCategories = useCallback(
         async () => {
-
             const categoriesRes = await categoryService.getAll();
-
             dispatch(setCategories(categoriesRes))
-
-        }, [categoryService]
+        }, []
     )
 
     useEffect(() => {
