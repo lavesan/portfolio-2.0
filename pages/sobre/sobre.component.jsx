@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
+import { connect } from 'react-redux';
 
 import { StyledAboutPage } from './sobre.styles';
 import { DarkerImage } from '../../components/darker-image';
@@ -15,11 +16,11 @@ const SobrePage = ({ comments, dispatch }) => {
 
             const commentsRes = await commentService.getComments();
 
-            console.log('commentsRes: ', commentsRes);
-            // dispatch(setComments(commentsRes));
+            // console.log('commentsRes: ', commentsRes);
+            dispatch(setComments(commentsRes));
 
         },
-        [commentService]
+        []
     )
 
     useEffect(() => {
