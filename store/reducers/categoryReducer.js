@@ -10,6 +10,7 @@ export const categoryReducer = (state = initialState, action) => {
         SET_CATEGORIES() {
             return {
                 ...state,
+                categories: action.categories,
             }
         }        
     }
