@@ -1,6 +1,7 @@
 const initialState = {
     openAddressModal: false,
     openProductModal: false,
+    selectedProduct: {}
 };
 export const modalReducer = (state = initialState, action) => {
     // Este 'state' é o state total passado
@@ -16,6 +17,7 @@ export const modalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 openProductModal: !state.openProductModal,
+                selectedProduct: action.product,
             }
         },
     }

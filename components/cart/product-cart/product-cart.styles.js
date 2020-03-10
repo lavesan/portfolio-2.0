@@ -6,6 +6,7 @@ export const StyledProductCart = styled.div`
         grid-template-columns: 2fr 2fr 1fr;
         grid-gap: 20px;
         color: ${theme.gray.secondary};
+        border-bottom: thin solid ${theme.gray.primary};
 
         > * {
             min-width: 0;

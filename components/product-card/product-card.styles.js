@@ -12,16 +12,20 @@ export const StyledProductCard = styled.div`
 
             overflow: hidden;
             width: 100%;
-            height: 180px;
+            height: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             img {
-                width: 100%;
+                width: 120px;
+                max-width: 100%;
             }
         }
 
         .product-name {
             margin: 10px 0;
-            font-size: 1rem;
+            font-size: .9rem;
         }
 
         .price-paragraph {
@@ -34,13 +38,13 @@ export const StyledProductCard = styled.div`
 
             .price-text {
                 color: #aaa;
-                font-size: .9rem;
+                font-size: .8rem;
             }
             .price-value {
                 text-align: center;
                 width: 50%;
-                color: ${theme.green.primary};
-                font-size: 1.2rem;
+                color: ${theme.green.secondary};
+                font-size: 1.1rem;
                 font-weight: bolder;
             }
         }

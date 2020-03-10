@@ -9,19 +9,19 @@ const InicioPage = ({ comments }) => {
 
     const [products, setProducts] = useState([
         {
-            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Arroba', price: 'R$ 20,00', isPromotion: true, id: 1
+            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Arroba', actualValueCents: '2000', id: 1, quantitySuffix: 'kg', description: 'Vei, é um produto legal e bal bal bla asddiqon eoin sdonaoin uibyu vbyc yt ty vu uyn byub yubmuiniumn yuvrhd edget  ynu bm h b u bu t crt  ct  yvbhm ni  n hub y bm hni,'
         },
         {
-            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Sei lá', price: 'R$ 20,00', isPromotion: true, id: 1
+            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Sei lá', actualValueCents: '4000', id: 2, quantitySuffix: 'kg',
         },
         {
-            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Arroba', price: 'R$ 20,00', isPromotion: true, id: 1
+            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Arroba', actualValueCents: '300', id: 3, quantitySuffix: 'kg',
         },
         {
-            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Arroba', price: 'R$ 20,00', isPromotion: true, id: 1
+            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Arroba', actualValueCents: '50', id: 4, quantitySuffix: 'kg',
         },
         {
-            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Arroba', price: 'R$ 20,00', isPromotion: true, id: 1
+            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Arroba', actualValueCents: '100', id: 5, quantitySuffix: 'kg',
         },
     ]);
 

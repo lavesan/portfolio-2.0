@@ -14,6 +14,7 @@ import GlobalStyle from './global-styles';
 import axios from 'axios';
 import environment from '../.env.json';
 import { AddressModal } from '../components/modal/address-modal';
+import { ProductModalComponent } from '../components/modal/product-modal';
 import theme from './app.theme';
 
 axios.defaults.baseURL = environment.API_URL;
@@ -58,6 +59,7 @@ class MyApp extends App {
             <FooterComponent />
           </div>
           <AddressModal />
+          <ProductModalComponent />
         </ThemeProvider>
       </Provider>
     )

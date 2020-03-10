@@ -5,6 +5,7 @@ export const toggleAddressModal = () => ({
     type: TOGGLE_ADDRESS_MODAL,
 });
 
-export const toggleProductModal = () => ({
+export const toggleProductModal = (product) => ({
     type: TOGGLE_PRODUCT_MODAL,
+    product,
 });

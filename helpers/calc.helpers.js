@@ -7,9 +7,9 @@ export const floatNumberToOnlyNumberString = (floatNumber) => {
 }
 
 export const numberStringToReal = (valueCents) => {
-    return `R$ ${onlyNumberStringToFloatNumber(valueCents).toString().replace('.', ',')}`;
+    return `R$ ${onlyNumberStringToFloatNumber(valueCents).toFixed(2).replace('.', ',')}`;
 }
 
 export const numberToReal = (floatNumber) => {
-    return `R$ ${floatNumber.toFixed(2).toString().replace('.', ',')}`;
+    return `R$ ${floatNumber.toFixed(2).replace('.', ',')}`;
 }

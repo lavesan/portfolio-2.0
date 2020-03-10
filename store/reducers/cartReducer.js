@@ -39,9 +39,11 @@ export const cartReducer = (state = initialState, action) => {
     // O 'action' é o valor alterado
     const handleReducer = {
         ADD_PRODUCT() {
+            const products = state.products;
+            products.push(action.product);
             return {
                 ...state,
-                products: state.products.push(action.product),
+                products,
             }
         },
         ADD_PRODUCTS() {

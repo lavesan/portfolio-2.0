@@ -1,28 +1,34 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import { StyledProductCard } from './product-card.styles';
 import { StyledSuccessButton } from '../button';
+import { toggleProductModal } from '../../store/actions/modalActions';
+import { numberStringToReal } from '../../helpers/calc.helpers';
 
-export default ({ imgUrl, name, price, isPromotion, id }) => {
+const ProductCardComponent = ({ dispatch, ...product }) => {
 
-    const addToCard = () => {
-
+    const addToCart = () => {
+        dispatch(toggleProductModal(product));
     };
 
     return (
         <StyledProductCard>
             <div className="product-image-container">
-                <img src={imgUrl} alt={`image-do-produto-${name}`} />
+                <img src={product.imgUrl} alt={`image-do-produto-${product.name}`} />
             </div>
-            <h3 className="product-name"><b>{name}</b></h3>
+            <h3 className="product-name"><b>{product.name} 1{product.quantitySuffix}</b></h3>
             <p className="price-paragraph">
-                <span className="price-text">Preço:</span> 
-                <span className="price-value">{price}</span>
+                <span className="price-text">Por:</span> 
+                <span className="price-value">{numberStringToReal(product.actualValueCents)}</span>
             </p>
             <StyledSuccessButton
                 className="submit-button"
-                onClick={addToCard}>
+                onClick={addToCart}>
                     Adicionar ao carrinho
             </StyledSuccessButton>
         </StyledProductCard>
     )
 }
+
+export default connect()(ProductCardComponent);

@@ -13,6 +13,9 @@ export default {
         primary: '#0d1589',
         secondary: '#058ced',
     },
+    danger: {
+      primary: '#d40404',
+    },
     fonts: {
         bobbyJones: 'Bobby Jones Soft',
         roboto: 'Roboto',

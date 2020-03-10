@@ -37,7 +37,6 @@ export const StyledCartComponent = styled.section`
         }
 
         .cart-products-container {
-            border-bottom: thin solid ${theme.gray.primary};
             overflow-y: scroll;
             max-height: 400px;
         }
