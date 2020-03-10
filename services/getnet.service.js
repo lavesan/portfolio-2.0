@@ -11,7 +11,7 @@ export class GetnetService {
         const body = {
             MD: issuer_payment_id,
             PaReq: payer_authentication_request,
-            TermUrl: 'http://localhost:3000/order/finalize-debit',
+            TermUrl: 'http://192.168.15.8:3000/order/finalize-debit',
         }
 
         return redirectPost(redirectUrl, body);

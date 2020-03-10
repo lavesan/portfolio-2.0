@@ -14,14 +14,11 @@ import { NavDropdownComponent } from '../../components/nav-dropdown';
 import theme from '../../pages/app.theme';
 import { toggleAddressModal } from '../../store/actions/modalActions';
 import { setCategories } from '../../store/actions/categoryActions';
+import Link from 'next/link';
 
 const HeaderComponent = ({ dispatch, categories }) => {
 
     const login = () => {
-
-    }
-
-    const openCart = () => {
 
     }
 
@@ -78,11 +75,12 @@ const HeaderComponent = ({ dispatch, categories }) => {
                             title="Efetuar o login"
                             onClick={login} />
                         <span className="header-actions-aside-divisor"></span>
-                        <AsideIconComponent
-                            icon={faShoppingCart}
-                            text="Carrinho"
-                            title="Abrir o carrinho"
-                            onClick={openCart} />
+                        <Link href="/carrinho">
+                            <AsideIconComponent
+                                icon={faShoppingCart}
+                                text="Carrinho"
+                                title="Abrir o carrinho" />
+                        </Link>
                     </aside>
                 </div>
                 <nav className="header-nav">

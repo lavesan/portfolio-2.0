@@ -32,8 +32,6 @@ export const commentReducer = (state = initialState, action) => {
     // O 'action' é o valor alterado
     const handleReducer = {
         SET_COMMENTS() {
-
-            console.log('action.comments: ', action.comments);
             return {
                 ...state,
                 comments: action.comments,

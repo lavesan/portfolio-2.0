@@ -21,6 +21,13 @@ export function removeProduct (product) {
     };
 }
 
+export function setProduct (product) {
+    return {
+        type: CartTypes.setProduct,
+        product,
+    };
+}
+
 export function clearCart () {
     return {
         type: CartTypes.clearCart,
