@@ -1,38 +1,5 @@
 const initialState = {
-    products: [
-        {
-            id: 1,
-            name: 'Laranja Lima',
-            quantity: 2,
-            imgUrl: 'https://www.mambo.com.br/ccstore/v1/images/?source=/file/v2168637593948128623/products/131543.jpg&height=400&width=400',
-            actualValueCents: '2000',
-            quantitySuffix: 'kg',
-        },
-        {
-            id: 2,
-            name: 'Abacate',
-            quantity: 2,
-            imgUrl: 'https://www.mambo.com.br/ccstore/v1/images/?source=/file/v2168637593948128623/products/131543.jpg&height=400&width=400',
-            actualValueCents: '2000',
-            quantitySuffix: 'kg',
-        },
-        {
-            id: 3,
-            name: 'Sei lá vei',
-            quantity: 2,
-            imgUrl: 'https://www.mambo.com.br/ccstore/v1/images/?source=/file/v2168637593948128623/products/131543.jpg&height=400&width=400',
-            actualValueCents: '2000',
-            quantitySuffix: 'kg',
-        },
-        {
-            id: 4,
-            name: 'Laranja Lima',
-            quantity: 2,
-            imgUrl: 'https://www.mambo.com.br/ccstore/v1/images/?source=/file/v2168637593948128623/products/131543.jpg&height=400&width=400',
-            actualValueCents: '2000',
-            quantitySuffix: 'kg',
-        },
-    ],
+    products: [],
 };
 export const cartReducer = (state = initialState, action) => {
     // Este 'state' é o state total passado

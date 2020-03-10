@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faMapMarkerAlt, faUserCircle, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { connect } from "react-redux";
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 
 import { StyledHeader } from './header.styles';
 import { SearchInputComponent } from '../input';
@@ -14,7 +15,7 @@ import { NavDropdownComponent } from '../../components/nav-dropdown';
 import theme from '../../pages/app.theme';
 import { toggleAddressModal } from '../../store/actions/modalActions';
 import { setCategories } from '../../store/actions/categoryActions';
-import Link from 'next/link';
+import { screenResize } from '../../store/actions/uiActions';
 
 const HeaderComponent = ({ dispatch, categories }) => {
 
@@ -40,6 +41,13 @@ const HeaderComponent = ({ dispatch, categories }) => {
     useEffect(() => {
         reloadCategories();
     }, [reloadCategories]);
+
+    useEffect(() => {
+        dispatch(screenResize(window.innerWidth));
+        window.addEventListener('resize', () => {
+            dispatch(screenResize(window.innerWidth));
+        });
+    }, [])
 
     return (
         <>
