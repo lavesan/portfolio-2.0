@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import withRedux from "next-redux-wrapper";
 import Head from "next/head";
 import styled from 'styled-components';
+import 'swiper/css/swiper.css'
 
 import { makeStore } from "../store";
 import globalStyle from './style.css'

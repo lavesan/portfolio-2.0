@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import Swiper from 'react-id-swiper';
 
 import { ProductCardComponent } from '../../components/product-card';
 import { StyledStartPage } from './inicio.styles';
 import { PeriodCardComponent } from '../../components/period-card';
 
-const InicioPage = ({ comments }) => {
+
+const InicioPage = ({ comments, screenWidth }) => {
 
     const [products, setProducts] = useState([
         {
@@ -47,20 +49,53 @@ const InicioPage = ({ comments }) => {
             briefDescription: 'Alimentos para ',
         },
     ])
+    const params = {
+        slidesPerView: 1,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+    }
 
     return (
         <StyledStartPage>
             <section className="promo-combos-section">
-                <div className="promos-section">
-                    <PeriodCardComponent
-                        imgUrl="https://i.ytimg.com/vi/IvTJ8ob2a2g/maxresdefault.jpg"
-                        title="OFERTAS DE FIM DE ANO"
-                        briefDescription="Confira os melhores descontos para a ceia de fim de ano"
-                        isPromotion={true} />
-                </div>
-                <div className="combos-section">
-                    {combos.map((combo, index) => <PeriodCardComponent key={index} {...combo} />)}
-                </div>
+                {screenWidth <= 1100
+                    ? <Swiper {...params}>
+                        <div>
+                            <PeriodCardComponent
+                                imgUrl="https://i.ytimg.com/vi/IvTJ8ob2a2g/maxresdefault.jpg"
+                                title="OFERTAS DE FIM DE ANO"
+                                briefDescription="Confira os melhores descontos para a ceia de fim de ano"
+                                isPromotion={true} />
+                        </div>
+                        {combos.map((combo, index) =>
+                            <div key={index}>
+                                <PeriodCardComponent {...combo} isBig={true} />
+                            </div>
+                        )}
+                    </Swiper>
+                    : <>
+                        <div className="promos-section">
+                            <PeriodCardComponent
+                                imgUrl="https://i.ytimg.com/vi/IvTJ8ob2a2g/maxresdefault.jpg"
+                                title="OFERTAS DE FIM DE ANO"
+                                briefDescription="Confira os melhores descontos para a ceia de fim de ano"
+                                isPromotion={true} />
+                        </div>
+                        <div className="combos-section">
+                            {combos.map((combo, index) => <PeriodCardComponent key={index} {...combo} />)}
+                        </div>
+                    </>
+                }
             </section>
             <section className="product-section">
                 {products.map((product, index) => <ProductCardComponent key={index} {...product} />)}
@@ -71,6 +106,7 @@ const InicioPage = ({ comments }) => {
 
 const mapStateToProps = store => ({
     comments: store.commentState.comments,
+    screenWidth: store.uiState.screenWidth,
 })
 
 export default connect(mapStateToProps)(InicioPage);

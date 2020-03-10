@@ -3,7 +3,7 @@ import React from 'react';
 import { StyledPeriodCard } from './period-card.styles';
 import { StyledRevSuccessButton, StyledSuccessButton } from '../button';
 
-export default ({ isPromotion, briefDescription, title, imgUrl }) => {
+export default ({ isPromotion, briefDescription, title, imgUrl, isBig }) => {
 
     const garanteePromotion = () => {
 
@@ -23,10 +23,10 @@ export default ({ isPromotion, briefDescription, title, imgUrl }) => {
         )
     } else {
         return (
-            <StyledPeriodCard className="combo-card" imgUrl={imgUrl} isPromotion={isPromotion}>
+            <StyledPeriodCard className={isBig ? '' : 'combo-card'} imgUrl={imgUrl} isPromotion={isPromotion || isBig}>
                 <p>{briefDescription}</p>
-                <h2 className="promo-title">{title}</h2>
-                <StyledSuccessButton className="combo-button" onClick={seePromotion}>Conferir</StyledSuccessButton>
+                <h2 className={isBig ? 'big-title' : 'promo-title'}>{title}</h2>
+                <StyledSuccessButton className={isBig ? '' : 'combo-button'} onClick={seePromotion}>Conferir</StyledSuccessButton>
             </StyledPeriodCard>
         )
     }
