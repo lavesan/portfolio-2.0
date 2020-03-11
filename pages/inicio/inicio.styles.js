@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const StyledStartPage = styled.div`
 
@@ -20,13 +20,53 @@ export const StyledStartPage = styled.div`
     }
 
     .product-section {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-gap: 20px;
-
+        display: flex;
+        flex-flow: column nowrap;
         > * {
-            min-width: 0;
-            min-height: 0;
+            margin-top: 20px;
+        }
+
+        .products-category-header {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: center;
+            h3 {
+                margin: 0;
+            }
+            .navigate-buttons {
+
+                .navigate-left {
+                    margin-right: 20px;
+                }
+                .disabled {
+                    pointer-events: none;
+                    opacity: .7;
+                    cursor: default;
+                }
+                button {
+                    ${({ theme }) => css`
+                        background: none;
+                        width: 25px;
+                        height: 25px;
+                        border: thin solid ${theme.gray.primary};
+                        border-radius: 5px;
+                        cursor: pointer;
+                        color: ${theme.gray.secondary};
+                        outline: none;
+                    `}
+                }
+            }
+        }
+        .products-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 20px;
+    
+            > * {
+                min-width: 0;
+                min-height: 0;
+            }
         }
     }
 `;

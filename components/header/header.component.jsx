@@ -17,7 +17,7 @@ import { toggleAddressModal } from '../../store/actions/modalActions';
 import { setCategories } from '../../store/actions/categoryActions';
 import { screenResize } from '../../store/actions/uiActions';
 
-const HeaderComponent = ({ dispatch, categories }) => {
+const HeaderComponent = ({ dispatch, categories, products }) => {
 
     const login = () => {
 
@@ -48,6 +48,10 @@ const HeaderComponent = ({ dispatch, categories }) => {
             dispatch(screenResize(window.innerWidth));
         });
     }, [])
+
+    useEffect(() => {
+        console.log('products: ', products);
+    }, [products])
 
     return (
         <>
@@ -87,7 +91,8 @@ const HeaderComponent = ({ dispatch, categories }) => {
                             <AsideIconComponent
                                 icon={faShoppingCart}
                                 text="Carrinho"
-                                title="Abrir o carrinho" />
+                                title="Abrir o carrinho"
+                                notificationQuantity={products.length} />
                         </Link>
                     </aside>
                 </div>
@@ -116,6 +121,7 @@ const HeaderComponent = ({ dispatch, categories }) => {
 
 const mapStateToProps = store => ({
     categories: store.categoryState.categories,
+    products: store.cartState.products,
 })
 
 export default connect(mapStateToProps)(HeaderComponent);

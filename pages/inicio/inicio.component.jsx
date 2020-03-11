@@ -1,31 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import Swiper from 'react-id-swiper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 import { ProductCardComponent } from '../../components/product-card';
 import { StyledStartPage } from './inicio.styles';
 import { PeriodCardComponent } from '../../components/period-card';
+import { setPromotionalProducts, setCategoryProducts, addCategoryProducts, setCategoryProductsPages } from '../../store/actions/productActions';
+import ProductService from '../../services/product.service';
 
-
-const InicioPage = ({ comments, screenWidth }) => {
-
-    const [products, setProducts] = useState([
-        {
-            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Arroba', actualValueCents: '2000', id: 1, quantitySuffix: 'kg', description: 'Vei, é um produto legal e bal bal bla asddiqon eoin sdonaoin uibyu vbyc yt ty vu uyn byub yubmuiniumn yuvrhd edget  ynu bm h b u bu t crt  ct  yvbhm ni  n hub y bm hni,'
-        },
-        {
-            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Sei lá', actualValueCents: '4000', id: 2, quantitySuffix: 'kg',
-        },
-        {
-            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Arroba', actualValueCents: '300', id: 3, quantitySuffix: 'kg',
-        },
-        {
-            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Arroba', actualValueCents: '50', id: 4, quantitySuffix: 'kg',
-        },
-        {
-            imgUrl: 'https://w1.ezcdn.com.br/falconarmas/fotos/grande/22154fg1/espada-de-samurai-katana-avb-lamina-de-70cm-preta-bainha-de-madeira.jpg', name: 'Arroba', actualValueCents: '100', id: 5, quantitySuffix: 'kg',
-        },
-    ]);
+const InicioPage = ({ comments, dispatch, screenWidth, categoryProducts, categoryProductsPage }) => {
 
     const [combos, setCombos] = useState([
         {
@@ -65,6 +50,35 @@ const InicioPage = ({ comments, screenWidth }) => {
         },
     }
 
+    const productService = ProductService.getInstance();
+
+    const loadInitialProducts = useCallback(
+        () => {
+            productService.findProductsPromotions()
+                .then(res => {
+                    dispatch(setPromotionalProducts(res));
+                });
+            productService.findProductsFromCategories()
+                .then(res => {
+                    dispatch(setCategoryProducts(res));
+                });
+        },
+        [productService]
+    )
+
+    const paginateCategory = ({ plus, categoryId }) => {
+        console.log('clicando 1')
+        dispatch(setCategoryProductsPages({ plus, categoryId }));
+    }
+
+    useEffect(() => {
+        loadInitialProducts();
+    }, [loadInitialProducts])
+
+    useEffect(() => {
+        console.log('categoryProducts: ', categoryProducts);
+    }, [categoryProducts])
+
     return (
         <StyledStartPage>
             <section className="promo-combos-section">
@@ -98,7 +112,39 @@ const InicioPage = ({ comments, screenWidth }) => {
                 }
             </section>
             <section className="product-section">
-                {products.map((product, index) => <ProductCardComponent key={index} {...product} />)}
+                {categoryProducts.map(({ category, products, page }) => (
+                    <>
+                        {products.length ?
+                            <div key={category.id}>
+                                <div className="products-category-header">
+                                    <h3>{category.name}</h3>
+                                    <div className="navigate-buttons">
+                                        <button
+                                            className={`navigate-left ${page <= 1 ? 'disabled' : ''}`}
+                                            onClick={() => paginateCategory({
+                                                categoryId: category.id,
+                                                plus: false,
+                                            })}>
+                                            <FontAwesomeIcon icon={faChevronLeft} />
+                                        </button>
+                                        <button
+                                            onClick={() => paginateCategory({
+                                                categoryId: category.id,
+                                                plus: true,
+                                            })}>
+                                            <FontAwesomeIcon icon={faChevronRight} />
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="products-container">
+                                    {products.map(product => <ProductCardComponent key={product.id} {...product} />)}
+                                </div>
+                            </div>
+                            : <></>
+                        }
+                    </>
+                )
+                )}
             </section>
         </StyledStartPage>
     )
@@ -107,6 +153,8 @@ const InicioPage = ({ comments, screenWidth }) => {
 const mapStateToProps = store => ({
     comments: store.commentState.comments,
     screenWidth: store.uiState.screenWidth,
-})
+    categoryProducts: store.productState.categoryProducts,
+    categoryProductsPage: store.productState.categoryProductsPage,
+});
 
 export default connect(mapStateToProps)(InicioPage);

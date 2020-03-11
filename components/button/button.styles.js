@@ -8,10 +8,14 @@ const ButtonCss = css`
 
 export const StyledSuccessButton = styled.button`
     ${ButtonCss}
-    ${({ theme }) => css`
+    ${({ theme, disabled }) => css`
         color: #fff;
         background-color: ${theme.green.primary};
         border: thin solid ${theme.green.primary};
+        ${disabled && css`
+            opacity: .6;
+            pointer-events: none;
+        `}
     `}
 `;
 

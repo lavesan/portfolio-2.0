@@ -5,6 +5,7 @@ ${({ theme }) => css`
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+    position: relative;
     cursor: pointer;
     
     .header-action-icon {

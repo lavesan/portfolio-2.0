@@ -22,7 +22,7 @@ axios.defaults.baseURL = environment.API_URL;
 axios.interceptors.request.use(req => {
     
   const token = localStorage.getItem('auth');
-  
+
   if (token) {
       req.headers = {
          ...req.headers,
@@ -32,6 +32,7 @@ axios.interceptors.request.use(req => {
 
   
   return req;
+
 })
 axios.interceptors.response.use(
   res => res.data ? Promise.resolve(res.data) : Promise.resolve(res),

@@ -49,8 +49,8 @@ const CartComponent = ({ products }) => {
     )
 }
 
-const mapStateToProps = state => ({
-    products: state.cardState.products,
+const mapStateToProps = store => ({
+    products: store.cartState.products,
 })
 
 export default connect(mapStateToProps)(CartComponent);

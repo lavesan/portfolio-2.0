@@ -81,7 +81,8 @@ const ProductModal = ({ dispatch, openProductModal, selectedProduct }) => {
                         <div>
                             <StyledSuccessButton
                                 type="button"
-                                onClick={addToCart} >
+                                onClick={addToCart}
+                                disabled={hasStock ? '' : 'true'}>
                                 Adicionar ao carrinho
                             </StyledSuccessButton>
                         </div>
