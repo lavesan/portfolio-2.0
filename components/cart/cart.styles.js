@@ -1,19 +1,10 @@
 import styled, { css } from 'styled-components';
 
 export const StyledCartComponent = styled.section`
-    display: flex;
-    flex-flow: row nowrap;
-
-    > * {
-        width: 50%;
-    }
-
     ${({ theme }) => css`
-        .cart-container {
-            box-shadow: 0 0 8px 1px ${theme.gray.primary};
-            border-radius: 5px;
-            padding: 20px;
-        }
+        box-shadow: 0 0 8px 1px ${theme.gray.primary};
+        border-radius: 5px;
+        padding: 20px;
 
         .cart-title-container {
             display: flex;

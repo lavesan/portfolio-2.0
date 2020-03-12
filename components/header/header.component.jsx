@@ -6,7 +6,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 
 import { StyledHeader } from './header.styles';
-import { SearchInputComponent } from '../input';
+import { SearchInputComponent } from '../search-input';
 import { AsideIconComponent } from '../aside-icon';
 import { NavLinkComponent } from './nav-link';
 import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';

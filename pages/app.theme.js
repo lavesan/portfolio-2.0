@@ -8,6 +8,8 @@ export default {
     gray: {
         primary: '#C4C4C4',
         secondary: '#4E4D4D',
+        terciary: '#FAFAFA',
+        quaternary: '#B2B2B2',
     },
     blue: {
         primary: '#0d1589',

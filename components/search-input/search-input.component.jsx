@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { StyledSearchInput } from './input.styles';
+import { StyledSearchInput } from './search-input.styles';
 
 export default ({ placeholder, icon, button }) => {
     return (
