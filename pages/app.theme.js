@@ -21,5 +21,8 @@ export default {
     fonts: {
         bobbyJones: 'Bobby Jones Soft',
         roboto: 'Roboto',
+    },
+    white: {
+        secondary: 'F9FCFF',
     }
 }
