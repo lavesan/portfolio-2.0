@@ -46,10 +46,12 @@ export default ({ elements, orientation = "right", label, onClick, onDropInfoWhe
     setTimeout(() => {
         const { current } = dropdownRef;
     
-        setMeasurements({
-            offsetHeight: current.offsetHeight,
-            offsetWidth: current.offsetWidth,
-        });
+        if (current) {
+            setMeasurements({
+                offsetHeight: current.offsetHeight,
+                offsetWidth: current.offsetWidth,
+            });
+        }
     }, 100);
 
   }, []);

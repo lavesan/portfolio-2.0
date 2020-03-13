@@ -19,6 +19,26 @@ export const StyledStartPage = styled.div`
         }
     }
 
+    .categories-section {
+
+        h2 {
+            font-size: 1.2rem;
+        }
+
+        .categories-row {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            margin-top: 20px;
+            overflow-x: scroll;
+
+            > * {
+                margin-right: 10px;
+            }
+        }
+
+    }
+
     .product-section {
         display: flex;
         flex-flow: column nowrap;

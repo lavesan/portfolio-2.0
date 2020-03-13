@@ -21,7 +21,7 @@ export const StyledSearchInput = styled.div`
         }
 
         .search-input {
-            width: 70%;
+            width: 65%;
             border-top-left-radius: 4px;
             border-bottom-left-radius: 4px;
             ${icon && 'padding-left: 32px;'}

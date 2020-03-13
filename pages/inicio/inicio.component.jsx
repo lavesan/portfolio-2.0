@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { connect } from 'react-redux';
 import Swiper from 'react-id-swiper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,10 +7,11 @@ import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons
 import { ProductCardComponent } from '../../components/product-card';
 import { StyledStartPage } from './inicio.styles';
 import { PeriodCardComponent } from '../../components/period-card';
-import { setPromotionalProducts, setCategoryProducts, addCategoryProducts, setCategoryProductsPages } from '../../store/actions/productActions';
+import { setPromotionalProducts, setCategoryProducts, addCategoryProducts, setCategoryProductsPages, addCategoryProductFilter } from '../../store/actions/productActions';
 import ProductService from '../../services/product.service';
+import { CategoryResponsiveCardComponent } from  './category-responsive-card';
 
-const InicioPage = ({ comments, dispatch, screenWidth, categoryProducts, categoryProductsPage }) => {
+const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories }) => {
 
     const [combos, setCombos] = useState([
         {
@@ -34,6 +35,31 @@ const InicioPage = ({ comments, dispatch, screenWidth, categoryProducts, categor
             briefDescription: 'Alimentos para ',
         },
     ])
+
+    const mapCategoriesToLinear = useMemo(
+        () => {
+
+            const getAllCategories = ([category, ...categories]) => {
+
+                if (!category) {
+                    return [];
+                }
+
+                const childrens = category.childrens ? category.childrens : [];
+
+                return [
+                    category,
+                    ...childrens,
+                    ...getAllCategories(categories),
+                ];
+
+            }
+
+            return getAllCategories(categories);
+        },
+        [categories]
+    )
+
     const params = {
         slidesPerView: 1,
         pagination: {
@@ -52,9 +78,13 @@ const InicioPage = ({ comments, dispatch, screenWidth, categoryProducts, categor
 
     const productService = ProductService.getInstance();
 
+    const onCategoryClick = (category) => {
+        dispatch(addCategoryProductFilter(category));
+    }
+
     const loadInitialProducts = useCallback(
-        () => {
-            productService.findProductsPromotions()
+        async () => {
+            await productService.findProductsPromotions()
                 .then(res => {
                     dispatch(setPromotionalProducts(res));
                 });
@@ -67,17 +97,12 @@ const InicioPage = ({ comments, dispatch, screenWidth, categoryProducts, categor
     )
 
     const paginateCategory = ({ plus, categoryId }) => {
-        console.log('clicando 1')
         dispatch(setCategoryProductsPages({ plus, categoryId }));
     }
 
     useEffect(() => {
         loadInitialProducts();
     }, [loadInitialProducts])
-
-    useEffect(() => {
-        console.log('categoryProducts: ', categoryProducts);
-    }, [categoryProducts])
 
     return (
         <StyledStartPage>
@@ -111,6 +136,15 @@ const InicioPage = ({ comments, dispatch, screenWidth, categoryProducts, categor
                     </>
                 }
             </section>
+            {screenWidth <= 750
+                ? <div className="categories-section">
+                    <h2>Categoria de produtos</h2>
+                    <div className="categories-row">
+                        {mapCategoriesToLinear.map(category => <CategoryResponsiveCardComponent key={category.id} onClick={() => onCategoryClick(category)} {...category} />)}
+                    </div>
+                </div>
+                : ''
+            }
             <section className="product-section">
                 {categoryProducts.map(({ category, products, page }) => (
                     <>
@@ -151,10 +185,9 @@ const InicioPage = ({ comments, dispatch, screenWidth, categoryProducts, categor
 }
 
 const mapStateToProps = store => ({
-    comments: store.commentState.comments,
     screenWidth: store.uiState.screenWidth,
     categoryProducts: store.productState.categoryProducts,
-    categoryProductsPage: store.productState.categoryProductsPage,
+    categories: store.categoryState.categories,
 });
 
 export default connect(mapStateToProps)(InicioPage);

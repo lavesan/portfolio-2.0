@@ -2,8 +2,6 @@ import styled, { css } from 'styled-components';
 
 export const StyledHeader = styled.header`
     ${({ theme }) => css`
-        width: 100%;
-
         .header-info {
             background-color: ${theme.green.terciary};
             color: #fff;
@@ -37,6 +35,18 @@ export const StyledHeader = styled.header`
                 }
             }
 
+            .responsive-icon-menu-container {
+                display: flex;
+                justify-content: flex-end;
+                .responsive-icon-menu {
+                    color: #fff;
+                    background-color: ${theme.green.terciary};
+                    border-radius: 5px;
+                    font-size: 1.5rem;
+                    padding: 10px 30px;
+                }
+            }
+
             .header-actions-aside {
                 display: flex;
                 flex-flow: row nowrap;
@@ -63,6 +73,19 @@ export const StyledHeader = styled.header`
             align-items: center;
             flex-flow: row nowrap;
             background-color: ${theme.green.primary};
+        }
+
+        .responsive-search-container {
+            margin-top: 15px;
+        }
+
+        @media(max-width: 700px) {
+            padding: 10px 20px 0 20px;
+
+            .header-actions .header-acition-logo {
+                display: flex;
+                justify-content: flex-start;
+            }
         }
     `}
 `;
