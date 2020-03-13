@@ -17,6 +17,8 @@ import environment from '../.env.json';
 import { AddressModal } from '../components/modal/address-modal';
 import { ProductModalComponent } from '../components/modal/product-modal';
 import theme from './app.theme';
+import { ResponsiveNavComponent } from '../components/responsive-nav';
+import { ResponsiveCartComponent } from '../components/responsive-cart';
 
 axios.defaults.baseURL = environment.API_URL;
 axios.interceptors.request.use(req => {
@@ -36,11 +38,15 @@ axios.interceptors.request.use(req => {
 })
 axios.interceptors.response.use(
   res => res.data ? Promise.resolve(res.data) : Promise.resolve(res),
-  err => err.response ? Promise.reject(err.response.data) :  Promise.reject(err.response),
+  err => err ? (err.response ? Promise.reject(err.response.data) :  Promise.reject(err.response)) : err,
 );
 
 const StyledPage = styled.div`
   padding: 20px 60px;
+
+  @media(max-width: 700px) {
+    padding: 20px 20px;
+  }
 `;
 
 class MyApp extends App {
@@ -62,6 +68,8 @@ class MyApp extends App {
           </div>
           <AddressModal />
           <ProductModalComponent />
+          <ResponsiveNavComponent />
+          <ResponsiveCartComponent />
         </ThemeProvider>
       </Provider>
     )
