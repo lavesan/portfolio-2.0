@@ -5,6 +5,7 @@ import { StyledSaveOrderStepper } from './save-order-stepper.styles';
 import { setStep, sumStep } from '../../../store/actions/orderActions';
 import { OrderFirstStepForm } from '../order-first-step-form';
 import { OrderSecondStepForm } from '../order-second-step-form';
+import { OrderAddressStepForm } from '../order-address-step-form';
 
 const SaveOrderStepper = ({ className, activeStep, dispatch }) => {
 
@@ -27,7 +28,7 @@ const SaveOrderStepper = ({ className, activeStep, dispatch }) => {
     const steps = [
         OrderFirstStepForm,
         OrderSecondStepForm,
-        OrderFirstStepForm,
+        OrderAddressStepForm,
     ]
 
     const FormComponent = useMemo(
@@ -51,7 +52,7 @@ const SaveOrderStepper = ({ className, activeStep, dispatch }) => {
                 <div className={`circle ${activeStep >= 3 ? 'active' : ''}`} onClick={() => setActualStep(3)}>3</div>
             </div>
             <div className="stepper-form">
-                <FormComponent />
+                <FormComponent onClickNext={onClickNext} />
             </div>
         </StyledSaveOrderStepper>
     )
