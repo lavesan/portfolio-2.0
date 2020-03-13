@@ -1,5 +1,6 @@
 const initialState = {
-    screenWidth: typeof window === 'object' ? window.innerWidth : null
+    screenWidth: typeof window === 'object' ? window.innerWidth : 0,
+    screenHeight: typeof window === 'object' ? window.innerHeight : 0,
 };
 
 export const uiReducer = (state = initialState, action) => {
@@ -8,8 +9,9 @@ export const uiReducer = (state = initialState, action) => {
             return {
                 ...state,
                 screenWidth: action.screenWidth,
+                screenHeight: action.screenHeight,
             }
-        }        
+        },
     }
 
     return handleReducer[action.type] ?

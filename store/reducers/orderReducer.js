@@ -1,24 +1,37 @@
 const initialState = {
-    firstStep: {
-        cpf: '',
-        paymentType: '',
-    },
     activeStep: 1,
+    userStep: {
+        cpf: '',
+        paymentType: 1,
+    },
+    cardStep: {
+        cvv: '',
+        fullname: '',
+        number: '',
+        dueDate: '',
+    },
+    addressStep: {
+        cep: '',
+        district: '',
+        address: '',
+        number: '',
+        complement: '',
+    },
 };
 
 export const orderReducer = (state = initialState, action) => {
     // Este 'state' é o state total passado
     // O 'action' é o valor alterado
     const handleReducer = {
-        SET_FIRST_STEP_VALUES() {
+        SET_STEP_VALUES() {
             return {
                 ...state,
-                firstStep: {
-                    ...state.firstStep,
+                [action.step]: {
+                    ...state[action.step],
                     [action.name]: action.value,
                 }
             }
-        },   
+        },
         SET_STEP() {
             return {
                 ...state,

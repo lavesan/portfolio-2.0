@@ -1,9 +1,24 @@
-const SET_FIRST_STEP_VALUES = 'SET_FIRST_STEP_VALUES';
+const SET_STEP_VALUES = 'SET_STEP_VALUES';
 const SET_STEP = 'SET_STEP';
 const SUM_STEP = 'SUM_STEP';
 
-export const setFirstStepValues = ({ name, value }) => ({
-    type: SET_FIRST_STEP_VALUES,
+export const setUserStepValues = ({ name, value }) => ({
+    type: SET_STEP_VALUES,
+    step: 'userStep',
+    value,
+    name,
+});
+
+export const setCardStepValues = ({ name, value }) => ({
+    type: SET_STEP_VALUES,
+    step: 'cardStep',
+    value,
+    name,
+});
+
+export const setAddressStepValues = ({ name, value }) => ({
+    type: SET_STEP_VALUES,
+    step: 'addressStep',
     value,
     name,
 });

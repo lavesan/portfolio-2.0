@@ -1,12 +1,28 @@
 const initialState = {
     promotionalProducts: [],
     categoryProducts: [],
+    filters: [],
 };
 
 export const productReducer = (state = initialState, action) => {
     // Este 'state' é o state total passado
     // O 'action' é o valor alterado
     const handleReducer = {
+        ADD_PRODUCT_FILTER() {
+            return {
+                ...state,
+                filter: [
+                    ...state.filters,
+                    action.filter,
+                ]
+            }
+        },
+        REMOVE_PRODUCT_FILTER() {
+            return {
+                ...state,
+                filter: state.filters.filter((filter, index) => index !== action.index)
+            }
+        },
         SET_CATEGORY_PRODUCTS_PAGES() {
             return {
                 ...state,

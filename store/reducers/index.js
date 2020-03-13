@@ -6,6 +6,7 @@ import { categoryReducer } from './categoryReducer';
 import { uiReducer } from './uiReducer';
 import { productReducer } from './productReducer';
 import { orderReducer } from './orderReducer';
+import { responsiveReducer } from './responsiveReducer';
 
 // Método combineReducers
 // Combina os reducers de vários arquivos que eu tiver criado
@@ -18,4 +19,5 @@ export default combineReducers({
   uiState: uiReducer,
   productState: productReducer,
   orderState: orderReducer,
+  responsiveState: responsiveReducer,
 });
