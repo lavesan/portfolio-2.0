@@ -18,6 +18,7 @@ import { screenResize } from '../../store/actions/uiActions';
 import { addProductFilter } from '../../store/actions/productActions';
 import { ResponsiveSearchInputComponent } from '../responsive-search-input';
 import { toggleResponsiveMenu } from '../../store/actions/responsiveActions';
+import { ResponsiveCartComponent } from '../responsive-cart';
 
 const HeaderComponent = ({ dispatch, categories, products, screenWidth }) => {
 
