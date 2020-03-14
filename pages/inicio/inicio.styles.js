@@ -79,13 +79,12 @@ export const StyledStartPage = styled.div`
             }
         }
         .products-container {
-            display: grid;
+            /* display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-            grid-gap: 20px;
+            grid-gap: 20px; */
     
             > * {
-                min-width: 0;
-                min-height: 0;
+                padding-right: 20px;
             }
         }
     }

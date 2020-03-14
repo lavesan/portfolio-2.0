@@ -50,13 +50,13 @@ export const StyledAboutPage = styled.section`
         }
 
         .comments-container {
-            display: grid;
+            /* display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            grid-gap: 30px;
+            grid-gap: 30px; */
             margin-bottom: 60px;
 
             > * {
-                min-width: 0;
+                padding-right: 20px;
             }
         }
     `}

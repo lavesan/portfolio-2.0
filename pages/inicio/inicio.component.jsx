@@ -10,6 +10,7 @@ import { PeriodCardComponent } from '../../components/period-card';
 import { setPromotionalProducts, setCategoryProducts, addCategoryProducts, setCategoryProductsPages, addCategoryProductFilter } from '../../store/actions/productActions';
 import ProductService from '../../services/product.service';
 import { CategoryResponsiveCardComponent } from  './category-responsive-card';
+import { HorizontalSlideComponent } from '../../components/horizontal-slide';
 
 const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories }) => {
 
@@ -170,9 +171,14 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories }) => 
                                         </button>
                                     </div>
                                 </div>
-                                <div className="products-container">
-                                    {products.map(product => <ProductCardComponent key={product.id} {...product} />)}
-                                </div>
+                                <HorizontalSlideComponent className="products-container">
+                                    {products.map(product =>
+                                        <div key={product.id}>
+                                            <ProductCardComponent {...product} />
+                                        </div>
+                                        )
+                                    }
+                                </HorizontalSlideComponent>
                             </div>
                             : <></>
                         }

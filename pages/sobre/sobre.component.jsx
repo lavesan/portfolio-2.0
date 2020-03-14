@@ -6,6 +6,7 @@ import { DarkerImage } from '../../components/darker-image';
 import { CommentCardComponent } from '../../components/comment-card';
 import { CommentService } from '../../services/comment.service';
 import { setComments } from '../../store/actions/commentActions';
+import { HorizontalSlideComponent } from '../../components/horizontal-slide';
 
 const SobrePage = ({ comments, dispatch }) => {
 
@@ -45,9 +46,13 @@ const SobrePage = ({ comments, dispatch }) => {
             </section>
             <section>
                 <h2 className="comments-title">Comentários dos clientes</h2>
-                <div className="comments-container">
-                    {comments.map((comment, index) => <CommentCardComponent key={index} {...comment} />)}
-                </div>
+                <HorizontalSlideComponent className="comments-container">
+                    {comments.map(comment => 
+                        <div key={comment.id}>
+                            <CommentCardComponent {...comment} />
+                        </div>)
+                    }
+                </HorizontalSlideComponent>
             </section>
         </StyledAboutPage>
     )
