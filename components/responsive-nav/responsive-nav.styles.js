@@ -44,7 +44,7 @@ export const StyledResponsiveNav = styled.div`
         }
 
         ${showResponsiveMenu && css`
-            z-index: 2;
+            z-index: 3;
             opacity: 1;
         `}
     `}
