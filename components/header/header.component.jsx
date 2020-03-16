@@ -18,13 +18,8 @@ import { screenResize } from '../../store/actions/uiActions';
 import { addProductFilter } from '../../store/actions/productActions';
 import { ResponsiveSearchInputComponent } from '../responsive-search-input';
 import { toggleResponsiveMenu } from '../../store/actions/responsiveActions';
-import { ResponsiveCartComponent } from '../responsive-cart';
 
 const HeaderComponent = ({ dispatch, categories, products, screenWidth }) => {
-
-    const login = () => {
-
-    }
 
     const toggleResposiveMenu = () => {
         dispatch(toggleResponsiveMenu());
@@ -92,11 +87,12 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth }) => {
                                     icon={faSearch} />
                             </div>
                             <aside className="header-actions-aside">
-                                <AsideIconComponent
-                                    icon={faUserCircle}
-                                    text="Login"
-                                    title="Efetuar o login"
-                                    onClick={login} />
+                                <Link href="/entrar">
+                                    <AsideIconComponent
+                                        icon={faUserCircle}
+                                        text="Login"
+                                        title="Efetuar o login" />
+                                </Link>
                                 <span className="header-actions-aside-divisor"></span>
                                 <Link href="/carrinho">
                                     <AsideIconComponent
