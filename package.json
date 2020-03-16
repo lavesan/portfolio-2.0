@@ -15,7 +15,7 @@
     "axios",
     "styled-components"
   ],
-  "author": "Valdery Alves Paes Júnior (http://valderyalves.com)",
+  "author": "Valdery Alves Paes Júnior (http://valderyalves.com) <valdery.jur@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
