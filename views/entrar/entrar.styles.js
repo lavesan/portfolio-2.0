@@ -13,19 +13,30 @@ export const StyledEntrarPage = styled.section`
         }
 
         .authentication-form-section {
-            padding: 50px 10px 20px 50px;
+            padding: 50px ${isLoginForm ? '10' : '50'}px 20px 50px;
             display: flex;
             flex-flow: column nowrap;
 
             .authentication-header {
-                color: ${theme.green.terciary};
-                h1 {
-                    font-size: 2.2rem;
-                    margin: 0 0 3px 0;
+                display: grid;
+                grid-template-columns: ${isLoginForm ? '1fr' : '1fr 1fr'};
+
+                .authentication-header--title {
+                    color: ${theme.green.terciary};
+                    h1 {
+                        font-size: 2.2rem;
+                        margin: 0 0 3px 0;
+                    }
+                    p {
+                        font-size: .9rem;
+                        margin: 0;
+                    }
                 }
-                p {
-                    font-size: .9rem;
-                    margin: 0;
+
+                .authentication-header--actions {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
                 }
             }
 
@@ -49,6 +60,7 @@ export const StyledEntrarPage = styled.section`
         }
         
         .login-img-container img {
+            min-width: 100%;
             max-height: 100%;
         }
     `}

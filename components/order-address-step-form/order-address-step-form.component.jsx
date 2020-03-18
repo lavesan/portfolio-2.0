@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setAddressStepValues } from '../../../store/actions/orderActions';
+import { setAddressStepValues } from '../../store/actions/orderActions';
 import { StyledOrderAddressStepForm } from './order-address-step-form.styles';
-import { FormFieldComponent } from '../../../components/form/form-field';
-import { FormTextareaComponent } from '../../../components/form/form-textarea';
-import { StyledButtonFormEnd } from '../../../components/form/form-button-field';
-import { StyledSuccessButton } from '../../../components/button';
+import { FormFieldComponent } from '../form/form-field';
+import { FormTextareaComponent } from '../form/form-textarea';
+import { StyledButtonFormEnd } from '../form/form-button-field';
+import { StyledSuccessButton } from '../button';
 
 const OrderAddressStepForm = ({ dispatch, addressStep }) => {
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setUserStepValues } from '../../../store/actions/orderActions';
+import { setUserStepValues } from '../../store/actions/orderActions';
 import { StyledOrderFirstStep } from './order-first-step-form.styles';
-import { FormFieldComponent } from '../../../components/form/form-field';
-import { FormRadioComponent } from '../../../components/form/form-radio';
-import { StyledButtonFormEnd } from '../../../components/form/form-button-field';
-import { StyledSuccessButton } from '../../../components/button';
+import { FormFieldComponent } from '../form/form-field';
+import { FormRadioComponent } from '../form/form-radio';
+import { StyledButtonFormEnd } from '../form/form-button-field';
+import { StyledSuccessButton } from '../button';
 
 const OrderFirstStep = ({ dispatch, userStep, onClickNext }) => {
 

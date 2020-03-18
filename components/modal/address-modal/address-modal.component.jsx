@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { StyledAddressModal } from './address-modal.styles';
 import { SearchInputComponent } from '../../search-input';
 import senderImage from '../../../public/static/imgs/caricatura-entregador.png';
-import theme from '../../../pages/app.theme';
+import theme from '../../../app/app.theme';
 import { ModalComponent } from '../';
 import { toggleAddressModal } from '../../../store/actions/modalActions'
 

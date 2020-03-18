@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 
 import { StyledSaveOrderStepper } from './save-order-stepper.styles';
-import { setStep, sumStep } from '../../../store/actions/orderActions';
+import { setStep, sumStep } from '../../store/actions/orderActions';
 import { OrderFirstStepForm } from '../order-first-step-form';
 import { OrderSecondStepForm } from '../order-second-step-form';
 import { OrderAddressStepForm } from '../order-address-step-form';

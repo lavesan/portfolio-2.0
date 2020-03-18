@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setRegisterFormValues } from '../../../store/actions/authActions';
+import { setRegisterFormValues } from '../../store/actions/authActions';
 import { StyledRegisterForm } from './register-form.styles';
-import { FormTextMaterial } from '../../../components/form/form-text-material';
+import { FormTextMaterial } from '../form/form-text-material';
 
 const RegisterFormComponent = ({ dispatch, registerForm }) => {
 

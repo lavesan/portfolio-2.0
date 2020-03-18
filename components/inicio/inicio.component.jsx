@@ -9,7 +9,7 @@ import { StyledStartPage } from './inicio.styles';
 import { PeriodCardComponent } from '../../components/period-card';
 import { setPromotionalProducts, setCategoryProducts, addCategoryProducts, setCategoryProductsPages, addCategoryProductFilter } from '../../store/actions/productActions';
 import ProductService from '../../services/product.service';
-import { CategoryResponsiveCardComponent } from  './category-responsive-card';
+import { CategoryResponsiveCardComponent } from  '../../components/category-responsive-card';
 import { HorizontalSlideComponent } from '../../components/horizontal-slide';
 
 const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories }) => {

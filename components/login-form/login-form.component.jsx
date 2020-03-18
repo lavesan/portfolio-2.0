@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { StyledLoginForm } from './login-form.styles';
-import { StyledSuccessButton } from '../../../components/button';
-import { setLoginFormValues } from '../../../store/actions/authActions';
-import { FormTextMaterial } from '../../../components/form/form-text-material';
-import { setSelectedForm } from '../../../store/actions/authActions';
+import { StyledSuccessButton } from '../button';
+import { setLoginFormValues } from '../../store/actions/authActions';
+import { FormTextMaterial } from '../form/form-text-material';
+import { setSelectedForm } from '../../store/actions/authActions';
 
 const LoginFormComponent = ({ dispatch, loginForm }) => {
 

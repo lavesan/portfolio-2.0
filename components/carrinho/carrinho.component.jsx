@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CartComponent } from '../../components/cart';
-import { SaveOrderStepper } from './save-order-stepper';
+import { SaveOrderStepper } from '../../components/save-order-stepper';
 import { StyledCarrinhoPage } from './carrinho.styles';
 
 export default () => {

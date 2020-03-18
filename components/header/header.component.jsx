@@ -11,7 +11,7 @@ import { NavLinkComponent } from './nav-link';
 import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';
 import { CategoryService } from '../../services/category.service';
 import { NavDropdownComponent } from '../../components/nav-dropdown';
-import theme from '../../pages/app.theme';
+import theme from '../../app/app.theme';
 import { toggleAddressModal } from '../../store/actions/modalActions';
 import { setCategories } from '../../store/actions/categoryActions';
 import { screenResize } from '../../store/actions/uiActions';

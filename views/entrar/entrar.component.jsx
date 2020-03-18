@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
+import Link from 'next/link';
 
 import { StyledEntrarPage } from './entrar.styles';
-import { setSelectedForm } from '../../store/actions/authActions';
-import { LoginFormComponent } from './login-form';
-import { RegisterFormComponent } from './register-form';
+import { LoginFormComponent } from '../../components/login-form';
+import { RegisterFormComponent } from '../../components/register-form';
+import { StyledSuccessButton } from '../../components/button';
 import loginImg from '../../public/static/imgs/login-image.png';
 
 const EntrarPage = ({ dispatch, selectedForm }) => {
@@ -29,8 +30,19 @@ const EntrarPage = ({ dispatch, selectedForm }) => {
         <StyledEntrarPage isLoginForm={isLoginForm}>
             <section className="authentication-form-section">
                 <header className="authentication-header">
-                    <h1>Seja Bem-vindo</h1>
-                    <p>{headerParagraph}</p>
+                    <div className="authentication-header--title">
+                        <h1>Seja Bem-vindo</h1>
+                        <p>{headerParagraph}</p>
+                    </div>
+                    {!isLoginForm &&
+                        <div className="authentication-header--actions">
+                            <Link href="/inicio">
+                                <StyledSuccessButton>
+                                    Voltar a navegar
+                                </StyledSuccessButton>
+                            </Link>
+                        </div>
+                    }
                 </header>
                 {isLoginForm
                     ? <LoginFormComponent />

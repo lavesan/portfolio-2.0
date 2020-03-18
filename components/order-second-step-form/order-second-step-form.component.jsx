@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { StyledOrderSecondStepForm } from './order-second-step-form.styles';
-import { FormFieldComponent } from '../../../components/form/form-field';
-import { StyledButtonFormEnd } from '../../../components/form/form-button-field';
-import { setCardStepValues } from '../../../store/actions/orderActions';
-import { StyledSuccessButton } from '../../../components/button';
+import { FormFieldComponent } from '../form/form-field';
+import { StyledButtonFormEnd } from '../form/form-button-field';
+import { setCardStepValues } from '../../store/actions/orderActions';
+import { StyledSuccessButton } from '../button';
 
 const OrderSecondStepForm = ({ dispatch, cardStep, onClickNext }) => {
 

@@ -7,13 +7,13 @@ import 'swiper/css/swiper.css'
 
 import { makeStore } from "../store";
 import axios from 'axios';
-import environment from '../.env.json';
+import environment from '../public/static/env.json';
 import { AddressModal } from '../components/modal/address-modal';
 import { ProductModalComponent } from '../components/modal/product-modal';
-import theme from './app.theme';
+import theme from '../app/app.theme';
 import { ResponsiveNavComponent } from '../components/responsive-nav';
 import { ResponsiveCartComponent } from '../components/responsive-cart';
-import { AppComponent } from './App';
+import { AppComponent } from '../app/App';
 
 axios.defaults.baseURL = environment.API_URL;
 axios.interceptors.request.use(req => {
