@@ -5,7 +5,10 @@ const initialState = {
         password: '',
     },
     registerForm: {
-
+        email: '',
+        password: '',
+        confirmPassword: '',
+        age: '',
     },
 };
 export const authReducer = (state = initialState, action) => {

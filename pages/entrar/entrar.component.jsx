@@ -1,21 +1,57 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 
 import { StyledEntrarPage } from './entrar.styles';
 import { setSelectedForm } from '../../store/actions/authActions';
 import { LoginFormComponent } from './login-form';
+import { RegisterFormComponent } from './register-form';
+import loginImg from '../../public/static/imgs/login-image.png';
 
 const EntrarPage = ({ dispatch, selectedForm }) => {
 
-    const changeSelectedForm = (selectedForm) => {
-        dispatch(setSelectedForm(selectedForm));
-    }
+    const headerParagraph = useMemo(
+        () => {
+            return selectedForm === 'login'
+                ? 'Vamos iniciar suas compras :)'
+                : 'Vamos fazer o seu cadastro rapidinho :)'
+        },
+        [selectedForm]
+    )
+
+    const isLoginForm = useMemo(
+        () => {
+            return selectedForm === 'login';
+        },
+        [selectedForm]
+    )
 
     return (
-        <StyledEntrarPage>
-            {selectedForm === 'login'
-                ? <LoginFormComponent />
-                : <LoginFormComponent />
+        <StyledEntrarPage isLoginForm={isLoginForm}>
+            <section className="authentication-form-section">
+                <header className="authentication-header">
+                    <h1>Seja Bem-vindo</h1>
+                    <p>{headerParagraph}</p>
+                </header>
+                {isLoginForm
+                    ? <LoginFormComponent />
+                    :
+                    <>
+                        <div className="register-head-line" />
+                        <RegisterFormComponent />
+                    </>
+                }
+                <footer className="authentiication-footer">
+                    <p>
+                        Direitos reservados a zero veneno produtos orgânicos
+                    </p>
+                </footer>
+            </section>
+            {isLoginForm &&
+                <section className="login-img-container">
+                    <img
+                        src={loginImg}
+                        alt="Imagem de frutas para login" />
+                </section>
             }
         </StyledEntrarPage>        
     )

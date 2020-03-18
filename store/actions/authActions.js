@@ -1,4 +1,5 @@
 const SET_FORM_VALUES = 'SET_FORM_VALUES';
+const CHANGE_SELECTED_FORM = 'CHANGE_SELECTED_FORM';
 
 export const setLoginFormValues = ({ name, value }) => ({
     type: SET_FORM_VALUES,
@@ -19,6 +20,6 @@ export const setRegisterFormValues = ({ name, value }) => ({
  * @param {{ selectedForm: 'login' | 'register' }} param0
  */
 export const setSelectedForm = ({ selectedForm }) => ({
-    type: SET_FORM_VALUES,
+    type: CHANGE_SELECTED_FORM,
     selectedForm,
 })

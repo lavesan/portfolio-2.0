@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { StyledPeriodCard } from './period-card.styles';
 import { StyledRevSuccessButton, StyledSuccessButton } from '../button';
 
-export default ({ isPromotion, briefDescription, title, imgUrl, isBig }) => {
+const PeriodCardComponent = ({ isPromotion, briefDescription, title, imgUrl, isBig }) => {
 
     const garanteePromotion = () => {
 
@@ -31,3 +31,5 @@ export default ({ isPromotion, briefDescription, title, imgUrl, isBig }) => {
         )
     }
 }
+
+export default memo(PeriodCardComponent);
