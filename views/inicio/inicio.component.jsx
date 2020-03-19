@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import { connect } from 'react-redux';
 import Swiper from 'react-id-swiper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,30 +12,7 @@ import ProductService from '../../services/product.service';
 import { CategoryResponsiveCardComponent } from  '../../components/category-responsive-card';
 import { HorizontalSlideComponent } from '../../components/horizontal-slide';
 
-const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories }) => {
-
-    const [combos, setCombos] = useState([
-        {
-            imgUrl: "https://s1.static.brasilescola.uol.com.br/be/conteudo/images/os-alimentos-fornecem-nutrientes-necessarios-para-corpo-57065f8e5c260.jpg",
-            title: 'CAFÉ DA MANHÃ',
-            briefDescription: 'Alimentos para o',
-        },
-        {
-            imgUrl: "https://redesuperpopular.com.br/wp-content/uploads/2019/05/Populares-3.jpg",
-            title: 'CEIA DE NATAL',
-            briefDescription: 'Alimentos para a',
-        },
-        {
-            imgUrl: "https://caldobom.com.br/wp-content/uploads/2019/03/como-preservar-os-nutrientes-dos-alimentos-1024x768.jpg",
-            title: 'JANTAR DE 2020',
-            briefDescription: 'Alimentos para o',
-        },
-        {
-            imgUrl: "https://3eaf214443cb92a1.cdn.gocache.net/wp-content/uploads/2018/12/alimentos-760x450.jpg",
-            title: 'ROTINA FITNESS',
-            briefDescription: 'Alimentos para ',
-        },
-    ])
+const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promotions, combos }) => {
 
     const mapCategoriesToLinear = useMemo(
         () => {
@@ -59,6 +36,44 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories }) => 
             return getAllCategories(categories);
         },
         [categories]
+    )
+
+    const mappedProductsWithPromotions = useMemo(
+        () => {
+
+            let productsFromPromotion = [];
+            promotions.forEach(promo => {
+                productsFromPromotion = productsFromPromotion.concat(promo.products);
+            })
+
+            return categoryProducts.map(catProd => ({
+                ...catProd,
+                products: catProd.products.map(product => {
+
+                    const promotionalProduct = productsFromPromotion.filter(promoProd => promoProd.id === product.id);
+
+                    let value = '0';
+                    if (promotionalProduct && promotionalProduct.length) {
+
+                        value = promotionalProduct[0].valueCents;
+
+                        promotionalProduct.forEach(promoProd => {
+                            if (Number(promoProd.valueCents) < Number(value)) {
+                                value = Number(promoProd.valueCents);
+                            }
+                        })
+
+                    }
+
+                    return {
+                        ...product,
+                        promotionalValueCents: promotionalProduct && promotionalProduct.length ? value : '',
+                    }
+
+                }),
+            }))
+        },
+        [promotions, categoryProducts]
     )
 
     const params = {
@@ -108,32 +123,31 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories }) => 
     return (
         <StyledStartPage>
             <section className="promo-combos-section">
-                {screenWidth <= 1100
-                    ? <Swiper {...params}>
-                        <div>
-                            <PeriodCardComponent
-                                imgUrl="https://i.ytimg.com/vi/IvTJ8ob2a2g/maxresdefault.jpg"
-                                title="OFERTAS DE FIM DE ANO"
-                                briefDescription="Confira os melhores descontos para a ceia de fim de ano"
-                                isPromotion={true} />
-                        </div>
-                        {combos.map((combo, index) =>
-                            <div key={index}>
-                                <PeriodCardComponent {...combo} isBig={true} />
-                            </div>
-                        )}
-                    </Swiper>
-                    : <>
-                        <div className="promos-section">
-                            <PeriodCardComponent
-                                imgUrl="https://i.ytimg.com/vi/IvTJ8ob2a2g/maxresdefault.jpg"
-                                title="OFERTAS DE FIM DE ANO"
-                                briefDescription="Confira os melhores descontos para a ceia de fim de ano"
-                                isPromotion={true} />
-                        </div>
-                        <div className="combos-section">
-                            {combos.map((combo, index) => <PeriodCardComponent key={index} {...combo} />)}
-                        </div>
+                {promotions && promotions.length &&
+                    <>
+                        {screenWidth <= 1100
+                            ? <Swiper {...params}>
+                                {promotions.map(promo => (
+                                    <div key={promo.id}>
+                                        <PeriodCardComponent isBig={true} {...promo} />
+                                    </div>
+                                ))}
+                            </Swiper>
+                            : <>
+                                {promotions.map((promo, index) => (
+                                    <>
+                                        {index === 0
+                                            ? <div className="promos-section">
+                                                <PeriodCardComponent isPromotion={true} {...promo} />
+                                            </div>
+                                            : <div className="combos-section">
+                                                <PeriodCardComponent key={index} {...promo} />
+                                            </div>
+                                        }
+                                    </>
+                                ))}
+                            </>
+                        }
                     </>
                 }
             </section>
@@ -147,7 +161,19 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories }) => 
                 : ''
             }
             <section className="product-section">
-                {categoryProducts.map(({ category, products, page }) => (
+                <HorizontalSlideComponent className="products-container">
+                    {combos && combos.length && combos.map(combo => (
+                            <div key={combo.id}>
+                                <ProductCardComponent
+                                    quantitySuffix="x"
+                                    imgUrl={combo.imgUrl}
+                                    name={combo.title}
+                                    actualValueCents={combo.totalValue}
+                                    {...combo} />
+                            </div>
+                    ))}
+                </HorizontalSlideComponent>
+                {mappedProductsWithPromotions.map(({ category, products, page }) => (
                     <>
                         {products.length ?
                             <div key={category.id}>
@@ -193,6 +219,8 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories }) => 
 const mapStateToProps = store => ({
     screenWidth: store.uiState.screenWidth,
     categoryProducts: store.productState.categoryProducts,
+    promotions: store.productState.promotions,
+    combos: store.productState.combos,
     categories: store.categoryState.categories,
 });
 

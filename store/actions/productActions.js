@@ -4,6 +4,8 @@ const ADD_CATEGORY_PRODUCTS = 'ADD_CATEGORY_PRODUCTS';
 const SET_CATEGORY_PRODUCTS_PAGES = 'SET_CATEGORY_PRODUCTS_PAGES';
 const ADD_PRODUCT_FILTER = 'ADD_PRODUCT_FILTER';
 const REMOVE_PRODUCT_FILTER = 'REMOVE_PRODUCT_FILTER';
+const SET_PROMOTIONS = 'SET_PROMOTIONS';
+const SET_COMBOS = 'SET_COMBOS';
 
 export const setPromotionalProducts = (promotionalProducts) => ({
     type: SET_PROMOTIONAL_PRODUCTS,
@@ -52,4 +54,14 @@ export const addProductFilter = (filter) => ({
 export const removeProductFilter = (index) => ({
     type: REMOVE_PRODUCT_FILTER,
     index,
+});
+
+export const setPromotions = (promotions) => ({
+    type: SET_PROMOTIONS,
+    promotions,
+});
+
+export const setCombos = (combos) => ({
+    type: SET_COMBOS,
+    combos,
 });

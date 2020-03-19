@@ -38,7 +38,6 @@ axios.interceptors.response.use(
 );
 
 class MyApp extends App {
-
   render() {
     const { store, Component, pageProps } = this.props
     return (

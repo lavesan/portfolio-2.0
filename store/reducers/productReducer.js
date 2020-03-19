@@ -1,6 +1,8 @@
 const initialState = {
     promotionalProducts: [],
     categoryProducts: [],
+    promotions: [],
+    combos: [],
     filters: [],
 };
 
@@ -75,6 +77,18 @@ export const productReducer = (state = initialState, action) => {
                 ),
             }
         },
+        SET_PROMOTIONS() {
+            return {
+                ...state,
+                promotions: action.promotions,
+            }
+        },
+        SET_COMBOS() {
+            return {
+                ...state,
+                combos: action.combos,
+            }
+        }
     }
 
     return handleReducer[action.type] ?
