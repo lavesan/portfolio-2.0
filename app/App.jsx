@@ -67,7 +67,11 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
   }, [handleInit]);
 
   return (
-      <div className={globalStyle.Layout}>
+      <div className={globalStyle.Layout} style={{
+        display: 'flex',
+        flexFlow: 'column nowrap',
+        minHeight: '100vh',
+      }}>
           <GlobalStyle />
           <Head>
             <meta
