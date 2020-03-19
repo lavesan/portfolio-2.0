@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 export const StyledFooter = styled.footer`
     ${({ theme }) => css`
         width: 100%;
+        margin-top: auto;
 
         .footer-info {
             padding: 20px 60px;

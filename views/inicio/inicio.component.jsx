@@ -1,16 +1,13 @@
 import React, { useEffect, useCallback, useMemo } from 'react';
 import { connect } from 'react-redux';
 import Swiper from 'react-id-swiper';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-import { ProductCardComponent } from '../../components/product-card';
 import { StyledStartPage } from './inicio.styles';
 import { PeriodCardComponent } from '../../components/period-card';
-import { setPromotionalProducts, setCategoryProducts, addCategoryProducts, setCategoryProductsPages, addCategoryProductFilter } from '../../store/actions/productActions';
+import { setPromotionalProducts, setCategoryProducts, addCategoryProducts, addCategoryProductFilter } from '../../store/actions/productActions';
 import ProductService from '../../services/product.service';
 import { CategoryResponsiveCardComponent } from  '../../components/category-responsive-card';
-import { HorizontalSlideComponent } from '../../components/horizontal-slide';
+import { ProductsRowComponent } from './products-row';
 
 const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promotions, combos }) => {
 
@@ -112,10 +109,6 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
         [productService]
     )
 
-    const paginateCategory = ({ plus, categoryId }) => {
-        dispatch(setCategoryProductsPages({ plus, categoryId }));
-    }
-
     useEffect(() => {
         loadInitialProducts();
     }, [loadInitialProducts])
@@ -123,7 +116,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
     return (
         <StyledStartPage>
             <section className="promo-combos-section">
-                {promotions && promotions.length &&
+                {promotions && promotions.length ?
                     <>
                         {screenWidth <= 1100
                             ? <Swiper {...params}>
@@ -149,6 +142,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                             </>
                         }
                     </>
+                    : ''
                 }
             </section>
             {screenWidth <= 750
@@ -161,51 +155,22 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                 : ''
             }
             <section className="product-section">
-                <HorizontalSlideComponent className="products-container">
-                    {combos && combos.length && combos.map(combo => (
-                            <div key={combo.id}>
-                                <ProductCardComponent
-                                    quantitySuffix="x"
-                                    imgUrl={combo.imgUrl}
-                                    name={combo.title}
-                                    actualValueCents={combo.totalValue}
-                                    {...combo} />
-                            </div>
-                    ))}
-                </HorizontalSlideComponent>
-                {mappedProductsWithPromotions.map(({ category, products, page }) => (
+                <ProductsRowComponent
+                    products={combos.map(combo => ({
+                        ...combo,
+                        quantitySuffix: "x",
+                        imgUrl: combo.imgUrl,
+                        name: combo.title,
+                        actualValueCents: combo.totalValue,
+                    }))}
+                    category={{
+                        name: 'Combos',
+                        id: 0,
+                    }} />
+                {mappedProductsWithPromotions.map((data) => (
                     <>
-                        {products.length ?
-                            <div key={category.id}>
-                                <div className="products-category-header">
-                                    <h3>{category.name}</h3>
-                                    <div className="navigate-buttons">
-                                        <button
-                                            className={`navigate-left ${page <= 1 ? 'disabled' : ''}`}
-                                            onClick={() => paginateCategory({
-                                                categoryId: category.id,
-                                                plus: false,
-                                            })}>
-                                            <FontAwesomeIcon icon={faChevronLeft} />
-                                        </button>
-                                        <button
-                                            onClick={() => paginateCategory({
-                                                categoryId: category.id,
-                                                plus: true,
-                                            })}>
-                                            <FontAwesomeIcon icon={faChevronRight} />
-                                        </button>
-                                    </div>
-                                </div>
-                                <HorizontalSlideComponent className="products-container">
-                                    {products.map(product =>
-                                        <div key={product.id}>
-                                            <ProductCardComponent {...product} />
-                                        </div>
-                                        )
-                                    }
-                                </HorizontalSlideComponent>
-                            </div>
+                        {data.products.length ?
+                            <ProductsRowComponent key={data.category.id} {...data} />
                             : <></>
                         }
                     </>
