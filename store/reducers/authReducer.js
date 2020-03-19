@@ -8,7 +8,12 @@ const initialState = {
         email: '',
         password: '',
         confirmPassword: '',
+        termOfContract: false,
+        role: 0,
         age: '',
+        animalsQuantity: '',
+        childrensQuantity: '',
+        description: '',
     },
 };
 export const authReducer = (state = initialState, action) => {

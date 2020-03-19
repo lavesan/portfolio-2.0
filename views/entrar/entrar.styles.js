@@ -7,6 +7,7 @@ export const StyledEntrarPage = styled.section`
         height: 100vh;
         width: 100vw;
         overflow: hidden;
+        color: ${theme.gray.secondary};
 
         > * {
             min-height: 0;

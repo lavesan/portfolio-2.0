@@ -1,6 +1,7 @@
 const initialState = {
     openAddressModal: false,
     openProductModal: false,
+    openTermOfContractModal: false,
     selectedProduct: {}
 };
 export const modalReducer = (state = initialState, action) => {
@@ -18,6 +19,12 @@ export const modalReducer = (state = initialState, action) => {
                 ...state,
                 openProductModal: !state.openProductModal,
                 selectedProduct: action.product,
+            }
+        },
+        TOGGLE_TERME_OF_CONTRACT_MODAL() {
+            return {
+                ...state,
+                openTermOfContractModal: !state.openTermOfContractModal,
             }
         },
     }

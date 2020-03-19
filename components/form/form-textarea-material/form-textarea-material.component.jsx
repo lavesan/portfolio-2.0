@@ -15,12 +15,15 @@ export default ({ label, onChange, error, maskOnChange, errorMessage, ...inputPr
     return (
         <TextField
             label={label}
+            multiline
             variant="outlined"
-            onChange={setFieldValue}
-            error={error}
             margin="dense"
+            onChange={setFieldValue}
+            rows={4}
+            error={error}
             helperText={error ? errorMessage : ''}
             {...inputProps}
             />
     )
+
 }

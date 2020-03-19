@@ -10,6 +10,7 @@ import axios from 'axios';
 import environment from '../public/static/env.json';
 import { AddressModal } from '../components/modal/address-modal';
 import { ProductModalComponent } from '../components/modal/product-modal';
+import { TermOfContractModal } from '../components/modal/term-of-contract-modal';
 import theme from '../app/app.theme';
 import { ResponsiveNavComponent } from '../components/responsive-nav';
 import { ResponsiveCartComponent } from '../components/responsive-cart';
@@ -50,6 +51,7 @@ class MyApp extends App {
           <ProductModalComponent />
           <ResponsiveNavComponent />
           <ResponsiveCartComponent />
+          <TermOfContractModal />
         </ThemeProvider>
       </Provider>
     )
