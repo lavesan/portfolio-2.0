@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class ProductService {
+export class ProductService {
 
     findProductsFromCategories() {
         return axios.get('/product/categories/all');
@@ -16,21 +16,21 @@ class ProductService {
 
 }
 
-let productServiceInstance = null;
+// let productServiceInstance = null;
 
-// Singleton class
-export default (() => {
+// // Singleton class
+// export default (() => {
 
-    const getInstance = () => {
-        if (!productServiceInstance)
-            productServiceInstance = new ProductService();
+//     const getInstance = () => {
+//         if (!productServiceInstance)
+//             productServiceInstance = new ProductService();
 
-        return productServiceInstance;
-    }
+//         return productServiceInstance;
+//     }
 
-    return {
-        getInstance,
-    }
+//     return {
+//         getInstance,
+//     }
 
-})()
+// })()
 

@@ -7,12 +7,11 @@ import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons
 import { ProductCardComponent } from '../../components/product-card';
 import { StyledStartPage } from './inicio.styles';
 import { PeriodCardComponent } from '../../components/period-card';
-import { setPromotionalProducts, setCategoryProducts, addCategoryProducts, setCategoryProductsPages, addCategoryProductFilter } from '../../store/actions/productActions';
-import ProductService from '../../services/product.service';
+import { setPromotionalProducts, setCategoryProducts, setCategoryProductsPages, addCategoryProductFilter } from '../../store/actions/productActions';
 import { CategoryResponsiveCardComponent } from  '../../components/category-responsive-card';
 import { HorizontalSlideComponent } from '../../components/horizontal-slide';
 
-const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories }) => {
+const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, productService }) => {
 
     const [combos, setCombos] = useState([
         {
@@ -76,8 +75,6 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories }) => 
             disableOnInteraction: false,
         },
     }
-
-    const productService = ProductService.getInstance();
 
     const onCategoryClick = (category) => {
         dispatch(addCategoryProductFilter(category));
@@ -194,6 +191,7 @@ const mapStateToProps = store => ({
     screenWidth: store.uiState.screenWidth,
     categoryProducts: store.productState.categoryProducts,
     categories: store.categoryState.categories,
+    productService: store.servicesState.productService,
 });
 
 export default connect(mapStateToProps)(InicioPage);

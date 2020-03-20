@@ -1,4 +1,11 @@
 const initialState = {
+    userInfo: {
+        id: '',
+        email: '',
+        token: '',
+        phones: [],
+        addresses: [],
+    },
     selectedForm: 'login',
     loginForm: {
         email: '',
@@ -36,6 +43,17 @@ export const authReducer = (state = initialState, action) => {
                 selectedForm: action.selectedForm,
             }
         },
+        SET_USER_INFO() {
+            return {
+                ...state,
+                userInfo: {
+                    id: action.id,
+                    name: action.name,
+                    email: action.email,
+                    token: action.token,
+                }
+            }
+        }
     }
 
     return handleReducer[action.type] ?

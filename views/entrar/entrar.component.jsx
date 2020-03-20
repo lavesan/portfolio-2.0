@@ -46,10 +46,8 @@ const EntrarPage = ({ dispatch, selectedForm }) => {
                 <header className="authentication-header">
                     {isLoginForm &&
                         <div className="return-login-container">
-                            {/* <Link href="/inicio"> */}
                             <FontAwesomeIcon icon={faArrowLeft} onClick={returnPage} />
                             <a href="#" onClick={returnPage}>Voltar a navegar</a>
-                            {/* </Link> */}
                         </div>
                     }
                     <div className="authentication-header--title">
@@ -58,11 +56,9 @@ const EntrarPage = ({ dispatch, selectedForm }) => {
                     </div>
                     {!isLoginForm &&
                         <div className="authentication-header--actions">
-                            {/* <Link href="/inicio"> */}
-                                <StyledSuccessButton onClick={returnPage}>
-                                    Voltar a navegar
-                                </StyledSuccessButton>
-                            {/* </Link> */}
+                            <StyledSuccessButton onClick={returnPage}>
+                                Voltar a navegar
+                            </StyledSuccessButton>
                         </div>
                     }
                 </header>

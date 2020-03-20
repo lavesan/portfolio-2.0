@@ -12,7 +12,7 @@ export class AuthService {
             CLIENT_SECRET: environment.CLIENT_SECRET,
         }
 
-        return axios.post('oauth/auth', body)
+        return axios.post('/oauth/auth', body)
             .then(res => {
                 localStorage.setItem('auth', res.token);
             });
@@ -20,7 +20,7 @@ export class AuthService {
     }
 
     refreshToken() {
-        return axios.post('oauth/auth/user/refresh-token')
+        return axios.post('/oauth/auth/user/refresh-token')
             .then(res => {
                 localStorage.setItem('auth', res.token);
             })
@@ -31,7 +31,11 @@ export class AuthService {
 
     logoff() {
         localStorage.removeItem('auth')
-        return axios.delete('oauth/auth/logoff');
+        return axios.delete('/oauth/auth/logoff');
+    }
+
+    forgotPassword() {
+        return axios.put('/oauth/auth/user/forgot-password');
     }
 
 }

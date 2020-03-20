@@ -12,9 +12,6 @@ import { setShowHeaderAndFooter } from '../store/actions/routesActions';
 import { setCategories } from '../store/actions/categoryActions';
 import { screenResize } from '../store/actions/uiActions';
 import { setPromotions, setCombos } from '../store/actions/productActions';
-import { PromotionService } from '../services/promotion.service';
-import { ComboService } from '../services/combo.service';
-import { CategoryService } from '../services/category.service';
 
 const StyledPage = styled.div`
   padding: 20px 60px;
@@ -24,11 +21,7 @@ const StyledPage = styled.div`
   }
 `;
 
-const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPageStyle }) => {
-
-  const promotionService = new PromotionService();
-  const comboService = new ComboService();
-  const categoryService = new CategoryService();
+const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPageStyle, promotionService, comboService, categoryService }) => {
 
   const initiateStates = useCallback(
     () => {
@@ -132,6 +125,9 @@ const mapStateToProps = store => ({
     showHeader: store.routesState.showHeader,
     showFooter: store.routesState.showFooter,
     applyPageStyle: store.routesState.applyPageStyle,
+    categoryService: store.servicesState.categoryService,
+    comboService: store.servicesState.comboService,
+    promotionService: store.servicesState.promotionService,
 });
 
 export const AppComponent = connect(mapStateToProps)(App);

@@ -5,13 +5,24 @@ import { StyledLoginForm } from './login-form.styles';
 import { StyledSuccessButton } from '../button';
 import { setLoginFormValues } from '../../store/actions/authActions';
 import { FormTextMaterial } from '../form/form-text-material';
-import { setSelectedForm } from '../../store/actions/authActions';
+import { setSelectedForm, setUserInfo } from '../../store/actions/authActions';
 
-const LoginFormComponent = ({ dispatch, loginForm }) => {
+const LoginFormComponent = ({ dispatch, loginForm, authService }) => {
 
     const onSubmit = (e) => {
 
         e.preventDefault();
+
+        authService.login({
+            login: loginForm.email,
+            password: loginForm.password,
+        })
+            .then(res => {
+                dispatch(setUserInfo({
+                    ...res.user,
+                    token: res.token,
+                }));
+            })
 
     }
 
@@ -24,7 +35,7 @@ const LoginFormComponent = ({ dispatch, loginForm }) => {
     
     const registerSelectedForm = (e) => {
         e.preventDefault();
-        dispatch(setSelectedForm('register'));
+        dispatch(setSelectedForm({ selectedForm: 'register' }));
     }
 
     return (
@@ -62,6 +73,7 @@ const LoginFormComponent = ({ dispatch, loginForm }) => {
 
 const mapStateToProps = store => ({
     loginForm: store.authState.loginForm,
+    authService: store.servicesState.authService,
 })
 
 export default connect(mapStateToProps)(LoginFormComponent);
