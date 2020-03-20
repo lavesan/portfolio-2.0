@@ -1,7 +1,12 @@
 const initialState = {
     promotionalProducts: [],
     categoryProducts: [],
-    promotions: [],
+    promotions: [
+        {
+            id: 0,
+            loadingPromotions: true,
+        },
+    ],
     combos: [],
     filters: [],
 };

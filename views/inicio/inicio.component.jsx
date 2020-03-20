@@ -122,20 +122,42 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                             ? <Swiper {...params}>
                                 {promotions.map(promo => (
                                     <div key={promo.id}>
-                                        <PeriodCardComponent isBig={true} {...promo} />
+                                        {promo.loadingPromotions
+                                            ? <div className="promos-section">
+                                                <div className="loading-promotion">
+                                                    <div className="load-1"></div>
+                                                    <div className="load-2"></div>
+                                                    <div className="load-3"></div>
+                                                </div>
+                                            </div>
+                                           : <div>
+                                                <PeriodCardComponent isBig={true} {...promo} />
+                                            </div>
+                                        }
                                     </div>
                                 ))}
                             </Swiper>
                             : <>
                                 {promotions.map((promo, index) => (
                                     <>
-                                        {index === 0
+                                        {promo.loadingPromotions
                                             ? <div className="promos-section">
-                                                <PeriodCardComponent isPromotion={true} {...promo} />
+                                                <div className="loading-promotion">
+                                                    <div className="load-1"></div>
+                                                    <div className="load-2"></div>
+                                                    <div className="load-3"></div>
+                                                </div>
                                             </div>
-                                            : <div className="combos-section">
-                                                <PeriodCardComponent key={index} {...promo} />
-                                            </div>
+                                            : <>
+                                                {index === 0
+                                                    ? <div className="promos-section">
+                                                        <PeriodCardComponent isPromotion={true} {...promo} />
+                                                    </div>
+                                                    : <div className="combos-section">
+                                                        <PeriodCardComponent key={index} {...promo} />
+                                                    </div>
+                                                }
+                                            </>
                                         }
                                     </>
                                 ))}

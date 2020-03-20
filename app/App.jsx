@@ -9,9 +9,12 @@ import { HeaderComponent } from '../components/header';
 import { FooterComponent } from '../components/footer';
 import GlobalStyle from './global-styles';
 import { setShowHeaderAndFooter } from '../store/actions/routesActions';
+import { setCategories } from '../store/actions/categoryActions';
+import { screenResize } from '../store/actions/uiActions';
+import { setPromotions, setCombos } from '../store/actions/productActions';
 import { PromotionService } from '../services/promotion.service';
 import { ComboService } from '../services/combo.service';
-import { setPromotions, setCombos } from '../store/actions/productActions';
+import { CategoryService } from '../services/category.service';
 
 const StyledPage = styled.div`
   padding: 20px 60px;
@@ -25,9 +28,36 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
 
   const promotionService = new PromotionService();
   const comboService = new ComboService();
+  const categoryService = new CategoryService();
+
+  const initiateStates = useCallback(
+    () => {
+      promotionService.findAllFromUser()
+        .then(res => {
+          dispatch(setPromotions(res));
+        })
+        .catch(() => {
+          dispatch(setPromotions([]));
+        })
+      comboService.findAll()
+        .then(res => {
+          dispatch(setCombos(res));
+        })
+        .catch(() => {
+          dispatch(setCombos([]));
+        })
+        
+      categoryService.getAll()
+        .then(res => {
+          dispatch(setCategories(res))
+        });
+    },
+    []
+  )
 
   const handleInit = useCallback(
     () => {
+      initiateStates();
       if (window && window.history && window.history.state && window.history.state.url && /.*entrar.*/.test(window.history.state.url)) {
         dispatch(setShowHeaderAndFooter({
             showHeader: false,
@@ -49,15 +79,6 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
               }))
           }
       })
-
-      promotionService.findAllFromUser()
-        .then(res => {
-          dispatch(setPromotions(res));
-        })
-      comboService.findAll()
-        .then(res => {
-          dispatch(setCombos(res));
-        })
     },
     [Router]
   )
@@ -65,6 +86,19 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
   useEffect(() => {
     handleInit();
   }, [handleInit]);
+
+  useEffect(() => {
+    dispatch(screenResize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    }));
+    window.addEventListener('resize', () => {
+        dispatch(screenResize({
+            width: window.innerWidth,
+            height: window.innerHeight,
+        }));
+    });
+  }, []);
 
   return (
       <div className={globalStyle.Layout} style={{

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faMapMarkerAlt, faUserCircle, faShoppingCart, faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { connect } from "react-redux";
@@ -9,12 +9,9 @@ import { SearchInputComponent } from '../search-input';
 import { AsideIconComponent } from '../aside-icon';
 import { NavLinkComponent } from './nav-link';
 import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';
-import { CategoryService } from '../../services/category.service';
 import { NavDropdownComponent } from '../../components/nav-dropdown';
 import theme from '../../app/app.theme';
 import { toggleAddressModal } from '../../store/actions/modalActions';
-import { setCategories } from '../../store/actions/categoryActions';
-import { screenResize } from '../../store/actions/uiActions';
 import { addProductFilter } from '../../store/actions/productActions';
 import { ResponsiveSearchInputComponent } from '../responsive-search-input';
 import { toggleResponsiveMenu } from '../../store/actions/responsiveActions';
@@ -28,32 +25,6 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth }) => {
     const filterWithCategory = (category) => {
         dispatch(addProductFilter(category));
     }
-
-    const categoryService = new CategoryService();
-
-    const reloadCategories = useCallback(
-        async () => {
-            const categoriesRes = await categoryService.getAll();
-            dispatch(setCategories(categoriesRes))
-        }, []
-    )
-
-    useEffect(() => {
-        reloadCategories();
-    }, [reloadCategories]);
-
-    useEffect(() => {
-        dispatch(screenResize({
-            width: window.innerWidth,
-            height: window.innerHeight,
-        }));
-        window.addEventListener('resize', () => {
-            dispatch(screenResize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            }));
-        });
-    }, [])
 
     return (
         <>
