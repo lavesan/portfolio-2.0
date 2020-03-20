@@ -5,6 +5,7 @@ const initialState = {
         password: '',
     },
     registerForm: {
+        cpf: '',
         email: '',
         password: '',
         confirmPassword: '',

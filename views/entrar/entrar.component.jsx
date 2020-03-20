@@ -48,7 +48,9 @@ const EntrarPage = ({ dispatch, selectedForm }) => {
                     ? <LoginFormComponent />
                     :
                     <>
-                        <div className="register-head-line" />
+                        <div className="register-head-line">
+                            <div></div>
+                        </div>
                         <RegisterFormComponent />
                     </>
                 }

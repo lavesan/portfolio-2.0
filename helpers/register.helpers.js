@@ -5,3 +5,9 @@ export const userRoleOpts = [
     { label: 'Estudante', value: 3 },
     { label: 'Vegano', value: 4 },
 ]
+
+export const userGenderOpts = [
+    { label: 'Masculino', value: 1 },
+    { label: 'Feminino', value: 2 },
+    { label: 'Outro', value: 3 },
+]

@@ -4,9 +4,8 @@ export const StyledEntrarPage = styled.section`
     ${({ theme, isLoginForm }) => css`
         display: grid;
         grid-template-columns: ${isLoginForm ? '1fr 1fr' : '1fr'};
-        height: 100vh;
+        min-height: 100vh;
         width: 100vw;
-        overflow: hidden;
         color: ${theme.gray.secondary};
 
         > * {
@@ -45,6 +44,10 @@ export const StyledEntrarPage = styled.section`
                 margin-top: 37px;
                 height: 2px;
                 background-color: ${theme.gray.primary};
+
+                div {
+                    animation
+                }
             }
 
             .authentiication-footer {
@@ -64,5 +67,7 @@ export const StyledEntrarPage = styled.section`
             min-width: 100%;
             max-height: 100%;
         }
+
+        @keyframes
     `}
 `;
