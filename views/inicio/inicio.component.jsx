@@ -155,18 +155,21 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                 : ''
             }
             <section className="product-section">
-                <ProductsRowComponent
-                    products={combos.map(combo => ({
-                        ...combo,
-                        quantitySuffix: "x",
-                        imgUrl: combo.imgUrl,
-                        name: combo.title,
-                        actualValueCents: combo.totalValue,
-                    }))}
-                    category={{
-                        name: 'Combos',
-                        id: 0,
-                    }} />
+                {combos.length
+                    ? <ProductsRowComponent
+                        products={combos.map(combo => ({
+                            ...combo,
+                            quantitySuffix: "x",
+                            imgUrl: combo.imgUrl,
+                            name: combo.title,
+                            actualValueCents: combo.totalValue,
+                        }))}
+                        category={{
+                            name: 'Combos',
+                            id: 0,
+                        }} />
+                    : <></>
+                }
                 {mappedProductsWithPromotions.map((data) => (
                     <>
                         {data.products.length ?

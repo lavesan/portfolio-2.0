@@ -28,7 +28,7 @@ export const StyledEntrarPage = styled.section`
                         margin: 0 0 3px 0;
                     }
                     p {
-                        font-size: .9rem;
+                        font-size: .8rem;
                         margin: 0;
                     }
                 }
@@ -37,6 +37,22 @@ export const StyledEntrarPage = styled.section`
                     display: flex;
                     justify-content: flex-end;
                     align-items: center;
+                }
+
+                .return-login-container {
+                    display: flex;
+                    flex-flow: row nowrap;
+                    align-items: center;
+                    margin-bottom: 10px;
+                    color: ${theme.gray.primary};
+                    cursor: pointer;
+                    font-size: 1rem;
+                    a {
+                        color: ${theme.gray.primary};
+                        margin-left: 5px;
+                        font-size: .8rem;
+                        text-decoration: underline ${theme.gray.primary};
+                    }
                 }
             }
 

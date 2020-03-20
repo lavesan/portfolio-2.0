@@ -1,14 +1,20 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { useRouter } from 'next/router'
 
 import { StyledEntrarPage } from './entrar.styles';
 import { LoginFormComponent } from '../../components/login-form';
 import { RegisterFormComponent } from '../../components/register-form';
 import { StyledSuccessButton } from '../../components/button';
+import { setSelectedForm } from '../../store/actions/authActions';
 import loginImg from '../../public/static/imgs/login-image.png';
 
 const EntrarPage = ({ dispatch, selectedForm }) => {
+
+    const router = useRouter();
 
     const headerParagraph = useMemo(
         () => {
@@ -26,21 +32,37 @@ const EntrarPage = ({ dispatch, selectedForm }) => {
         [selectedForm]
     )
 
+    const returnPage = async (e) => {
+        e.preventDefault();
+        await dispatch(setSelectedForm({
+            selectedForm: 'login'
+        }));
+        router.back();
+    }
+
     return (
         <StyledEntrarPage isLoginForm={isLoginForm}>
             <section className="authentication-form-section">
                 <header className="authentication-header">
+                    {isLoginForm &&
+                        <div className="return-login-container">
+                            {/* <Link href="/inicio"> */}
+                            <FontAwesomeIcon icon={faArrowLeft} onClick={returnPage} />
+                            <a href="#" onClick={returnPage}>Voltar a navegar</a>
+                            {/* </Link> */}
+                        </div>
+                    }
                     <div className="authentication-header--title">
                         <h1>Seja Bem-vindo</h1>
                         <p>{headerParagraph}</p>
                     </div>
                     {!isLoginForm &&
                         <div className="authentication-header--actions">
-                            <Link href="/inicio">
-                                <StyledSuccessButton>
+                            {/* <Link href="/inicio"> */}
+                                <StyledSuccessButton onClick={returnPage}>
                                     Voltar a navegar
                                 </StyledSuccessButton>
-                            </Link>
+                            {/* </Link> */}
                         </div>
                     }
                 </header>
