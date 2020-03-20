@@ -14,10 +14,35 @@ const GreenCheckbox = withStyles({
     checked: {},
   })(props => <Checkbox color="default" {...props} />);
 
-export default ({ value, name, onChange, label }) => {
+export default ({ value, name, onChange, label, validatesOnChange = [], setFormValidations, formValidations }) => {
 
-    const setFieldValue = e => {
-        onChange(e.target.name, !value)
+    const setFieldValue = () => {
+
+      onChange(name, !value)
+      
+      if (validatesOnChange.length) {
+        
+        for (const validationFunc of validatesOnChange) {
+
+          const validation = validationFunc(value, name);
+
+          setFormValidations(function(f) {
+              return {
+                  ...f,
+                  [name]: {
+                      invalid: !validation.valid,
+                      message: validation.message,
+                  },
+              }
+          });
+
+          if (!validation.valid) {
+              break;
+          }
+
+        }
+      }
+
     }
 
     return (
@@ -27,6 +52,7 @@ export default ({ value, name, onChange, label }) => {
                     checked={value}
                     onChange={setFieldValue}
                     name={name}
+                    error={formValidations[name] && formValidations[name].invalid}
                     color="primary"
                 />
             }
