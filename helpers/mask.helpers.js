@@ -27,3 +27,43 @@ export const maxLengthMask = (value, length) => {
 export const onlyCharactersMask = value => {
     return value.replace(/[^A-Za-z ]/g, "");
 }
+
+export const celphoneMask = value => {
+
+  const onlyNumber = value.replace(/\D/g, "");
+  const f = onlyNumber.slice(0, 11);
+  let finalValue = "";
+  for (let i = 0; i < f.length; i++) {
+    if (i === 0) {
+      finalValue += `(${f[i]}`;
+    } else if (i === 2) {
+      finalValue += `) ${f[i]}`;
+    } else if (i === 7) {
+      finalValue += `-${f[i]}`;
+    } else {
+      finalValue += `${f[i]}`;
+    }
+  }
+  return finalValue;
+
+}
+
+export const telephoneMask = value => {
+
+  const onlyNumber = value.replace(/\D/g, "");
+    const f = onlyNumber.slice(0, 10);
+    let finalValue = "";
+    for (let i = 0; i < f.length; i++) {
+      if (i === 0) {
+        finalValue += `(${f[i]}`;
+      } else if (i === 2) {
+        finalValue += `) ${f[i]}`;
+      } else if (i === 6) {
+        finalValue += `-${f[i]}`;
+      } else {
+        finalValue += `${f[i]}`;
+      }
+    }
+    return finalValue;
+
+}
