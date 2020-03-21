@@ -65,18 +65,6 @@ export const StyledEntrarPage = styled.section`
                     animation
                 }
             }
-
-            .authentiication-footer {
-                margin-top: auto;
-                text-align: center;
-
-                ${isLoginForm && 'max-width: 350px;'}
-
-                p {
-                    margin: 0;
-                    font-size: .8rem;
-                }
-            }
         }
         
         .login-img-container img {

@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import { ModalComponent } from '../';
 import { StyledTermOfContractModal } from './term-of-contract-modal.styles';
 import { toggleTermOfContractModal } from '../../../store/actions/modalActions';
-import { FliesService } from '../../../services/files.service';
+import { filesInstance } from '../../../services/files.service';
 
 const TermOfContractModal = ({ dispatch, openTermOfContractModal }) => {
 
-    const fileService = new FliesService();
+    const fileService = filesInstance.getInstance();
 
     const toggleModal = () => {
         dispatch(toggleTermOfContractModal());

@@ -4,12 +4,14 @@ import Swiper from 'react-id-swiper';
 
 import { StyledStartPage } from './inicio.styles';
 import { PeriodCardComponent } from '../../components/period-card';
-import { setPromotionalProducts, setCategoryProducts, addCategoryProducts, addCategoryProductFilter } from '../../store/actions/productActions';
-import ProductService from '../../services/product.service';
+import { setPromotionalProducts, setCategoryProducts, addCategoryProductFilter } from '../../store/actions/productActions';
 import { CategoryResponsiveCardComponent } from  '../../components/category-responsive-card';
 import { ProductsRowComponent } from './products-row';
+import { productInstance } from '../../services/product.service';
 
 const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promotions, combos }) => {
+
+    const productService = productInstance.getInstance();
 
     const mapCategoriesToLinear = useMemo(
         () => {
@@ -88,8 +90,6 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
             disableOnInteraction: false,
         },
     }
-
-    const productService = ProductService.getInstance();
 
     const onCategoryClick = (category) => {
         dispatch(addCategoryProductFilter(category));

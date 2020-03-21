@@ -4,20 +4,19 @@ import { connect } from 'react-redux';
 import { StyledAboutPage } from './sobre.styles';
 import { DarkerImage } from '../../components/darker-image';
 import { CommentCardComponent } from '../../components/comment-card';
-import { CommentService } from '../../services/comment.service';
 import { setComments } from '../../store/actions/commentActions';
 import { HorizontalSlideComponent } from '../../components/horizontal-slide';
+import { commentInstance } from '../../services/comment.service';
 
 const SobrePage = ({ comments, dispatch }) => {
 
-    const commentService = new CommentService();
+    const commentService = commentInstance.getInstance();
 
     const reloadComments = useCallback(
         async () => {
 
             const commentsRes = await commentService.getComments();
 
-            // console.log('commentsRes: ', commentsRes);
             dispatch(setComments(commentsRes));
 
         },

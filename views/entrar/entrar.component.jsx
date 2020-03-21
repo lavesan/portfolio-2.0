@@ -1,13 +1,12 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
-import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
 
 import { StyledEntrarPage } from './entrar.styles';
-import { LoginFormComponent } from '../../components/login-form';
-import { RegisterFormComponent } from '../../components/register-form';
+import { LoginFormComponent } from './login-form';
+import { RegisterFormComponent } from './register-form';
 import { StyledSuccessButton } from '../../components/button';
 import { setSelectedForm } from '../../store/actions/authActions';
 import loginImg from '../../public/static/imgs/login-image.png';
@@ -72,11 +71,6 @@ const EntrarPage = ({ dispatch, selectedForm }) => {
                         <RegisterFormComponent />
                     </>
                 }
-                <footer className="authentiication-footer">
-                    <p>
-                        Direitos reservados a zero veneno produtos orgânicos
-                    </p>
-                </footer>
             </section>
             {isLoginForm &&
                 <section className="login-img-container">

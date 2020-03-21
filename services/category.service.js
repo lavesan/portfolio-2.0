@@ -7,3 +7,21 @@ export class CategoryService {
     }
 
 }
+
+let productServiceInstance = null;
+
+// Singleton class
+export const categoryInstance = (() => {
+
+    const getInstance = () => {
+        if (!productServiceInstance)
+            productServiceInstance = new CategoryService();
+
+        return productServiceInstance;
+    }
+
+    return {
+        getInstance,
+    }
+
+})()

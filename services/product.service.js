@@ -16,21 +16,21 @@ export class ProductService {
 
 }
 
-// let productServiceInstance = null;
+let productServiceInstance = null;
 
-// // Singleton class
-// export default (() => {
+// Singleton class
+export const productInstance = (() => {
 
-//     const getInstance = () => {
-//         if (!productServiceInstance)
-//             productServiceInstance = new ProductService();
+    const getInstance = () => {
+        if (!productServiceInstance)
+            productServiceInstance = new ProductService();
 
-//         return productServiceInstance;
-//     }
+        return productServiceInstance;
+    }
 
-//     return {
-//         getInstance,
-//     }
+    return {
+        getInstance,
+    }
 
-// })()
+})()
 

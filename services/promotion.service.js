@@ -7,3 +7,21 @@ export class PromotionService {
     }
 
 }
+
+let productServiceInstance = null;
+
+// Singleton class
+export const promotionInstance = (() => {
+
+    const getInstance = () => {
+        if (!productServiceInstance)
+            productServiceInstance = new PromotionService();
+
+        return productServiceInstance;
+    }
+
+    return {
+        getInstance,
+    }
+
+})()

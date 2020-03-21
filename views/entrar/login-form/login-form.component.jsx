@@ -2,12 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { StyledLoginForm } from './login-form.styles';
-import { StyledSuccessButton } from '../button';
-import { setLoginFormValues } from '../../store/actions/authActions';
-import { FormTextMaterial } from '../form/form-text-material';
-import { setSelectedForm, setUserInfo } from '../../store/actions/authActions';
+import { StyledSuccessButton } from '../../../components/button';
+import { setLoginFormValues } from '../../../store/actions/authActions';
+import { FormTextMaterial } from '../../../components/form/form-text-material';
+import { setSelectedForm, setUserInfo } from '../../../store/actions/authActions';
+import { useState } from 'react';
+import { isRequired, validateEmail } from '../../../helpers/validations.helpers';
+import { authInstance } from '../../../services/auth.service';
+import { AuthenticationFooterComponent } from '../authentication-footer';
 
-const LoginFormComponent = ({ dispatch, loginForm, authService }) => {
+const LoginFormComponent = ({ dispatch, loginForm }) => {
+
+    const authService = authInstance.getInstance();
+
+    const [formValidations, setFormValidations] = useState({});
 
     const onSubmit = (e) => {
 
@@ -44,12 +52,18 @@ const LoginFormComponent = ({ dispatch, loginForm, authService }) => {
                 <FormTextMaterial
                     label="Email"
                     name="email"
+                    validatesOnChange={[isRequired, validateEmail]}
+                    formValidations={formValidations}
+                    setFormValidations={setFormValidations}
                     value={loginForm.email}
                     onChange={setFieldValue} />
                 <FormTextMaterial
                     label="Senha"
                     type="password"
                     name="password"
+                    validatesOnChange={[isRequired]}
+                    formValidations={formValidations}
+                    setFormValidations={setFormValidations}
                     value={loginForm.password}
                     onChange={setFieldValue} />
             </div>
@@ -66,6 +80,9 @@ const LoginFormComponent = ({ dispatch, loginForm, authService }) => {
                     </a>
                 </nav>
             </div>
+            <div className="authentication-footer-description">
+                <AuthenticationFooterComponent className="footer-container" />
+            </div>
         </StyledLoginForm>
     )
 
@@ -73,7 +90,6 @@ const LoginFormComponent = ({ dispatch, loginForm, authService }) => {
 
 const mapStateToProps = store => ({
     loginForm: store.authState.loginForm,
-    authService: store.servicesState.authService,
 })
 
 export default connect(mapStateToProps)(LoginFormComponent);

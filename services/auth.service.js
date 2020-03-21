@@ -19,6 +19,13 @@ export class AuthService {
 
     }
 
+    save(body) {
+        return axios.post('/oauth/auth/user/register', body)
+            .then(res => {
+                localStorage.setItem('auth', res.token);
+            });
+    }
+
     refreshToken() {
         return axios.post('/oauth/auth/user/refresh-token')
             .then(res => {
@@ -39,3 +46,21 @@ export class AuthService {
     }
 
 }
+
+let productServiceInstance = null;
+
+// Singleton class
+export const authInstance = (() => {
+
+    const getInstance = () => {
+        if (!productServiceInstance)
+            productServiceInstance = new AuthService();
+
+        return productServiceInstance;
+    }
+
+    return {
+        getInstance,
+    }
+
+})()

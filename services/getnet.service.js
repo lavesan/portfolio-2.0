@@ -38,3 +38,21 @@ export class GetnetService {
     }
 
 }
+
+let productServiceInstance = null;
+
+// Singleton class
+export const getnetInstance = (() => {
+
+    const getInstance = () => {
+        if (!productServiceInstance)
+            productServiceInstance = new GetnetService();
+
+        return productServiceInstance;
+    }
+
+    return {
+        getInstance,
+    }
+
+})()

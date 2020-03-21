@@ -7,3 +7,21 @@ export class ComboService {
     }
 
 }
+
+let productServiceInstance = null;
+
+// Singleton class
+export const comboInstance = (() => {
+
+    const getInstance = () => {
+        if (!productServiceInstance)
+            productServiceInstance = new ComboService();
+
+        return productServiceInstance;
+    }
+
+    return {
+        getInstance,
+    }
+
+})()

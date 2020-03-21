@@ -7,3 +7,21 @@ export class CommentService {
     }
 
 }
+
+let productServiceInstance = null;
+
+// Singleton class
+export const commentInstance = (() => {
+
+    const getInstance = () => {
+        if (!productServiceInstance)
+            productServiceInstance = new CommentService();
+
+        return productServiceInstance;
+    }
+
+    return {
+        getInstance,
+    }
+
+})()
