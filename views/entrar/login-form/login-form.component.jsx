@@ -50,7 +50,7 @@ const LoginFormComponent = ({ dispatch, loginForm }) => {
         <StyledLoginForm onSubmit={onSubmit}>
             <div className="login-form-inputs-container">
                 <FormTextMaterial
-                    label="Email"
+                    label="Insira seu email"
                     name="email"
                     validatesOnChange={[isRequired, validateEmail]}
                     formValidations={formValidations}
@@ -58,7 +58,7 @@ const LoginFormComponent = ({ dispatch, loginForm }) => {
                     value={loginForm.email}
                     onChange={setFieldValue} />
                 <FormTextMaterial
-                    label="Senha"
+                    label="Sua senha"
                     type="password"
                     name="password"
                     validatesOnChange={[isRequired]}
@@ -68,7 +68,10 @@ const LoginFormComponent = ({ dispatch, loginForm }) => {
                     onChange={setFieldValue} />
             </div>
             <div className="login-form-buttons-container">
-                <StyledSuccessButton type="submit" className="submit-button">
+                <StyledSuccessButton
+                    notDense={'true'}
+                    type="submit"
+                    className="submit-button">
                     Entrar
                 </StyledSuccessButton>
                 <nav className="register-link-container">

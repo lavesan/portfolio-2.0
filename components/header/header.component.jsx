@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faMapMarkerAlt, faUserCircle, faShoppingCart, faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faMapMarkerAlt, faUserCircle, faShoppingCart, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { connect } from "react-redux";
 import Link from 'next/link';
 
@@ -14,13 +14,9 @@ import theme from '../../app/app.theme';
 import { toggleAddressModal } from '../../store/actions/modalActions';
 import { addProductFilter } from '../../store/actions/productActions';
 import { ResponsiveSearchInputComponent } from '../responsive-search-input';
-import { toggleResponsiveMenu } from '../../store/actions/responsiveActions';
+import { ResponsiveMenuIcon } from './responsive-menu-icon';
 
 const HeaderComponent = ({ dispatch, categories, products, screenWidth }) => {
-
-    const toggleResposiveMenu = () => {
-        dispatch(toggleResponsiveMenu());
-    }
 
     const filterWithCategory = (category) => {
         dispatch(addProductFilter(category));
@@ -76,11 +72,7 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth }) => {
                         </>
                         : <>
                             <div></div>
-                            <aside className="responsive-icon-menu-container">
-                                <div className="responsive-icon-menu" onClick={toggleResposiveMenu}>
-                                    <FontAwesomeIcon icon={faBars} />
-                                </div>
-                            </aside>
+                            <ResponsiveMenuIcon />
                         </>
                     }
                 </div>

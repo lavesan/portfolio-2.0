@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(() => ({
     input: {
         width: '100%',
+        backgroundColor: '#fff',
+        borderRadius: 5,
     },
 }));
 
-export default ({ label, onChange, name, maskOnChange, validatesOnChange = [], setFormValidations, formValidations = {}, ...inputProps }) => {
+const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChange = [], setFormValidations, formValidations = {}, screenWidth, dispatch, ...inputProps }) => {
 
     const classes = useStyles();
+
+    const margin = useMemo(
+        () => {
+            return screenWidth < 700 ? '' : 'dense';
+        },
+        [screenWidth]
+    )
 
     const setFieldValue = (e) => {
 
@@ -50,10 +60,16 @@ export default ({ label, onChange, name, maskOnChange, validatesOnChange = [], s
             variant="outlined"
             onChange={setFieldValue}
             error={formValidations[name] && formValidations[name].invalid}
-            margin="dense"
+            margin={margin}
             helperText={formValidations[name] && formValidations[name].invalid ? formValidations[name].message : ''}
             name={name}
             {...inputProps}
             />
     )
 }
+
+const mapStateToProps = store => ({
+    screenWidth: store.uiState.screenWidth,
+})
+
+export default connect(mapStateToProps)(FormTextMaterial);

@@ -24,7 +24,7 @@ const StyledPage = styled.div`
   }
 `;
 
-const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPageStyle }) => {
+const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPageStyle, screenWidth }) => {
 
   const categoryService = categoryInstance.getInstance();
   const comboService = comboInstance.getInstance();
@@ -116,7 +116,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
             />
             <title>Zero veneno</title>
           </Head>
-          {showHeader && <HeaderComponent />}
+          {showHeader ? <HeaderComponent /> : ''}
           {applyPageStyle
             ?
             <StyledPage>
@@ -134,6 +134,7 @@ const mapStateToProps = store => ({
     showHeader: store.routesState.showHeader,
     showFooter: store.routesState.showFooter,
     applyPageStyle: store.routesState.applyPageStyle,
+    screenWidth: store.uiState.screenWidth,
 });
 
 export const AppComponent = connect(mapStateToProps)(App);

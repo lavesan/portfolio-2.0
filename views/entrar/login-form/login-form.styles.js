@@ -59,5 +59,35 @@ export const StyledLoginForm = styled.form`
                 text-decoration-color: ${theme.green.primary};
             }
         }
+
+        @media(max-width: 699px) {
+            max-width: 100%;
+
+            .authentication-footer-description {
+                display: none;
+                flex: 0;
+            }
+
+            .login-form-buttons-container {
+                flex: 1;
+            }
+
+            .login-form-buttons-container .submit-button {
+                margin-top: 30px;
+                width: 70%;
+            }
+
+            .register-link-container {
+                flex: 1;
+                align-items: flex-end;
+                color: ${theme.green.terciary};
+
+                a {
+                    font-weight: bolder;
+                    color: ${theme.green.terciary};
+                    text-decoration-color: ${theme.green.terciary};
+                }
+            }
+        }
     `}
 `;

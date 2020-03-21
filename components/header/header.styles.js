@@ -35,18 +35,6 @@ export const StyledHeader = styled.header`
                 }
             }
 
-            .responsive-icon-menu-container {
-                display: flex;
-                justify-content: flex-end;
-                .responsive-icon-menu {
-                    color: #fff;
-                    background-color: ${theme.green.primary};
-                    border-radius: 5px;
-                    font-size: 1.5rem;
-                    padding: 10px 30px;
-                }
-            }
-
             .header-actions-aside {
                 display: flex;
                 flex-flow: row nowrap;

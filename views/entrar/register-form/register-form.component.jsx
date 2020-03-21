@@ -10,7 +10,7 @@ import { AddressForm } from './address-form';
 import { StyledSuccessButton } from '../../../components/button';
 import { AuthenticationFooterComponent } from '../authentication-footer';
 
-const RegisterFormComponent = ({ dispatch, registerForm }) => {
+const RegisterFormComponent = ({ dispatch, registerForm, screenWidth }) => {
 
     const authService = authInstance.getInstance();
 
@@ -86,6 +86,7 @@ const RegisterFormComponent = ({ dispatch, registerForm }) => {
 
 const mapStateToProps = store => ({
     registerForm: store.authState.registerForm,
+    screenWidth: store.uiState.screenWidth,
 })
 
 export default connect(mapStateToProps)(RegisterFormComponent);

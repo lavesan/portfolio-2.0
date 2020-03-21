@@ -33,7 +33,7 @@ axios.interceptors.request.use(req => {
 
 })
 axios.interceptors.response.use(
-  res => res.data ? Promise.resolve(res.data) : Promise.resolve(res),
+  res => res && res.data ? Promise.resolve(res.data) : Promise.resolve(res),
   err => err ? (err.response ? Promise.reject(err.response.data) :  Promise.reject(err.response)) : err,
 );
 

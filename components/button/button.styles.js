@@ -8,13 +8,18 @@ const ButtonCss = css`
 
 export const StyledSuccessButton = styled.button`
     ${ButtonCss}
-    ${({ theme, disabled }) => css`
+    ${({ theme, disabled, notDense }) => css`
         color: #fff;
         background-color: ${theme.green.primary};
         border: thin solid ${theme.green.primary};
         ${disabled && css`
             opacity: .6;
             pointer-events: none;
+        `}
+
+        ${notDense && css`
+            font-size: 1.1rem;
+            padding: 15px 30px;
         `}
     `}
 `;

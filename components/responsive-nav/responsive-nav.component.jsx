@@ -2,15 +2,38 @@ import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import { toggleResponsiveMenu } from '../../store/actions/responsiveActions';
+import { setSelectedForm } from '../../store/actions/authActions';
 import { StyledResponsiveNav } from './responsive-nav.styles';
 
 const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, screenWidth }) => {
 
+    const router = useRouter();
+
     const toggleMenu = () => {
         dispatch(toggleResponsiveMenu());
+    }
+
+    const goToPage = async (page) => {
+        await router.push(page);
+        toggleMenu();
+    }
+
+    const navigateToLogin = async () => {
+        dispatch(setSelectedForm({
+            selectedForm: 'login',
+        }));
+        goToPage('/entrar');
+    }
+    
+    const navigateToRegister = async () => {
+        dispatch(setSelectedForm({
+            selectedForm: 'register',
+        }));
+        goToPage('/entrar');
     }
 
     const mapCategoriesToLinear = useMemo(
@@ -32,7 +55,7 @@ const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, scre
 
             }
 
-            return getAllCategories(categories);
+            return getAllCategories(categories || []);
         },
         [categories]
     )
@@ -43,17 +66,13 @@ const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, scre
                 <FontAwesomeIcon icon={faTimes} onClick={toggleMenu} />
             </aside>
             <nav className="nav-container">
-                <Link href="/inicio">
-                    <a onClick={toggleMenu}>Início</a>
-                </Link>
+                <a onClick={() => goToPage('/inicio')}>Início</a>
                 {mapCategoriesToLinear.map(category => <p onClick={toggleMenu}>{category.name}</p>)}
-                <Link href="/sobre">
-                    <a onClick={toggleMenu}>Sobre nós</a>
-                </Link>
+                <a onClick={() => goToPage('/sobre')}>Sobre nós</a>
             </nav>
             <aside className="loggin-container">
-                <p>Login</p>
-                <p>Cadastre-se</p>
+                <p onClick={navigateToLogin}>Login</p>
+                <p onClick={navigateToRegister}>Cadastre-se</p>
             </aside>
         </StyledResponsiveNav>
     )

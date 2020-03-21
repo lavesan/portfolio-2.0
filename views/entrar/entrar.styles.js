@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const StyledEntrarPage = styled.section`
-    ${({ theme, isLoginForm }) => css`
+    ${({ theme, isLoginForm, loginImg }) => css`
         display: grid;
         grid-template-columns: ${isLoginForm ? '1fr 1fr' : '1fr'};
         min-height: 100vh;
@@ -10,6 +10,19 @@ export const StyledEntrarPage = styled.section`
 
         > * {
             min-height: 0;
+        }
+
+        .responsive-icon-menu-container {
+            margin: 10px 20px 0 0;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            height: 75px;
+
+            .responsive-icon-menu-container--slot {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
         }
 
         .authentication-form-section {
@@ -72,6 +85,21 @@ export const StyledEntrarPage = styled.section`
             max-height: 100%;
         }
 
-        @keyframes
+        @media(max-width: 699px) {
+            background-image: url(${loginImg});
+            background-repeat: no-repeat;
+            background-size: auto 100%;
+            grid-template-columns: 1fr;
+            display: flex;
+            flex-flow: column nowrap;
+
+            .authentication-form-section {
+                padding: 0 20px 20px 20px;
+                flex: 1;
+            }
+            .authentication-form-section .authentication-header .return-login-container {
+                display: none;
+            }
+        }
     `}
 `;
