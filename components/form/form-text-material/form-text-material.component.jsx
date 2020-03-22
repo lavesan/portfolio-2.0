@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
@@ -15,19 +15,8 @@ const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChan
 
     const classes = useStyles();
 
-    const margin = useMemo(
-        () => {
-            return screenWidth < 700 ? '' : 'dense';
-        },
-        [screenWidth]
-    )
-
-    const setFieldValue = (e) => {
-
-        const value = maskOnChange ? maskOnChange(e.target.value) : e.target.value;
-
-        onChange(e.target.name, value);
-
+    const applyValidations = value => {
+        
         if (validatesOnChange.length) {
 
             for (const validationFunc of validatesOnChange) {
@@ -51,7 +40,27 @@ const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChan
             }
 
         }
+
     }
+
+    const margin = useMemo(
+        () => {
+            return screenWidth < 700 ? '' : 'dense';
+        },
+        [screenWidth]
+    )
+
+    const setFieldValue = (e) => {
+
+        const value = maskOnChange ? maskOnChange(e.target.value) : e.target.value;
+        onChange(e.target.name, value);
+        applyValidations(value);
+
+    }
+
+    useEffect(() => {
+        applyValidations();
+    }, [])
 
     return (
         <TextField

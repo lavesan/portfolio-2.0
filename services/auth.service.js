@@ -15,6 +15,7 @@ export class AuthService {
         return axios.post('/oauth/auth', body)
             .then(res => {
                 localStorage.setItem('auth', res.token);
+                return res;
             });
 
     }

@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { connect } from 'react-redux';
+
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -11,13 +13,18 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-export default ({ label, value, name, options = [], onChange, validatesOnChange = [], setFormValidations, formValidations = {} }) => {
+const FormSelectComponent = ({ label, value, name, options = [], onChange, validatesOnChange = [], setFormValidations, formValidations = {}, screenWidth }) => {
 
     const classes = useStyles();
 
-    const setFieldValue = (e) => {
+    const margin = useMemo(
+        () => {
+            return screenWidth < 700 ? '' : 'dense';
+        },
+        [screenWidth]
+    )
 
-        onChange(name, e.target.value);
+    const applyValidation = () => {
         
         if (validatesOnChange.length) {
 
@@ -42,13 +49,25 @@ export default ({ label, value, name, options = [], onChange, validatesOnChange 
             }
 
         }
+
     }
+
+    const setFieldValue = (e) => {
+
+        onChange(name, e.target.value);
+        applyValidation();
+
+    }
+
+    useEffect(() => {
+        applyValidation();
+    }, [])
 
     return (
         <div>
             <FormControl
                 variant="outlined"
-                margin="dense"
+                margin={margin}
                 error={formValidations[name] && formValidations[name].invalid}
                 className={classes.select}>
                 <InputLabel id={`select=${name}`}>{label}</InputLabel>
@@ -70,3 +89,9 @@ export default ({ label, value, name, options = [], onChange, validatesOnChange 
     )
 
 }
+
+const mapStateToProps = store => ({
+    screenWidth: store.uiState.screenWidth,
+})
+
+export default connect(mapStateToProps)(FormSelectComponent);

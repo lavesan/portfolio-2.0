@@ -23,6 +23,7 @@ const initialState = {
         childrensQuantity: '',
         description: '',
     },
+    registerFormStep: 1,
 };
 export const authReducer = (state = initialState, action) => {
     // Este 'state' é o state total passado
@@ -53,7 +54,19 @@ export const authReducer = (state = initialState, action) => {
                     token: action.token,
                 }
             }
-        }
+        },
+        SET_REGISTER_FORM_STEP() {
+            return {
+                ...state,
+                registerFormStep: action.registerFormStep,
+            }
+        },
+        ADVANCE_RETURN_REGISTER_FORM_STEP() {
+            return {
+                ...state,
+                registerFormStep: action.plus ? state.registerFormStep + 1 : state.registerFormStep - 1,
+            }
+        },
     }
 
     return handleReducer[action.type] ?

@@ -10,5 +10,9 @@ export const StyledFieldset = styled.div`
             font-size: 1.2rem;
             margin-bottom: 10px;
         }
+
+        .error-message {
+            color: ${theme.danger.primary};
+        }
     `}
 `;

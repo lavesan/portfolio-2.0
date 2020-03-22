@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const StyledNeultralInput = styled.input`
-    ${({ theme }) => css`
+    ${({ theme, error }) => css`
         border-radius: 5px;
         border: none;
         background-color: ${theme.gray.terciary};
@@ -12,5 +12,10 @@ export const StyledNeultralInput = styled.input`
         ::placeholder {
             color: ${theme.gray.quaternary};
         }
+
+        ${error && css`
+            border-color: ${theme.danger.primary};
+            color: ${theme.danger.primary};
+        `}
     `}
 `;

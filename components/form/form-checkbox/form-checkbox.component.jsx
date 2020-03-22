@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
@@ -16,48 +16,58 @@ const GreenCheckbox = withStyles({
 
 export default ({ value, name, onChange, label, validatesOnChange = [], setFormValidations, formValidations }) => {
 
-    const setFieldValue = () => {
+  const applyValidations = () => {
 
-      onChange(name, !value)
+    if (validatesOnChange.length) {
       
-      if (validatesOnChange.length) {
-        
-        for (const validationFunc of validatesOnChange) {
+      for (const validationFunc of validatesOnChange) {
 
-          const validation = validationFunc(value, name);
+        const validation = validationFunc(value, name);
 
-          setFormValidations(function(f) {
-              return {
-                  ...f,
-                  [name]: {
-                      invalid: !validation.valid,
-                      message: validation.message,
-                  },
-              }
-          });
+        setFormValidations(function(f) {
+            return {
+                ...f,
+                [name]: {
+                    invalid: !validation.valid,
+                    message: validation.message,
+                },
+            }
+        });
 
-          if (!validation.valid) {
-              break;
-          }
-
+        if (!validation.valid) {
+            break;
         }
+
       }
 
     }
 
-    return (
-        <FormControlLabel
-            control={
-                <GreenCheckbox
-                    checked={value}
-                    onChange={setFieldValue}
-                    name={name}
-                    error={formValidations[name] && formValidations[name].invalid}
-                    color="primary"
-                />
-            }
-            label={label}
-            />
-    )
+  }
+
+  const setFieldValue = () => {
+
+    onChange(name, !value)
+    applyValidations();
+
+  }
+    
+  useEffect(() => {
+    applyValidations();
+  }, [])
+
+  return (
+      <FormControlLabel
+          control={
+              <GreenCheckbox
+                  checked={value}
+                  onChange={setFieldValue}
+                  name={name}
+                  error={formValidations[name] && formValidations[name].invalid}
+                  color="primary"
+              />
+          }
+          label={label}
+          />
+  )
 
 }

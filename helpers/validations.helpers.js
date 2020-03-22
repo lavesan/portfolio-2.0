@@ -1,6 +1,6 @@
 export const validateEmail = value => {
     return {
-        valid: /[\w.]+@(\w+\.?)+/g.test(value),
+        valid: /^[.a-zA-Z0-9]+@(?:[a-zA-Z]+\.?)+[a-zA-Z]$/g.test(value),
         message: 'Email inválido.',
     };
 }
@@ -15,14 +15,14 @@ export const validateCpf = value => {
 export const validateOnlyNumber = value => {
     return {
         valid: /\d*/g.test(value),
-        message: 'Apenas números neste campo.',
+        message: 'Apenas números.',
     };
 }
 
 export const isRequired = value => {
     return {
         valid: Boolean(value),
-        message: 'Este campo é obrigatório.',
+        message: 'Obrigatório.',
     };
 }
 
