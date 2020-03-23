@@ -80,5 +80,6 @@ export const onlyNumberStringToThreeDigit = value => {
 }
 
 export const percentageMask = value => {
-  return String(value).replace(/^(\d+)/, '$1 %')
+  const [integer] = String(value).split('.');
+  return `- ${integer} %`
 }

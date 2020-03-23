@@ -19,8 +19,8 @@ const ProductCardComponent = ({ dispatch, ...product }) => {
             if (product.promotionalValueCents) {
                 const promotional = onlyNumberStringToFloatNumber(product.promotionalValueCents);
                 const normal = onlyNumberStringToFloatNumber(product.actualValueCents);
-    
-                return (promotional - normal) * 100 / normal;
+
+                return (normal - promotional) * 100 / normal;
             }
             return 0;
 

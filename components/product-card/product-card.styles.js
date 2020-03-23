@@ -17,7 +17,8 @@ export const StyledProductCard = styled.div`
             border-bottom-left-radius: 5px;
             border-bottom-right-radius: 5px;
             color: #fff;
-            padding: 5px;
+            padding: 10px 5px;
+            font-size: .8rem;
         }
 
         .product-image-container {
@@ -36,31 +37,32 @@ export const StyledProductCard = styled.div`
         }
 
         .product-name {
-            margin: 10px 0;
+            margin: 2px 0;
             font-size: .9rem;
         }
 
         .price-section {
-            height: 30px;
+            height: 45px;
+            text-align: center;
 
             .price-promotion-paragraph {
                 text-decoration: line-through;
                 text-decoration-color: ${theme.gray.primary};
                 color: ${theme.gray.primary};
-                margin: 0 0 5px 0;
+                margin: 0;
+                font-size: .8rem;
             }
     
             .price-paragraph {
-                margin: 0 0 20px 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                margin: 0;
                 width: 100%;
-                padding: 0 40px;
+                padding: 0;
+                text-align: center;
     
                 .price-text {
                     color: #aaa;
                     font-size: .8rem;
+                    margin-right: 5px;
                 }
                 .price-value {
                     text-align: center;
