@@ -70,6 +70,9 @@ const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValu
 
     const inputValue = useMemo(
         () => {
+            if (quantityOnStock === quantity) {
+                return quantity.toFixed(3).replace('.', ',');
+            }
             return onlyNumberStringToThreeDigit(quantity);
         },
         [quantity]
@@ -81,7 +84,15 @@ const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValu
 
     const onChangeQuantityInput = e => {
 
-        const unmaskedValue = numberStringToFloatThreeDigit(e.target.value);
+        const lastNumbers = e.target.value.replace(/(\d{3})$/, ',$1');
+        const rightValue = lastNumbers.replace(/^(\d*)\,/, '$1');
+
+        let unmaskedValue = numberStringToFloatThreeDigit(rightValue);
+
+        if (unmaskedValue > quantityOnStock) {
+            unmaskedValue = quantityOnStock;
+        }
+
         dispatch(setProduct({
             id,
             quantity: unmaskedValue,

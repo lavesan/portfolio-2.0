@@ -64,6 +64,7 @@ export const StyledProductCart = styled.div`
                     color: ${theme.green.terciary};
                     border-color: ${theme.green.primary};
                     white-space: nowrap;
+                    font-weight: 900;
                 }
                 
                 .deactivate-manage {
@@ -76,6 +77,7 @@ export const StyledProductCart = styled.div`
                 margin: auto auto 10px auto;
 
                 .quantity-input {
+                    font-weight: 900;
                     outline: none;
                     color: ${theme.green.terciary};
                     border: thin solid ${theme.green.primary};
