@@ -33,3 +33,39 @@ export function clearCart () {
         type: CartTypes.clearCart,
     };
 }
+
+export function setOrderUserForm({ fieldName, value }) {
+    return {
+        type: CartTypes.SET_ORDER_FORM,
+        formName: 'user',
+        fieldName,
+        value,
+    };
+}
+
+export function setOrderScheduleForm({ fieldName, value }) {
+    return {
+        type: CartTypes.SET_ORDER_FORM,
+        formName: 'schedule',
+        fieldName,
+        value,
+    };
+}
+
+export function setOrderCardForm({ fieldName, value }) {
+    return {
+        type: CartTypes.SET_ORDER_FORM,
+        formName: 'card',
+        fieldName,
+        value,
+    };
+}
+
+export function setOrderAddressForm({ fieldName, value }) {
+    return {
+        type: CartTypes.SET_ORDER_FORM,
+        formName: 'address',
+        fieldName,
+        value,
+    };
+}

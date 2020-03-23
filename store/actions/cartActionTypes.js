@@ -4,4 +4,5 @@ export default {
     removeProduct: 'REMOVE_PRODUCT',
     setProduct: 'SET_PRODUCT',
     clearCart: 'CLEAR_CART',
+    SET_ORDER_FORM: 'SET_ORDER_FORM',
 }

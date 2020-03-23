@@ -1,5 +1,29 @@
 const initialState = {
     products: [],
+    orderForm: {
+        user: {
+            cpf: '',
+            type: '',
+        },
+        schedule: {
+            date: '',
+            time: '',
+        },
+        card: {
+            number: '',
+            validThru: '',
+            nameOnCard: '',
+            cvv: '',
+        },
+        address: {
+            id: '',
+            cep: '',
+            district: '',
+            address: '',
+            number: '',
+            complement: '',
+        },
+    }
 };
 export const cartReducer = (state = initialState, action) => {
     // Este 'state' é o state total passado
@@ -52,6 +76,18 @@ export const cartReducer = (state = initialState, action) => {
                 products: [],
             }
         },
+        SET_ORDER_FORM() {
+            return {
+                ...state,
+                orderForm: {
+                    ...state.orderForm,
+                    [action.formName]: {
+                        ...state[action.formName],
+                        [action.fieldName]: action.value,
+                    }
+                }
+            }
+        }
     }
 
     return handleReducer[action.type] ?
