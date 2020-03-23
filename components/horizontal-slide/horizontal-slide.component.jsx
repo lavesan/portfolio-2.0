@@ -28,7 +28,6 @@ export default ({ children, className }) => {
 
   const moveSlide = e => {
     e.persist();
-    // console.log("target: ", e);
     if (slide.canSlide) {
       // get actual width of the box if it's resized and decrement in the max drag width
       const elemArr = Array.from(slideRef.current.children);

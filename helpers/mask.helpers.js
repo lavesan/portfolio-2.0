@@ -25,7 +25,7 @@ export const maxLengthMask = (value, length) => {
 }
 
 export const onlyCharactersMask = value => {
-    return value.replace(/[^A-Za-z ]/g, "");
+    return value.replace(/[^a-zA-Z\u00C0-\u00FF ]/g, "");
 }
 
 export const celphoneMask = value => {

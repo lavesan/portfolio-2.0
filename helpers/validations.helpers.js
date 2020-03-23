@@ -26,6 +26,13 @@ export const isRequired = value => {
     };
 }
 
+export const isRequireTrue = value => {
+    return {
+        valid: value,
+        message: 'Obrigatório marcar.',
+    };
+}
+
 export const maxValue = (value, max) => {
     const numberValue = Number(value);
     return {
@@ -60,5 +67,12 @@ export const isEqualTo = (value1, value2, errorMessage) => {
     return {
         valid: value1 === value2,
         message: errorMessage,
+    }
+}
+
+export const notNullable = value => {
+    return {
+        valid: value !== null || value !== undefined || value !== '',
+        message: 'Obrigatório.'
     }
 }

@@ -49,7 +49,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                 ...catProd,
                 products: catProd.products.map(product => {
 
-                    const promotionalProduct = productsFromPromotion.filter(promoProd => promoProd.id === product.id);
+                    const promotionalProduct = productsFromPromotion.filter(promoProd => promoProd && product && promoProd.id === product.id);
 
                     let value = '0';
                     if (promotionalProduct && promotionalProduct.length) {

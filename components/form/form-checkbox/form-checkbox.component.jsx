@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
@@ -14,15 +14,15 @@ const GreenCheckbox = withStyles({
     checked: {},
   })(props => <Checkbox color="default" {...props} />);
 
-export default ({ value, name, onChange, label, validatesOnChange = [], setFormValidations, formValidations }) => {
+export default ({ value, name, onChange, label, validatesOnChange = [], setFormValidations, formValidations, startValidations, style }) => {
 
-  const applyValidations = () => {
+  const applyValidations = actualValue => {
 
     if (validatesOnChange.length) {
       
       for (const validationFunc of validatesOnChange) {
 
-        const validation = validationFunc(value, name);
+        const validation = validationFunc(actualValue, name);
 
         setFormValidations(function(f) {
             return {
@@ -43,27 +43,36 @@ export default ({ value, name, onChange, label, validatesOnChange = [], setFormV
     }
 
   }
+  
+  const startErrorValidation = useMemo(
+    () => {
+        return startValidations ? (formValidations[name] && formValidations[name].invalid) : false;
+    },
+    [startValidations, formValidations]
+  )
 
   const setFieldValue = () => {
 
     onChange(name, !value)
-    applyValidations();
+    applyValidations(!value);
 
   }
     
   useEffect(() => {
-    applyValidations();
+    applyValidations(value);
   }, [])
 
   return (
       <FormControlLabel
+        style={style}
           control={
               <GreenCheckbox
-                  checked={value}
-                  onChange={setFieldValue}
-                  name={name}
-                  error={formValidations[name] && formValidations[name].invalid}
-                  color="primary"
+                // style={style}
+                checked={value}
+                onChange={setFieldValue}
+                name={name}
+                error={startErrorValidation}
+                color="primary"
               />
           }
           label={label}

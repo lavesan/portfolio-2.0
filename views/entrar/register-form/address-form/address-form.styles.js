@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const StyledAddressForm = styled.div`
     .w-60 {
@@ -12,6 +12,26 @@ export const StyledAddressForm = styled.div`
     }
     .w-80 {
         width: 80%;
+    }
+
+    .search-button-container {
+        button {
+            width: 100%;
+        }
+        ${({ isResponsive }) => isResponsive
+            ? css`
+                height: 85px;
+                button {
+                    padding: 19px 0px;
+                }
+                `
+            : css`
+                height: 50px;
+                button {
+                    padding: 10px 0;
+                }
+            `
+        }
     }
 
     .row {

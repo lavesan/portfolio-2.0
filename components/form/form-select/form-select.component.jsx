@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Select from '@material-ui/core/Select';
@@ -7,15 +7,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
-const useStyles = makeStyles(() => ({
-    select: {
-        width: '100%',
-    },
-}));
+// const useStyles = makeStyles(() => ({
+//     select: {
+//         width: '100%',
+//     },
+// }));
 
-const FormSelectComponent = ({ label, value, name, options = [], onChange, validatesOnChange = [], setFormValidations, formValidations = {}, screenWidth }) => {
-
-    const classes = useStyles();
+const FormSelectComponent = ({ label, value, name, options = [], onChange, validatesOnChange = [], setFormValidations, formValidations = {}, screenWidth, startValidations }) => {
 
     const margin = useMemo(
         () => {
@@ -24,7 +22,9 @@ const FormSelectComponent = ({ label, value, name, options = [], onChange, valid
         [screenWidth]
     )
 
-    const applyValidation = () => {
+    // const classes = useStyles();
+
+    const applyValidations = value => {
         
         if (validatesOnChange.length) {
 
@@ -52,28 +52,41 @@ const FormSelectComponent = ({ label, value, name, options = [], onChange, valid
 
     }
 
+    const startErrorValidation = useMemo(
+        () => {
+            return startValidations ? (formValidations[name] && formValidations[name].invalid ? 'true' : '') : '';
+        },
+        [startValidations, formValidations]
+    )
+
     const setFieldValue = (e) => {
 
         onChange(name, e.target.value);
-        applyValidation();
+        applyValidations();
 
     }
 
     useEffect(() => {
-        applyValidation();
+        applyValidations();
     }, [])
 
     return (
-        <div>
+        <div
+            style={{
+                width: '100%',
+                height: margin ? 67 : 85,
+            }}>
             <FormControl
                 variant="outlined"
                 margin={margin}
-                error={formValidations[name] && formValidations[name].invalid}
-                className={classes.select}>
+                style={{
+                    width: '100%',
+                    height: margin ? 67 : 85,
+                }}
+                error={startErrorValidation}>
                 <InputLabel id={`select=${name}`}>{label}</InputLabel>
                 <Select
                     native
-                    className={classes.select}
                     labelId={`select=${name}`}
                     value={value}
                     onChange={setFieldValue}
@@ -83,7 +96,7 @@ const FormSelectComponent = ({ label, value, name, options = [], onChange, valid
                         <option value={opt.value}>{opt.label}</option>
                     ))}
                 </Select>
-                {formValidations[name] && formValidations[name].invalid && <FormHelperText>{formValidations[name].message}</FormHelperText>}
+                {startErrorValidation && <FormHelperText>{formValidations[name].message}</FormHelperText>}
             </FormControl>
         </div>
     )

@@ -21,7 +21,7 @@ export const StyledStartPage = styled.div`
             ${({ theme }) => css`
                 .loading-promotion {
                     border-radius: 5px;
-                    height: 140px;
+                    height: 220px;
                     background-color: ${theme.gray.secondary};
                     overflow: hidden;
                     display: flex;

@@ -3,6 +3,8 @@ const CHANGE_SELECTED_FORM = 'CHANGE_SELECTED_FORM';
 const SET_USER_INFO = 'SET_USER_INFO';
 const SET_REGISTER_FORM_STEP = 'SET_REGISTER_FORM_STEP';
 const ADVANCE_RETURN_REGISTER_FORM_STEP = 'ADVANCE_RETURN_REGISTER_FORM_STEP';
+const SET_REGISTER_FORM_VALIDATIONS = 'SET_REGISTER_FORM_VALIDATIONS';
+const SET_LOGIN_FORM_VALIDATIONS = 'SET_LOGIN_FORM_VALIDATIONS';
 
 export const setLoginFormValues = ({ name, value }) => ({
     type: SET_FORM_VALUES,
@@ -43,4 +45,14 @@ export const setRegisterFormStep = registerFormStep => ({
 export const advanceReturnRegisterFormStep = plus => ({
     type: ADVANCE_RETURN_REGISTER_FORM_STEP,
     plus,
+})
+
+export const setRegisterFormValidations = registerFormValidations => ({
+    type: SET_REGISTER_FORM_VALIDATIONS,
+    registerFormValidations,
+})
+
+export const setLoginFormValidations = loginFormValidations => ({
+    type: SET_LOGIN_FORM_VALIDATIONS,
+    loginFormValidations,
 })

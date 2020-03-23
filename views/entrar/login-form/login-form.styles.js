@@ -2,6 +2,10 @@ import styled, { css } from 'styled-components';
 
 export const StyledLoginForm = styled.section`
     ${({ theme }) => css`
+        display: flex;
+        flex-flow: column nowrap;
+        flex: 1;
+
         .login-form {
             max-width: 350px;
             margin-top: 20px;

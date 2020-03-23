@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { StyledNeultralInput } from '../form-input';
 import { StyledFieldset } from './form-field.styles';
 
-export default ({ label, name, setFieldValue, className, setFormValidations, formValidations = {}, ...inputProps }) => {
+export default ({ label, name, setFieldValue, className, setFormValidations, formValidations = {}, startValidations, ...inputProps }) => {
     
     const applyValidations = () => {
         
@@ -33,6 +33,13 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
 
     }
 
+    const startErrorValidation = useMemo(
+        () => {
+            return startValidations ? (formValidations[name] && formValidations[name].invalid) : false;
+        },
+        [startValidations, formValidations]
+    )
+
     const onChange = (element) => {
 
         setFieldValue(name, element.target.value);
@@ -49,11 +56,11 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
             <label htmlFor={name}>{label}</label>
             <StyledNeultralInput
                 id={name}
-                error={formValidations[name] && formValidations[name].invalid}
+                error={startErrorValidation}
                 name={name}
                 onChange={onChange}
                 {...inputProps} />
-            {formValidations[name] && formValidations[name].invalid ? <small className="error-message">{formValidations[name].message}</small> : ''}
+            {startErrorValidation ? <small className="error-message">{formValidations[name].message}</small> : ''}
         </StyledFieldset>
     )
 

@@ -1,19 +1,23 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
-const useStyles = makeStyles(() => ({
-    input: {
-        width: '100%',
-        backgroundColor: '#fff',
-        borderRadius: 5,
-    },
-}));
+const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChange = [], setFormValidations, formValidations = {}, screenWidth, dispatch, value, startValidations, className, ...inputProps }) => {
 
-const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChange = [], setFormValidations, formValidations = {}, screenWidth, dispatch, ...inputProps }) => {
+    const margin = useMemo(
+        () => {
+            return screenWidth < 700 ? '' : 'dense';
+        },
+        [screenWidth]
+    )
 
-    const classes = useStyles();
+    const [activateValidation, setActivationValidation] = useState(false);
+
+    // Activates the validation
+    const onFocousOut = () => {
+        setActivationValidation(true);
+    }
 
     const applyValidations = value => {
         
@@ -22,7 +26,6 @@ const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChan
             for (const validationFunc of validatesOnChange) {
 
                 const validation = validationFunc(value, name);
-    
                 setFormValidations(function(f) {
                     return {
                         ...f,
@@ -42,19 +45,20 @@ const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChan
         }
 
     }
-
-    const margin = useMemo(
+    
+    const startErrorValidation = useMemo(
         () => {
-            return screenWidth < 700 ? '' : 'dense';
+            const invalido = (startValidations || activateValidation) ? (formValidations[name] && formValidations[name].invalid) : false;
+            return invalido;
         },
-        [screenWidth]
+        [startValidations, activateValidation, formValidations]
     )
 
     const setFieldValue = (e) => {
 
-        const value = maskOnChange ? maskOnChange(e.target.value) : e.target.value;
-        onChange(e.target.name, value);
-        applyValidations(value);
+        const finalValue = maskOnChange ? maskOnChange(e.target.value) : e.target.value;
+        onChange(name, finalValue);
+        applyValidations(finalValue);
 
     }
 
@@ -64,17 +68,24 @@ const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChan
 
     return (
         <TextField
-            className={classes.input}
+            style={{
+                width: '100%',
+                height: margin ? 55 : 85,
+            }}
+            className={className}
             label={label}
             variant="outlined"
             onChange={setFieldValue}
-            error={formValidations[name] && formValidations[name].invalid}
+            onBlur={onFocousOut}
+            error={startErrorValidation}
             margin={margin}
-            helperText={formValidations[name] && formValidations[name].invalid ? formValidations[name].message : ''}
+            helperText={startErrorValidation ? formValidations[name].message : ''}
             name={name}
+            value={value}
             {...inputProps}
             />
     )
+
 }
 
 const mapStateToProps = store => ({

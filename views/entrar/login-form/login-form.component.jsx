@@ -1,30 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 
 import { StyledLoginForm } from './login-form.styles';
 import { StyledSuccessButton } from '../../../components/button';
-import { setLoginFormValues } from '../../../store/actions/authActions';
+import { setLoginFormValues, setLoginFormValidations } from '../../../store/actions/authActions';
 import { FormTextMaterial } from '../../../components/form/form-text-material';
 import { setSelectedForm, setUserInfo } from '../../../store/actions/authActions';
-import { useState } from 'react';
 import { isRequired, validateEmail } from '../../../helpers/validations.helpers';
 import { authInstance } from '../../../services/auth.service';
 import { AuthenticationFooterComponent } from '../authentication-footer';
 import { StyledHeaderCotainer } from '../entrar.styles';
 
-const LoginFormComponent = ({ dispatch, loginForm, returnPage }) => {
+const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidations }) => {
+
+    const router = useRouter();
 
     const authService = authInstance.getInstance();
+    
+    const [submitted, setSubmitted] = useState(false);
 
-    const [formValidations, setFormValidations] = useState({});
+    const setFormValidations = (func) => {
+
+        const validations = func(loginFormValidations);
+        dispatch(setLoginFormValidations(validations));
+
+    }
 
     const headerParagraph = 'Vamos iniciar suas compras :)';
+
+    const formInvalid = () => {
+        
+        const validations = Object.values(loginFormValidations);
+        return validations.some(validation => validation.invalid);
+
+    }
 
     const onSubmit = (e) => {
 
         e.preventDefault();
+
+        if (!submitted) {
+            setSubmitted(true);
+        }
+
+        if (formInvalid()) {
+            return;
+        }
 
         authService.login({
             email: loginForm.email,
@@ -35,6 +59,7 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage }) => {
                     ...res.user,
                     token: res.token,
                 }));
+                router.push('/inicio');
             })
             .catch(err => {
                 console.log(err);
@@ -71,8 +96,9 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage }) => {
                     <FormTextMaterial
                         label="Insira seu email"
                         name="email"
+                        startValidations={submitted}
                         validatesOnChange={[isRequired, validateEmail]}
-                        formValidations={formValidations}
+                        formValidations={loginFormValidations}
                         setFormValidations={setFormValidations}
                         value={loginForm.email}
                         onChange={setFieldValue} />
@@ -80,8 +106,9 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage }) => {
                         label="Sua senha"
                         type="password"
                         name="password"
+                        startValidations={submitted}
                         validatesOnChange={[isRequired]}
-                        formValidations={formValidations}
+                        formValidations={loginFormValidations}
                         setFormValidations={setFormValidations}
                         value={loginForm.password}
                         onChange={setFieldValue} />
@@ -113,6 +140,7 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage }) => {
 
 const mapStateToProps = store => ({
     loginForm: store.authState.loginForm,
+    loginFormValidations: store.authState.loginFormValidations,
 })
 
 export default connect(mapStateToProps)(LoginFormComponent);

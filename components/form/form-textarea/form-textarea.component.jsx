@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { StyledTextArea } from './form-textarea.styles';
 import { StyledFieldset } from '../form-field/form-field.styles';
 
-export default ({ label, className, setFieldValue, name, legend, maskOnChange, validatesOnChange = [], setFormValidations, formValidations, ...textareaProps }) => {
+export default ({ label, className, setFieldValue, name, legend, maskOnChange, validatesOnChange = [], setFormValidations, formValidations, startValidations, ...textareaProps }) => {
 
-    const onChange = (e) => {
+    const [activateValidation, setActivationValidation] = useState(false);
 
-        const value = maskOnChange ? maskOnChange(e.target.value) : e.target.value;
-        setFieldValue(name, value);
+    // Activates the validation
+    const onFocousOut = () => {
+        setActivationValidation(true);
+    }
 
+    const applyValidations = value => {
+        
         if (validatesOnChange.length) {
-            
+
             for (const validationFunc of validatesOnChange) {
 
                 const validation = validationFunc(value, name);
@@ -33,7 +37,23 @@ export default ({ label, className, setFieldValue, name, legend, maskOnChange, v
             }
 
         }
+
     }
+
+    const setFieldValue = (e) => {
+
+        const finalValue = maskOnChange ? maskOnChange(e.target.value) : e.target.value;
+        onChange(name, finalValue);
+        applyValidations(value);
+
+    }
+
+    const startErrorValidation = useMemo(
+        () => {
+            return (startValidations || activateValidation) ? (formValidations[name] && formValidations[name].invalid ? 'true' : '') : '';
+        },
+        [startValidations, activateValidation, formValidations]
+    )
 
     return (
         <StyledFieldset className={className}>
@@ -44,7 +64,8 @@ export default ({ label, className, setFieldValue, name, legend, maskOnChange, v
                 name={name}
                 onChange={onChange}
                 rows={6}
-                error={formValidations[name] && formValidations[name].invalid}
+                onFocousOut={onFocousOut}
+                error={startErrorValidation}
                 {...textareaProps} />
         </StyledFieldset>
     )

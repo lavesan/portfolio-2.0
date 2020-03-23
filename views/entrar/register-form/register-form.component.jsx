@@ -2,22 +2,33 @@ import React, { useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 
-import { setRegisterFormValues, advanceReturnRegisterFormStep } from '../../../store/actions/authActions';
+import { setRegisterFormValues, advanceReturnRegisterFormStep, setRegisterFormValidations } from '../../../store/actions/authActions';
 import { StyledRegisterForm } from './register-form.styles';
 import { authInstance } from '../../../services/auth.service';
 import { AccessForm } from './access-form';
 import { PersonalForm } from './personal-form';
 import { AddressForm } from './address-form';
-import { StyledSuccessButton } from '../../../components/button';
+import { StyledSuccessButton, StyledFullRevSuccessButton } from '../../../components/button';
 import { AuthenticationFooterComponent } from '../authentication-footer';
 import { StyledHeaderCotainer } from '../entrar.styles';
 
-const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFormStep, returnPage }) => {
+const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFormStep, returnPage, registerFormValidations }) => {
+
+    const router = useRouter();
 
     const authService = authInstance.getInstance();
 
     const headerParagraph = 'Vamos fazer o seu cadastro rapidinho :)';
+
+    const [submittedBig, setSubmittedBig] = useState(false);
+
+    const [submittedSteps, setSubmittedSteps] = useState({
+        first: false,
+        second: false,
+        finish: false,
+    });
 
     const setFieldValue = (name, value) => {
 
@@ -32,70 +43,194 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
         dispatch(advanceReturnRegisterFormStep(false));
     }
 
-    const advanceResponsiveRegister = () => {
-        dispatch(advanceReturnRegisterFormStep(true));
-    }
+    const advanceResponsiveRegister = async () => {
 
-    const GetFormByStep = () => {
         if (registerFormStep === 1) {
-            return (
-                <></>
-                // <AccessForm
-                //     values={registerForm}
-                //     setFormValidations={setFormValidations}
-                //     formValidations={formValidations}
-                //     setFieldValue={setFieldValue} />
-            )
+            await validateFirstStep();
+        } else if (registerFormStep === 2) {
+            await validateSecondStep();
         }
-        else if (registerFormStep === 2) {
-            return (
-                <></>
-                // <PersonalForm
-                //     values={registerForm}
-                //     setFormValidations={setFormValidations}
-                //     formValidations={formValidations}
-                //     setFieldValue={setFieldValue} />
-            )
-        } else {
-            return (
-                <>
-                </>
-                // <AddressForm
-                //     values={registerForm}
-                //     setFormValidations={setFormValidations}
-                //     formValidations={formValidations}
-                //     setFieldValue={setFieldValue} />
-            )
-        }
+
+        dispatch(advanceReturnRegisterFormStep(true));
+
     }
 
-    const [formValidations, setFormValidations] = useState({});
-
-    const formInvalid = useMemo(
+    const isResponsive = useMemo(
         () => {
-
-            const validations = Object.values(formValidations);
-            return validations.some(validation => validation.invalid)
-
+            return screenWidth < 700;
         },
-        [formValidations]
+        [screenWidth]
     )
+
+    const setFormValidations = (func) => {
+
+        const validations = func(registerFormValidations);
+        dispatch(setRegisterFormValidations(validations));
+
+    }
+
+    const firstStepInvalid = () => {
+
+        const accessFormKeys = ['name', 'email', 'password', 'confirmPassword', 'cpf', 'termOfContract'];
+        
+        let invalid = false;
+
+        for (const key of accessFormKeys) {
+            console.log('registerFormValidations[key]: ', registerFormValidations[key]);
+            if (registerFormValidations[key] && registerFormValidations[key].invalid) {
+                invalid = true;
+                break;
+            }
+        }
+
+        return invalid;
+
+    }
+
+    const secondStepInvalid = () => {
+
+        const accessFormKeys = ['gender', 'age', 'animalsQuantity', 'childrensQuantity', 'role'];
+        
+        let invalid = false;
+
+        for (const key of accessFormKeys) {
+            if (registerFormValidations[key] && registerFormValidations[key].invalid) {
+                invalid = true;
+                break;
+            }
+        }
+
+        return invalid;
+
+    }
+
+    const lastStepInvalid = () => {
+
+        const addressFormKeys = ['cep', 'address', 'number', 'district', 'complement', 'type'];
+        
+        let invalid = false;
+
+        for (const key of addressFormKeys) {
+            if (registerFormValidations[key] && registerFormValidations[key].invalid) {
+                invalid = true;
+                break;
+            }
+        }
+
+        return invalid;
+
+    }
+
+    const formInvalid = () => {
+
+        const validations = Object.values(registerFormValidations);
+        return validations.some(validation => validation.invalid)
+
+    }
+
+    const validateFirstStep = () => {
+        return new Promise((resolve, reject) => {
+            
+            if (!submittedSteps.first) {
+                setSubmittedSteps(f => ({
+                    ...f,
+                    first: true,
+                }));
+            }
+    
+            if (firstStepInvalid()) {
+                reject();
+            }
+            resolve();
+        })
+    }
+    const validateSecondStep = () => {
+        return new Promise((resolve, reject) => {
+
+            if (!submittedSteps.second) {
+                setSubmittedSteps(f => ({
+                    ...f,
+                    second: true,
+                }));
+            }
+    
+            if (secondStepInvalid()) {
+                reject();
+            }
+            resolve();
+
+        })
+    }
+    const validateFinishStep = () => {
+        return new Promise((resolve, reject) => {
+
+            if (!submittedSteps.finish) {
+                setSubmittedSteps(f => ({
+                    ...f,
+                    finish: true,
+                }));
+            }
+    
+            if (lastStepInvalid()) {
+                reject();
+            }
+            resolve();
+
+        })
+    }
 
     const onSubmit = (e) => {
 
         e.preventDefault();
 
-        if (formInvalid) {
+        if (!submittedBig) {
+            setSubmittedBig(true);
+        }
+
+        if (formInvalid()) {
             return;
         }
 
-        authService.save();
+        finishRegister();
 
+    }
+
+    const onResponsiveSubmit = async () => {
+        await validateFinishStep()
+            .then(() => {
+                finishRegister();
+            });
+    }
+
+    const finishRegister = () => {
+
+        const { cep, address, number, district, complement, type, ...userData } = registerForm;
+
+        const body = {
+            ...userData,
+            address: {
+                address,
+                cep,
+                number,
+                complement,
+                type,
+                district,
+            }
+        }
+        
+        authService.save(body)
+            .then(res => {
+                router.push('/inicio');
+                console.log('resposta: ', res);
+            })
+            .catch(err => {
+                console.log('erro: ', err);
+            });
     }
 
     return (
         <StyledRegisterForm>
-            {screenWidth < 700
+            {isResponsive
                 ? <div className="return-login-container">
                     {registerFormStep > 1
                         ? <>
@@ -113,9 +248,9 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
                     <p>{headerParagraph}</p>
                 </div>
                 <div className="authentication-header--actions">
-                    <StyledSuccessButton onClick={returnPage}>
+                    <StyledFullRevSuccessButton onClick={returnPage}>
                         Voltar a navegar
-                    </StyledSuccessButton>
+                    </StyledFullRevSuccessButton>
                 </div>
             </StyledHeaderCotainer>
             <div className="register-head-line">
@@ -123,36 +258,65 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
             </div>
             <form onSubmit={onSubmit} className="form-container">
                 <div className="form-row">
-                    {screenWidth >= 700
+                    {!isResponsive
                         ? <>
                             <div className="credentials-form">
                                 <AccessForm
                                     values={registerForm}
+                                    startValidations={submittedBig}
                                     setFormValidations={setFormValidations}
-                                    formValidations={formValidations}
+                                    formValidations={registerFormValidations}
                                     setFieldValue={setFieldValue} />
                             </div>
                             <div className="info-form">
                                 <PersonalForm
                                     values={registerForm}
+                                    startValidations={submittedBig}
                                     setFormValidations={setFormValidations}
-                                    formValidations={formValidations}
+                                    formValidations={registerFormValidations}
                                     setFieldValue={setFieldValue} />
                             </div>
                             <div className="address-form">
                                 <AddressForm
                                     values={registerForm}
+                                    startValidations={submittedBig}
                                     setFormValidations={setFormValidations}
-                                    formValidations={formValidations}
+                                    formValidations={registerFormValidations}
                                     setFieldValue={setFieldValue} />
                             </div>
                         </>
                         : <div className="full-width">
-                            <GetFormByStep />
+                            {registerFormStep === 1 && 
+                                <AccessForm
+                                    values={registerForm}
+                                    isResponsive={isResponsive}
+                                    startValidations={submittedSteps.first}
+                                    setFormValidations={setFormValidations}
+                                    formValidations={registerFormValidations}
+                                    setFieldValue={setFieldValue} />
+                            }
+                            {registerFormStep === 2 &&
+                                <PersonalForm
+                                    values={registerForm}
+                                    isResponsive={isResponsive}
+                                    startValidations={submittedSteps.second}
+                                    setFormValidations={setFormValidations}
+                                    formValidations={registerFormValidations}
+                                    setFieldValue={setFieldValue} />
+                            }
+                            {registerFormStep === 3 &&
+                                <AddressForm
+                                    values={registerForm}
+                                    isResponsive={isResponsive}
+                                    startValidations={submittedSteps.finish}
+                                    setFormValidations={setFormValidations}
+                                    formValidations={registerFormValidations}
+                                    setFieldValue={setFieldValue} />
+                            }
                         </div>
                     }
                 </div>
-                {screenWidth >= 700
+                {!isResponsive
                     ? <div className="button-row">
                         <div></div>
                         <AuthenticationFooterComponent className="footer-container" />
@@ -164,14 +328,16 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
                         {registerFormStep < 3
                             ? <StyledSuccessButton
                                 type="button"
+                                notDense={'true'}
                                 className="step-button-row"
                                 onClick={advanceResponsiveRegister}>
                                     Prosseguir
                             </StyledSuccessButton>
                             : <StyledSuccessButton
                                 type="button"
+                                notDense={'true'}
                                 className="step-button-row"
-                                onClick={onSubmit}>
+                                onClick={onResponsiveSubmit}>
                                     Criar cadastro
                             </StyledSuccessButton>
                         }
@@ -186,6 +352,7 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
 const mapStateToProps = store => ({
     registerFormStep: store.authState.registerFormStep,
     registerForm: store.authState.registerForm,
+    registerFormValidations: store.authState.registerFormValidations,
     screenWidth: store.uiState.screenWidth,
 })
 

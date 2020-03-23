@@ -3,12 +3,12 @@ import React from 'react';
 import { StyledFormTitle } from '../register-form.styles';
 import { StyledPersonalForm } from './personal-form.styles';
 import { maxLengthMask, onlyNumberMask } from '../../../../helpers/mask.helpers';
-import { isRequired } from '../../../../helpers/validations.helpers';
+import { isRequired, notNullable, validateOnlyNumber } from '../../../../helpers/validations.helpers';
 import { FormTextMaterial } from '../../../../components/form/form-text-material';
 import { FormSelectComponent } from '../../../../components/form/form-select';
 import { userRoleOpts, userGenderOpts } from '../../../../helpers/register.helpers';
 
-export default ({ setFormValidations, formValidations, setFieldValue, values }) => {
+export default ({ setFormValidations, formValidations, setFieldValue, values, isResponsive, startValidations }) => {
     
     const ageMask = value => {
         const onlyNumber = onlyNumberMask(value);
@@ -16,8 +16,8 @@ export default ({ setFormValidations, formValidations, setFieldValue, values }) 
     }
 
     return (
-        <StyledPersonalForm>
-            <StyledFormTitle>
+        <StyledPersonalForm isResponsive={isResponsive}>
+            <StyledFormTitle isResponsive={isResponsive}>
                 <h2>Informações pessoais</h2>
                 <p className="section-description">Para personalizarmos suas promoções</p>
             </StyledFormTitle>
@@ -26,6 +26,8 @@ export default ({ setFormValidations, formValidations, setFieldValue, values }) 
                     <FormSelectComponent
                         label="Gênero"
                         name="gender"
+                        startValidations={startValidations}
+                        validatesOnChange={[notNullable]}
                         formValidations={formValidations}
                         setFormValidations={setFormValidations}
                         value={values.gender}
@@ -36,6 +38,8 @@ export default ({ setFormValidations, formValidations, setFieldValue, values }) 
                     <FormTextMaterial
                         label="Idade"
                         name="age"
+                        startValidations={startValidations}
+                        validatesOnChange={[isRequired, validateOnlyNumber]}
                         formValidations={formValidations}
                         setFormValidations={setFormValidations}
                         maskOnChange={ageMask}
@@ -44,32 +48,33 @@ export default ({ setFormValidations, formValidations, setFieldValue, values }) 
                 </div>
             </div>
             <div className="row">
-                <div className="w-50">
-                    <FormTextMaterial
-                        label="Quant. de animais"
-                        name="animalsQuantity"
-                        formValidations={formValidations}
-                        setFormValidations={setFormValidations}
-                        maskOnChange={onlyNumberMask}
-                        value={values.animalsQuantity}
-                        onChange={setFieldValue} />
-                </div>
-                <div className="w-50">
-                    <FormTextMaterial
-                        label="Quant. de crianças"
-                        name="childrensQuantity"
-                        formValidations={formValidations}
-                        setFormValidations={setFormValidations}
-                        maskOnChange={onlyNumberMask}
-                        value={values.childrensQuantity}
-                        onChange={setFieldValue} />
-                </div>
+                <FormTextMaterial
+                    className="w-50"
+                    label="Quant. de animais"
+                    name="animalsQuantity"
+                    startValidations={startValidations}
+                    formValidations={formValidations}
+                    setFormValidations={setFormValidations}
+                    maskOnChange={onlyNumberMask}
+                    value={values.animalsQuantity}
+                    onChange={setFieldValue} />
+                <FormTextMaterial
+                    className="w-50"
+                    label="Quant. de crianças"
+                    name="childrensQuantity"
+                    startValidations={startValidations}
+                    formValidations={formValidations}
+                    setFormValidations={setFormValidations}
+                    maskOnChange={onlyNumberMask}
+                    value={values.childrensQuantity}
+                    onChange={setFieldValue} />
             </div>
             <div className="w-80">
                 <FormSelectComponent
                     label="Seu papel"
                     name="role"
-                    validatesOnChange={[isRequired]}
+                    startValidations={startValidations}
+                    validatesOnChange={[notNullable]}
                     formValidations={formValidations}
                     setFormValidations={setFormValidations}
                     value={values.role}
@@ -82,7 +87,7 @@ export default ({ setFormValidations, formValidations, setFieldValue, values }) 
                 name="description"
                 formValidations={formValidations}
                 setFormValidations={setFormValidations}
-                value={values.childrensQuantity}
+                value={values.description}
                 onChange={setFieldValue} />
         </StyledPersonalForm>
     )

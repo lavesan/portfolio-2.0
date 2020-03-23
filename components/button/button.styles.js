@@ -4,6 +4,7 @@ const ButtonCss = css`
     cursor: pointer;
     border-radius: 5px;
     padding: 10px 20px;
+    outline: none;
 `;
 
 export const StyledSuccessButton = styled.button`
@@ -30,5 +31,14 @@ export const StyledRevSuccessButton = styled.button`
         color: ${theme.green.primary};
         background-color: #fff;
         border: thin solid #fff;
+    `}
+`;
+
+export const StyledFullRevSuccessButton = styled.button`
+    ${ButtonCss}
+    ${({ theme }) => css`
+        color: ${theme.green.primary};
+        background-color: #fff;
+        border: thin solid ${theme.green.primary};
     `}
 `;

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const StyledPersonalForm = styled.div`
     .w-60 {
@@ -22,4 +22,10 @@ export const StyledPersonalForm = styled.div`
             margin-right: 10px;
         }
     }
+    
+    /* ${({ isResponsive }) => isResponsive && css`
+        > * {
+            margin-bottom: 20px !important;
+        }
+    `} */
 `;

@@ -12,17 +12,27 @@ const initialState = {
         password: '',
     },
     registerForm: {
+        name: '',
         cpf: '',
         email: '',
         password: '',
         confirmPassword: '',
         termOfContract: false,
+        gender: 1,
         role: 0,
         age: '',
-        animalsQuantity: '',
-        childrensQuantity: '',
+        animalsQuantity: '0',
+        childrensQuantity: '0',
         description: '',
+        cep: '',
+        address: '',
+        number: '',
+        district: '',
+        complement: '',
+        type: '',
     },
+    loginFormValidations: {},
+    registerFormValidations: {},
     registerFormStep: 1,
 };
 export const authReducer = (state = initialState, action) => {
@@ -59,6 +69,24 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 registerFormStep: action.registerFormStep,
+            }
+        },
+        SET_LOGIN_FORM_VALIDATIONS() {
+            return {
+                ...state,
+                loginFormValidations: {
+                    ...state.loginFormValidations,
+                    ...action.loginFormValidations,
+                },
+            }
+        },
+        SET_REGISTER_FORM_VALIDATIONS() {
+            return {
+                ...state,
+                registerFormValidations: {
+                    ...state.registerFormValidations,
+                    ...action.registerFormValidations,
+                },
             }
         },
         ADVANCE_RETURN_REGISTER_FORM_STEP() {

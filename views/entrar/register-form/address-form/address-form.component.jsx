@@ -2,16 +2,16 @@ import React from 'react';
 
 import { onlyCharactersMask, onlyNumberMask } from '../../../../helpers/mask.helpers';
 import { validateOnlyNumber, isRequired } from '../../../../helpers/validations.helpers';
-import { StyledSuccessButton } from '../../../../components/button';
+import { StyledFullRevSuccessButton } from '../../../../components/button';
 import { StyledAddressForm } from './address-form.styles';
 import { FormTextMaterial } from '../../../../components/form/form-text-material';
 import { StyledFormTitle } from '../register-form.styles';
 
-export default ({ setFormValidations, formValidations, setFieldValue, values }) => {
+export default ({ setFormValidations, formValidations, setFieldValue, values, isResponsive, startValidations }) => {
 
     return (
-        <StyledAddressForm>
-            <StyledFormTitle>
+        <StyledAddressForm isResponsive={isResponsive}>
+            <StyledFormTitle isResponsive={isResponsive}>
                 <h2>Endereço</h2>
                 <p className="section-description">Informe detalhadamente seu endereço para fazermos a melhor entrega possível</p>
             </StyledFormTitle>
@@ -20,6 +20,7 @@ export default ({ setFormValidations, formValidations, setFieldValue, values }) 
                     <FormTextMaterial
                         label="Seu CEP"
                         name="cep"
+                        startValidations={startValidations}
                         formValidations={formValidations}
                         setFormValidations={setFormValidations}
                         validatesOnChange={[isRequired, validateOnlyNumber]}
@@ -27,10 +28,10 @@ export default ({ setFormValidations, formValidations, setFieldValue, values }) 
                         value={values.cep}
                         onChange={setFieldValue} />
                 </div>
-                <div className="w-30">
-                    <StyledSuccessButton style={{ width: '100%', padding: '10px 0' }}>
+                <div className="w-30 search-button-container">
+                    <StyledFullRevSuccessButton notDense={isResponsive ? 'true' : ''}>
                         Pesquisar
-                    </StyledSuccessButton>
+                    </StyledFullRevSuccessButton>
                 </div>
             </div>
             <div className="row">
@@ -38,6 +39,7 @@ export default ({ setFormValidations, formValidations, setFieldValue, values }) 
                     <FormTextMaterial
                         label="Rua"
                         name="address"
+                        startValidations={startValidations}
                         validatesOnChange={[isRequired]}
                         formValidations={formValidations}
                         setFormValidations={setFormValidations}
@@ -48,6 +50,7 @@ export default ({ setFormValidations, formValidations, setFieldValue, values }) 
                     <FormTextMaterial
                         label="Número"
                         name="number"
+                        startValidations={startValidations}
                         validatesOnChange={[isRequired, validateOnlyNumber]}
                         formValidations={formValidations}
                         setFormValidations={setFormValidations}
@@ -60,6 +63,7 @@ export default ({ setFormValidations, formValidations, setFieldValue, values }) 
                 <FormTextMaterial
                     label="Bairro"
                     name="district"
+                    startValidations={startValidations}
                     formValidations={formValidations}
                     setFormValidations={setFormValidations}
                     validatesOnChange={[isRequired]}
@@ -69,6 +73,7 @@ export default ({ setFormValidations, formValidations, setFieldValue, values }) 
                 <FormTextMaterial
                     label="Complemento"
                     name="complement"
+                    startValidations={startValidations}
                     formValidations={formValidations}
                     setFormValidations={setFormValidations}
                     validatesOnChange={[isRequired]}
@@ -78,6 +83,7 @@ export default ({ setFormValidations, formValidations, setFieldValue, values }) 
             <FormTextMaterial
                 label="Descrição"
                 name="type"
+                startValidations={startValidations}
                 formValidations={formValidations}
                 setFormValidations={setFormValidations}
                 validatesOnChange={[isRequired]}

@@ -39,7 +39,7 @@ export const StyledRegisterForm = styled.section`
                     }
 
                 }
-                > :not(.address-form) {
+                > .credentials-form, .info-form {
                     padding-right: 40px;
                 }
 
@@ -118,7 +118,7 @@ export const StyledRegisterForm = styled.section`
 `;
 
 export const StyledFormTitle = styled.div`
-    ${({ theme }) => css`
+    ${({ theme, isResponsive }) => css`
         height: 70px;
         h2 {
             margin: 0;
@@ -131,5 +131,9 @@ export const StyledFormTitle = styled.div`
             font-size: .8rem;
             color: ${theme.gray.secondary};
         }
+
+        ${isResponsive && css`
+            height: 90px;
+        `}
     `}
 `;
