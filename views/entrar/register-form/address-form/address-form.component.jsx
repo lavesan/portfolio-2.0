@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { onlyCharactersMask, onlyNumberMask } from '../../../../helpers/mask.helpers';
 import { validateOnlyNumber, isRequired } from '../../../../helpers/validations.helpers';
@@ -6,8 +7,28 @@ import { StyledFullRevSuccessButton } from '../../../../components/button';
 import { StyledAddressForm } from './address-form.styles';
 import { FormTextMaterial } from '../../../../components/form/form-text-material';
 import { StyledFormTitle } from '../register-form.styles';
+import { authInstance } from '../../../../services/auth.service';
+import { setRegisterFormManyValues } from '../../../../store/actions/authActions';
 
-export default ({ setFormValidations, formValidations, setFieldValue, values, isResponsive, startValidations }) => {
+const AddressFormComponent = ({ setFormValidations, formValidations, setFieldValue, values, isResponsive, startValidations, dispatch }) => {
+
+    const authService = authInstance.getInstance()
+
+    const searchCep = () => {
+
+        authService.findCep(values.cep)
+            .then(({ data }) => {
+                dispatch(setRegisterFormManyValues({
+                    address: data.logradouro,
+                    complement: data.complemento,
+                    district: data.bairro,
+                }));
+            })
+            .catch(err => {
+                console.log('deu pau: ', err);
+            });
+
+    }
 
     return (
         <StyledAddressForm isResponsive={isResponsive}>
@@ -29,7 +50,10 @@ export default ({ setFormValidations, formValidations, setFieldValue, values, is
                         onChange={setFieldValue} />
                 </div>
                 <div className="w-30 search-button-container">
-                    <StyledFullRevSuccessButton notDense={isResponsive ? 'true' : ''}>
+                    <StyledFullRevSuccessButton
+                        type="button"
+                        notDense={isResponsive ? 'true' : ''}
+                        onClick={searchCep}>
                         Pesquisar
                     </StyledFullRevSuccessButton>
                 </div>
@@ -93,3 +117,5 @@ export default ({ setFormValidations, formValidations, setFieldValue, values, is
     )
 
 }
+
+export default connect()(AddressFormComponent);

@@ -5,6 +5,7 @@ const SET_REGISTER_FORM_STEP = 'SET_REGISTER_FORM_STEP';
 const ADVANCE_RETURN_REGISTER_FORM_STEP = 'ADVANCE_RETURN_REGISTER_FORM_STEP';
 const SET_REGISTER_FORM_VALIDATIONS = 'SET_REGISTER_FORM_VALIDATIONS';
 const SET_LOGIN_FORM_VALIDATIONS = 'SET_LOGIN_FORM_VALIDATIONS';
+const SET_REGISTER_FORM_VALUES = 'SET_REGISTER_FORM_VALUES';
 
 export const setLoginFormValues = ({ name, value }) => ({
     type: SET_FORM_VALUES,
@@ -55,4 +56,9 @@ export const setRegisterFormValidations = registerFormValidations => ({
 export const setLoginFormValidations = loginFormValidations => ({
     type: SET_LOGIN_FORM_VALIDATIONS,
     loginFormValidations,
+})
+
+export const setRegisterFormManyValues = registerFormValues => ({
+    type: SET_REGISTER_FORM_VALUES,
+    registerFormValues,
 })

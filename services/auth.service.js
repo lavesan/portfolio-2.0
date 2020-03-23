@@ -3,6 +3,10 @@ import environment from '../public/static/env.json';
 
 export class AuthService {
 
+    axiosInstance = axios.create({
+        baseURL: 'https://viacep.com.br/ws',
+    });
+
     login({ email, password }) {
 
         const body = {
@@ -44,6 +48,10 @@ export class AuthService {
 
     forgotPassword() {
         return axios.put('/oauth/auth/user/forgot-password');
+    }
+
+    findCep(cep) {
+        return this.axiosInstance.get(`/${cep}/json/`);
     }
 
 }

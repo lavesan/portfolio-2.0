@@ -48,6 +48,15 @@ export const authReducer = (state = initialState, action) => {
                 }
             }
         },
+        SET_REGISTER_FORM_VALUES() {
+          return {
+              ...state,
+              registerForm: {
+                  ...state.registerForm,
+                  ...action.registerFormValues,
+              }
+          }  
+        },
         CHANGE_SELECTED_FORM() {
             return {
                 ...state,
