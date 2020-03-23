@@ -75,6 +75,7 @@ export const StyledRegisterForm = styled.section`
                 }
                 .button-container {
                     justify-content: flex-end;
+                    width: 150px;
                 }
             }
 

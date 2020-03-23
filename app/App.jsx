@@ -31,27 +31,26 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
   const promotionService = promotionInstance.getInstance();
 
   const initiateStates = useCallback(
-    () => {
+    async () => {
 
-      promotionService.findAllFromUser()
+      await categoryService.getAll()
+        .then(res => {
+          dispatch(setCategories(res))
+        });
+      await promotionService.findAllFromUser()
         .then(res => {
           dispatch(setPromotions(res));
         })
         .catch(() => {
           dispatch(setPromotions([]));
         })
-      comboService.findAll()
+      await comboService.findAll()
         .then(res => {
           dispatch(setCombos(res));
         })
         .catch(() => {
           dispatch(setCombos([]));
         })
-        
-      categoryService.getAll()
-        .then(res => {
-          dispatch(setCategories(res))
-        });
 
     },
     []

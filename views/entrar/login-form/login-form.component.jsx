@@ -5,7 +5,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 
 import { StyledLoginForm } from './login-form.styles';
-import { StyledSuccessButton } from '../../../components/button';
+import { SucessButtonComponent } from '../../../components/button';
 import { setLoginFormValues, setLoginFormValidations } from '../../../store/actions/authActions';
 import { FormTextMaterial } from '../../../components/form/form-text-material';
 import { setSelectedForm, setUserInfo } from '../../../store/actions/authActions';
@@ -21,6 +21,8 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidati
     const authService = authInstance.getInstance();
     
     const [submitted, setSubmitted] = useState(false);
+
+    const [loading, setLoading] = useState(false);
 
     const setFormValidations = (func) => {
 
@@ -38,9 +40,11 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidati
 
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
 
         e.preventDefault();
+
+        setLoading(true);
 
         if (!submitted) {
             setSubmitted(true);
@@ -50,7 +54,7 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidati
             return;
         }
 
-        authService.login({
+        await authService.login({
             email: loginForm.email,
             password: loginForm.password,
         })
@@ -64,6 +68,8 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidati
             .catch(err => {
                 console.log(err);
             })
+
+        setLoading(false);
 
     }
 
@@ -114,12 +120,12 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidati
                         onChange={setFieldValue} />
                 </div>
                 <div className="login-form-buttons-container">
-                    <StyledSuccessButton
+                    <SucessButtonComponent
                         notDense={'true'}
                         type="submit"
-                        className="submit-button">
-                        Entrar
-                    </StyledSuccessButton>
+                        text="Entrar"
+                        loading={loading}
+                        className="submit-button" />
                     <nav className="register-link-container">
                         <p>Não tem uma conta?</p>
                         <a

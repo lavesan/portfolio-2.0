@@ -10,7 +10,7 @@ import { authInstance } from '../../../services/auth.service';
 import { AccessForm } from './access-form';
 import { PersonalForm } from './personal-form';
 import { AddressForm } from './address-form';
-import { StyledSuccessButton, StyledFullRevSuccessButton } from '../../../components/button';
+import { StyledSuccessButton, StyledFullRevSuccessButton, SucessButtonComponent } from '../../../components/button';
 import { AuthenticationFooterComponent } from '../authentication-footer';
 import { StyledHeaderCotainer } from '../entrar.styles';
 
@@ -29,6 +29,8 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
         second: false,
         finish: false,
     });
+
+    const [loading, setLoading] = useState(false);
 
     const setFieldValue = (name, value) => {
 
@@ -202,8 +204,9 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
             });
     }
 
-    const finishRegister = () => {
+    const finishRegister = async () => {
 
+        setLoading(true);
         const { cep, address, number, district, complement, type, ...userData } = registerForm;
 
         const body = {
@@ -218,7 +221,7 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
             }
         }
         
-        authService.save(body)
+        await authService.save(body)
             .then(res => {
                 router.push('/inicio');
                 console.log('resposta: ', res);
@@ -226,6 +229,7 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
             .catch(err => {
                 console.log('erro: ', err);
             });
+        setLoading(false);
     }
 
     return (
@@ -321,7 +325,11 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
                         <div></div>
                         <AuthenticationFooterComponent className="footer-container" />
                         <div>
-                            <StyledSuccessButton className="button-container" type="submit">Criar cadastro</StyledSuccessButton>
+                            <SucessButtonComponent
+                                loading={loading}
+                                className="button-container"
+                                type="submit"
+                                text="Criar cadastro" />
                         </div>
                     </div>
                     : <>
@@ -333,13 +341,13 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
                                 onClick={advanceResponsiveRegister}>
                                     Prosseguir
                             </StyledSuccessButton>
-                            : <StyledSuccessButton
+                            : <SucessButtonComponent
                                 type="button"
                                 notDense={'true'}
                                 className="step-button-row"
-                                onClick={onResponsiveSubmit}>
-                                    Criar cadastro
-                            </StyledSuccessButton>
+                                text="Criar cadastro"
+                                loading={loading}
+                                onClick={onResponsiveSubmit} />
                         }
                     </>
                 }
