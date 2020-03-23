@@ -1,24 +1,33 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 import { TalToUsCompoent } from './talk-to-us';
 import { StyledFooter } from './footer.styles';
 
 export default () => {
+    
+    const aboutText = 'Somos uma pequena empresa de produção e comércio de hortaliças orgânicas certificada pela IMO control, cuja filosofia é levar orgânicos com carinho, qualidade e simplicidade a preço acessível para todos.Também dispomos de ovos orgânicos e de grãos, oleaginosas, chás e temperos a granel (apenas naturais, não orgânicos).';
+
     return (
         <StyledFooter>
             <section className="footer-info">
                 <div>
                     <h3>Sobre nós</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta dolorum odio repudiandae dicta quis? Dolorum vero quis est. Odit doloribus ipsa temporibus et aliquam facilis tempora perferendis molestias velit in.</p>
+                    <p>{aboutText}</p>
                     <p>
                         <strong>Nossas redes sociais</strong>
                     </p>
                     <div className="social-media-container">
-                        <p title="Instagram"><FontAwesomeIcon icon={faInstagram} /></p>
-                        <p title="Facebook"><FontAwesomeIcon icon={faFacebook} /></p>
+                        <a
+                            title="Instagram"
+                            href="https://instagram.com/zero_veneno?igshid=ume3v34g4kjd"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                                <FontAwesomeIcon icon={faInstagram} />
+                        </a>
+                        {/* <p title="Facebook"><FontAwesomeIcon icon={faFacebook} /></p> */}
                     </div>
                 </div>
                 <div>
@@ -27,16 +36,18 @@ export default () => {
                 </div>
                 <div>
                     <h3>Fale conosco</h3>
-                    <div>
+                    <div className="whatsapp-container">
                         <TalToUsCompoent
-                            icon={faPhoneAlt}
-                            value="(81) 99999-9999"
-                            title="Ligar" />
+                            icon={faWhatsapp}
+                            href="https://wa.me/5581994122409"
+                            value="(81) 99412-2409"
+                            title="Falar pelo whatsapp" />
                     </div>
                     <div>
                         <TalToUsCompoent
                             icon={faEnvelope}
-                            value="mail@gmail.com"
+                            href="mailto:zerovenenoorganicos@gmail.com"
+                            value="zerovenenoorganicos@gmail.com"
                             title="Enviar mensagem" />
                     </div>
                 </div>

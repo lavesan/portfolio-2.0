@@ -40,7 +40,7 @@ export default ({ label, className, setFieldValue, name, legend, maskOnChange, v
 
     }
 
-    const setFieldValue = (e) => {
+    const onChange = (e) => {
 
         const finalValue = maskOnChange ? maskOnChange(e.target.value) : e.target.value;
         onChange(name, finalValue);

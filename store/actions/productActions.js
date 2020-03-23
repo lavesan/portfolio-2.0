@@ -7,12 +7,12 @@ const REMOVE_PRODUCT_FILTER = 'REMOVE_PRODUCT_FILTER';
 const SET_PROMOTIONS = 'SET_PROMOTIONS';
 const SET_COMBOS = 'SET_COMBOS';
 
-export const setPromotionalProducts = (promotionalProducts) => ({
+export const setPromotionalProducts = (promotionalProducts = []) => ({
     type: SET_PROMOTIONAL_PRODUCTS,
     promotionalProducts,
 });
 
-export const setCategoryProducts = (categoryProducts) => ({
+export const setCategoryProducts = (categoryProducts = []) => ({
     type: SET_CATEGORY_PRODUCTS,
     categoryProducts,
 });

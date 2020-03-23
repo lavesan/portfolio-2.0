@@ -17,6 +17,11 @@ export const StyledFooter = styled.footer`
                 flex-flow: row nowrap;
                 align-items: center;
                 
+                a {
+                    text-decoration: none;
+                    color: #fff;
+                }
+
                 > * {
                     font-size: 1.2rem;
                     margin: 0 10px 0 0;
@@ -48,6 +53,10 @@ export const StyledFooter = styled.footer`
             display: flex;
             flex-flow: row nowrap;
             justify-content: space-between;
+        }
+
+        .whatsapp-container {
+            margin-bottom: 10px;
         }
     `}
 `;

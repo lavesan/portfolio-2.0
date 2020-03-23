@@ -23,6 +23,8 @@ const SobrePage = ({ comments, dispatch }) => {
         []
     )
 
+    const aboutText = 'Somos uma pequena empresa de produção e comércio de hortaliças orgânicas certificada pela IMO control, cuja filosofia é levar orgânicos com carinho, qualidade e simplicidade a preço acessível para todos.Também dispomos de ovos orgânicos e de grãos, oleaginosas, chás e temperos a granel (apenas naturais, não orgânicos).';
+
     useEffect(() => {
         reloadComments();
     }, [reloadComments]);
@@ -40,7 +42,7 @@ const SobrePage = ({ comments, dispatch }) => {
                 </div>
                 <div className="text-container">
                     <h1>A gente cuida de você lá do início, na escolha dos nossos produtos.</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores magnam tempore error laborum sequi totam blanditiis commodi eos saepe debitis suscipit ipsam, molestias explicabo soluta! Odio perferendis itaque fugit consectetur.</p>
+                    <p>{aboutText}</p>
                 </div>
             </section>
             <section>
