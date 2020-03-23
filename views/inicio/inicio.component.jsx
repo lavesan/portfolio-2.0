@@ -138,7 +138,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                                 ))}
                             </Swiper>
                             : <>
-                                {promotions.map((promo, index) => (
+                                {promotions.map((promo) => (
                                     <>
                                         {promo.loadingPromotions
                                             ? <div className="promos-section">
@@ -149,7 +149,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                                                 </div>
                                             </div>
                                             : <>
-                                                {index === 0
+                                                {promo.isPrincipal
                                                     ? <div className="promos-section">
                                                         <PeriodCardComponent isPromotion={true} {...promo} />
                                                     </div>
