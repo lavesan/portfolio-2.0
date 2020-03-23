@@ -1,6 +1,6 @@
 export const productSuffixes = {
-    UNITY: 'x',
-    KILOGRAM: 'kg',
+    UNITY: '1x',
+    KILOGRAM: '1kg',
     TO_GRAM_100: '100g',
     TO_GRAM_500: '500g',
 }

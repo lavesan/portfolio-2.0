@@ -78,3 +78,7 @@ export const onlyNumberStringToThreeDigit = value => {
   }
   return "0,000";
 }
+
+export const percentageMask = value => {
+  return String(value).replace(/^(\d+)/, '$1 %')
+}
