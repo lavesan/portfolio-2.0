@@ -8,17 +8,24 @@ import { StyledAddressForm } from './address-form.styles';
 import { FormTextMaterial } from '../../../../components/form/form-text-material';
 import { StyledFormTitle } from '../register-form.styles';
 import { authInstance } from '../../../../services/auth.service';
-import { setRegisterFormManyValues } from '../../../../store/actions/authActions';
+import { setRegisterFormAddressManyValues, setRegisterFormAddressValue } from '../../../../store/actions/authActions';
 
-const AddressFormComponent = ({ setFormValidations, formValidations, setFieldValue, values, isResponsive, startValidations, dispatch }) => {
+const AddressFormComponent = ({ setFormValidations, formValidations, addressRegisterForm, isResponsive, startValidations, dispatch }) => {
 
-    const authService = authInstance.getInstance()
+    const authService = authInstance.getInstance();
+    
+    const setFieldValue = (name, value) => {
+        dispatch(setRegisterFormAddressValue({
+            name,
+            value,
+        }));
+    }
 
     const searchCep = () => {
 
-        authService.findCep(values.cep)
+        authService.findCep(addressRegisterForm.cep)
             .then(({ data }) => {
-                dispatch(setRegisterFormManyValues({
+                dispatch(setRegisterFormAddressManyValues({
                     address: data.logradouro,
                     complement: data.complemento,
                     district: data.bairro,
@@ -46,7 +53,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, setFieldVal
                         setFormValidations={setFormValidations}
                         validatesOnChange={[isRequired, validateOnlyNumber]}
                         maskOnChange={onlyNumberMask}
-                        value={values.cep}
+                        value={addressRegisterForm.cep}
                         onChange={setFieldValue} />
                 </div>
                 <div className="w-30 search-button-container">
@@ -67,7 +74,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, setFieldVal
                         validatesOnChange={[isRequired]}
                         formValidations={formValidations}
                         setFormValidations={setFormValidations}
-                        value={values.address}
+                        value={addressRegisterForm.address}
                         onChange={setFieldValue} />
                 </div>
                 <div className="w-30">
@@ -79,7 +86,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, setFieldVal
                         formValidations={formValidations}
                         setFormValidations={setFormValidations}
                         maskOnChange={onlyNumberMask}
-                        value={values.number}
+                        value={addressRegisterForm.number}
                         onChange={setFieldValue} />
                 </div>
             </div>
@@ -92,7 +99,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, setFieldVal
                     setFormValidations={setFormValidations}
                     validatesOnChange={[isRequired]}
                     maskOnChange={onlyCharactersMask}
-                    value={values.district}
+                    value={addressRegisterForm.district}
                     onChange={setFieldValue} />
                 <FormTextMaterial
                     label="Complemento"
@@ -101,7 +108,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, setFieldVal
                     formValidations={formValidations}
                     setFormValidations={setFormValidations}
                     validatesOnChange={[isRequired]}
-                    value={values.complement}
+                    value={addressRegisterForm.complement}
                     onChange={setFieldValue} />
             </div>
             <FormTextMaterial
@@ -111,11 +118,15 @@ const AddressFormComponent = ({ setFormValidations, formValidations, setFieldVal
                 formValidations={formValidations}
                 setFormValidations={setFormValidations}
                 validatesOnChange={[isRequired]}
-                value={values.type}
+                value={addressRegisterForm.type}
                 onChange={setFieldValue} />
         </StyledAddressForm>
     )
 
 }
 
-export default connect()(AddressFormComponent);
+const mapStateToProps = store => ({
+    addressRegisterForm: store.authState.addressRegisterForm,
+})
+
+export default connect(mapStateToProps)(AddressFormComponent);

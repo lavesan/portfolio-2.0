@@ -4,7 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 
-import { setRegisterFormValues, advanceReturnRegisterFormStep, setRegisterFormValidations } from '../../../store/actions/authActions';
+import {
+    advanceReturnRegisterFormStep,
+    setRegisterFormValidations,
+} from '../../../store/actions/authActions';
 import { StyledRegisterForm } from './register-form.styles';
 import { authInstance } from '../../../services/auth.service';
 import { AccessForm } from './access-form';
@@ -14,7 +17,7 @@ import { StyledSuccessButton, StyledFullRevSuccessButton, SucessButtonComponent 
 import { AuthenticationFooterComponent } from '../authentication-footer';
 import { StyledHeaderCotainer } from '../entrar.styles';
 
-const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFormStep, returnPage, registerFormValidations }) => {
+const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, returnPage, registerFormValidations, addressRegisterForm, personalRegisterForm, accessRegisterForm }) => {
 
     const router = useRouter();
 
@@ -31,15 +34,6 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
     });
 
     const [loading, setLoading] = useState(false);
-
-    const setFieldValue = (name, value) => {
-
-        dispatch(setRegisterFormValues({
-            name,
-            value,
-        }));
-
-    }
     
     const returnResponsiveRegister = () => {
         dispatch(advanceReturnRegisterFormStep(false));
@@ -73,53 +67,22 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
 
     const firstStepInvalid = () => {
 
-        const accessFormKeys = ['name', 'email', 'password', 'confirmPassword', 'cpf', 'termOfContract'];
-        
-        let invalid = false;
-
-        for (const key of accessFormKeys) {
-            console.log('registerFormValidations[key]: ', registerFormValidations[key]);
-            if (registerFormValidations[key] && registerFormValidations[key].invalid) {
-                invalid = true;
-                break;
-            }
-        }
-
-        return invalid;
+        const values = Object.values(registerFormValidations.access);
+        return values.some(value => value.invalid);
 
     }
 
     const secondStepInvalid = () => {
 
-        const accessFormKeys = ['gender', 'age', 'animalsQuantity', 'childrensQuantity', 'role'];
-        
-        let invalid = false;
-
-        for (const key of accessFormKeys) {
-            if (registerFormValidations[key] && registerFormValidations[key].invalid) {
-                invalid = true;
-                break;
-            }
-        }
-
-        return invalid;
+        const values = Object.values(registerFormValidations.personal);
+        return values.some(value => value.invalid);
 
     }
 
     const lastStepInvalid = () => {
 
-        const addressFormKeys = ['cep', 'address', 'number', 'district', 'complement', 'type'];
-        
-        let invalid = false;
-
-        for (const key of addressFormKeys) {
-            if (registerFormValidations[key] && registerFormValidations[key].invalid) {
-                invalid = true;
-                break;
-            }
-        }
-
-        return invalid;
+        const values = Object.values(registerFormValidations.address);
+        return values.some(value => value.invalid);
 
     }
 
@@ -207,18 +170,11 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
     const finishRegister = async () => {
 
         setLoading(true);
-        const { cep, address, number, district, complement, type, ...userData } = registerForm;
 
         const body = {
-            ...userData,
-            address: {
-                address,
-                cep,
-                number,
-                complement,
-                type,
-                district,
-            }
+            ...personalRegisterForm,
+            ...accessRegisterForm,
+            address: addressRegisterForm,
         }
         
         await authService.save(body)
@@ -266,56 +222,47 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
                         ? <>
                             <div className="credentials-form">
                                 <AccessForm
-                                    values={registerForm}
                                     startValidations={submittedBig}
                                     setFormValidations={setFormValidations}
-                                    formValidations={registerFormValidations}
-                                    setFieldValue={setFieldValue} />
+                                    formValidations={registerFormValidations} />
                             </div>
                             <div className="info-form">
                                 <PersonalForm
-                                    values={registerForm}
                                     startValidations={submittedBig}
                                     setFormValidations={setFormValidations}
-                                    formValidations={registerFormValidations}
-                                    setFieldValue={setFieldValue} />
+                                    formValidations={registerFormValidations} />
                             </div>
                             <div className="address-form">
                                 <AddressForm
-                                    values={registerForm}
                                     startValidations={submittedBig}
                                     setFormValidations={setFormValidations}
-                                    formValidations={registerFormValidations}
-                                    setFieldValue={setFieldValue} />
+                                    formValidations={registerFormValidations} />
                             </div>
                         </>
                         : <div className="full-width">
                             {registerFormStep === 1 && 
                                 <AccessForm
-                                    values={registerForm}
+                                    values={registerForm.access}
                                     isResponsive={isResponsive}
                                     startValidations={submittedSteps.first}
                                     setFormValidations={setFormValidations}
-                                    formValidations={registerFormValidations}
-                                    setFieldValue={setFieldValue} />
+                                    formValidations={registerFormValidations} />
                             }
                             {registerFormStep === 2 &&
                                 <PersonalForm
-                                    values={registerForm}
+                                    values={registerForm.personal}
                                     isResponsive={isResponsive}
                                     startValidations={submittedSteps.second}
                                     setFormValidations={setFormValidations}
-                                    formValidations={registerFormValidations}
-                                    setFieldValue={setFieldValue} />
+                                    formValidations={registerFormValidations} />
                             }
                             {registerFormStep === 3 &&
                                 <AddressForm
-                                    values={registerForm}
+                                    values={registerForm.address}
                                     isResponsive={isResponsive}
                                     startValidations={submittedSteps.finish}
                                     setFormValidations={setFormValidations}
-                                    formValidations={registerFormValidations}
-                                    setFieldValue={setFieldValue} />
+                                    formValidations={registerFormValidations} />
                             }
                         </div>
                     }
@@ -359,9 +306,12 @@ const RegisterFormComponent = ({ dispatch, registerForm, screenWidth, registerFo
 
 const mapStateToProps = store => ({
     registerFormStep: store.authState.registerFormStep,
-    registerForm: store.authState.registerForm,
     registerFormValidations: store.authState.registerFormValidations,
+    accessRegisterForm: store.authState.accessRegisterForm,
+    personalRegisterForm: store.authState.personalRegisterForm,
+    addressRegisterForm: store.authState.addressRegisterForm,
     screenWidth: store.uiState.screenWidth,
+
 })
 
 export default connect(mapStateToProps)(RegisterFormComponent);

@@ -3,9 +3,12 @@ const CHANGE_SELECTED_FORM = 'CHANGE_SELECTED_FORM';
 const SET_USER_INFO = 'SET_USER_INFO';
 const SET_REGISTER_FORM_STEP = 'SET_REGISTER_FORM_STEP';
 const ADVANCE_RETURN_REGISTER_FORM_STEP = 'ADVANCE_RETURN_REGISTER_FORM_STEP';
-const SET_REGISTER_FORM_VALIDATIONS = 'SET_REGISTER_FORM_VALIDATIONS';
 const SET_LOGIN_FORM_VALIDATIONS = 'SET_LOGIN_FORM_VALIDATIONS';
-const SET_REGISTER_FORM_VALUES = 'SET_REGISTER_FORM_VALUES';
+const SET_REGISTER_FORM_ADDRESS_MANY_VALUES = 'SET_REGISTER_FORM_ADDRESS_MANY_VALUES';
+const SET_REGISTER_FORM_ACCESS = 'SET_REGISTER_FORM_ACCESS';
+const SET_REGISTER_FORM_PERSONAL = 'SET_REGISTER_FORM_PERSONAL';
+const SET_REGISTER_FORM_ADDRESS = 'SET_REGISTER_FORM_ADDRESS';
+const SET_REGISTER_FORM_VALIDATIONS = 'SET_REGISTER_FORM_VALIDATIONS';
 
 export const setLoginFormValues = ({ name, value }) => ({
     type: SET_FORM_VALUES,
@@ -14,9 +17,20 @@ export const setLoginFormValues = ({ name, value }) => ({
     name,
 })
 
-export const setRegisterFormValues = ({ name, value }) => ({
-    type: SET_FORM_VALUES,
-    form: 'registerForm',
+export const setRegisterFormAccessValue = ({ name, value }) => ({
+    type: SET_REGISTER_FORM_ACCESS,
+    value,
+    name,
+})
+
+export const setRegisterFormPersonalValue = ({ name, value }) => ({
+    type: SET_REGISTER_FORM_PERSONAL,
+    value,
+    name,
+})
+
+export const setRegisterFormAddressValue = ({ name, value }) => ({
+    type: SET_REGISTER_FORM_ADDRESS,
     value,
     name,
 })
@@ -58,7 +72,7 @@ export const setLoginFormValidations = loginFormValidations => ({
     loginFormValidations,
 })
 
-export const setRegisterFormManyValues = registerFormValues => ({
-    type: SET_REGISTER_FORM_VALUES,
-    registerFormValues,
+export const setRegisterFormAddressManyValues = addressRegisterForm => ({
+    type: SET_REGISTER_FORM_ADDRESS_MANY_VALUES,
+    addressRegisterForm,
 })

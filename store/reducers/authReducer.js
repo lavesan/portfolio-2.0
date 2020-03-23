@@ -11,19 +11,23 @@ const initialState = {
         email: '',
         password: '',
     },
-    registerForm: {
+    accessRegisterForm: {
         name: '',
         cpf: '',
         email: '',
         password: '',
         confirmPassword: '',
         termOfContract: false,
+    },
+    personalRegisterForm: {
         gender: 1,
         role: 0,
         age: '',
         animalsQuantity: '0',
         childrensQuantity: '0',
         description: '',
+    },
+    addressRegisterForm: {
         cep: '',
         address: '',
         number: '',
@@ -48,12 +52,39 @@ export const authReducer = (state = initialState, action) => {
                 }
             }
         },
-        SET_REGISTER_FORM_VALUES() {
+        SET_REGISTER_FORM_ACCESS() {
+            return {
+                ...state,
+                accessRegisterForm: {
+                    ...state.accessRegisterForm,
+                    [action.name]: action.value,
+                }
+            }
+        },
+        SET_REGISTER_FORM_PERSONAL() {
+            return {
+                ...state,
+                personalRegisterForm: {
+                    ...state.personalRegisterForm,
+                    [action.name]: action.value,
+                }
+            }
+        },
+        SET_REGISTER_FORM_ADDRESS() {
+            return {
+                ...state,
+                addressRegisterForm: {
+                    ...state.addressRegisterForm,
+                    [action.name]: action.value,
+                }
+            }
+        },
+        SET_REGISTER_FORM_ADDRESS_MANY_VALUES() {
           return {
               ...state,
-              registerForm: {
-                  ...state.registerForm,
-                  ...action.registerFormValues,
+              addressRegisterForm: {
+                  ...state.addressRegisterForm,
+                  ...action.addressRegisterForm,
               }
           }  
         },

@@ -25,7 +25,7 @@ const EntrarPage = ({ dispatch, selectedForm, screenWidth, registerFormStep }) =
         await dispatch(setSelectedForm({
             selectedForm: 'login'
         }));
-        router.back();
+        router.push('/inicio');
     }
 
     return (

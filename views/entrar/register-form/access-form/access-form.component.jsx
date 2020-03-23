@@ -4,19 +4,27 @@ import { connect } from 'react-redux';
 import { cpfMask, onlyCharactersMask } from '../../../../helpers/mask.helpers';
 import { isRequired, validateCpf, validateEmail, isEqualTo, minLength, isRequireTrue } from '../../../../helpers/validations.helpers';
 import { toggleTermOfContractModal } from '../../../../store/actions/modalActions';
+import { setRegisterFormAccessValue } from '../../../../store/actions/authActions';
 import { StyledFormTitle } from '../register-form.styles';
 import { StyledAcessForm } from './access-form.styles';
 import { FormTextMaterial } from '../../../../components/form/form-text-material';
 import { FormCheckboxComponent } from '../../../../components/form/form-checkbox';
 
-const AcessForm = ({ setFormValidations, formValidations, setFieldValue, dispatch, values, isResponsive, startValidations }) => {
+const AcessForm = ({ setFormValidations, formValidations, dispatch, accessRegisterForm, isResponsive, startValidations }) => {
 
     const toggleTermContractModal = () => {
         dispatch(toggleTermOfContractModal());
     }
 
+    const setFieldValue = (name, value) => {
+        dispatch(setRegisterFormAccessValue({
+            name,
+            value,
+        }));
+    }
+
     const validatePassword = (value1) => {
-        return isEqualTo(value1, values.password, 'As senhas devem ser iguais.');
+        return isEqualTo(value1, accessRegisterForm.password, 'As senhas devem ser iguais.');
     }
     
     const validateMinFive = value => {
@@ -36,7 +44,7 @@ const AcessForm = ({ setFormValidations, formValidations, setFieldValue, dispatc
                     maskOnChange={onlyCharactersMask}
                     startValidations={startValidations}
                     formValidations={formValidations}
-                    value={values.name}
+                    value={accessRegisterForm.name}
                     setFormValidations={setFormValidations}
                     validatesOnChange={[isRequired]}
                     onChange={setFieldValue} />
@@ -48,7 +56,7 @@ const AcessForm = ({ setFormValidations, formValidations, setFieldValue, dispatc
                     setFormValidations={setFormValidations}
                     validatesOnChange={[isRequired, validateCpf]}
                     maskOnChange={cpfMask}
-                    value={values.cpf}
+                    value={accessRegisterForm.cpf}
                     onChange={setFieldValue} />
             </div>
             <FormTextMaterial
@@ -56,7 +64,7 @@ const AcessForm = ({ setFormValidations, formValidations, setFieldValue, dispatc
                 name="email"
                 startValidations={startValidations}
                 formValidations={formValidations}
-                value={values.email}
+                value={accessRegisterForm.email}
                 setFormValidations={setFormValidations}
                 validatesOnChange={[isRequired, validateEmail]}
                 onChange={setFieldValue} />
@@ -68,7 +76,7 @@ const AcessForm = ({ setFormValidations, formValidations, setFieldValue, dispatc
                 formValidations={formValidations}
                 setFormValidations={setFormValidations}
                 validatesOnChange={[isRequired, validateMinFive]}
-                value={values.password}
+                value={accessRegisterForm.password}
                 onChange={setFieldValue} />
             <FormTextMaterial
                 label="Confirme sua senha"
@@ -78,7 +86,7 @@ const AcessForm = ({ setFormValidations, formValidations, setFieldValue, dispatc
                 formValidations={formValidations}
                 setFormValidations={setFormValidations}
                 validatesOnChange={[isRequired, validateMinFive, validatePassword]}
-                value={values.confirmPassword}
+                value={accessRegisterForm.confirmPassword}
                 onChange={setFieldValue} />
             <FormCheckboxComponent
                 label={<label className="contract-term-label">Li e aceito os <a className="contract-term-link" onClick={toggleTermContractModal}>termos de contrato</a></label>}
@@ -90,11 +98,15 @@ const AcessForm = ({ setFormValidations, formValidations, setFieldValue, dispatc
                 startValidations={startValidations}
                 formValidations={formValidations}
                 setFormValidations={setFormValidations}
-                value={values.termOfContract}
+                value={accessRegisterForm.termOfContract}
                 onChange={setFieldValue} />
         </StyledAcessForm>
     )
 
 }
 
-export default connect()(AcessForm);
+const mapStateToProps = store => ({
+    accessRegisterForm: store.authState.accessRegisterForm,
+})
+
+export default connect(mapStateToProps)(AcessForm);

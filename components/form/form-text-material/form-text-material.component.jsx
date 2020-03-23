@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChange = [], setFormValidations, formValidations = {}, screenWidth, dispatch, value, startValidations, className, ...inputProps }) => {
@@ -19,13 +18,14 @@ const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChan
         setActivationValidation(true);
     }
 
-    const applyValidations = value => {
-        
+    const applyValidations = (actualValue = value) => {
+
         if (validatesOnChange.length) {
 
             for (const validationFunc of validatesOnChange) {
 
-                const validation = validationFunc(value, name);
+                const validation = validationFunc(actualValue, name);
+
                 setFormValidations(function(f) {
                     return {
                         ...f,
@@ -59,11 +59,11 @@ const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChan
         const finalValue = maskOnChange ? maskOnChange(e.target.value) : e.target.value;
         onChange(name, finalValue);
         applyValidations(finalValue);
-
+        
     }
-
+    
     useEffect(() => {
-        applyValidations();
+        applyValidations(value);
     }, [])
 
     return (
