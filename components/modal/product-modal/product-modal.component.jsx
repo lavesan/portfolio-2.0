@@ -34,13 +34,13 @@ const ProductModal = ({ dispatch, openProductModal, selectedProduct }) => {
     }
 
     const toggleModal = () => {
-        dispatch(toggleProductModal({}));
+        dispatch(toggleProductModal());
     }
 
     const addToCart = () => {
         dispatch(addProduct({
             ...selectedProduct,
-            quantity: initialValues.quantity,
+            quantity: 1,
         }));
         toggleModal();
     }

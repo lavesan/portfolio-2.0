@@ -18,7 +18,7 @@ export const modalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 openProductModal: !state.openProductModal,
-                selectedProduct: action.product,
+                selectedProduct: action.product ? action.product : state.selectedProduct,
             }
         },
         TOGGLE_TERME_OF_CONTRACT_MODAL() {

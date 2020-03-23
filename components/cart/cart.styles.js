@@ -5,6 +5,8 @@ export const StyledCartComponent = styled.section`
         box-shadow: 0 0 8px 1px ${theme.gray.primary};
         border-radius: 5px;
         padding: 20px;
+        display: flex;
+        flex-flow: column nowrap;
 
         .cart-title-container {
             display: flex;
@@ -33,6 +35,7 @@ export const StyledCartComponent = styled.section`
         }
         
         .cart-total-value-container {
+            margin-top: auto;
             text-align: end;
             font-size: 1.2rem;
             color: ${theme.green.terciary};

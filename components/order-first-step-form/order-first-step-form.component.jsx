@@ -53,12 +53,12 @@ const OrderFirstStep = ({ dispatch, userStep, onClickNext }) => {
                         setFieldValue={setFieldValue} />
                 </div>
             </div>
-            <FormFieldComponent
+            {/* <FormFieldComponent
                 label="CPF/CNPJ"
                 name="cpf"
                 value={userStep.cpf}
                 placeholder="Digite seu CPF"
-                setFieldValue={setFieldValue} />
+                setFieldValue={setFieldValue} /> */}
             <StyledButtonFormEnd>
                 <StyledSuccessButton type="submit">Avançar</StyledSuccessButton>
             </StyledButtonFormEnd>

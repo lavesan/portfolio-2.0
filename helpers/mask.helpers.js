@@ -67,3 +67,14 @@ export const telephoneMask = value => {
     return finalValue;
 
 }
+
+export const onlyNumberStringToThreeDigit = value => {
+  let onlyNumberValue = String(value).replace(/\D/g, "").replace(/^[0]+/, "");
+  if (onlyNumberValue) {
+    while (onlyNumberValue.length < 4) {
+      onlyNumberValue = `0${onlyNumberValue}`;
+    }
+    return onlyNumberValue.replace(/(\d{1,3})$/, ",$1");
+  }
+  return "0,000";
+}
