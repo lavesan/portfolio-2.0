@@ -10,7 +10,8 @@ export const StyledPeriodCard = styled.div`
                 rgba(0, 0, 0, 0.3)
             ), url(${imgUrl});
         background-repeat: no-repeat;
-        background-size: ${isPromotion ? 'auto' : '100% 100%'};
+        background-position: center;
+        background-size: cover;
         font-family: ;
         color: #fff;
         display: flex;
