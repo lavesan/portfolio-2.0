@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setAddressStepValues } from '../../store/actions/orderActions';
+import { setAddressStepValues } from '../../../../store/actions/orderActions';
 import { StyledOrderAddressStepForm } from './order-address-step-form.styles';
-import { FormFieldComponent } from '../form/form-field';
-import { FormTextareaComponent } from '../form/form-textarea';
-import { StyledButtonFormEnd } from '../form/form-button-field';
-import { StyledSuccessButton } from '../button';
+import { FormFieldComponent } from '../../../../components/form/form-field';
+import { FormTextareaComponent } from '../../../../components/form/form-textarea';
+import { StyledButtonFormEnd } from '../../../../components/form/form-button-field';
+import { StyledSuccessButton } from '../../../../components/button';
+import { StyledOrderFormTitle } from '../save-order-stepper.styles';
 
 const OrderAddressStepForm = ({ dispatch, addressStep }) => {
 
@@ -14,16 +15,9 @@ const OrderAddressStepForm = ({ dispatch, addressStep }) => {
         dispatch(setAddressStepValues({ name, value }));
     }
 
-    const onSubmit = element => {
-
-        element.preventDefault();
-
-        console.log('addressStep: ', addressStep);
-
-    }
-
     return (
-        <StyledOrderAddressStepForm onSubmit={onSubmit}>
+        <StyledOrderAddressStepForm>
+            <StyledOrderFormTitle>Seu endereço</StyledOrderFormTitle>
             <div className="first-row">
                 <FormFieldComponent
                     label="CEP"
@@ -66,9 +60,9 @@ const OrderAddressStepForm = ({ dispatch, addressStep }) => {
                     placeholder="00000-000"
                     setFieldValue={setFieldValue} />
             </div>
-            <StyledButtonFormEnd>
+            {/* <StyledButtonFormEnd>
                 <StyledSuccessButton type="submit">Finalizar</StyledSuccessButton>
-            </StyledButtonFormEnd>
+            </StyledButtonFormEnd> */}
         </StyledOrderAddressStepForm>
     )
 

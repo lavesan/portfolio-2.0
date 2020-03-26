@@ -1,13 +1,4 @@
 const SET_STEP_VALUES = 'SET_STEP_VALUES';
-const SET_STEP = 'SET_STEP';
-const SUM_STEP = 'SUM_STEP';
-
-export const setUserStepValues = ({ name, value }) => ({
-    type: SET_STEP_VALUES,
-    step: 'userStep',
-    value,
-    name,
-});
 
 export const setCardStepValues = ({ name, value }) => ({
     type: SET_STEP_VALUES,
@@ -23,12 +14,9 @@ export const setAddressStepValues = ({ name, value }) => ({
     name,
 });
 
-export const setStep = (activeStep) => ({
-    type: SET_STEP,
-    activeStep,
+export const setScheduleStepValues = ({ name, value }) => ({
+    type: SET_STEP_VALUES,
+    step: 'scheduleStep',
+    value,
+    name,
 });
-
-export const sumStep = next => ({
-    type: SUM_STEP,
-    next,
-})

@@ -2,10 +2,6 @@ import axios from 'axios';
 
 export class GetnetService {
 
-    makeOrder(body) {
-        return axios.post('/order', body);
-    }
-
     redirectToConfirmPayment({ redirectUrl, issuer_payment_id }) {
 
         const body = {

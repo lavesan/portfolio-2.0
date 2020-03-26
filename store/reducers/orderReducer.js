@@ -1,21 +1,23 @@
 const initialState = {
-    activeStep: 1,
-    userStep: {
-        cpf: '',
-        paymentType: 1,
-    },
-    cardStep: {
-        cvv: '',
-        fullname: '',
-        number: '',
-        dueDate: '',
-    },
     addressStep: {
         cep: '',
         district: '',
         address: '',
         number: '',
         complement: '',
+    },
+    scheduleStep: {
+        date: '',
+        time: '',
+    },
+    cardStep: {
+        id: '',
+        paymentType: '',
+        legalDocument: '',
+        cvv: '',
+        fullname: '',
+        number: '',
+        dueDate: '',
     },
 };
 
@@ -30,18 +32,6 @@ export const orderReducer = (state = initialState, action) => {
                     ...state[action.step],
                     [action.name]: action.value,
                 }
-            }
-        },
-        SET_STEP() {
-            return {
-                ...state,
-                activeStep: action.activeStep,
-            }
-        },
-        SUM_STEP() {
-            return {
-                ...state,
-                activeStep: action.next ? state.activeStep + 1 : state.activeStep - 1,
             }
         },
     }

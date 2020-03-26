@@ -2,7 +2,9 @@ const initialState = {
     openAddressModal: false,
     openProductModal: false,
     openTermOfContractModal: false,
-    selectedProduct: {}
+    selectedProduct: {},
+    openOrderToFinishModal: false,
+    orderData: {},
 };
 export const modalReducer = (state = initialState, action) => {
     // Este 'state' é o state total passado
@@ -25,6 +27,13 @@ export const modalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 openTermOfContractModal: !state.openTermOfContractModal,
+            }
+        },
+        TOGGLE_ORDER_TO_FINISH_MODAL() {
+            return {
+                ...state,
+                openOrderToFinishModal: !state.openOrderToFinishModal,
+                orderData: action.orderData ? action.orderData : state.orderData,
             }
         },
     }

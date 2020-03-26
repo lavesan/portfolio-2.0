@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from 'react';
 import { StyledNeultralInput } from '../form-input';
 import { StyledFieldset } from './form-field.styles';
 
-export default ({ label, name, setFieldValue, className, setFormValidations, formValidations = {}, startValidations, ...inputProps }) => {
+export default ({ label, name, setFieldValue, className, setFormValidations, formValidations = {}, startValidations, validatesOnChange = [], ...inputProps }) => {
     
     const applyValidations = () => {
         

@@ -5,7 +5,7 @@ import { StyledCartComponent } from './cart.styles';
 import { ProductCartComponent } from './product-cart';
 import { numberToReal, onlyNumberStringToFloatNumber } from '../../helpers/calc.helpers';
 
-const CartComponent = ({ products }) => {
+const CartComponent = ({ products, className }) => {
 
     const totalValue = useMemo(
         () => {
@@ -24,7 +24,7 @@ const CartComponent = ({ products }) => {
     )
 
     return (
-        <StyledCartComponent>
+        <StyledCartComponent className={className}>
             <div className="cart-title-container">
                 <h2>
                     Seu<br />
@@ -46,6 +46,6 @@ const CartComponent = ({ products }) => {
 
 const mapStateToProps = store => ({
     products: store.cartState.products,
-})
+});
 
 export default connect(mapStateToProps)(CartComponent);

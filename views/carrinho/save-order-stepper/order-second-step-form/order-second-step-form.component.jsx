@@ -2,29 +2,27 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { StyledOrderSecondStepForm } from './order-second-step-form.styles';
-import { FormFieldComponent } from '../form/form-field';
-import { StyledButtonFormEnd } from '../form/form-button-field';
-import { setCardStepValues } from '../../store/actions/orderActions';
-import { StyledSuccessButton } from '../button';
+import { FormFieldComponent } from '../../../../components/form/form-field';
+import { StyledButtonFormEnd } from '../../../../components/form/form-button-field';
+import { setCardStepValues } from '../../../../store/actions/orderActions';
+import { StyledSuccessButton } from '../../../../components/button';
+import { StyledOrderFormTitle } from '../save-order-stepper.styles';
 
-const OrderSecondStepForm = ({ dispatch, cardStep, onClickNext }) => {
+const OrderSecondStepForm = ({ dispatch, cardStep }) => {
 
     const setFieldValue = (name, value) => {
         dispatch(setCardStepValues({ name, value }))
     }
 
-    const onSubmit = (element) => {
-
-        element.preventDefault();
-
-        console.log('cardStep: ', cardStep);
-
-        onClickNext();
-
-    }
-
     return (
-        <StyledOrderSecondStepForm onSubmit={onSubmit}>
+        <StyledOrderSecondStepForm>
+            <StyledOrderFormTitle>Selecione o método de pagamento</StyledOrderFormTitle>
+            <FormFieldComponent
+                label="CPF/CNPJ"
+                name="cpf"
+                value={cardStep.cpf}
+                placeholder="Digite seu CPF"
+                setFieldValue={setFieldValue} />
             <div className="first-row">
                 <FormFieldComponent
                     label="Número do cartão"
@@ -57,9 +55,9 @@ const OrderSecondStepForm = ({ dispatch, cardStep, onClickNext }) => {
                     placeholder="000"
                     setFieldValue={setFieldValue} />
             </div>
-            <StyledButtonFormEnd>
+            {/* <StyledButtonFormEnd>
                 <StyledSuccessButton type="submit">Avançar</StyledSuccessButton>
-            </StyledButtonFormEnd>
+            </StyledButtonFormEnd> */}
         </StyledOrderSecondStepForm>
     )
 }

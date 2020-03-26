@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledOrderAddressStepForm = styled.form`
+export const StyledOrderAddressStepForm = styled.section`
     display: flex;
     flex-flow: column nowrap;
 

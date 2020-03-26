@@ -4,6 +4,7 @@ export default {
         secondary: '#008B47',
         terciary: '#005240',
         quaternary: '#012D23',
+        penternary: '#E7F6E5',
     },
     gray: {
         primary: '#C4C4C4',
@@ -24,5 +25,8 @@ export default {
     },
     white: {
         secondary: 'F9FCFF',
-    }
+    },
+    warning: {
+        primary: '#ffff76',
+    },
 }

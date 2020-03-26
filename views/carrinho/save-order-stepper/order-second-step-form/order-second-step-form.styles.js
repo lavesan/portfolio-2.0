@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledOrderSecondStepForm = styled.form`
+export const StyledOrderSecondStepForm = styled.section`
     display: flex;
     flex-flow: column nowrap;
 
