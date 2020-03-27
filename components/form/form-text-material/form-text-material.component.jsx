@@ -48,8 +48,7 @@ const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChan
     
     const startErrorValidation = useMemo(
         () => {
-            const invalido = (startValidations || activateValidation) ? (formValidations[name] && formValidations[name].invalid) : false;
-            return invalido;
+            return (startValidations || activateValidation) ? (formValidations[name] && formValidations[name].invalid) : false;
         },
         [startValidations, activateValidation, formValidations]
     )

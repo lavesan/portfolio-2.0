@@ -76,3 +76,17 @@ export const notNullable = value => {
         message: 'Obrigatório.'
     }
 }
+
+export const isCardNumber = value => {
+    return {
+        valid: /^\d{4} \d{4} \d{4} \d{4}/.test(value),
+        message: 'Número do cartão inválido',
+    }
+}
+
+export const isValidThroughDate = value => {
+    return {
+        valid: /^\d{2}\/\d{2}$/.test(value),
+        message: 'Data inválida',
+    }
+}

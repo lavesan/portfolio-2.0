@@ -51,20 +51,20 @@ export const celphoneMask = value => {
 export const telephoneMask = value => {
 
   const onlyNumber = value.replace(/\D/g, "");
-    const f = onlyNumber.slice(0, 10);
-    let finalValue = "";
-    for (let i = 0; i < f.length; i++) {
-      if (i === 0) {
-        finalValue += `(${f[i]}`;
-      } else if (i === 2) {
-        finalValue += `) ${f[i]}`;
-      } else if (i === 6) {
-        finalValue += `-${f[i]}`;
-      } else {
-        finalValue += `${f[i]}`;
-      }
+  const f = onlyNumber.slice(0, 10);
+  let finalValue = "";
+  for (let i = 0; i < f.length; i++) {
+    if (i === 0) {
+      finalValue += `(${f[i]}`;
+    } else if (i === 2) {
+      finalValue += `) ${f[i]}`;
+    } else if (i === 6) {
+      finalValue += `-${f[i]}`;
+    } else {
+      finalValue += `${f[i]}`;
     }
-    return finalValue;
+  }
+  return finalValue;
 
 }
 
@@ -82,4 +82,64 @@ export const onlyNumberStringToThreeDigit = value => {
 export const percentageMask = value => {
   const [integer] = String(value).split('.');
   return `- ${integer} %`
+}
+
+export const cardValidThroughMask = value => {
+
+  const onlyNumbers = String(value).replace(/\D/g, '');
+  const slicedValues = onlyNumbers.slice(0, 4);
+
+  let finalValue = '';
+  for (let i = 0; i < slicedValues.length; i++) {
+    if (i === 2) {
+      finalValue += `/${slicedValues[i]}`;
+    } else {
+      finalValue += `${slicedValues[i]}`;
+    }
+  }
+  return finalValue;
+
+}
+
+export const cardNumberMask = value => {
+  
+  const onlyNumbers = String(value).replace(/\D/g, "");
+  const slicedValues = onlyNumbers.slice(0, 16);
+
+  let finalValue = "";
+  for (let i = 0; i < slicedValues.length; i++) {
+    if (i % 4 === 0) {
+      finalValue += ` ${slicedValues[i]}`;
+    } else {
+      finalValue += `${slicedValues[i]}`;
+    }
+  }
+  return finalValue;
+
+}
+
+export const moneyMask = value => {
+
+  if (!value) {
+    return "";
+  }
+  if (value[value.length - 1] === ".") {
+    value = value.replace(".", ",");
+  }
+  const haveDot = /\,/.test(value);
+  const [integer, float] = value.split(",");
+  let numberInteger = "";
+  let numberFloat = "";
+  if (integer) {
+    numberInteger = integer.replace(/[^\d,]/g, "");
+  }
+  if (float) {
+    const [firstDigits] = float.match(/\d{1,2}/);
+    numberFloat = firstDigits.replace(/[^\d,]/g, "");
+  }
+
+  return `R$ ${numberInteger}${haveDot ? "," : ""}${
+    numberFloat ? numberFloat : ""
+  }`;
+
 }

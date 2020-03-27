@@ -1,9 +1,9 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 
 import { StyledTextArea } from './form-textarea.styles';
 import { StyledFieldset } from '../form-field/form-field.styles';
 
-export default ({ label, className, setFieldValue, name, legend, maskOnChange, validatesOnChange = [], setFormValidations, formValidations, startValidations, ...textareaProps }) => {
+export default ({ label, className, setFieldValue, name, legend, maskOnChange, validatesOnChange = [], setFormValidations, formValidation, startValidations, ...textareaProps }) => {
 
     const [activateValidation, setActivationValidation] = useState(false);
 
@@ -50,13 +50,17 @@ export default ({ label, className, setFieldValue, name, legend, maskOnChange, v
 
     const startErrorValidation = useMemo(
         () => {
-            return (startValidations || activateValidation) ? (formValidations[name] && formValidations[name].invalid ? 'true' : '') : '';
+            return (startValidations || activateValidation) ? (formValidation && formValidation.invalid ? 'true' : '') : '';
         },
-        [startValidations, activateValidation, formValidations]
+        [startValidations, activateValidation, formValidation]
     )
 
+    useEffect(() => {
+        applyValidations();
+    }, [])
+
     return (
-        <StyledFieldset className={className}>
+        <StyledFieldset className={className} isTextArea={true}>
             <label htmlFor={name}>{label}</label>
             {legend ? <legend>{legend}</legend> : ''}
             <StyledTextArea
@@ -67,6 +71,7 @@ export default ({ label, className, setFieldValue, name, legend, maskOnChange, v
                 onFocousOut={onFocousOut}
                 error={startErrorValidation}
                 {...textareaProps} />
+            {startErrorValidation ? <small className="error-message">{formValidation.message}</small> : ''}
         </StyledFieldset>
     )
 

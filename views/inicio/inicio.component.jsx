@@ -5,6 +5,7 @@ import Swiper from 'react-id-swiper';
 import { StyledStartPage } from './inicio.styles';
 import { PeriodCardComponent } from '../../components/period-card';
 import { setPromotionalProducts, setCategoryProducts, addCategoryProductFilter } from '../../store/actions/productActions';
+import { toogleOrderFinishedModal } from '../../store/actions/modalActions';
 import { CategoryResponsiveCardComponent } from  '../../components/category-responsive-card';
 import { ProductsRowComponent } from './products-row';
 import { productInstance } from '../../services/product.service';
@@ -202,6 +203,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                 )
                 )}
             </section>
+            <p onClick={() => dispatch(toogleOrderFinishedModal())}>Crica aqui</p>
         </StyledStartPage>
     )
 }

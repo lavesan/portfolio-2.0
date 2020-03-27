@@ -1,5 +1,6 @@
-import FormRadioComponent from './form-radio.component';
+import { FormRadioComponent, FormRadioComponentRow } from './form-radio.component';
 
 export {
     FormRadioComponent,
+    FormRadioComponentRow,
 }

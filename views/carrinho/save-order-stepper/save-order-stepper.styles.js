@@ -4,6 +4,12 @@ export const StyledSaveOrderForm = styled.form`
     display: flex;
     flex-flow: column nowrap;
     color: ${({ theme }) => theme.gray.secondary};
+
+    .action-button-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 `;
 
 export const StyledOrderFormTitle = styled.h2`

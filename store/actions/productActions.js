@@ -56,12 +56,12 @@ export const removeProductFilter = (index) => ({
     index,
 });
 
-export const setPromotions = (promotions) => ({
+export const setPromotions = (promotions = []) => ({
     type: SET_PROMOTIONS,
     promotions,
 });
 
-export const setCombos = (combos) => ({
+export const setCombos = (combos = []) => ({
     type: SET_COMBOS,
     combos,
 });

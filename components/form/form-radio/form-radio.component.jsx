@@ -1,18 +1,43 @@
 import React from 'react';
-import { StyledFormRadio } from './form-radio.styles';
+import { StyledFormRadio, StyledRadioFormContainer } from './form-radio.styles';
 
-export default ({ name, label, value, setFieldValue, selectValue }) => {
+export const FormRadioComponent = ({ name, setFieldValue, radios = [], selectedId, row }) => {
 
-    const onChange = () => {
-        setFieldValue(name, value);
+    const onChange = (selectedValue) => {
+        setFieldValue(name, selectedValue);
     }
 
     return (
-        <StyledFormRadio onClick={onChange}>
-            <div id={name} className="circle">
-                <div className={selectValue == value ? 'selected' : ''}></div>
-            </div>
-            <label htmlFor={name}>{label}</label>
-        </StyledFormRadio>
+        <StyledRadioFormContainer row={row}>
+            {radios.map(radio => (
+                <StyledFormRadio key={radio.value.id} onClick={() => onChange(radio)} isSelected={radio.value.id == selectedId}>
+                    <div id={radio.value.id} className="circle">
+                        <div className="selected"></div>
+                    </div>
+                    <div className="label" htmlFor={radio.value.id}>{radio.label}</div>
+                </StyledFormRadio>
+            ))}
+        </StyledRadioFormContainer>
     )
+}
+
+export const FormRadioComponentRow = ({ name, setFieldValue, radios = [], selected, ...props }) => {
+
+    const onChange = (selectedValue) => {
+        setFieldValue(name, selectedValue);
+    }
+    
+    return (
+        <StyledRadioFormContainer row={true} {...props}>
+            {radios.map(radio => (
+                <StyledFormRadio key={radio.value} onClick={() => onChange(radio.value)} isSelected={radio.value == selected}>
+                    <div id={radio.value} className="circle">
+                        <div className="selected"></div>
+                    </div>
+                    <div className="label" htmlFor={radio.value}>{radio.label}</div>
+                </StyledFormRadio>
+            ))}
+        </StyledRadioFormContainer>
+    )
+
 }

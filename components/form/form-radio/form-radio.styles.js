@@ -1,15 +1,36 @@
 import styled, { css } from 'styled-components';
 
-export const StyledFormRadio = styled.div`
-    ${({ theme }) => css`
-        border-radius: 5px;
+export const StyledRadioFormContainer = styled.div`
+    ${({ row }) => css`
+        box-sizing: border-box;
         border: none;
+        padding: 0;
+        display: flex;
+        flex-flow: ${row ? 'row' : 'column'} nowrap;
+
+        > * {
+            margin-bottom: 10px;
+            padding: ${row ? '10px' : 0} 20px;
+        }
+
+        ${row && css`
+            > :not(:last-child) {
+                margin-right: 10px;
+            }
+        `}
+    `}
+`;
+
+export const StyledFormRadio = styled.div`
+    ${({ theme, isSelected }) => css`
+        border-radius: 5px;
+        border: thin solid ${theme.gray.terciary};
         background-color: ${theme.gray.terciary};
         font-size: .9rem;
-        padding: 10px 20px;
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
+        cursor: pointer;
 
         .circle {
             background-color: #fff;
@@ -32,16 +53,19 @@ export const StyledFormRadio = styled.div`
                 transition: .3s;
                 border-radius: 50%;
             }
+        }
+        .label {
+            width: 100%;
+        }
+
+        ${isSelected && css`
+            border-color: ${theme.green.primary};
             .selected {
                 width: 10px;
                 height: 10px;
                 min-width: 10px;
                 min-height: 10px;
             }
-        }
-        label {
-            cursor: pointer;
-            color: ${theme.gray.secondary};
-        }
+        `}
     `}
 `;

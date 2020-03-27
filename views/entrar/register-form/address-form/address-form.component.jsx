@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { onlyCharactersMask, onlyNumberMask } from '../../../../helpers/mask.helpers';
-import { validateOnlyNumber, isRequired } from '../../../../helpers/validations.helpers';
+import { onlyNumberMask } from '../../../../helpers/mask.helpers';
+import { validateOnlyNumber, isRequired, notNullable } from '../../../../helpers/validations.helpers';
+import { priceByDistrictOpts } from '../../../../helpers/order.helpers';
 import { StyledFullRevSuccessButton } from '../../../../components/button';
 import { StyledAddressForm } from './address-form.styles';
 import { FormTextMaterial } from '../../../../components/form/form-text-material';
+import { FormSelectComponent } from '../../../../components/form/form-select';
 import { StyledFormTitle } from '../register-form.styles';
 import { authInstance } from '../../../../services/auth.service';
 import { setRegisterFormAddressManyValues, setRegisterFormAddressValue } from '../../../../store/actions/authActions';
@@ -91,16 +93,16 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
                 </div>
             </div>
             <div className="row">
-                <FormTextMaterial
+                <FormSelectComponent
                     label="Bairro"
                     name="district"
                     startValidations={startValidations}
+                    validatesOnChange={[notNullable]}
                     formValidations={formValidations}
                     setFormValidations={setFormValidations}
-                    validatesOnChange={[isRequired]}
-                    maskOnChange={onlyCharactersMask}
                     value={addressRegisterForm.district}
-                    onChange={setFieldValue} />
+                    onChange={setFieldValue}
+                    options={priceByDistrictOpts} />
                 <FormTextMaterial
                     label="Complemento"
                     name="complement"

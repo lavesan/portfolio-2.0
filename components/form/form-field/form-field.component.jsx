@@ -1,26 +1,30 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { StyledNeultralInput } from '../form-input';
 import { StyledFieldset } from './form-field.styles';
 
-export default ({ label, name, setFieldValue, className, setFormValidations, formValidations = {}, startValidations, validatesOnChange = [], ...inputProps }) => {
-    
-    const applyValidations = () => {
-        
-        if (validatesOnChange.length) {
+export default ({ label, name, setFieldValue, className, setFormValidations, formValidation, startValidations, validatesOnChange = [], maskOnChange, ...inputProps }) => {
 
+    const [activateValidation, setActivationValidation] = useState(false);
+
+    // Activates the validation
+    const onFocousOut = () => {
+        setActivationValidation(true);
+    }
+
+    const applyValidations = (actualValue) => {
+
+        if (validatesOnChange.length) {
+            
             for (const validationFunc of validatesOnChange) {
 
-                const validation = validationFunc(value, name);
+                const validation = validationFunc(actualValue, name);
     
-                setFormValidations(function(f) {
-                    return {
-                        ...f,
-                        [name]: {
-                            invalid: !validation.valid,
-                            message: validation.message,
-                        },
-                    }
+                setFormValidations({
+                    [name]: {
+                        invalid: !validation.valid,
+                        message: validation.message,
+                    },
                 });
     
                 if (!validation.valid) {
@@ -35,15 +39,16 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
 
     const startErrorValidation = useMemo(
         () => {
-            return startValidations ? (formValidations[name] && formValidations[name].invalid) : false;
+            return (startValidations || activateValidation) ? (formValidation && formValidation.invalid) : false;
         },
-        [startValidations, formValidations]
+        [startValidations, formValidation, activateValidation]
     )
 
     const onChange = (element) => {
 
-        setFieldValue(name, element.target.value);
-        applyValidations();
+        const finalValue = maskOnChange ? maskOnChange(element.target.value) : element.target.value;
+        setFieldValue(name, finalValue);
+        applyValidations(finalValue);
 
     }
 
@@ -59,8 +64,9 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
                 error={startErrorValidation}
                 name={name}
                 onChange={onChange}
+                onBlur={onFocousOut}
                 {...inputProps} />
-            {startErrorValidation ? <small className="error-message">{formValidations[name].message}</small> : ''}
+            {startErrorValidation ? <small className="error-message">{formValidation.message}</small> : ''}
         </StyledFieldset>
     )
 

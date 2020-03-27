@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const StyledTextArea = styled.textarea`
-    ${({ theme }) => css`
+    ${({ theme, error }) => css`
         border-radius: 5px;
         border: none;
         background-color: ${theme.gray.terciary};
@@ -17,5 +17,9 @@ export const StyledTextArea = styled.textarea`
         legend {
             font-size: .8rem;
         }
+
+        ${error && css`
+            color: ${theme.danger.primary};
+        `}
     `}
 `;

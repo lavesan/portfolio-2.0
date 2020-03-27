@@ -14,6 +14,7 @@ import { TermOfContractModal } from '../components/modal/term-of-contract-modal'
 import theme from '../app/app.theme';
 import { ResponsiveNavComponent } from '../components/responsive-nav';
 import { ResponsiveCartComponent } from '../components/responsive-cart';
+import { FinishedOrderModal } from '../components/modal/finished-order-modal';
 import { AppComponent } from '../app/App';
 
 axios.defaults.baseURL = environment.API_URL;
@@ -51,6 +52,7 @@ class MyApp extends App {
           <ResponsiveNavComponent />
           <ResponsiveCartComponent />
           <TermOfContractModal />
+          <FinishedOrderModal />
         </ThemeProvider>
       </Provider>
     )

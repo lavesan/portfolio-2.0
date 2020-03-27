@@ -5,6 +5,7 @@ const initialState = {
     selectedProduct: {},
     openOrderToFinishModal: false,
     orderData: {},
+    openOrderFinishedModal: false,
 };
 export const modalReducer = (state = initialState, action) => {
     // Este 'state' é o state total passado
@@ -34,6 +35,12 @@ export const modalReducer = (state = initialState, action) => {
                 ...state,
                 openOrderToFinishModal: !state.openOrderToFinishModal,
                 orderData: action.orderData ? action.orderData : state.orderData,
+            }
+        },
+        TOGGLE_ORDER_FINISHED_MODAL() {
+            return {
+                ...state,
+                openOrderFinishedModal: !state.openOrderFinishedModal,
             }
         },
     }

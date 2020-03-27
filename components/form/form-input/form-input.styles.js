@@ -8,6 +8,7 @@ export const StyledNeultralInput = styled.input`
         font-size: .9rem;
         padding: 10px 20px;
         outline: none;
+        color: ${theme.gray.secondary};
 
         ::placeholder {
             color: ${theme.gray.quaternary};

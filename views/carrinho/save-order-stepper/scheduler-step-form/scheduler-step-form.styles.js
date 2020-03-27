@@ -35,21 +35,20 @@ export const StyledSchedulerStepForm = styled.section`
             background-color: ${theme.gray.terciary};
             border: none;
             border-radius: 5px;
+            padding: 10px;
 
             .react-calendar__tile--active,
-            .react-calendar__tile--active:hover {
+            .react-calendar__tile--active:hover,
+            .react-calendar__month-view__days__day abbr:hover {
                 background-color: transparent;
                 color: ${theme.green.primary} !important;
             }
 
-            .react-calendar__tile--active abbr {
+            .react-calendar__tile--active abbr,
+            .react-calendar__month-view__days__day:hover abbr {
                 padding: 7px 8px;
                 background-color: ${theme.green.penternary} !important;
                 border-radius: 50%;
-            }
-
-            .react-calendar__month-view__days__day:hover {
-                background-color: transparent;
             }
 
             .react-calendar__month-view__days__day {
@@ -59,10 +58,6 @@ export const StyledSchedulerStepForm = styled.section`
 
             .react-calendar__tile--now abbr {
                 background-color: ${theme.warning.primary} !important;
-            }
-
-            .react-calendar__month-view__days__day abbr:hover {
-                background-color: #eee;
             }
 
             .react-calendar__month-view__days__day abbr {

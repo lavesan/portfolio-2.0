@@ -4,8 +4,25 @@ const initialState = {
         email: '',
         token: '',
         phones: [],
-        addresses: [],
+        addresses: [
+            // {
+            //     id: 1,
+            //     address: 'Av. ayrton Senna da Silva',
+            //     cep: '54410240',
+            //     number: '308',
+            //     district: 'Piedade',
+            //     complement: 'Alguma coisa',
+            // },
+        ],
+        cards: [
+            // {
+            //     lastDigits: '**** **** **** 1234',
+            //     id: 2,
+            //     brand: 'Master',
+            // },
+        ],
     },
+    token: '',
     selectedForm: 'login',
     loginForm: {
         email: '',
