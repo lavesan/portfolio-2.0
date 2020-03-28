@@ -11,10 +11,11 @@ import environment from '../public/static/env.json';
 import { AddressModal } from '../components/modal/address-modal';
 import { ProductModalComponent } from '../components/modal/product-modal';
 import { TermOfContractModal } from '../components/modal/term-of-contract-modal';
+import { FinishedOrderModal } from '../components/modal/finished-order-modal';
+import { OrderModalComponent } from '../components/modal/order-modal';
 import theme from '../app/app.theme';
 import { ResponsiveNavComponent } from '../components/responsive-nav';
 import { ResponsiveCartComponent } from '../components/responsive-cart';
-import { FinishedOrderModal } from '../components/modal/finished-order-modal';
 import { AppComponent } from '../app/App';
 
 axios.defaults.baseURL = environment.API_URL;
@@ -23,10 +24,11 @@ axios.interceptors.request.use(req => {
   const token = localStorage.getItem('auth');
 
   if (token) {
-      req.headers = {
-         ...req.headers,
-         authorization: token, 
-      }
+    // console.log('entrando aqui: ', token);
+    req.headers = {
+        ...req.headers,
+        authorization: token, 
+    }
   }
 
   
@@ -34,8 +36,12 @@ axios.interceptors.request.use(req => {
 
 })
 axios.interceptors.response.use(
-  res => res && res.data ? Promise.resolve(res.data) : Promise.resolve(res),
-  err => err ? (err.response ? Promise.reject(err.response.data) :  Promise.reject(err.response)) : err,
+  res => new Promise((resolve, reject) => {
+    return res && res.data ? resolve(res.data) : resolve(res);
+  }),
+  err => new Promise((resolve, reject) => {
+    return err ? (err.response ? reject(err.response.data) : reject(err.response)) :  reject({ message: 'Aconteceu um problema no servidor. Por favor tente mais tarde' });
+  })
 );
 
 class MyApp extends App {
@@ -53,6 +59,7 @@ class MyApp extends App {
           <ResponsiveCartComponent />
           <TermOfContractModal />
           <FinishedOrderModal />
+          <OrderModalComponent />
         </ThemeProvider>
       </Provider>
     )

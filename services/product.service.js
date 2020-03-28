@@ -2,12 +2,24 @@ import axios from 'axios';
 
 export class ProductService {
 
-    findProductsFromCategories() {
-        return axios.get('/product/categories/all');
-    }
+    axiosInstance = axios.create({
+        baseURL: 'http://localhost:3000',
+    });
 
+    findProductsFromCategories() {
+        return fetch(new Request('http://localhost:3000/product/categories/all',{
+            method: 'GET',
+            mode: 'cors',
+        }))
+            .then(res => res.json())
+    }
+    
     findProductsPromotions() {
-        return axios.get('/product/promotion/all');
+        return fetch(new Request('http://localhost:3000/product/promotion/all',{
+            method: 'GET',
+            mode: 'cors',
+        }))
+            .then(res => res.json())
     }
 
     findAllFilteredPaginated({ take = 10, page }, filter) {

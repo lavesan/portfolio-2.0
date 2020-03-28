@@ -1,5 +1,6 @@
 const initialState = {
     addressStep: {
+        id: '',
         cep: '',
         district: '',
         address: '',
@@ -13,7 +14,7 @@ const initialState = {
     },
     cardStep: {
         id: '',
-        paymentType: '',
+        paymentType: { label: 'Vou sim', value: 1 },
         legalDocument: '',
         cvv: '',
         fullname: '',

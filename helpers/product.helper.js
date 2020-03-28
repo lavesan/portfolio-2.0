@@ -59,5 +59,6 @@ export const removeAmountFromSuffix = ({ quantitySuffix, quantity }) => {
 }
 
 export const deactivateCondition = ({ quantitySuffix, quantity, quantityOnStock }) => {
+    console.log('quantitySuffix: ', quantitySuffix);
     return handleDeactivateCondition[quantitySuffix](quantity, quantityOnStock);
 }

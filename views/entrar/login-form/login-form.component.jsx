@@ -59,10 +59,7 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidati
             password: loginForm.password,
         })
             .then(res => {
-                dispatch(setUserInfo({
-                    ...res.user,
-                    token: res.token,
-                }));
+                dispatch(setUserInfo(res.user, res.token));
                 router.push('/inicio');
             })
             .catch(err => {

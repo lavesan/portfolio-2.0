@@ -18,6 +18,7 @@ export class AuthService {
 
         return axios.post('/oauth/auth', body)
             .then(res => {
+                localStorage.setItem('userData', JSON.stringify(res.user));
                 localStorage.setItem('auth', res.token);
                 return res;
             });
@@ -27,23 +28,37 @@ export class AuthService {
     save(body) {
         return axios.post('/oauth/auth/user/register', body)
             .then(res => {
+                localStorage.setItem('userData', JSON.stringify(res.user));
                 localStorage.setItem('auth', res.token);
+                return res;
             });
     }
 
     refreshToken() {
         return axios.post('/oauth/auth/user/refresh-token')
             .then(res => {
+                localStorage.setItem('userData', JSON.stringify(res.user));
                 localStorage.setItem('auth', res.token);
+                return res;
             })
             .catch(() => {
                 localStorage.removeItem('auth');
+                return err;
             });
     }
 
     logoff() {
-        localStorage.removeItem('auth')
-        return axios.delete('/oauth/auth/logoff');
+        return axios.delete('/oauth/auth/logoff')
+            .then(res => {
+                localStorage.removeItem('userData');
+                localStorage.removeItem('auth');
+                return res;
+            })
+            .catch(err => {
+                localStorage.removeItem('userData');
+                localStorage.removeItem('auth');
+                return err;
+            });
     }
 
     forgotPassword() {

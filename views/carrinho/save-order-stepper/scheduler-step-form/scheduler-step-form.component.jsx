@@ -70,6 +70,10 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
         handleChange();
     }, [handleChange])
 
+    useEffect(() => {
+        setFieldValue('date', new Date());
+    }, []);
+
     return (
         <StyledSchedulerStepForm>
             <StyledOrderFormTitle>Horário e data de entrega</StyledOrderFormTitle>

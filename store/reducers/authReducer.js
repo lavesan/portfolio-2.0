@@ -3,24 +3,9 @@ const initialState = {
         id: '',
         email: '',
         token: '',
-        phones: [],
-        addresses: [
-            // {
-            //     id: 1,
-            //     address: 'Av. ayrton Senna da Silva',
-            //     cep: '54410240',
-            //     number: '308',
-            //     district: 'Piedade',
-            //     complement: 'Alguma coisa',
-            // },
-        ],
-        cards: [
-            // {
-            //     lastDigits: '**** **** **** 1234',
-            //     id: 2,
-            //     brand: 'Master',
-            // },
-        ],
+        contacts: [],
+        addresses: [],
+        cards: [],
     },
     token: '',
     selectedForm: 'login',
@@ -114,12 +99,8 @@ export const authReducer = (state = initialState, action) => {
         SET_USER_INFO() {
             return {
                 ...state,
-                userInfo: {
-                    id: action.id,
-                    name: action.name,
-                    email: action.email,
-                    token: action.token,
-                }
+                userInfo: action.userInfo ? action.userInfo : state.userInfo,
+                token: action.token ? action.token : state.token,
             }
         },
         SET_REGISTER_FORM_STEP() {
@@ -150,6 +131,19 @@ export const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 registerFormStep: action.plus ? state.registerFormStep + 1 : state.registerFormStep - 1,
+            }
+        },
+        CLEAR_USER_INFO() {
+            return {
+                ...state,
+                userInfo: {
+                    id: '',
+                    email: '',
+                    token: '',
+                    contacts: [],
+                    addresses: [],
+                    cards: [],
+                },
             }
         },
     }

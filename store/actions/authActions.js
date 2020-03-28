@@ -1,6 +1,7 @@
 const SET_FORM_VALUES = 'SET_FORM_VALUES';
 const CHANGE_SELECTED_FORM = 'CHANGE_SELECTED_FORM';
 const SET_USER_INFO = 'SET_USER_INFO';
+const CLEAR_USER_INFO = 'CLEAR_USER_INFO';
 const SET_REGISTER_FORM_STEP = 'SET_REGISTER_FORM_STEP';
 const ADVANCE_RETURN_REGISTER_FORM_STEP = 'ADVANCE_RETURN_REGISTER_FORM_STEP';
 const SET_LOGIN_FORM_VALIDATIONS = 'SET_LOGIN_FORM_VALIDATIONS';
@@ -47,9 +48,14 @@ export const setSelectedForm = ({ selectedForm }) => ({
 /**
  * @param {{ id: number, name: string, token: string, email: string }} userInfo 
  */
-export const setUserInfo = (userInfo) => ({
+export const setUserInfo = (userInfo, token) => ({
     type: SET_USER_INFO,
-    ...userInfo,
+    userInfo,
+    token,
+})
+
+export const clearUserInfo = () => ({
+    type: CLEAR_USER_INFO,
 })
 
 export const setRegisterFormStep = registerFormStep => ({

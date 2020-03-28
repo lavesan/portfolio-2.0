@@ -4,7 +4,19 @@ const initialState = {
     openTermOfContractModal: false,
     selectedProduct: {},
     openOrderToFinishModal: false,
-    orderData: {},
+    orderData: {
+        order: {
+            totalProductValueCents: '',
+            totalFreightValuesCents: '',
+            totalValueCents: '',
+        },
+        products: [],
+        address: {
+            address: '',
+            number: '',
+            cep: '',
+        },
+    },
     openOrderFinishedModal: false,
 };
 export const modalReducer = (state = initialState, action) => {
@@ -31,11 +43,16 @@ export const modalReducer = (state = initialState, action) => {
             }
         },
         TOGGLE_ORDER_TO_FINISH_MODAL() {
+
+            console.log('action.orderData:' , action.orderData);
+            console.log('action.orderData:' , action);
+
             return {
                 ...state,
                 openOrderToFinishModal: !state.openOrderToFinishModal,
                 orderData: action.orderData ? action.orderData : state.orderData,
             }
+
         },
         TOGGLE_ORDER_FINISHED_MODAL() {
             return {

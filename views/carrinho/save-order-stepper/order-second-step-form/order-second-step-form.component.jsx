@@ -7,7 +7,7 @@ import { StyledButtonFormEnd } from '../../../../components/form/form-button-fie
 import { setCardStepValues, clearCardStepValues, setAllCardStepValues } from '../../../../store/actions/orderActions';
 import { StyledSuccessButton } from '../../../../components/button';
 import { StyledOrderFormTitle } from '../save-order-stepper.styles';
-import { cpfMask, onlyNumberMask, cardValidThroughMask, cardNumberMask, maxLengthMask, onlyCharactersMask, moneyMask } from '../../../../helpers/mask.helpers';
+import { cpfMask, onlyNumberMask, cardValidThroughMask, cardNumberMask, maxLengthMask, onlyCharactersMask, integerMoneyMask } from '../../../../helpers/mask.helpers';
 import { isRequired, validateCpf, isCardNumber, isValidThroughDate, maxLength, minLength } from '../../../../helpers/validations.helpers';
 import { setCardValidation } from '../../../../store/actions/orderActions';
 import { FormHorizontalCheckbox } from '../../../../components/form/form-horizontal-checkbox';
@@ -15,7 +15,7 @@ import { FormCheckboxComponent } from '../../../../components/form/form-checkbox
 import { FormRadioComponent, FormRadioComponentRow } from '../../../../components/form/form-radio';
 import { paymentMethodOpts } from '../../../../helpers/order.helpers';
 
-const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userInfo }) => {
+const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userInfo, submitted }) => {
     
     const setFormValidations = (validation) => {
         dispatch(setCardValidation(validation));
@@ -120,6 +120,7 @@ const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userI
                                 validatesOnChange={[isRequired, validateCpf]}
                                 maskOnChange={cpfMask}
                                 value={cardStep.cpf}
+                                startValidations={submitted}
                                 placeholder="Digite seu CPF"
                                 setFieldValue={setFieldValue} />
                             <div className="first-row">
@@ -131,6 +132,7 @@ const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userI
                                     maskOnChange={cardNumberMask}
                                     validatesOnChange={[isRequired, isCardNumber]}
                                     value={cardStep.number}
+                                    startValidations={submitted}
                                     className="first-column"
                                     placeholder="00000-000"
                                     setFieldValue={setFieldValue} />
@@ -142,6 +144,7 @@ const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userI
                                     maskOnChange={cardValidThroughMask}
                                     validatesOnChange={[isRequired, isValidThroughDate]}
                                     value={cardStep.dueDate}
+                                    startValidations={submitted}
                                     className="second-column"
                                     placeholder="MM/AA"
                                     setFieldValue={setFieldValue} />
@@ -155,6 +158,7 @@ const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userI
                                     validatesOnChange={[isRequired, minLength5]}
                                     maskOnChange={onlyCharactersMask}
                                     value={cardStep.fullname}
+                                    startValidations={submitted}
                                     className="first-column"
                                     placeholder="Seu nome"
                                     setFieldValue={setFieldValue} />
@@ -167,6 +171,7 @@ const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userI
                                     maskOnChange={cvvMask}
                                     value={cardStep.cvv}
                                     className="second-column"
+                                    startValidations={submitted}
                                     placeholder="000"
                                     setFieldValue={setFieldValue} />
                             </div>
@@ -190,19 +195,23 @@ const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userI
                         maskOnChange={cpfMask}
                         value={cardStep.cpf}
                         placeholder="Digite seu CPF"
+                        startValidations={submitted}
                         setFieldValue={setFieldValue} />
                     <label className="method-type-label" htmlFor="">Vai precisar de maquineta?</label>
                     <FormRadioComponentRow
-                        value={cardStep.paymentoMethod}
+                        value={cardStep.paymentType}
                         className="payment-method-radio"
-                        name="paymentoMethod"
+                        name="paymentType"
+                        startValidations={submitted}
                         setFieldValue={setFieldValue}
                         radios={paymentMethodOpts}
-                        selected={cardStep.paymentoMethod} />
+                        selected={cardStep.paymentType} />
                     <FormFieldComponent
                         label="Troco para quanto?"
                         name="changeValueCents"
-                        maskOnChange={moneyMask}
+                        disabled={cardStep.paymentType === 1 ? 'true' : ''}
+                        startValidations={submitted}
+                        maskOnChange={integerMoneyMask}
                         value={cardStep.changeValueCents}
                         placeholder="Informe o valor que quer trocar"
                         setFieldValue={setFieldValue} />

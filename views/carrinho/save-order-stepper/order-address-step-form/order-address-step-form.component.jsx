@@ -16,7 +16,7 @@ import { FormCheckboxComponent } from '../../../../components/form/form-checkbox
 import { FormOrderSelectComponent } from '../../../../components/form/form-order-select';
 import { priceByDistrictOpts } from '../../../../helpers/order.helpers';
 
-const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userInfo, token }) => {
+const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userInfo, token, submitted }) => {
 
     const setFormValidations = (validation) => {
         dispatch(setAddressValidation(validation));
@@ -88,6 +88,7 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                         <FormFieldComponent
                             label="CEP"
                             name="cep"
+                            startValidations={submitted}
                             maskOnChange={onlyNumberMask}
                             validatesOnChange={[isRequired, validateOnlyNumber]}
                             setFormValidations={setFormValidations}
@@ -99,6 +100,7 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                             label="Bairro"
                             name="district"
                             placeholder="Ser bairro aqui"
+                            startValidations={submitted}
                             validatesOnChange={[isRequired]}
                             setFormValidations={setFormValidations}
                             formValidation={addressValidations.district}
@@ -111,6 +113,7 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                         <FormFieldComponent
                             label="Endereço"
                             name="address"
+                            startValidations={submitted}
                             maskOnChange={onlyCharactersMask}
                             validatesOnChange={[isRequired]}
                             setFormValidations={setFormValidations}
@@ -121,6 +124,7 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                         <FormFieldComponent
                             label="Número"
                             name="number"
+                            startValidations={submitted}
                             maskOnChange={onlyNumberMask}
                             validatesOnChange={[isRequired, validateOnlyNumber]}
                             setFormValidations={setFormValidations}

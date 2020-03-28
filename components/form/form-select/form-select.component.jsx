@@ -68,7 +68,7 @@ const FormSelectComponent = ({ label, value, name, options = [], onChange, valid
 
     useEffect(() => {
         applyValidations();
-    }, [])
+    }, [startValidations])
 
     return (
         <div

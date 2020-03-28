@@ -2,69 +2,99 @@ import styled, { css } from 'styled-components';
 
 export const StyledOrderModalComponent = styled.section`
     ${({ theme }) => css`
+        color: ${theme.gray.secondary};
+        font-weight: 600;
+
         .title-container {
             background-color: ${theme.green.terciary};
             color: #fff;
-            font-size: 1.3rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px;
+            width: 100%;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            box-sizing: border-box;
+
             h2 {
+                text-align: center;
                 width: 100%;
-                margin: 10px auto;
+                margin: 10px;
+                font-size: 1.1rem;
             }
         }
 
-        h3 {
-            color: ${theme.green.primary};
-            font-size: 1.2rem;
+        .modal-body {
+            padding: 0 10px 10px 10px;
 
-        }
-
-        .order-data {
-            color: ${theme.gray.primary};
-            font-size: 1.1rem;
-            margin: 0 0 10px 0;
-        }
-
-        .value-container {
-            display: flex;
-            flex-flow: row nowrap;
-            align-items: center;
-            font-size: 1.2rem;
-
-            .value-text {
-                color: ${theme.gray.secondary};
+            .products-title {
+                margin-top: 60px;
             }
 
-            div {
-                flex: 1;
-                background-color: ${theme.gray.secondary};
-                height: 1px;
+            h3 {
+                color: ${theme.green.primary};
+                font-size: 1.1rem;
+
             }
 
-            .value-total {
-                color: ${theme.green.terciary};
+            .order-data {
+                color: ${theme.gray.primary};
+                font-size: 1.1rem;
+                margin: 0 0 10px 0;
             }
-        }
 
-
-        .confirm-row {
-            display: flex;
-            flex-flow: row nowrap;
-
-            .total-value-container {
+            .value-container {
                 display: flex;
-                flex-flow: column nowrap;
-                width: 60%;
+                flex-flow: row nowrap;
+                align-items: center;
+                font-size: 1rem;
 
-                .value-text {
-                    font-size: 1.2rem;
-                    color: ${theme.gray.secondary};
+                p {
+                    margin: 0;
                 }
 
-                .value-total-big {
-                    font-size: 1.5rem;
+                .value-text {
+                    color: ${theme.gray.primary};
+                }
+
+                div {
+                    flex: 1;
+                    border: .5px dotted ${theme.gray.primary};
+                    margin: auto 20px;
+                }
+
+                .value-total {
                     color: ${theme.green.terciary};
                 }
             }
+
+
+            .confirm-row {
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+                margin-top: 26px;
+
+                .total-value-container {
+                    display: flex;
+                    flex-flow: column nowrap;
+                    width: 60%;
+
+                    .value-text {
+                        font-size: .9rem;
+                        color: ${theme.gray.primary};
+                        margin: 0;
+                    }
+
+                    .value-total-big {
+                        font-size: 1.4rem;
+                        color: ${theme.green.terciary};
+                        margin: 0;
+                    }
+                }
+            }
         }
+
     `}
 `;

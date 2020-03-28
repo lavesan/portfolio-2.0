@@ -143,3 +143,15 @@ export const moneyMask = value => {
   }`;
 
 }
+
+export const integerMoneyMask = value => {
+
+  const onlyNumber = value.replace(/\D/g, '');
+
+  if (!onlyNumber) {
+    return '';
+  }
+
+  return `R$ ${onlyNumber}`;
+
+}

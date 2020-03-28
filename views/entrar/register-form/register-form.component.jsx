@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import {
     advanceReturnRegisterFormStep,
     setRegisterFormValidations,
+    setUserInfo,
 } from '../../../store/actions/authActions';
 import { StyledRegisterForm } from './register-form.styles';
 import { authInstance } from '../../../services/auth.service';
@@ -179,8 +180,8 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
         
         await authService.save(body)
             .then(res => {
+                dispatch(setUserInfo(res.user, res.token));
                 router.push('/inicio');
-                console.log('resposta: ', res);
             })
             .catch(err => {
                 console.log('erro: ', err);

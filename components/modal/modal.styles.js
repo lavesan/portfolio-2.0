@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 export const StyledModal = styled.div`
     ${({ theme }) => css`
         position: relative;
+        overflow: hidden;
 
         .close-button {
             position: absolute;

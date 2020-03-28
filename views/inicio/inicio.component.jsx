@@ -1,18 +1,14 @@
-import React, { useEffect, useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import Swiper from 'react-id-swiper';
 
 import { StyledStartPage } from './inicio.styles';
 import { PeriodCardComponent } from '../../components/period-card';
-import { setPromotionalProducts, setCategoryProducts, addCategoryProductFilter } from '../../store/actions/productActions';
-import { toogleOrderFinishedModal } from '../../store/actions/modalActions';
+import { addCategoryProductFilter } from '../../store/actions/productActions';
 import { CategoryResponsiveCardComponent } from  '../../components/category-responsive-card';
 import { ProductsRowComponent } from './products-row';
-import { productInstance } from '../../services/product.service';
 
 const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promotions, combos }) => {
-
-    const productService = productInstance.getInstance();
 
     const mapCategoriesToLinear = useMemo(
         () => {
@@ -96,24 +92,6 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
         dispatch(addCategoryProductFilter(category));
     }
 
-    const loadInitialProducts = useCallback(
-        async () => {
-            await productService.findProductsPromotions()
-                .then(res => {
-                    dispatch(setPromotionalProducts(res));
-                });
-            productService.findProductsFromCategories()
-                .then(res => {
-                    dispatch(setCategoryProducts(res));
-                });
-        },
-        [productService]
-    )
-
-    useEffect(() => {
-        loadInitialProducts();
-    }, [loadInitialProducts])
-
     return (
         <StyledStartPage>
             <section className="promo-combos-section">
@@ -184,6 +162,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                             ...combo,
                             quantitySuffix: "x",
                             imgUrl: combo.imgUrl,
+                            isCombo: true,
                             name: combo.title,
                             actualValueCents: combo.totalValue,
                         }))}
@@ -203,7 +182,6 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                 )
                 )}
             </section>
-            <p onClick={() => dispatch(toogleOrderFinishedModal())}>Crica aqui</p>
         </StyledStartPage>
     )
 }
