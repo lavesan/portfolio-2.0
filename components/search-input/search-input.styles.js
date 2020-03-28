@@ -1,9 +1,11 @@
 import styled, { css } from 'styled-components';
 
-export const StyledSearchInput = styled.div`
+export const StyledSearchInput = styled.form`
     ${({ theme, icon, button }) => css`
         position: relative;
         width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
 
         .search-icon {
             position: absolute;
@@ -21,7 +23,7 @@ export const StyledSearchInput = styled.div`
         }
 
         .search-input {
-            width: 65%;
+            flex: 1;
             border-top-left-radius: 4px;
             border-bottom-left-radius: 4px;
             ${icon && 'padding-left: 32px;'}

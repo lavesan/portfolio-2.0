@@ -3,10 +3,6 @@ import environment from '../public/static/env.json';
 
 export class ProductService {
 
-    axiosInstance = axios.create({
-        baseURL: 'http://localhost:3000',
-    });
-
     findProductsFromCategories() {
         return fetch(new Request(`${environment.API_URL}/product/categories/all`,{
             method: 'GET',
@@ -23,8 +19,8 @@ export class ProductService {
             .then(res => res.json())
     }
 
-    findAllFilteredPaginated({ take = 10, page }, filter) {
-        return axios.post(`/product/all?take=${take}&page=${page}`, filter);
+    findAllFilteredPaginated({ take, page }, filter) {
+        return axios.post(`/product/all${take ? `?take=${take}` : ''}${page ? `&page=${page}` : ''}`, filter);
     }
 
 }

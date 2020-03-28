@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const StyledResponsiveSearchInput = styled.input`
     ${({ theme }) => css`
+        flex: 1;
         border-radius: 5px;
         border: thin solid ${theme.green.primary};
         background-color: ${theme.white.secondary};
@@ -20,6 +21,10 @@ export const StyledResponsiveSearchInput = styled.input`
 export const StyledResponsiveSearchComponent = styled.div`
     ${({ theme }) => css`
         position: relative;
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+
         .search-icon {
             position: absolute;
             top: 12px;

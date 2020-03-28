@@ -7,27 +7,86 @@ const initialState = {
             loadingPromotions: true,
         },
     ],
+    productFilters: [],
+    filteredProducts: [],
     combos: [],
-    filters: [],
+    inputField: '',
+    openFilter: false,
+    selectedFilters: {
+        price: {
+            active: false,
+            field: 'pro_actual_value',
+            type: 'lessThanOrEqual',
+            value: 2,
+        },
+        quantityOnStock: {
+            active: false,
+            field: 'pro_quantity_on_stock',
+            type: 'lessThanOrEqual',
+            value: 3,
+        },
+    },
 };
 
 export const productReducer = (state = initialState, action) => {
     // Este 'state' é o state total passado
     // O 'action' é o valor alterado
     const handleReducer = {
-        ADD_PRODUCT_FILTER() {
+        SET_FILTERED_PRODUCTS() {
             return {
                 ...state,
-                filter: [
-                    ...state.filters,
-                    action.filter,
-                ]
+                filteredProducts: action.filteredProducts || [],
             }
+        },
+        SET_INPUT_SEARCH_FIELD() {
+            return {
+                ...state,
+                inputField: action.value,
+            }
+        },
+        SET_PRODUCT_FILTERS() {
+
+            const stateEntries = Object.entries(state.productFilters);
+
+            stateEntries.forEach(([key, value]) => {
+
+                if (!action.productFilters[key]) {
+                    action.productFilters[key] = value;
+                }
+
+            })
+
+            console.log('action.productFilters: ', action.productFilters);
+
+            const newFilter = action.productFilters.filter(filter => filter.value);
+
+            console.log('newFilter: ', newFilter);
+
+            return {
+                ...state,
+                productFilters: newFilter || [],
+            }
+
         },
         REMOVE_PRODUCT_FILTER() {
             return {
                 ...state,
-                filter: state.filters.filter((filter, index) => index !== action.index)
+                productFilters: state.productFilters.filter(filter => filter.id !== action.id)
+            }
+        },
+        SET_SELECTED_FILTER() {
+            return {
+                ...state,
+                selectedFilters: {
+                    ...state.selectedFilters,
+                    [action.name]: {
+                        ...state.selectedFilters[action.name],
+                        active: action.active,
+                        type: action.compare,
+                        id: action.id,
+                        label: action.label,
+                    }
+                },
             }
         },
         SET_CATEGORY_PRODUCTS_PAGES() {
@@ -93,7 +152,13 @@ export const productReducer = (state = initialState, action) => {
                 ...state,
                 combos: action.combos,
             }
-        }
+        },
+        TOOGLE_PRODUCT_FILTER() {
+            return {
+                ...state,
+                openFilter: !state.openFilter,
+            }
+        },
     }
 
     return handleReducer[action.type] ?

@@ -4,11 +4,12 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import { StyledResponsiveSearchInput, StyledResponsiveSearchComponent } from './responsive-search-input.styles';
 
-export default ({ ...inputAttrs }) => {
+export default ({ children, onSubmit, onClick, setFieldValue, ...inputAttrs }) => {
     return (
         <StyledResponsiveSearchComponent>
-            <FontAwesomeIcon className="search-icon" icon={faSearch} />
-            <StyledResponsiveSearchInput {...inputAttrs} />
+            <FontAwesomeIcon className="search-icon" onClick={onSubmit} icon={faSearch} />
+            <StyledResponsiveSearchInput onClick={onClick} onChange={setFieldValue} {...inputAttrs} />
+            {children}
         </StyledResponsiveSearchComponent>
     )
 }

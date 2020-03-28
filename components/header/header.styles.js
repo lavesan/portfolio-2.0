@@ -65,6 +65,11 @@ export const StyledHeader = styled.header`
 
         .responsive-search-container {
             margin-top: 15px;
+
+            .responsive-input-filter {
+                top: 38px;
+                border-color: ${theme.green.primary};
+            }
         }
 
         @media(max-width: 700px) {

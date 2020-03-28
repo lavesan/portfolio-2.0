@@ -3,23 +3,57 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faMapMarkerAlt, faUserCircle, faShoppingCart, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { connect } from "react-redux";
 import Link from 'next/link';
+import { useRouter } from "next/router";
 
 import { StyledHeader } from './header.styles';
 import { SearchInputComponent } from '../search-input';
 import { AsideIconComponent } from '../aside-icon';
 import { NavLinkComponent } from './nav-link';
-import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';
 import { NavDropdownComponent } from '../../components/nav-dropdown';
-import theme from '../../app/app.theme';
 import { toggleAddressModal } from '../../store/actions/modalActions';
-import { addProductFilter } from '../../store/actions/productActions';
+import { addProductFilter, toogleProductFilter, setProductFilters, setInputSearchField } from '../../store/actions/productActions';
 import { ResponsiveSearchInputComponent } from '../responsive-search-input';
 import { ResponsiveMenuIcon } from './responsive-menu-icon';
+import { FilterProductComponent } from './filter-products';
+import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';
+import theme from '../../app/app.theme';
 
-const HeaderComponent = ({ dispatch, categories, products, screenWidth }) => {
+const HeaderComponent = ({ dispatch, categories, products, screenWidth, selectedFilters, inputField }) => {
+
+    const router = useRouter();
 
     const filterWithCategory = (category) => {
         dispatch(addProductFilter(category));
+    }
+
+    const toogleFilter = () => {
+        dispatch(toogleProductFilter());
+    }
+
+    const filterData = (e) => {
+
+        e.preventDefault();
+
+        const values = Object.values(selectedFilters);
+
+        const searchProducts = values.filter(filter => filter.active).map(({ active, ...body }) => body);
+
+        searchProducts.push({
+            id: 3,
+            type: 'all',
+            value: inputField,
+            label: inputField,
+        });
+
+        dispatch(setProductFilters(searchProducts));
+
+        router.push('/produtos');
+        toogleFilter();
+
+    }
+
+    const changeFilterInput = (e) => {
+        dispatch(setInputSearchField(e.target.value));
     }
 
     return (
@@ -44,6 +78,10 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth }) => {
                             <div>
                                 <SearchInputComponent
                                     placeholder="Procurar produtos"
+                                    onSubmit={filterData}
+                                    onClick={toogleFilter}
+                                    setFieldValue={changeFilterInput}
+                                    value={inputField}
                                     button={{
                                         text: 'Buscar',
                                         color: theme.green.secondary,
@@ -51,7 +89,9 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth }) => {
                                         borderColor: theme.gray.primary,
                                         title: 'Buscar produtos',
                                     }}
-                                    icon={faSearch} />
+                                    icon={faSearch}>
+                                    <FilterProductComponent />
+                                </SearchInputComponent>
                             </div>
                             <aside className="header-actions-aside">
                                 <Link href="/entrar">
@@ -97,7 +137,15 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth }) => {
                 }
                 {screenWidth <= 700 &&
                     <div className="responsive-search-container">
-                        <ResponsiveSearchInputComponent type="text" placeholder="Pesquisar por produtos" />
+                        <ResponsiveSearchInputComponent
+                            type="text"
+                            placeholder="Pesquisar por produtos"
+                            onSubmit={filterData}
+                            onClick={toogleFilter}
+                            setFieldValue={changeFilterInput}
+                            value={inputField}>
+                            <FilterProductComponent className="responsive-input-filter" />
+                        </ResponsiveSearchInputComponent>
                     </div>
                 }
             </StyledHeader>
@@ -110,6 +158,8 @@ const mapStateToProps = store => ({
     categories: store.categoryState.categories,
     products: store.cartState.products,
     screenWidth: store.uiState.screenWidth,
+    selectedFilters: store.productState.selectedFilters,
+    inputField: store.productState.inputField,
 })
 
 export default connect(mapStateToProps)(HeaderComponent);

@@ -22,7 +22,7 @@ const SobrePage = ({ comments, screenWidth, dispatch }) => {
 
             commentService.getComments()
                 .then(res => {
-                    setComments(commentsRes)
+                    setComments(res)
                 })
                 .catch(err => console.log('deu pau: ', err));
 
