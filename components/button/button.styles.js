@@ -25,6 +25,16 @@ export const StyledSuccessButton = styled.button`
     `}
 `;
 
+export const StyledSuccessLink = styled.a`
+    ${ButtonCss}
+    ${({ theme }) => css`
+        color: #fff;
+        background-color: ${theme.green.primary};
+        border: thin solid ${theme.green.primary};
+        text-decoration: none;
+    `}
+`
+
 export const StyledRevSuccessButton = styled.button`
     ${ButtonCss}
     ${({ theme }) => css`

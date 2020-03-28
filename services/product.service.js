@@ -1,4 +1,5 @@
 import axios from 'axios';
+import environment from '../public/static/env.json';
 
 export class ProductService {
 
@@ -7,7 +8,7 @@ export class ProductService {
     });
 
     findProductsFromCategories() {
-        return fetch(new Request('http://localhost:3000/product/categories/all',{
+        return fetch(new Request(`${environment.API_URL}/product/categories/all`,{
             method: 'GET',
             mode: 'cors',
         }))
@@ -15,7 +16,7 @@ export class ProductService {
     }
     
     findProductsPromotions() {
-        return fetch(new Request('http://localhost:3000/product/promotion/all',{
+        return fetch(new Request(`${environment.API_URL}/product/promotion/all`,{
             method: 'GET',
             mode: 'cors',
         }))

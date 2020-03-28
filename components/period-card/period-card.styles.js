@@ -12,7 +12,7 @@ export const StyledPeriodCard = styled.div`
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
-        font-family: ;
+        font-family: BobbyJonesSoft;
         color: #fff;
         display: flex;
         justify-content: center;

@@ -1,8 +1,9 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Router } from 'next/router';
 import Head from "next/head";
+import axios from 'axios';
 
 import globalStyle from './style.css'
 import { HeaderComponent } from '../components/header';
@@ -34,6 +35,8 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
   const promotionService = promotionInstance.getInstance();
   const authService = authInstance.getInstance();
   const productService = productInstance.getInstance();
+
+  const [font, setFont] = useState('');
 
   const initiateStates = useCallback(
     async () => {
@@ -141,6 +144,13 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
 
   useEffect(() => {
     handleInit();
+
+    axios.get('files/bobby-jones.ttf')
+    .then(res => {
+      setFont(res);
+        // console.log('resposta: ', res);
+    })
+
   }, [handleInit]);
 
   useEffect(() => {
@@ -162,7 +172,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
         flexFlow: 'column nowrap',
         minHeight: '100vh',
       }}>
-          <GlobalStyle />
+          <GlobalStyle font={font} />
           <Head>
             <meta
               name="viewport"

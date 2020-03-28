@@ -3,17 +3,17 @@ import bobbyJonesFont from '../public/static/fonts/Bobby-Jones/BobbyJonesSoft.ot
 
 export default createGlobalStyle`
     
-    @font-face {
-        font-family: 'BobbyJonesSoft';
-        src: url(${bobbyJonesFont});
-    }
-    
     .styles_modal__gNwvD {
         border-radius: 5px;
     }
 
     .styles_closeButton__20ID4 {
         display: none;
+    }
+
+    @font-face {
+        font-family: 'BobbyJonesSoft';
+        src: url(${({ font }) => font}) format("truetype");
     }
 
 `
