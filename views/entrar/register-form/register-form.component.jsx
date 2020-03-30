@@ -48,6 +48,12 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
             await validateSecondStep();
         }
 
+        const link = document.getElementById('click-link-page-top');
+        if (link) {
+            console.log('link: ', link);
+            link.click();
+        }
+
         dispatch(advanceReturnRegisterFormStep(true));
 
     }
@@ -240,32 +246,33 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
                                     formValidations={registerFormValidations} />
                             </div>
                         </>
-                        : <div className="full-width">
-                            {registerFormStep === 1 && 
-                                <AccessForm
-                                    values={registerForm.access}
-                                    isResponsive={isResponsive}
-                                    startValidations={submittedSteps.first}
-                                    setFormValidations={setFormValidations}
-                                    formValidations={registerFormValidations} />
-                            }
-                            {registerFormStep === 2 &&
-                                <PersonalForm
-                                    values={registerForm.personal}
-                                    isResponsive={isResponsive}
-                                    startValidations={submittedSteps.second}
-                                    setFormValidations={setFormValidations}
-                                    formValidations={registerFormValidations} />
-                            }
-                            {registerFormStep === 3 &&
-                                <AddressForm
-                                    values={registerForm.address}
-                                    isResponsive={isResponsive}
-                                    startValidations={submittedSteps.finish}
-                                    setFormValidations={setFormValidations}
-                                    formValidations={registerFormValidations} />
-                            }
-                        </div>
+                        : <>
+                            <div id="top-page"></div>
+                            <a id="click-link-page-top" href="#top-page" style={{ display: 'none' }}></a>
+                            <div className="full-width">
+                                {registerFormStep === 1 && 
+                                    <AccessForm
+                                        isResponsive={isResponsive}
+                                        startValidations={submittedSteps.first}
+                                        setFormValidations={setFormValidations}
+                                        formValidations={registerFormValidations} />
+                                }
+                                {registerFormStep === 2 &&
+                                    <PersonalForm
+                                        isResponsive={isResponsive}
+                                        startValidations={submittedSteps.second}
+                                        setFormValidations={setFormValidations}
+                                        formValidations={registerFormValidations} />
+                                }
+                                {registerFormStep === 3 &&
+                                    <AddressForm
+                                        isResponsive={isResponsive}
+                                        startValidations={submittedSteps.finish}
+                                        setFormValidations={setFormValidations}
+                                        formValidations={registerFormValidations} />
+                                }
+                            </div>
+                        </>
                     }
                 </div>
                 {!isResponsive

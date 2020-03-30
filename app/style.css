@@ -3,6 +3,10 @@
     src: url(/public/static/fonts/Bobby-Jones/BobbyJonesSoft.otf) format('woff'), /* Pretty Modern Browsers */
         /* url(/public/static/fonts/Bobby-Jones/Bobby\ Rough\ Soft\ Outline.ttf) format("truetype"), Safari, Android, iOS */
 /* } */
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
     overflow-x: hidden;
 }

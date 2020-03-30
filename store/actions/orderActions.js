@@ -1,7 +1,4 @@
 const SET_STEP_VALUES = 'SET_STEP_VALUES';
-const SET_ACTIVE_ORDERS = 'SET_ACTIVE_ORDERS';
-const ADD_ACTIVE_ORDER = 'ADD_ACTIVE_ORDER';
-const REMOVE_ACTIVE_ORDER = 'REMOVE_ACTIVE_ORDER';
 const SET_ORDER_VALIDATIONS = 'SET_ORDER_VALIDATIONS';
 const SET_ALL_STEP_VALUES = 'SET_ALL_STEP_VALUES';
 const CLEAR_STEP_VALUES = 'CLEAR_STEP_VALUES';
@@ -36,21 +33,6 @@ export const setCommentStepValues = ({ name, value }) => ({
     step: 'commentStep',
     value,
     name,
-});
-
-export const setActiveOrders = (activeOrders) => ({
-    type: SET_ACTIVE_ORDERS,
-    activeOrders,
-});
-
-export const addActiveOrder = (activeOrder) => ({
-    type: ADD_ACTIVE_ORDER,
-    activeOrder,
-});
-
-export const removeActiveOrder = (orderId) => ({
-    type: REMOVE_ACTIVE_ORDER,
-    orderId,
 });
 
 export const setAddressValidation = (formValidations) => ({

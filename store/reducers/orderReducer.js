@@ -35,7 +35,6 @@ const initialState = {
     addressValidations: {},
     scheduleValidations: {},
     cardValidations: {},
-    activeOrders: [],
 };
 
 export const orderReducer = (state = initialState, action) => {
@@ -89,27 +88,6 @@ export const orderReducer = (state = initialState, action) => {
                 [action.step]: values,
             }
 
-        },
-        SET_ACTIVE_ORDERS() {
-            return {
-                ...state,
-                activeOrders: action.activeOrders,
-            }
-        },
-        ADD_ACTIVE_ORDER() {
-            return {
-                ...state,
-                activeOrders: [
-                    ...state.activeOrders,
-                    action.activeOrder,
-                ],
-            }
-        },
-        REMOVE_ACTIVE_ORDER() {
-            return {
-                ...state,
-                activeOrders: state.activeOrders.filter(order => order.id !== action.orderId)
-            }
         },
         SET_ORDER_VALIDATIONS() {
             return {
