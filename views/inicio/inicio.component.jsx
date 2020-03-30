@@ -1,14 +1,17 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import Swiper from 'react-id-swiper';
+import { useRouter } from "next/router";
 
 import { StyledStartPage } from './inicio.styles';
 import { PeriodCardComponent } from '../../components/period-card';
-import { addCategoryProductFilter } from '../../store/actions/productActions';
+import { setProductFilters } from '../../store/actions/productActions';
 import { CategoryResponsiveCardComponent } from  '../../components/category-responsive-card';
 import { ProductsRowComponent } from './products-row';
 
 const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promotions, combos }) => {
+
+    const router = useRouter();
 
     const mapCategoriesToLinear = useMemo(
         () => {
@@ -88,8 +91,14 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
         },
     }
 
-    const onCategoryClick = (category) => {
-        dispatch(addCategoryProductFilter(category));
+    const onCategoryClick = category => {
+        dispatch(setProductFilters({
+            type: 'equals',
+            field: 'cat.id',
+            value: category.id,
+            label: category.name,
+        }));
+        router.push('/produtos');
     }
 
     return (

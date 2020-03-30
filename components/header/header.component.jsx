@@ -11,7 +11,7 @@ import { AsideIconComponent } from '../aside-icon';
 import { NavLinkComponent } from './nav-link';
 import { NavDropdownComponent } from '../../components/nav-dropdown';
 import { toggleAddressModal } from '../../store/actions/modalActions';
-import { addProductFilter, toogleProductFilter, setProductFilters, setInputSearchField } from '../../store/actions/productActions';
+import { toogleProductFilter, setProductFilters, setInputSearchField } from '../../store/actions/productActions';
 import { ResponsiveSearchInputComponent } from '../responsive-search-input';
 import { ResponsiveMenuIcon } from './responsive-menu-icon';
 import { FilterProductComponent } from './filter-products';
@@ -27,6 +27,7 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
             type: 'equals',
             field: 'cat.id',
             value: category.id,
+            label: category.name,
         }));
         router.push('/produtos');
     }
