@@ -14,9 +14,9 @@ import { setCategories } from '../store/actions/categoryActions';
 import { setUserInfo, clearUserInfo } from '../store/actions/authActions';
 import { screenResize } from '../store/actions/uiActions';
 import { setPromotions, setCombos, setPromotionalProducts, setCategoryProducts } from '../store/actions/productActions';
+import { setActiveOrders } from '../store/actions/orderActions';
 import { categoryInstance } from '../services/category.service';
 import { comboInstance } from '../services/combo.service';
-import { promotionInstance } from '../services/promotion.service';
 import { authInstance } from '../services/auth.service';
 import { productInstance } from '../services/product.service';
 
@@ -32,7 +32,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
 
   const categoryService = categoryInstance.getInstance();
   const comboService = comboInstance.getInstance();
-  const promotionService = promotionInstance.getInstance();
+  // const promotionService = promotionInstance.getInstance();
   const authService = authInstance.getInstance();
   const productService = productInstance.getInstance();
 
@@ -40,7 +40,16 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
 
   const initiateStates = useCallback(
     async () => {
-      
+
+      const ordersIdsStorage = localStorage.getItem('orders');
+
+      if (ordersIdsStorage) {
+        const orderIds = JSON.parse(ordersIdsStorage);
+        if (orderIds) {
+          dispatch(setActiveOrders(orderIds));
+        }
+      }
+
       const userData = localStorage.getItem('userData');
       const token = localStorage.getItem('auth');
 

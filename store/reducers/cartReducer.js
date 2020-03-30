@@ -33,7 +33,7 @@ export const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 products: [
-                    ...state.products,
+                    ...state.products.filter(product => product.id !== action.product.id),
                     action.product,
                 ],
             }
@@ -87,7 +87,7 @@ export const cartReducer = (state = initialState, action) => {
                     }
                 }
             }
-        }
+        },
     }
 
     return handleReducer[action.type] ?

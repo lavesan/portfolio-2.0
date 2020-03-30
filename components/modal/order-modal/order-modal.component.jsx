@@ -9,6 +9,8 @@ import { orderInstance } from '../../../services/order.service';
 import { numberStringToReal } from '../../../helpers/calc.helpers';
 import { toogleOrderFinishedModal } from '../../../store/actions/modalActions';
 import { removeAllFirstDigits } from '../../../helpers/unmask.helpers';
+import { setActiveOrders, clearOrderForm } from '../../../store/actions/orderActions';
+import { clearCart } from '../../../store/actions/cartActions';
 
 const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, cardStep }) => {
 
@@ -18,6 +20,23 @@ const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, card
 
     const toggleModal = () => {
         dispatch(toogleOrderToFinishModal());
+    }
+
+    const saveActiveOrders = id => {
+
+        let orderIds = [id];
+        const ordersFromStorage = localStorage.getItem('orders');
+        if (ordersFromStorage) {
+            const orders = JSON.parse(ordersFromStorage);
+            if (orders) {
+                orderIds = orderIds.concat(orders);
+            }
+        }
+
+        localStorage.setItem('orders', JSON.stringify(orderIds));
+        
+        dispatch(setActiveOrders(orderIds));
+
     }
 
     const activateOrder = async () => {
@@ -45,6 +64,13 @@ const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, card
         await orderService.confirmOrder(body)
             .then(res => {
                 toggleModal();
+                saveActiveOrders(res.id);
+
+                // Clears the cart
+                dispatch(clearCart());
+                // Clear the order form
+                dispatch(clearOrderForm());
+
                 setTimeout(() => {
                     dispatch(toogleOrderFinishedModal());
                 }, 100);

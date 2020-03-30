@@ -14,6 +14,10 @@ export class OrderService {
         return axios.get(`/order/active-schedule?date=${date}`);
     }
 
+    findAllActiveByIds(orderIds) {
+        return axios.post('/order/all/ids', orderIds);
+    }
+
 }
 
 let productServiceInstance = null;

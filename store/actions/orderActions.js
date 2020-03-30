@@ -6,6 +6,9 @@ const SET_ORDER_VALIDATIONS = 'SET_ORDER_VALIDATIONS';
 const SET_ALL_STEP_VALUES = 'SET_ALL_STEP_VALUES';
 const CLEAR_STEP_VALUES = 'CLEAR_STEP_VALUES';
 const SET_MANY_VALUES_ADDRESS = 'SET_MANY_VALUES_ADDRESS';
+const SET_ACTIVE_ORDERS_IDS = 'SET_ACTIVE_ORDERS_IDS';
+const SET_ORDERS_DATA = 'SET_ORDERS_DATA';
+const CLEAR_ORDER_FORM = 'CLEAR_ORDER_FORM';
 
 export const setCardStepValues = ({ name, value }) => ({
     type: SET_STEP_VALUES,
@@ -93,4 +96,18 @@ export const clearCardStepValues = () => ({
 export const setManyValuesAddress = (data) => ({
     type: SET_MANY_VALUES_ADDRESS,
     ...data,
+})
+
+export const setActiveOrders = activeOrders => ({
+    type: SET_ACTIVE_ORDERS_IDS,
+    activeOrders,
+})
+
+export const setOrdersData = ordersData => ({
+    type: SET_ORDERS_DATA,
+    ordersData,
+})
+
+export const clearOrderForm = () => ({
+    type: CLEAR_ORDER_FORM,
 })

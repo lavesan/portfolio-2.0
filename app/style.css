@@ -3,6 +3,9 @@
     src: url(/public/static/fonts/Bobby-Jones/BobbyJonesSoft.otf) format('woff'), /* Pretty Modern Browsers */
         /* url(/public/static/fonts/Bobby-Jones/Bobby\ Rough\ Soft\ Outline.ttf) format("truetype"), Safari, Android, iOS */
 /* } */
+:root {
+    overflow-x: hidden;
+}
 
 body {
     margin: 0;
@@ -11,6 +14,7 @@ body {
     overflow-x: hidden;
     max-width: 100vw;
 }
+
 
 .MuiFormControl-root .MuiInputBase-root input {
     background-color: #fff;

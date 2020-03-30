@@ -1,4 +1,6 @@
 const initialState = {
+    activeOrders: [],
+    ordersData: [],
     addressStep: {
         id: '',
         cep: '',
@@ -116,6 +118,52 @@ export const orderReducer = (state = initialState, action) => {
                     ...state[action.formName],
                     ...action.formValidations,
                 }
+            }
+        },
+        SET_ACTIVE_ORDERS_IDS() {
+            return {
+                ...state,
+                activeOrders: action.activeOrders,
+            }
+        },
+        SET_ORDERS_DATA() {
+            return {
+                ...state,
+                ordersData: action.ordersData ? action.ordersData : [],
+            }
+        },
+        CLEAR_ORDER_FORM() {
+
+            const addressStep = {};
+            Object.keys(state.addressStep)
+                .map(key => {
+                    if (key === 'saveAddress') {
+                        addressStep[key] = false;
+                    } else {
+                        addressStep[key] = '';
+                    }
+                })
+            const scheduleStep = {
+                date: state.scheduleStep.date,
+                time: '',
+            };
+            const cardStep = {};
+            Object.keys(state.cardStep)
+                .map(key => {
+                    if (key === 'payLatter' || key == 'saveCard') {
+                        addressStep[key] = false;
+                    } else if (key === 'paymentType' || key == 'paymentoMethod') {
+                        addressStep[key] = state.addressStep[key];
+                    } else {
+                        addressStep[key] = '';
+                    }
+                })
+
+            return {
+                ...state,
+                addressStep,
+                scheduleStep,
+                cardStep,
             }
         }
     }
