@@ -90,3 +90,10 @@ export const isValidThroughDate = value => {
         message: 'Data inválida',
     }
 }
+
+export const isCellphoneNumber = value => {
+    return {
+        valid: /^\(?\d{2}\)? ?\d{5}-?\d{4}$/.test(value),
+        message: 'Número inválido',
+    }
+}

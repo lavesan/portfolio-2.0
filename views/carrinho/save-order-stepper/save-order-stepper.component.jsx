@@ -11,7 +11,7 @@ import { SucessButtonComponent } from '../../../components/button';
 import { unmaskDistrictName } from '../../../helpers/unmask.helpers';
 import { toogleOrderToFinishModal } from '../../../store/actions/modalActions';
 
-const SaveOrderStepper = ({ className, scheduleStep, cardStep, addressStep, dispatch, products, addressValidations, scheduleValidations, cardValidations }) => {
+const SaveOrderStepper = ({ className, scheduleStep, cardStep, addressStep, dispatch, products, addressValidations, scheduleValidations, cardValidations, token }) => {
 
     const orderService = orderInstance.getInstance();
 
@@ -31,7 +31,15 @@ const SaveOrderStepper = ({ className, scheduleStep, cardStep, addressStep, disp
 
         const cardStepInvalid = cardStepValidate.some(value => cardValidations[value] && cardValidations[value].invalid);
 
-        const addressStepInvalid = addressStep.id ? false : Object.values(addressValidations).some(value => value.invalid);
+        const addressStepValidate = token
+            ? ['id', 'cep', 'district', 'address', 'number', 'complement']
+            : ['id', 'cep', 'district', 'address', 'number', 'complement', 'phoneNumber', 'userName'];
+
+        if (token && !userInfo.contacts.length) {
+            addressStepValidate.push('phoneNumber');
+        }
+
+        const addressStepInvalid = addressStepValidate.some(value => addressValidations[value] && addressValidations[value].invalid);
 
         const scheduleStepInvalid = Object.values(scheduleValidations).some(value => value.invalid);
 
@@ -67,9 +75,9 @@ const SaveOrderStepper = ({ className, scheduleStep, cardStep, addressStep, disp
 
         const paymentMethod = cardStep.payLatter ? cardStep.paymentType : 1;
         const changeValuesFormated = cardStep.changeValueCents ? `${cardStep.changeValueCents.replace(/\D/g, '')}00` : '';
-        const unmaskedDistrict = unmaskDistrictName(addressStep.district);
+        const unmaskedDistrict = addressStep.district.label ? unmaskDistrictName(addressStep.district.label) : unmaskDistrictName(addressStep.district);
 
-        const body = {
+        let body = {
             type: paymentMethod,
             payed: cardStep.payLatter,
             description: cardStep.descriptions,
@@ -87,10 +95,27 @@ const SaveOrderStepper = ({ className, scheduleStep, cardStep, addressStep, disp
                 number: addressStep.number,
                 complement: addressStep.complement,
             },
-            // contact: {},
             products: onlyProducts,
             combos,
         };
+
+        if (!token) {
+
+            const phoneOnlyNumber = addressStep.phoneNumber.replace(/\D/g, '');
+            const ddd = phoneOnlyNumber.match(/^\d{2}/);
+            const number = phoneOnlyNumber.match(/\d{9}$/);
+
+            body = {
+                ...body,
+                userName: addressStep.userName,
+                contact: {
+                    ddd,
+                    number,
+                    type: 0,
+                }
+            }
+
+        }
 
         await orderService.save(body)
             .then(res => {
@@ -129,6 +154,7 @@ const mapStateToProps = store => ({
     cardValidations: store.orderState.cardValidations,
     userInfo: store.authState.userInfo,
     products: store.cartState.products,
+    token: store.authState.token,
 })
 
 export default connect(mapStateToProps)(SaveOrderStepper);

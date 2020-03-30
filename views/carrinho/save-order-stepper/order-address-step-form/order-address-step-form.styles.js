@@ -26,9 +26,26 @@ export const StyledOrderAddressStepForm = styled.section`
             width: 35%;
         }
     }
-    .order-checkbox-label {
-        color: ${({ theme }) => theme.green.terciary};
+    .address-last-row {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        width: 100%;
     }
+    ${({ theme }) => css`
+        .order-checkbox-label {
+            color: ${theme.green.terciary};
+        }
+
+        .freight-value-container {
+            background-color: ${theme.green.penternary};
+            color: ${theme.green.terciary};
+            border: thin solid ${theme.green.primary};
+            border-radius: 5px;
+            padding: 10px 20px;
+            height: 100%;
+        }
+    `}
 `;
 
 export const StyledAddressInfoRadio = styled.div`

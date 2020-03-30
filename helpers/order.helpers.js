@@ -1,4 +1,4 @@
-const priceByDistrict = {
+export const priceByDistrict = {
     boaViagem: 6,
     pina: 6,
     setubal: 6,

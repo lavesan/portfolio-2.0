@@ -3,13 +3,16 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { StyledNeultralInput } from '../form-input';
 import { StyledFieldset } from './form-field.styles';
 
-export default ({ label, name, setFieldValue, className, setFormValidations, formValidation, startValidations, validatesOnChange = [], maskOnChange, ...inputProps }) => {
+export default ({ label, name, setFieldValue, className, setFormValidations, formValidation, startValidations, validatesOnChange = [], maskOnChange, onFocusOut, ...inputProps }) => {
 
     const [activateValidation, setActivationValidation] = useState(false);
 
     // Activates the validation
-    const onFocousOut = () => {
+    const activateOnFocusOut = () => {
         setActivationValidation(true);
+        if (onFocusOut) {
+            onFocusOut();
+        }
     }
 
     const applyValidations = (actualValue) => {
@@ -64,7 +67,7 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
                 error={startErrorValidation}
                 name={name}
                 onChange={onChange}
-                onBlur={onFocousOut}
+                onBlur={activateOnFocusOut}
                 {...inputProps} />
             {startErrorValidation ? <small className="error-message">{formValidation.message}</small> : ''}
         </StyledFieldset>

@@ -9,14 +9,21 @@ import { StyledButtonFormEnd } from '../../../../components/form/form-button-fie
 import { StyledSuccessButton } from '../../../../components/button';
 import { StyledOrderFormTitle } from '../save-order-stepper.styles';
 import { setAddressValidation } from '../../../../store/actions/orderActions';
-import { isRequired, validateOnlyNumber } from '../../../../helpers/validations.helpers';
-import { onlyNumberMask, onlyCharactersMask } from '../../../../helpers/mask.helpers';
+import { isRequired, validateOnlyNumber, isCellphoneNumber } from '../../../../helpers/validations.helpers';
+import { onlyNumberMask, onlyCharactersMask, celphoneMask } from '../../../../helpers/mask.helpers';
 import { FormRadioComponent } from '../../../../components/form/form-radio';
 import { FormCheckboxComponent } from '../../../../components/form/form-checkbox';
 import { FormOrderSelectComponent } from '../../../../components/form/form-order-select';
-import { priceByDistrictOpts } from '../../../../helpers/order.helpers';
+import { numberToReal } from '../../../../helpers/calc.helpers';
+import { priceByDistrictOpts, priceByDistrict } from '../../../../helpers/order.helpers';
+import { unmaskDistrictName } from '../../../../helpers/unmask.helpers';
+import { removeDiacritics } from '../../../../helpers/removespecialCharacter.helpers';
+import { authInstance } from '../../../../services/auth.service';
+import { setManyValuesAddress } from '../../../../store/actions/orderActions';
 
 const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userInfo, token, submitted }) => {
+
+    const authService = authInstance.getInstance();
 
     const setFormValidations = (validation) => {
         dispatch(setAddressValidation(validation));
@@ -42,6 +49,35 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                 <p>{complement}</p>
             </StyledAddressInfoRadio>
         )
+    }
+
+    const searchCep = () => {
+
+        authService.findCep(addressStep.cep)
+            .then(({ data }) => {
+
+                const formatedDistrict = unmaskDistrictName(removeDiacritics(data.bairro));
+
+                if (priceByDistrictOpts.some(f => f.label == formatedDistrict)) {
+                    alert('Não entregamos para este endereço')
+                    return;
+                }
+
+                const selectedDistrict = {
+                    label: data.bairro,
+                    value: priceByDistrict[formatedDistrict],
+                };
+
+                dispatch(setManyValuesAddress({
+                    address: data.logradouro,
+                    complement: data.complemento,
+                    district: selectedDistrict,
+                }));
+            })
+            .catch(err => {
+                console.log('deu pau: ', err);
+            });
+
     }
 
     const allAddressesSelect = useMemo(
@@ -74,7 +110,37 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
 
     return (
         <StyledOrderAddressStepForm>
-            <StyledOrderFormTitle>Seu endereço</StyledOrderFormTitle>
+            <StyledOrderFormTitle>Informações gerais</StyledOrderFormTitle>
+            <div className="first-row">
+                {!token &&
+                    <FormFieldComponent
+                        label="Seu nome"
+                        name="userName"
+                        className="first-column"
+                        placeholder="Seu nome aqui"
+                        startValidations={submitted}
+                        maskOnChange={onlyCharactersMask}
+                        value={addressStep.userName}
+                        className="first-column"
+                        setFieldValue={setFieldValue} />
+                }
+                {!userInfo.contacts.length
+                    ? <FormFieldComponent
+                        className="second-column"
+                        label="Telefone para contato"
+                        name="phoneNumber"
+                        placeholder="(99) 99999-9999"
+                        startValidations={submitted}
+                        maskOnChange={celphoneMask}
+                        validatesOnChange={[isRequired, isCellphoneNumber]}
+                        setFormValidations={setFormValidations}
+                        formValidation={addressValidations.phoneNumber}
+                        value={addressStep.phoneNumber}
+                        className="first-column"
+                        setFieldValue={setFieldValue} />
+                    : ''
+                }
+            </div>
             {userInfo.addresses.length ?
                 <FormRadioComponent
                     value={addressStep.id}
@@ -88,6 +154,7 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                         <FormFieldComponent
                             label="CEP"
                             name="cep"
+                            onFocusOut={searchCep}
                             startValidations={submitted}
                             maskOnChange={onlyNumberMask}
                             validatesOnChange={[isRequired, validateOnlyNumber]}
@@ -142,13 +209,20 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                             className="second-column"
                             setFieldValue={setFieldValue} />
                     </div>
-                    {token &&
-                        <FormCheckboxComponent
-                            label={<label className="order-checkbox-label">Salvar como novo endereço</label>}
-                            name="saveAddress"
-                            value={addressStep.saveAddress}
-                            onChange={setFieldValue} />
-                    }
+                    <div className="address-last-row">
+                        {token &&
+                            <FormCheckboxComponent
+                                label={<label className="order-checkbox-label">Salvar como novo endereço</label>}
+                                name="saveAddress"
+                                value={addressStep.saveAddress}
+                                onChange={setFieldValue} />
+                        }
+                        {addressStep.district &&
+                            <p className="freight-value-container">
+                                Valor do frete: {numberToReal(addressStep.district.value)}
+                            </p>
+                        }
+                    </div>
                 </>
             }
         </StyledOrderAddressStepForm>

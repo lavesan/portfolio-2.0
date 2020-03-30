@@ -7,6 +7,8 @@ const initialState = {
         number: '',
         complement: '',
         saveAddress: false,
+        phoneNumber: '',
+        userName: '',
     },
     scheduleStep: {
         date: '',
@@ -42,6 +44,17 @@ export const orderReducer = (state = initialState, action) => {
                 [action.step]: {
                     ...state[action.step],
                     [action.name]: action.value,
+                }
+            }
+        },
+        SET_MANY_VALUES_ADDRESS() {
+            return {
+                ...state,
+                addressStep: {
+                    ...state.addressStep,
+                    address: action.address,
+                    complement: action.complement,
+                    district: action.district,
                 }
             }
         },

@@ -5,6 +5,7 @@ const REMOVE_ACTIVE_ORDER = 'REMOVE_ACTIVE_ORDER';
 const SET_ORDER_VALIDATIONS = 'SET_ORDER_VALIDATIONS';
 const SET_ALL_STEP_VALUES = 'SET_ALL_STEP_VALUES';
 const CLEAR_STEP_VALUES = 'CLEAR_STEP_VALUES';
+const SET_MANY_VALUES_ADDRESS = 'SET_MANY_VALUES_ADDRESS';
 
 export const setCardStepValues = ({ name, value }) => ({
     type: SET_STEP_VALUES,
@@ -80,4 +81,9 @@ export const clearAddressStepValues = () => ({
 export const clearCardStepValues = () => ({
     type: CLEAR_STEP_VALUES,
     step: 'cardStep',
+})
+
+export const setManyValuesAddress = (data) => ({
+    type: SET_MANY_VALUES_ADDRESS,
+    ...data,
 })
