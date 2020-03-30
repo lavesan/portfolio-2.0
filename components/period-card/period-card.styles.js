@@ -12,7 +12,7 @@ export const StyledPeriodCard = styled.div`
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
-        font-family: BobbyJonesSoft;
+        font-family: BobbyJonesSoft, Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         color: #fff;
         display: flex;
         justify-content: center;
@@ -47,7 +47,7 @@ export const StyledPeriodCard = styled.div`
         }
 
         h2 {
-            font-family: BobbyJonesSoft;
+            font-family: BobbyJonesSoft, Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             font-weight: 300;
         }
 

@@ -3,6 +3,7 @@ const TOGGLE_PRODUCT_MODAL = 'TOGGLE_PRODUCT_MODAL';
 const TOGGLE_TERME_OF_CONTRACT_MODAL = 'TOGGLE_TERME_OF_CONTRACT_MODAL';
 const TOGGLE_ORDER_TO_FINISH_MODAL = 'TOGGLE_ORDER_TO_FINISH_MODAL';
 const TOGGLE_ORDER_FINISHED_MODAL = 'TOGGLE_ORDER_FINISHED_MODAL';
+const TOOGLE_ADD_ORDER_COMMENT_MODAL = 'TOOGLE_ADD_ORDER_COMMENT_MODAL';
 
 export const toggleAddressModal = () => ({
     type: TOGGLE_ADDRESS_MODAL,
@@ -24,4 +25,8 @@ export const toogleOrderToFinishModal = (orderData) => ({
 
 export const toogleOrderFinishedModal = () => ({
     type: TOGGLE_ORDER_FINISHED_MODAL,
+})
+
+export const toogleAddOrderCommentModal = () => ({
+    type: TOOGLE_ADD_ORDER_COMMENT_MODAL,
 })

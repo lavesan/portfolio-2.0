@@ -28,6 +28,13 @@ export const setScheduleStepValues = ({ name, value }) => ({
     name,
 });
 
+export const setCommentStepValues = ({ name, value }) => ({
+    type: SET_STEP_VALUES,
+    step: 'commentStep',
+    value,
+    name,
+});
+
 export const setActiveOrders = (activeOrders) => ({
     type: SET_ACTIVE_ORDERS,
     activeOrders,

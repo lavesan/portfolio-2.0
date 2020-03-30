@@ -73,28 +73,27 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
       //   .catch(() => {
       //     dispatch(setPromotions([]));
       //   })
-      await comboService.findAll()
-        .then(res => {
-          dispatch(setCombos(res));
-        })
-        .catch(() => {
-          dispatch(setCombos([]));
-        })
-      setTimeout(async () => {
-        await callUntilGetResult(productService.findProductsPromotions)
-            .then(res => {
-              dispatch(setPromotions(res));
-              // dispatch(setPromotionalProducts(res));
-            })
-            .catch(err => {
-              dispatch(setPromotions([]));
-            });
-        await callUntilGetResult(productService.findProductsFromCategories)
-            .then(res => {
-              dispatch(setCategoryProducts(res));
-            })
-            .catch(err => {
-            });
+      await callUntilGetResult(productService.findProductsPromotions)
+          .then(res => {
+            dispatch(setPromotions(res));
+          })
+          .catch(err => {
+            dispatch(setPromotions([]));
+          });
+      await callUntilGetResult(productService.findProductsFromCategories)
+          .then(res => {
+            dispatch(setCategoryProducts(res));
+          })
+          .catch(err => {
+          });
+        setTimeout(async () => {
+          await callUntilGetResult(comboService.findAll)
+              .then(res => {
+                dispatch(setCombos(res));
+              })
+              .catch(err => {
+                dispatch(setCombos([]));
+              });
       }, 500)
 
     },

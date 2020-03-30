@@ -24,13 +24,15 @@ const FormSelectComponent = ({ label, value, name, options = [], onChange, valid
 
     // const classes = useStyles();
 
-    const applyValidations = value => {
+    const applyValidations = actualValue => {
         
         if (validatesOnChange.length) {
 
             for (const validationFunc of validatesOnChange) {
 
-                const validation = validationFunc(value, name);
+                const validateValue = actualValue ? actualValue : value;
+
+                const validation = validationFunc(validateValue, name);
     
                 setFormValidations(function(f) {
                     return {

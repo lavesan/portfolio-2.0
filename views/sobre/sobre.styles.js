@@ -38,6 +38,10 @@ export const StyledAboutPage = styled.section`
                     width: 100%;
                 }
 
+                .big-image {
+                    height: 200px;
+                }
+
                 .small-images {
                     margin-top: 10px;
                     display: grid;

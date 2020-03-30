@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import { StyledSaveOrderForm } from './save-order-stepper.styles';
 import { OrderAddressStepForm } from './order-address-step-form';
 import { SchedulerStepFormComponent } from './scheduler-step-form';
 import { OrderCardStepForm } from './order-second-step-form';
-import { orderInstance } from '../../../services/order.service';
 import { SucessButtonComponent } from '../../../components/button';
-import { unmaskDistrictName } from '../../../helpers/unmask.helpers';
-import { toogleOrderToFinishModal } from '../../../store/actions/modalActions';
+import { toogleAddOrderCommentModal } from '../../../store/actions/modalActions';
 
-const SaveOrderStepper = ({ className, scheduleStep, cardStep, addressStep, dispatch, products, addressValidations, scheduleValidations, cardValidations, token }) => {
-
-    const orderService = orderInstance.getInstance();
+const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressValidations, scheduleValidations, cardValidations, token }) => {
 
     const [submitted, setSubmitted] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     const formInvalid = () => {
 
@@ -68,65 +62,7 @@ const SaveOrderStepper = ({ className, scheduleStep, cardStep, addressStep, disp
 
         await validateOrderForm();
 
-        setLoading(true);
-
-        const combos = products.filter(product => product.isCombo);
-        const onlyProducts = products.filter(product => !product.isCombo);
-
-        const paymentMethod = cardStep.payLatter ? cardStep.paymentType : 1;
-        const changeValuesFormated = cardStep.changeValueCents ? `${cardStep.changeValueCents.replace(/\D/g, '')}00` : '';
-        const unmaskedDistrict = addressStep.district.label ? unmaskDistrictName(addressStep.district.label) : unmaskDistrictName(addressStep.district);
-
-        let body = {
-            type: paymentMethod,
-            payed: cardStep.payLatter,
-            description: cardStep.descriptions,
-            changeValueCents: changeValuesFormated,
-            receive: {
-                date: moment(scheduleStep.date).format('DD/MM/YYYY'),
-                time: scheduleStep.time,
-            },
-            saveAddress: addressStep.saveAddress,
-            address: {
-                id: addressStep.id,
-                cep: addressStep.cep,
-                district: unmaskedDistrict,
-                address: addressStep.address,
-                number: addressStep.number,
-                complement: addressStep.complement,
-            },
-            products: onlyProducts,
-            combos,
-        };
-
-        if (!token) {
-
-            const phoneOnlyNumber = addressStep.phoneNumber.replace(/\D/g, '');
-            const ddd = phoneOnlyNumber.match(/^\d{2}/);
-            const number = phoneOnlyNumber.match(/\d{9}$/);
-
-            body = {
-                ...body,
-                userName: addressStep.userName,
-                contact: {
-                    ddd,
-                    number,
-                    type: 0,
-                }
-            }
-
-        }
-
-        await orderService.save(body)
-            .then(res => {
-                console.log('chego aqui vei: ', res);
-                dispatch(toogleOrderToFinishModal(res));
-            })
-            .catch(err => {
-                console.log('erro: ', err);
-            })
-
-        setLoading(false);
+        dispatch(toogleAddOrderCommentModal());
 
     }
 
@@ -138,17 +74,14 @@ const SaveOrderStepper = ({ className, scheduleStep, cardStep, addressStep, disp
             <div className="action-button-row">
                 <SucessButtonComponent
                     type="submit"
-                    text="Confirmar dados"
-                    loading={loading} />
+                    text="Confirmar dados" />
             </div>
         </StyledSaveOrderForm>
     )
 }
 
 const mapStateToProps = store => ({
-    scheduleStep: store.orderState.scheduleStep,
     cardStep: store.orderState.cardStep,
-    addressStep: store.orderState.addressStep,
     scheduleValidations: store.orderState.scheduleValidations,
     addressValidations: store.orderState.addressValidations,
     cardValidations: store.orderState.cardValidations,

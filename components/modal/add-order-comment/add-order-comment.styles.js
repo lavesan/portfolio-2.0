@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const StyledOrderModalComponent = styled.section`
+export const StyledAddOrderCommentModal = styled.form`
     ${({ theme }) => css`
         color: ${theme.gray.secondary};
         font-weight: 600;
@@ -24,7 +24,6 @@ export const StyledOrderModalComponent = styled.section`
                 font-size: 1.1rem;
             }
         }
-
         .modal-body {
             padding: 0 10px 10px 10px;
 
@@ -36,7 +35,12 @@ export const StyledOrderModalComponent = styled.section`
                 color: ${theme.green.primary};
                 font-size: 1.1rem;
             }
-            
+
+            .second-titles {
+                margin-top: 10px;
+                margin-bottom: 3px;
+            }
+
             .product-row {
                 display: flex;
                 flex-flow: row nowrap;
@@ -78,32 +82,12 @@ export const StyledOrderModalComponent = styled.section`
                 }
             }
 
-
-            .confirm-row {
+            .button-container {
                 display: flex;
                 flex-flow: row nowrap;
-                justify-content: space-between;
-                margin-top: 26px;
-
-                .total-value-container {
-                    display: flex;
-                    flex-flow: column nowrap;
-                    width: 60%;
-
-                    .value-text {
-                        font-size: .9rem;
-                        color: ${theme.gray.primary};
-                        margin: 0;
-                    }
-
-                    .value-total-big {
-                        font-size: 1.4rem;
-                        color: ${theme.green.terciary};
-                        margin: 0;
-                    }
-                }
+                justify-content: flex-end;
+                margin-top: 20px;
             }
         }
-
     `}
 `;

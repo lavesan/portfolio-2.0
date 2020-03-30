@@ -22,7 +22,9 @@ export default ({ value, name, onChange, label, validatesOnChange = [], setFormV
       
       for (const validationFunc of validatesOnChange) {
 
-        const validation = validationFunc(actualValue, name);
+        const validateValue = actualValue ? actualValue : value;
+
+        const validation = validationFunc(validateValue, name);
 
         setFormValidations(function(f) {
             return {
@@ -60,7 +62,7 @@ export default ({ value, name, onChange, label, validatesOnChange = [], setFormV
     
   useEffect(() => {
     applyValidations(value);
-  }, [])
+  }, [startValidations])
 
   return (
       <FormControlLabel

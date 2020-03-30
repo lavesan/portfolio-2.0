@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
+import { ModalComponent } from '../';
 import { StyledOrderModalComponent } from './order-modal.styles';
 import { toogleOrderToFinishModal } from '../../../store/actions/modalActions';
 import { SucessButtonComponent } from '../../button';
 import { orderInstance } from '../../../services/order.service';
 import { numberStringToReal } from '../../../helpers/calc.helpers';
-import { ModalComponent } from '../';
 import { toogleOrderFinishedModal } from '../../../store/actions/modalActions';
+import { removeAllFirstDigits } from '../../../helpers/unmask.helpers';
 
 const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, cardStep }) => {
 
@@ -26,8 +27,11 @@ const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, card
         const body = {
             id: orderData.order.id,
             saveCard: cardStep.saveCard,
-            card: {
-                id: cardStep,
+        }
+
+        if (!cardStep.payLatter) {
+            body.card = {
+                id: cardStep.id,
                 paymentType: cardStep.paymentType,
                 legalDocument: cardStep.legalDocument,
                 cvv: cardStep.cvv,
@@ -35,7 +39,7 @@ const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, card
                 number: cardStep.number,
                 dueDate: cardStep.dueDate,
                 saveCard: cardStep.saveCard,
-            },
+            }
         }
 
         await orderService.confirmOrder(body)
@@ -51,14 +55,12 @@ const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, card
         setLoading(false);
 
     }
-
-    const removeAllDigits = value => {
-        return value.replace(/^\d+/, '');
+    
+    const valueFromProduct = product => {
+        return product.promotionalValueCents
+            ? numberStringToReal(product.promotionalValueCents)
+            : numberStringToReal(product.actualValueCents);
     }
-
-    useEffect(() => {
-        console.log('orderData: ', orderData);
-    }, [])
 
     return (
         <ModalComponent toggleModal={toggleModal} show={openOrderToFinishModal}>
@@ -67,9 +69,13 @@ const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, card
                     <h2>Total detalhado da sua compra</h2>
                 </div>
                 <div className="modal-body">
-                    <h3 className="products-title">Produtos</h3>
+                    <h3 className="products-title" style={{ marginBottom: 0 }}>Produtos</h3>
                     {orderData.products.map(product =>
-                        <p>{product.quantity}{removeAllDigits(product.quantitySuffix)} {product.name}</p>)
+                        <div className="product-row">
+                            <p><b>{product.quantity}{removeAllFirstDigits(product.quantitySuffix)} {product.name}</b></p>
+                            <p className="product-row--price">{valueFromProduct(product)}</p>
+                        </div>
+                        )
                     }
                     <div className="value-container">
                         <p className="value-text">VALOR</p>

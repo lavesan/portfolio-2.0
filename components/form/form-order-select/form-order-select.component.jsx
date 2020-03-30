@@ -4,13 +4,17 @@ import { StyledOrderFormSelect, StyledOrderFormSelectField } from './form-order-
 
 export default ({ label, name, value, setFieldValue, className, setFormValidations, formValidation, startValidations, validatesOnChange = [], options, ...selectAttrs }) => {
 
-    const applyValidations = (actualValue) => {
+    const applyValidations = actualValue => {
 
         if (validatesOnChange.length) {
             
             for (const validationFunc of validatesOnChange) {
 
-                const validation = validationFunc(actualValue, name);
+                const validateValue = actualValue ? actualValue : (value.value ? value.value : value);
+
+                console.log('validateValue: ', validateValue);
+
+                const validation = validationFunc(validateValue, name);
     
                 setFormValidations({
                     [name]: {
@@ -43,7 +47,7 @@ export default ({ label, name, value, setFieldValue, className, setFormValidatio
     
     useEffect(() => {
         applyValidations();
-    }, [])
+    }, [startValidations])
   
     const colourStyles = {
         control: styles => ({

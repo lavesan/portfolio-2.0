@@ -1,11 +1,12 @@
 import styled, { css } from 'styled-components';
 
 export const StyledFieldset = styled.div`
-    ${({ theme, error, isTextArea }) => css`
+    ${({ theme, error, isTextArea, fieldHeight }) => css`
         color: ${theme.gray.secondary};
         display: flex;
         flex-flow: column nowrap;
-        height: ${isTextArea ? '220' : '90'}px;
+        height: ${fieldHeight ? fieldHeight : (isTextArea ? '220' : '90')}px;
+        position: relative;
 
         label {
             font-size: .9rem;
@@ -14,6 +15,13 @@ export const StyledFieldset = styled.div`
 
         .error-message {
             color: ${theme.danger.primary};
+        }
+
+        .optional-message {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            color: ${theme.gray.primary};
         }
 
         ${error && css`

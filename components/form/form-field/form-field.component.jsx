@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { StyledNeultralInput } from '../form-input';
 import { StyledFieldset } from './form-field.styles';
 
-export default ({ label, name, setFieldValue, className, setFormValidations, formValidation, startValidations, validatesOnChange = [], maskOnChange, onFocusOut, ...inputProps }) => {
+export default ({ label, name, setFieldValue, className, setFormValidations, formValidation, startValidations, validatesOnChange = [], maskOnChange, onFocusOut, value, ...inputProps }) => {
 
     const [activateValidation, setActivationValidation] = useState(false);
 
@@ -18,10 +18,12 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
     const applyValidations = (actualValue) => {
 
         if (validatesOnChange.length) {
+
+            const validateValue = actualValue ? actualValue : value;
             
             for (const validationFunc of validatesOnChange) {
 
-                const validation = validationFunc(actualValue, name);
+                const validation = validationFunc(validateValue, name);
     
                 setFormValidations({
                     [name]: {
@@ -57,7 +59,7 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
 
     useEffect(() => {
         applyValidations();
-    }, [startValidations])
+    }, [startValidations, activateValidation])
 
     return (
         <StyledFieldset className={className}>
@@ -66,6 +68,7 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
                 id={name}
                 error={startErrorValidation}
                 name={name}
+                value={value}
                 onChange={onChange}
                 onBlur={activateOnFocusOut}
                 {...inputProps} />

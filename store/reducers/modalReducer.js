@@ -1,8 +1,9 @@
 const initialState = {
     openAddressModal: false,
     openProductModal: false,
-    openTermOfContractModal: false,
     selectedProduct: {},
+    openTermOfContractModal: false,
+    openAddOrderCommentModal: false,
     openOrderToFinishModal: false,
     orderData: {
         order: {
@@ -42,11 +43,13 @@ export const modalReducer = (state = initialState, action) => {
                 openTermOfContractModal: !state.openTermOfContractModal,
             }
         },
+        TOOGLE_ADD_ORDER_COMMENT_MODAL() {
+            return {
+                ...state,
+                openAddOrderCommentModal: !state.openAddOrderCommentModal,
+            }
+        },
         TOGGLE_ORDER_TO_FINISH_MODAL() {
-
-            console.log('action.orderData:' , action.orderData);
-            console.log('action.orderData:' , action);
-
             return {
                 ...state,
                 openOrderToFinishModal: !state.openOrderToFinishModal,

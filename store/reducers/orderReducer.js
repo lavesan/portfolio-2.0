@@ -27,6 +27,9 @@ const initialState = {
         payLatter: false,
         saveCard: false,
     },
+    commentStep: {
+        description: '',
+    },
     addressValidations: {},
     scheduleValidations: {},
     cardValidations: {},

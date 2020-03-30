@@ -13,6 +13,7 @@ import { ProductModalComponent } from '../components/modal/product-modal';
 import { TermOfContractModal } from '../components/modal/term-of-contract-modal';
 import { FinishedOrderModal } from '../components/modal/finished-order-modal';
 import { OrderModalComponent } from '../components/modal/order-modal';
+import { AddOrderCommentModal } from '../components/modal/add-order-comment';
 import theme from '../app/app.theme';
 import { ResponsiveNavComponent } from '../components/responsive-nav';
 import { ResponsiveCartComponent } from '../components/responsive-cart';
@@ -58,8 +59,9 @@ class MyApp extends App {
           <ResponsiveNavComponent />
           <ResponsiveCartComponent />
           <TermOfContractModal />
-          <FinishedOrderModal />
+          <AddOrderCommentModal />
           <OrderModalComponent />
+          <FinishedOrderModal />
         </ThemeProvider>
       </Provider>
     )

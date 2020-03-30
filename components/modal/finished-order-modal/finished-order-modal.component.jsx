@@ -18,6 +18,7 @@ const FinishedOrderModal = ({ dispatch, openOrderFinishedModal }) => {
 
     const navigateToOrder = () => {
         router.push('/pedidos');
+        toggleModal();
     }
 
     return (

@@ -8,7 +8,7 @@ export const StyledPromocoesPage = styled.section`
             h1 {
                 font-size: 2rem;
                 color: ${theme.green.terciary};
-                font-family: BobbyJonesSoft;
+                font-family: BobbyJonesSoft, Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                 margin: 10px 0 0 0;
             }
             p {

@@ -18,3 +18,7 @@ export const unmaskDistrictName = value => {
     return parsedValue.replace(/ ([A-Z])/g, '$1')
 
 }
+
+export const removeAllFirstDigits = value => {
+    return value.replace(/^\d+/, '');
+}

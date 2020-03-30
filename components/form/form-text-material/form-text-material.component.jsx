@@ -18,13 +18,15 @@ const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChan
         setActivationValidation(true);
     }
 
-    const applyValidations = (actualValue = value) => {
+    const applyValidations = actualValue => {
 
         if (validatesOnChange.length) {
 
             for (const validationFunc of validatesOnChange) {
 
-                const validation = validationFunc(actualValue, name);
+                const validateValue = actualValue ? actualValue : value;
+
+                const validation = validationFunc(validateValue, name);
 
                 setFormValidations(function(f) {
                     return {
@@ -60,10 +62,10 @@ const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChan
         applyValidations(finalValue);
         
     }
-    
+
     useEffect(() => {
-        applyValidations(value);
-    }, [])
+        applyValidations();
+    }, [startValidations, activateValidation])
 
     return (
         <TextField
