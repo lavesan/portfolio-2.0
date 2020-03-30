@@ -32,6 +32,7 @@ export const StyledHeader = styled.header`
 
                 img {
                     width: 100px;
+                    cursor: pointer;
                 }
             }
 

@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 
 import { StyledPeriodCard } from './period-card.styles';
@@ -10,6 +11,7 @@ const PeriodCardComponent = ({ isPromotion, briefDescription, title, imgUrl, isB
     const router = useRouter();
 
     const seePromotion = () => {
+
         dispatch(setSelectedPromotion({
             title,
             imgUrl,
@@ -17,6 +19,7 @@ const PeriodCardComponent = ({ isPromotion, briefDescription, title, imgUrl, isB
             ...promoProps,
         }));
         router.push('/promocoes');
+
     }
 
     if (isPromotion) {
@@ -38,4 +41,4 @@ const PeriodCardComponent = ({ isPromotion, briefDescription, title, imgUrl, isB
     }
 }
 
-export default memo(PeriodCardComponent);
+export default connect()(PeriodCardComponent);

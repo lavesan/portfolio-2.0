@@ -32,6 +32,10 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
         router.push('/produtos');
     }
 
+    const goToHome = () => {
+        router.push('/inicio')
+    }
+
     const toogleFilter = () => {
         dispatch(toogleProductFilter());
     }
@@ -77,7 +81,7 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
                 }
                 <div className="header-actions">
                     <aside className="header-acition-logo">
-                        <img src={logo} alt="Logo zero veneno" />
+                        <img onClick={goToHome} src={logo} alt="Logo zero veneno" />
                     </aside>
                     {screenWidth >= 700
                         ? <>

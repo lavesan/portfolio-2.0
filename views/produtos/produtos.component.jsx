@@ -13,7 +13,7 @@ import { productInstance } from '../../services/product.service';
 const ProdutosPage = ({ filteredProducts = [], promotions, productFilters, dispatch }) => {
 
     const productService = productInstance.getInstance();
-
+    
     const mappedProductsWithPromotions = useMemo(
         () => {
 
@@ -22,30 +22,42 @@ const ProdutosPage = ({ filteredProducts = [], promotions, productFilters, dispa
                 productsFromPromotion = productsFromPromotion.concat(promo.products);
             })
 
-            return filteredProducts.map(product => {
+            return filteredProducts.map(catProd => ({
+                ...catProd,
+                products: catProd.products.map(product => {
 
-                const promotionalProduct = productsFromPromotion.filter(promoProd => promoProd && product && promoProd.id === product.id);
+                    const promotionalProduct = productsFromPromotion.filter(promoProd => promoProd && product && promoProd.id === product.id);
+                    let bestPromotion = '';
+                    promotionalProduct.forEach(promo => {
 
-                let value = '0';
-                if (promotionalProduct && promotionalProduct.length) {
-
-                    value = promotionalProduct[0].valueCents;
-
-                    promotionalProduct.forEach(promoProd => {
-                        if (Number(promoProd.valueCents) < Number(value)) {
-                            value = Number(promoProd.valueCents);
+                        if (!bestPromotion) {
+                            bestPromotion = promo;
+                        } else if (Number(bestPromotion.promotionalValueCents) > Number(promo.promotionalValueCents)) {
+                            bestPromotion = promo;
                         }
+                        
                     })
 
-                }
+                    let value = '0';
+                    if (promotionalProduct && promotionalProduct.length) {
 
-                return {
-                    ...product,
-                    promotionalValueCents: promotionalProduct && promotionalProduct.length ? value : '',
-                }
+                        value = bestPromotion.promotionalValueCents;
 
-            });
+                        promotionalProduct.forEach(promoProd => {
+                            if (Number(promoProd.promotionalValueCents) < Number(value)) {
+                                value = Number(promoProd.promotionalValueCents);
+                            }
+                        })
 
+                    }
+
+                    return {
+                        ...product,
+                        promotionalValueCents: promotionalProduct && promotionalProduct.length ? value : '',
+                    }
+
+                }),
+            }))
         },
         [promotions, filteredProducts]
     )

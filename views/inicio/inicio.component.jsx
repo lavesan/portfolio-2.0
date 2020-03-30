@@ -8,7 +8,6 @@ import { PeriodCardComponent } from '../../components/period-card';
 import { setProductFilters } from '../../store/actions/productActions';
 import { CategoryResponsiveCardComponent } from  '../../components/category-responsive-card';
 import { ProductsRowComponent } from './products-row';
-import { setSelectedPromotion } from '../../store/actions/productActions';
 
 const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promotions, combos }) => {
 
@@ -51,15 +50,25 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                 products: catProd.products.map(product => {
 
                     const promotionalProduct = productsFromPromotion.filter(promoProd => promoProd && product && promoProd.id === product.id);
+                    let bestPromotion = '';
+                    promotionalProduct.forEach(promo => {
+
+                        if (!bestPromotion) {
+                            bestPromotion = promo;
+                        } else if (Number(bestPromotion.promotionalValueCents) > Number(promo.promotionalValueCents)) {
+                            bestPromotion = promo;
+                        }
+                        
+                    })
 
                     let value = '0';
                     if (promotionalProduct && promotionalProduct.length) {
 
-                        value = promotionalProduct[0].valueCents;
+                        value = bestPromotion.promotionalValueCents;
 
                         promotionalProduct.forEach(promoProd => {
-                            if (Number(promoProd.valueCents) < Number(value)) {
-                                value = Number(promoProd.valueCents);
+                            if (Number(promoProd.promotionalValueCents) < Number(value)) {
+                                value = Number(promoProd.promotionalValueCents);
                             }
                         })
 
@@ -74,6 +83,27 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
             }))
         },
         [promotions, categoryProducts]
+    )
+
+    const orderPromotions = useMemo(
+        () => {
+
+            const orderedPromos = [];
+
+            promotions.forEach(promo => {
+
+                if (promo.isPrincipal) {
+                    orderedPromos.unshift(promo);
+                } else {
+                    orderedPromos.push(promo);
+                }
+
+            })
+
+            return orderedPromos;
+
+        },
+        [promotions]
     )
 
     const params = {
@@ -127,7 +157,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                                 ))}
                             </Swiper>
                             : <>
-                                {promotions.map((promo) => (
+                                {orderPromotions.map((promo) => (
                                     <>
                                         {promo.loadingPromotions
                                             ? <div className="promos-section">
@@ -143,7 +173,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                                                         <PeriodCardComponent isPromotion={true} {...promo} />
                                                     </div>
                                                     : <div className="combos-section">
-                                                        <PeriodCardComponent key={index} {...promo} />
+                                                        <PeriodCardComponent key={promo.id} {...promo} />
                                                     </div>
                                                 }
                                             </>

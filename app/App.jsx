@@ -65,13 +65,14 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
         .then(res => {
           dispatch(setCategories(res))
         });
-      await promotionService.findAllFromUser()
-        .then(res => {
-          dispatch(setPromotions(res));
-        })
-        .catch(() => {
-          dispatch(setPromotions([]));
-        })
+      // await promotionService.findAllFromUser()
+      //   .then(res => {
+      //     console.log('vei...')
+      //     dispatch(setPromotions(res));
+      //   })
+      //   .catch(() => {
+      //     dispatch(setPromotions([]));
+      //   })
       await comboService.findAll()
         .then(res => {
           dispatch(setCombos(res));
@@ -82,9 +83,11 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
       setTimeout(async () => {
         await callUntilGetResult(productService.findProductsPromotions)
             .then(res => {
-              dispatch(setPromotionalProducts(res));
+              dispatch(setPromotions(res));
+              // dispatch(setPromotionalProducts(res));
             })
             .catch(err => {
+              dispatch(setPromotions([]));
             });
         await callUntilGetResult(productService.findProductsFromCategories)
             .then(res => {
