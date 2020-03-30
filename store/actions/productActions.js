@@ -11,6 +11,7 @@ const SET_FILTERED_PRODUCTS = 'SET_FILTERED_PRODUCTS';
 const SET_PRODUCT_FILTERS = 'SET_PRODUCT_FILTERS';
 const REMOVE_PRODUCT_FILTER = 'REMOVE_PRODUCT_FILTER';
 const SET_INPUT_SEARCH_FIELD = 'SET_INPUT_SEARCH_FIELD';
+const SET_SELECTED_PROMOTION = 'SET_SELECTED_PROMOTION';
 
 export const setPromotionalProducts = (promotionalProducts = []) => ({
     type: SET_PROMOTIONAL_PRODUCTS,
@@ -90,7 +91,12 @@ export const setProductFilters = (productFilters) => ({
     productFilters,
 })
 
-export const removeProductFilter = (id) => ({
+export const removeProductFilter = id => ({
     type: REMOVE_PRODUCT_FILTER,
     id,
+})
+
+export const setSelectedPromotion = selectedPromotion => ({
+    type: SET_SELECTED_PROMOTION,
+    selectedPromotion,
 })

@@ -8,6 +8,7 @@ import { PeriodCardComponent } from '../../components/period-card';
 import { setProductFilters } from '../../store/actions/productActions';
 import { CategoryResponsiveCardComponent } from  '../../components/category-responsive-card';
 import { ProductsRowComponent } from './products-row';
+import { setSelectedPromotion } from '../../store/actions/productActions';
 
 const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promotions, combos }) => {
 

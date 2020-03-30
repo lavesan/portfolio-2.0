@@ -7,6 +7,7 @@ const initialState = {
             loadingPromotions: true,
         },
     ],
+    selectedPromotion: {},
     productFilters: [],
     filteredProducts: [],
     combos: [],
@@ -159,6 +160,12 @@ export const productReducer = (state = initialState, action) => {
                 openFilter: !state.openFilter,
             }
         },
+        SET_SELECTED_PROMOTION() {
+            return {
+                ...state,
+                selectedPromotion: action.selectedPromotion,
+            }
+        }
     }
 
     return handleReducer[action.type] ?
