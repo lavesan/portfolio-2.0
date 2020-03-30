@@ -20,7 +20,10 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
     const startDate = moment().day() !== 0 ? new Date() : moment().add(1, 'date').toDate();
 
     const deactiveDate = ({ date }) => {
-        return moment(date).day() === 0;
+        
+        const momentDate = moment(date);
+        return momentDate.day() === 0 || momentDate.isBefore(moment());
+
     }
 
     const setFieldValue = (name, value) => {
