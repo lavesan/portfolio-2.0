@@ -4,7 +4,7 @@
   "description": "Zero veneno user interactive\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C ecommerce\u001b[2~ user interactive",
   "main": "index.js",
   "scripts": {
-    "start": "next start",
+    "start:prod": "next start -p 3001",
     "start:dev": "next -p 3001",
     "build": "next build"
   },
@@ -27,6 +27,7 @@
     "@material/react-text-field": "^0.15.0",
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.19.2",
+    "express": "^4.17.1",
     "js-cookie": "^2.2.1",
     "moment": "^2.24.0",
     "next": "^9.2.1",
