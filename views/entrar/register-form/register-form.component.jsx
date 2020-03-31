@@ -48,9 +48,9 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
             await validateSecondStep();
         }
 
+        // Navigates to the top of the page
         const link = document.getElementById('click-link-page-top');
         if (link) {
-            console.log('link: ', link);
             link.click();
         }
 
