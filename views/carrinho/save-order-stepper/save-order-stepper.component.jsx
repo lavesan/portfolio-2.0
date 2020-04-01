@@ -31,7 +31,7 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
 
         const cardStepValidate = cardStep.payLatter
             ? ['paymentType', 'legalDocument', 'paymentoMethod', 'changeValueCents']
-            : ['paymentType', 'legalDocument', 'paymentoMethod', 'cvv', 'fullname', 'dueDate'];
+            : ['paymentType', 'legalDocument', 'paymentoMethod', 'cvv', 'fullname', 'dueDate', 'brand'];
 
         const cardStepInvalid = cardStepValidate.some(value => cardValidations[value] && cardValidations[value].invalid);
 

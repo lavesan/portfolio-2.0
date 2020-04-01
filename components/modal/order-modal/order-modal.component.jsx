@@ -67,6 +67,7 @@ const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, card
                 fullname: cardStep.fullname,
                 number: cardStep.number,
                 dueDate: cardStep.dueDate,
+                brand: cardStep.brand.value,
                 saveCard: cardStep.saveCard,
             }
         }
@@ -81,9 +82,7 @@ const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, card
                 // Clear the order form
                 dispatch(clearOrderForm());
 
-                setTimeout(() => {
-                    dispatch(toogleOrderFinishedModal());
-                }, 100);
+                dispatch(toogleOrderFinishedModal());
             })
             .catch(({ message }) => {
                 showToast(message);

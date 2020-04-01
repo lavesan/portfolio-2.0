@@ -122,9 +122,7 @@ const AddOrderCommentModal = ({
         await orderService.save(body)
             .then(res => {
                 toggleModal();
-                setTimeout(() => {
-                    dispatch(toogleOrderToFinishModal(res));
-                }, 1000)
+                dispatch(toogleOrderToFinishModal(res));
             })
             .catch(({ message }) => {
                 showToast(message);

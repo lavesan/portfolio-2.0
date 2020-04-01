@@ -68,3 +68,25 @@ export const districtNotValid = district => {
     return !priceByDistrictOpts.some(opt => opt.label === formatedDistrict);
 
 }
+
+export const Brand = {
+    visa: 'visa',
+    visaElectron: 'visaelectron',
+    mastercard: 'mastercard',
+    americanExpress: 'americanexpress',
+    hipercard: 'hipercard',
+    elo: 'elo',
+    alelo: 'alelo',
+    sodexo: 'sodexo',
+}
+
+export const brandOpts = [
+    { label: 'Visa', value: Brand.visa },
+    { label: 'Visa Electron', value: Brand.visaElectron },
+    { label: 'Mastercard', value: Brand.mastercard },
+    { label: 'American Express', value: Brand.americanExpress },
+    { label: 'Hipercard', value: Brand.hipercard },
+    { label: 'Elo', value: Brand.elo },
+    { label: 'Alelo', value: Brand.alelo },
+    { label: 'Sodexo', value: Brand.sodexo },
+]

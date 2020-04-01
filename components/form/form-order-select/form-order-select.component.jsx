@@ -12,8 +12,6 @@ export default ({ label, name, value, setFieldValue, className, setFormValidatio
 
                 const validateValue = actualValue ? actualValue : (value.value ? value.value : value);
 
-                console.log('validateValue: ', validateValue);
-
                 const validation = validationFunc(validateValue, name);
     
                 setFormValidations({

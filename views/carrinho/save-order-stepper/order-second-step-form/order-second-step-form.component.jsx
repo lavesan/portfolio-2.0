@@ -14,6 +14,8 @@ import { FormHorizontalCheckbox } from '../../../../components/form/form-horizon
 import { FormCheckboxComponent } from '../../../../components/form/form-checkbox';
 import { FormRadioComponent, FormRadioComponentRow } from '../../../../components/form/form-radio';
 import { paymentMethodOpts } from '../../../../helpers/order.helpers';
+import { FormOrderSelectComponent } from '../../../../components/form/form-order-select';
+import { brandOpts } from '../../../../helpers/order.helpers';
 
 const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userInfo, submitted }) => {
     
@@ -175,6 +177,17 @@ const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userI
                                     placeholder="000"
                                     setFieldValue={setFieldValue} />
                             </div>
+                            <FormOrderSelectComponent
+                                label="Bandeira"
+                                name="brand"
+                                placeholder="Escolha uma bandeira"
+                                startValidations={submitted}
+                                validatesOnChange={[isRequired]}
+                                setFormValidations={setFormValidations}
+                                formValidation={addressValidations.brand}
+                                value={addressStep.brand}
+                                setFieldValue={setFieldValue}
+                                options={brandOpts} />
                             {token &&
                                 <FormCheckboxComponent
                                     label={<label className="order-checkbox-label">Salvar como novo cartão</label>}

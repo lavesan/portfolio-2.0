@@ -18,7 +18,8 @@ const initialState = {
     },
     cardStep: {
         id: '',
-        paymentType: { label: 'Vou sim', value: 1 },
+        brand: '',
+        paymentType: 1,
         legalDocument: '',
         cvv: '',
         fullname: '',
