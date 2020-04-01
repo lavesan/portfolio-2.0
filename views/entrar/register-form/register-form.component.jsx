@@ -18,6 +18,7 @@ import { AddressForm } from './address-form';
 import { StyledSuccessButton, StyledFullRevSuccessButton, SucessButtonComponent } from '../../../components/button';
 import { AuthenticationFooterComponent } from '../authentication-footer';
 import { StyledHeaderCotainer } from '../entrar.styles';
+import { setSelectedForm } from '../../../store/actions/authActions';
 
 const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, returnPage, registerFormValidations, addressRegisterForm, personalRegisterForm, accessRegisterForm }) => {
 
@@ -193,7 +194,7 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
             ...accessRegisterForm,
             address: addressRegisterForm,
         }
-        
+
         await authService.save(body)
             .then(res => {
                 dispatch(setUserInfo(res.user, res.token));
@@ -203,6 +204,10 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
                 showToast(message);
             });
         setLoading(false);
+    }
+
+    const goToLogin = () => {
+        dispatch(setSelectedForm({ selectedForm: 'login' }));
     }
 
     return (
@@ -217,7 +222,10 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
                         : ''
                     }
                 </div>
-                : ''
+                : <div className="return-login-container">
+                    <FontAwesomeIcon icon={faArrowLeft} onClick={returnPage} />
+                    <a href="#" onClick={goToLogin}>Efetuar o login</a>
+                </div>
             }
             <StyledHeaderCotainer className="register-header">
                 <div className="authentication-header--title">

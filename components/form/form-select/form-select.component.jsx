@@ -7,12 +7,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
-// const useStyles = makeStyles(() => ({
-//     select: {
-//         width: '100%',
-//     },
-// }));
-
 const FormSelectComponent = ({ label, value, name, options = [], onChange, validatesOnChange = [], setFormValidations, formValidations = {}, screenWidth, startValidations }) => {
 
     const margin = useMemo(
@@ -21,8 +15,6 @@ const FormSelectComponent = ({ label, value, name, options = [], onChange, valid
         },
         [screenWidth]
     )
-
-    // const classes = useStyles();
 
     const applyValidations = actualValue => {
         
@@ -95,7 +87,7 @@ const FormSelectComponent = ({ label, value, name, options = [], onChange, valid
                     label={label}
                 >
                     {options.map(opt => (
-                        <option value={opt.value}>{opt.label}</option>
+                        <option value={opt.label}>{opt.label}</option>
                     ))}
                 </Select>
                 {startErrorValidation && <FormHelperText>{formValidations[name].message}</FormHelperText>}

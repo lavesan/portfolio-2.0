@@ -10,6 +10,7 @@ import { SucessButtonComponent } from '../../../components/button';
 import { setLoginFormValues, setLoginFormValidations } from '../../../store/actions/authActions';
 import { FormTextMaterial } from '../../../components/form/form-text-material';
 import { setSelectedForm, setUserInfo } from '../../../store/actions/authActions';
+import { toogleForgotPasswordModal } from '../../../store/actions/modalActions';
 import { isRequired, validateEmail } from '../../../helpers/validations.helpers';
 import { authInstance } from '../../../services/auth.service';
 import { AuthenticationFooterComponent } from '../authentication-footer';
@@ -93,6 +94,10 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidati
         dispatch(setSelectedForm({ selectedForm: 'register' }));
     }
 
+    const toogleForgotPassword = () => {
+        dispatch(toogleForgotPasswordModal());
+    }
+
     return (
         <StyledLoginForm>
             <StyledHeaderCotainer>
@@ -126,6 +131,7 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidati
                         setFormValidations={setFormValidations}
                         value={loginForm.password}
                         onChange={setFieldValue} />
+                    <p onClick={toogleForgotPassword} className="forgot-password-text">Esqueci minha senha</p>
                 </div>
                 <div className="login-form-buttons-container">
                     <SucessButtonComponent

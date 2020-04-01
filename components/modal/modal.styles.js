@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 export const StyledModal = styled.div`
     ${({ theme }) => css`
         position: relative;
-        overflow: hidden;
 
         .close-button {
             position: absolute;
@@ -13,8 +12,9 @@ export const StyledModal = styled.div`
             outline: none;
             background: none;
             border: none; 
-            text-decoration-color: ${theme.gray.secondary};
+            text-decoration-color: ${theme.gray.primary};
             text-decoration: underline;
+            color: ${theme.gray.primary};
         }
     `}
 `;

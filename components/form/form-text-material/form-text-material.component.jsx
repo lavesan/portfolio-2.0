@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 
 const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChange = [], setFormValidations, formValidations = {}, screenWidth, dispatch, value, startValidations, className, ...inputProps }) => {
 
+    const [activateValidation, setActivationValidation] = useState(false);
+
     const margin = useMemo(
         () => {
             return screenWidth < 700 ? '' : 'dense';
         },
         [screenWidth]
     )
-
-    const [activateValidation, setActivationValidation] = useState(false);
 
     // Activates the validation
     const onFocousOut = () => {
@@ -65,7 +65,7 @@ const FormTextMaterial = ({ label, onChange, name, maskOnChange, validatesOnChan
 
     useEffect(() => {
         applyValidations();
-    }, [startValidations, activateValidation])
+    }, [value])
 
     return (
         <TextField

@@ -8,6 +8,7 @@ export const StyledRegisterForm = styled.section`
 
         .register-header {
             grid-template-columns: 1fr 1fr;
+            margin-top: 27px;
         }
         .register-head-line {
             margin-top: 37px;
@@ -109,6 +110,7 @@ export const StyledRegisterForm = styled.section`
         @media(max-width: 699px) {
             .register-header {
                 grid-template-columns: 1fr;
+                margin-top: 0;
 
                 .authentication-header--actions {
                     display: none;

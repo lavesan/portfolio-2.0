@@ -10,7 +10,7 @@ import { FormSelectComponent } from '../../../../components/form/form-select';
 import { userRoleOpts, userGenderOpts } from '../../../../helpers/register.helpers';
 import { setRegisterFormPersonalValue } from '../../../../store/actions/authActions';
 
-const PersonalFormComponent = ({ setFormValidations, formValidations, personalRegisterForm, isResponsive, startValidations }) => {
+const PersonalFormComponent = ({ setFormValidations, formValidations, personalRegisterForm, isResponsive, startValidations, dispatch }) => {
     
     const ageMask = value => {
         const onlyNumber = onlyNumberMask(value);

@@ -79,8 +79,8 @@ export class AuthService {
             });
     }
 
-    forgotPassword() {
-        return axios.put('/oauth/auth/user/forgot-password');
+    forgotPassword({ email }) {
+        return axios.put('/oauth/auth/user/forgot-password', { email });
     }
 
     findCep(cep) {

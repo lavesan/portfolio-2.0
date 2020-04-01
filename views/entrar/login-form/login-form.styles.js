@@ -17,9 +17,18 @@ export const StyledLoginForm = styled.section`
                 flex-flow: column nowrap;
                 justify-content: flex-start;
                 margin-top: 40px;
+                
+                .forgot-password-text {
+                    text-align: end;
+                    color: ${theme.gray.secondary};
+                    font-size: .8rem;
+                    cursor: pointer;
+                    margin: 0 0 40px 0;
 
-                > * {
-                    margin-bottom: 30px;
+                    :hover {
+                        text-decoration: underline;
+                        text-decoration-color: ${theme.gray.secondary};
+                    }
                 }
             }
 
@@ -69,6 +78,11 @@ export const StyledLoginForm = styled.section`
         @media(max-width: 699px) {
             .login-form {
                 max-width: 100%;
+
+                .login-form-inputs-container .forgot-password-text {
+                    color: ${theme.green.terciary};
+                    text-decoration-color: ${theme.green.terciary};
+                }
 
                 .authentication-footer-description {
                     display: none;

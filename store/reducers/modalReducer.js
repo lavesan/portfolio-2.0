@@ -19,6 +19,8 @@ const initialState = {
         },
     },
     openOrderFinishedModal: false,
+    openForgotPasswordModal: false,
+    openForgotPassworSuccessdModal: false,
 };
 export const modalReducer = (state = initialState, action) => {
     // Este 'state' é o state total passado
@@ -61,6 +63,18 @@ export const modalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 openOrderFinishedModal: !state.openOrderFinishedModal,
+            }
+        },
+        TOOGLE_FORGOT_PASSWORD_MODAL() {
+            return {
+                ...state,
+                openForgotPasswordModal: !state.openForgotPasswordModal,
+            }
+        },
+        TOOGLE_FORGOT_PASSWORD_SUCCESS_MODAL() {
+            return {
+                ...state,
+                openForgotPassworSuccessdModal: !state.openForgotPassworSuccessdModal,
             }
         },
     }

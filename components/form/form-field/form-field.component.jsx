@@ -15,7 +15,7 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
         }
     }
 
-    const applyValidations = (actualValue) => {
+    const applyValidations = actualValue => {
 
         if (validatesOnChange.length) {
 
