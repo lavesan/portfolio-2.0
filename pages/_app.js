@@ -46,7 +46,7 @@ axios.interceptors.response.use(
 
     let error = err ? (err.response ? err.response.data : err.response) : { message: 'Aconteceu um problema interno. Por favor tente mais tarde' };
     error = error ? error : { message: 'Aconteceu um problema interno. Por favor tente mais tarde' };
-    return error;
+    return Promise.reject(error);
 
   })
 
