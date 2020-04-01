@@ -17,30 +17,48 @@ export class AuthService {
         }
 
         return axios.post('/oauth/auth', body)
-            .then(res => {
-                localStorage.setItem('userData', JSON.stringify(res.user));
-                localStorage.setItem('auth', res.token);
-                return res;
-            });
+            .then(res => new Promise((resolve, reject) => {
+                    const isInvalid = Boolean(res.error);
+                    if (isInvalid) {
+                        console.log('é inválido.')
+                        reject(res);
+                    } else {
+                        console.log('é válido.')
+                        localStorage.setItem('userData', JSON.stringify(res.user));
+                        localStorage.setItem('auth', res.token);
+                        resolve(res);
+                    }
+                })
+            );
 
     }
 
     save(body) {
         return axios.post('/oauth/auth/user/register', body)
-            .then(res => {
-                localStorage.setItem('userData', JSON.stringify(res.user));
-                localStorage.setItem('auth', res.token);
-                return res;
-            });
+            .then(res => new Promise((resolve, reject) => {
+                const isInvalid = Boolean(res.error);
+                if (isInvalid) {
+                    reject(res);
+                } else {
+                    localStorage.setItem('userData', JSON.stringify(res.user));
+                    localStorage.setItem('auth', res.token);
+                    resolve(res);
+                }
+            }));
     }
 
     refreshToken() {
         return axios.post('/oauth/auth/user/refresh-token')
-            .then(res => {
-                localStorage.setItem('userData', JSON.stringify(res.user));
-                localStorage.setItem('auth', res.token);
-                return res;
-            })
+            .then(res => new Promise((resolve, reject) => {
+                    const isInvalid = res.status && res.status == 401;
+                    if (isInvalid) {
+                        reject(res);
+                    } else {
+                        localStorage.setItem('userData', JSON.stringify(res.user));
+                        localStorage.setItem('auth', res.token);
+                        resolve(res);
+                    }
+            }))
             .catch(() => {
                 localStorage.removeItem('auth');
                 return err;
