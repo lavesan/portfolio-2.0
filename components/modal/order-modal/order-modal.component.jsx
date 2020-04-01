@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useToasts } from "react-toast-notifications";
 
 import { ModalComponent } from '../';
 import { StyledOrderModalComponent } from './order-modal.styles';
@@ -16,7 +17,16 @@ const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, card
 
     const orderService = orderInstance.getInstance();
 
+    const { addToast } = useToasts();
+
     const [loading, setLoading] = useState(false);
+
+    const showToast = message => {
+        addToast(message, {
+            appearance: "error",
+            autoDismiss: true
+          })
+    }
 
     const toggleModal = () => {
         dispatch(toogleOrderToFinishModal());
@@ -75,8 +85,8 @@ const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, card
                     dispatch(toogleOrderFinishedModal());
                 }, 100);
             })
-            .catch(err => {
-
+            .catch(({ message }) => {
+                showToast(message);
             });
         setLoading(false);
 

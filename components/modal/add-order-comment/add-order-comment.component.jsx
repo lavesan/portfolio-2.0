@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { useToasts } from "react-toast-notifications";
 
 import { ModalComponent } from '../';
 import { StyledAddOrderCommentModal } from './add-order-comment.styles';
@@ -25,7 +26,16 @@ const AddOrderCommentModal = ({
 
     const orderService = orderInstance.getInstance();
 
+    const { addToast } = useToasts();
+
     const [loading, setLoading] = useState(false);
+
+    const showToast = message => {
+        addToast(message, {
+            appearance: "error",
+            autoDismiss: true
+          })
+    }
 
     const toggleModal = () => {
         dispatch(toogleAddOrderCommentModal());
@@ -116,8 +126,8 @@ const AddOrderCommentModal = ({
                     dispatch(toogleOrderToFinishModal(res));
                 }, 1000)
             })
-            .catch(err => {
-                console.log('erro: ', err);
+            .catch(({ message }) => {
+                showToast(message);
             })
 
         setLoading(false);

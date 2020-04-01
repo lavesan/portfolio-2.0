@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useToasts } from "react-toast-notifications";
 
 import { StyledSaveOrderForm } from './save-order-stepper.styles';
 import { OrderAddressStepForm } from './order-address-step-form';
@@ -10,12 +11,21 @@ import { toogleAddOrderCommentModal } from '../../../store/actions/modalActions'
 
 const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressValidations, scheduleValidations, cardValidations, token }) => {
 
+    const { addToast } = useToasts();
+
     const [submitted, setSubmitted] = useState(false);
+
+    const showToast = message => {
+        addToast(message, {
+            appearance: "error",
+            autoDismiss: true
+          })
+    }
 
     const formInvalid = () => {
 
         if (!products.length) {
-            console.log('Sem produtos, obrigatório ter.')
+            showToast('Não há produtos no seu carrinho.');
             return true;
         }
 

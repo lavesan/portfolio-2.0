@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
+import { useToasts } from "react-toast-notifications";
 
 import {
     advanceReturnRegisterFormStep,
@@ -20,9 +21,18 @@ import { StyledHeaderCotainer } from '../entrar.styles';
 
 const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, returnPage, registerFormValidations, addressRegisterForm, personalRegisterForm, accessRegisterForm }) => {
 
-    const router = useRouter();
-
     const authService = authInstance.getInstance();
+    
+    const { addToast } = useToasts();
+    
+    const router = useRouter();
+    
+    const showToast = message => {
+        addToast(message, {
+            appearance: "error",
+            autoDismiss: true
+          })
+    }
 
     const headerParagraph = 'Vamos fazer o seu cadastro rapidinho :)';
 
@@ -189,8 +199,8 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
                 dispatch(setUserInfo(res.user, res.token));
                 router.push('/inicio');
             })
-            .catch(err => {
-                console.log('erro: ', err);
+            .catch(({ message }) => {
+                showToast(message);
             });
         setLoading(false);
     }

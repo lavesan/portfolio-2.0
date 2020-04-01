@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
+import { useToasts } from "react-toast-notifications";
 
 import { StyledLoginForm } from './login-form.styles';
 import { SucessButtonComponent } from '../../../components/button';
@@ -16,6 +17,8 @@ import { StyledHeaderCotainer } from '../entrar.styles';
 
 const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidations }) => {
 
+    const { addToast } = useToasts();
+
     const router = useRouter();
 
     const authService = authInstance.getInstance();
@@ -23,6 +26,13 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidati
     const [submitted, setSubmitted] = useState(false);
 
     const [loading, setLoading] = useState(false);
+
+    const showToast = message => {
+        addToast(message, {
+            appearance: "error",
+            autoDismiss: true
+          })
+    }
 
     const setFormValidations = (func) => {
 
@@ -62,8 +72,9 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidati
                 dispatch(setUserInfo(res.user, res.token));
                 router.push('/inicio');
             })
-            .catch(err => {
-                console.log(err);
+            .catch((err) => {
+                const message = err.error ? err.error : err.message;
+                showToast(message);
             })
 
         setLoading(false);

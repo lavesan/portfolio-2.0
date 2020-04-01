@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
+import { useToasts } from "react-toast-notifications";
 
 import { setAddressStepValues, setAllAddressStepValues, clearAddressStepValues } from '../../../../store/actions/orderActions';
 import { StyledOrderAddressStepForm, StyledAddressInfoRadio } from './order-address-step-form.styles';
@@ -24,6 +25,15 @@ import { setManyValuesAddress } from '../../../../store/actions/orderActions';
 const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userInfo, token, submitted }) => {
 
     const authService = authInstance.getInstance();
+
+    const { addToast } = useToasts();
+
+    const showToast = message => {
+        addToast(message, {
+            appearance: "error",
+            autoDismiss: true
+          })
+    }
 
     const setFormValidations = (validation) => {
         dispatch(setAddressValidation(validation));
@@ -59,23 +69,24 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                 const formatedDistrict = unmaskDistrictName(removeDiacritics(data.bairro));
 
                 if (priceByDistrictOpts.some(f => f.label == formatedDistrict)) {
-                    alert('Não entregamos para este endereço')
+                    showToast('Não fazemos entregas neste bairro :(');
                     return;
+                } else {
+                    const selectedDistrict = {
+                        label: data.bairro,
+                        value: priceByDistrict[formatedDistrict],
+                    };
+    
+                    dispatch(setManyValuesAddress({
+                        address: data.logradouro,
+                        complement: data.complemento,
+                        district: selectedDistrict,
+                    }));
                 }
 
-                const selectedDistrict = {
-                    label: data.bairro,
-                    value: priceByDistrict[formatedDistrict],
-                };
-
-                dispatch(setManyValuesAddress({
-                    address: data.logradouro,
-                    complement: data.complemento,
-                    district: selectedDistrict,
-                }));
             })
             .catch(err => {
-                console.log('deu pau: ', err);
+                showToast('Não achamos seu endereço pelo CEP.');
             });
 
     }

@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
+import { useToasts } from "react-toast-notifications";
 
 import { StyledPedidosPage } from './pedidos.styles';
 import { orderInstance } from '../../services/order.service';
@@ -10,6 +11,15 @@ const PedidosPage = ({ activeOrders, ordersData, dispatch }) => {
 
     const orderService = orderInstance.getInstance();
 
+    const { addToast } = useToasts();
+
+    const showToast = message => {
+        addToast(message, {
+            appearance: "error",
+            autoDismiss: true
+          })
+    }
+
     const reloadOrders = useCallback(
         () => {
 
@@ -17,8 +27,8 @@ const PedidosPage = ({ activeOrders, ordersData, dispatch }) => {
                 .then(res => {
                     dispatch(setOrdersData(res));
                 })
-                .catch(err => {
-                    console.log('deu pau vei');
+                .catch(({ message }) => {
+                    showToast(message);
                 });
             if (activeOrders && activeOrders.length) {
                 setTimeout(() => {

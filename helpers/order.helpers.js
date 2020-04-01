@@ -1,3 +1,5 @@
+import { removeDiacritics } from './removespecialCharacter.helpers';
+
 export const priceByDistrict = {
     boaViagem: 6,
     pina: 6,
@@ -58,3 +60,11 @@ export const paymentMethodOpts = [
     { label: 'Vou sim', value: 1 },
     { label: 'Não, pagarei em espécie', value: 0 },
 ]
+
+export const districtNotValid = district => {
+
+    const formatedDistrict = removeDiacritics(district);
+
+    return !priceByDistrictOpts.some(opt => opt.label === formatedDistrict);
+
+}

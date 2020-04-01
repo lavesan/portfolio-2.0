@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useToasts } from "react-toast-notifications";
 
 import { onlyNumberMask } from '../../../../helpers/mask.helpers';
 import { validateOnlyNumber, isRequired, notNullable } from '../../../../helpers/validations.helpers';
-import { priceByDistrictOpts } from '../../../../helpers/order.helpers';
+import { priceByDistrictOpts, districtNotValid } from '../../../../helpers/order.helpers';
 import { StyledFullRevSuccessButton } from '../../../../components/button';
 import { StyledAddressForm } from './address-form.styles';
 import { FormTextMaterial } from '../../../../components/form/form-text-material';
@@ -16,6 +17,15 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
 
     const authService = authInstance.getInstance();
     
+    const { addToast } = useToasts();
+    
+    const showToast = message => {
+        addToast(message, {
+            appearance: "error",
+            autoDismiss: true
+          })
+    }
+    
     const setFieldValue = (name, value) => {
         dispatch(setRegisterFormAddressValue({
             name,
@@ -27,14 +37,20 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
 
         authService.findCep(addressRegisterForm.cep)
             .then(({ data }) => {
-                dispatch(setRegisterFormAddressManyValues({
-                    address: data.logradouro,
-                    complement: data.complemento,
-                    district: data.bairro,
-                }));
+
+                if (districtNotValid(data.bairro)) {
+                    showToast('Não fazemos entregas neste bairro :(');
+                } else {
+                    dispatch(setRegisterFormAddressManyValues({
+                        address: data.logradouro,
+                        complement: data.complemento,
+                        district: data.bairro,
+                    }));
+                }
+
             })
             .catch(err => {
-                console.log('deu pau: ', err);
+                showToast('Não achamos seu endereço pelo CEP.');
             });
 
     }

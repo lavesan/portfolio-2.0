@@ -3,7 +3,9 @@ import App from 'next/app'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux';
 import withRedux from "next-redux-wrapper";
-import 'swiper/css/swiper.css'
+import { ToastProvider } from "react-toast-notifications";
+import 'swiper/css/swiper.css';
+import "react-calendar/dist/Calendar.css";
 
 import { makeStore } from "../store";
 import axios from 'axios';
@@ -40,10 +42,13 @@ axios.interceptors.response.use(
   res => new Promise((resolve, reject) => {
     return res && res.data ? resolve(res.data) : resolve(res);
   }),
-  err => new Promise((resolve, reject) => {
-    return err ? (err.response ? reject(err.response.data) : reject(err.response)) :  reject({ message: 'Aconteceu um problema no servidor. Por favor tente mais tarde' });
+  err => {
+
+    let error = err ? (err.response ? err.response.data : err.response) : { message: 'Aconteceu um problema interno. Por favor tente mais tarde' };
+    error = error ? error : { message: 'Aconteceu um problema interno. Por favor tente mais tarde' };
+    return error;
+
   })
-);
 
 class MyApp extends App {
   render() {
@@ -51,17 +56,19 @@ class MyApp extends App {
     return (
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <AppComponent
-            Component={Component}
-            pageProps={pageProps} />
-          <AddressModal />
-          <ProductModalComponent />
-          <ResponsiveNavComponent />
-          <ResponsiveCartComponent />
-          <TermOfContractModal />
-          <AddOrderCommentModal />
-          <OrderModalComponent />
-          <FinishedOrderModal />
+          <ToastProvider>
+            <AppComponent
+              Component={Component}
+              pageProps={pageProps} />
+            <AddressModal />
+            <ProductModalComponent />
+            <ResponsiveNavComponent />
+            <ResponsiveCartComponent />
+            <TermOfContractModal />
+            <AddOrderCommentModal />
+            <OrderModalComponent />
+            <FinishedOrderModal />
+          </ToastProvider>
         </ThemeProvider>
       </Provider>
     )
