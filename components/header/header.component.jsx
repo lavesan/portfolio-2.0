@@ -23,12 +23,16 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
     const router = useRouter();
 
     const filterWithCategory = category => {
-        dispatch(setProductFilters({
-            type: 'equals',
-            field: 'cat.id',
-            value: category.id,
-            label: category.name,
-        }));
+        dispatch(setProductFilters(
+            [
+                {
+                    type: 'equals',
+                    field: 'cat.id',
+                    value: category.id,
+                    label: category.name,
+                },
+            ]
+        ));
         router.push('/produtos');
     }
 

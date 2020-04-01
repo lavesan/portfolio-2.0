@@ -22,11 +22,12 @@ const ProdutosPage = ({ filteredProducts = [], promotions, productFilters, dispa
                 productsFromPromotion = productsFromPromotion.concat(promo.products);
             })
 
-            return filteredProducts.map(catProd => ({
-                ...catProd,
-                products: catProd.products.map(product => {
+            if (productsFromPromotion.length) {
 
-                    const promotionalProduct = productsFromPromotion.filter(promoProd => promoProd && product && promoProd.id === product.id);
+                return filteredProducts.map(product => {
+                    
+                    const promotionalProduct = productsFromPromotion.filter(prodPromo => prodPromo.id === product.id);
+
                     let bestPromotion = '';
                     promotionalProduct.forEach(promo => {
 
@@ -36,28 +37,24 @@ const ProdutosPage = ({ filteredProducts = [], promotions, productFilters, dispa
                             bestPromotion = promo;
                         }
                         
-                    })
+                    });
 
-                    let value = '0';
-                    if (promotionalProduct && promotionalProduct.length) {
-
-                        value = bestPromotion.promotionalValueCents;
-
-                        promotionalProduct.forEach(promoProd => {
-                            if (Number(promoProd.promotionalValueCents) < Number(value)) {
-                                value = Number(promoProd.promotionalValueCents);
-                            }
-                        })
-
+                    if (bestPromotion) {
+                        return {
+                            ...product,
+                            promotionalValueCents: bestPromotion.promotionalValueCents,
+                            promotion: promo,
+                        }
                     }
 
-                    return {
-                        ...product,
-                        promotionalValueCents: promotionalProduct && promotionalProduct.length ? value : '',
-                    }
+                    return product;
 
-                }),
-            }))
+                });
+
+            }
+
+            return filteredProducts;
+
         },
         [promotions, filteredProducts]
     )
@@ -115,7 +112,7 @@ const ProdutosPage = ({ filteredProducts = [], promotions, productFilters, dispa
                     }
                 </div>
             </div>
-            {mappedProductsWithPromotions.length
+            {mappedProductsWithPromotions && mappedProductsWithPromotions.length
                 ? <>
                     <div className="products-grid-container">
                         {mappedProductsWithPromotions.map(product => <ProductCardComponent key={product.id} {...product} />)}

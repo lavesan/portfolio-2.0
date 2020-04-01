@@ -123,12 +123,16 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
     }
 
     const onCategoryClick = category => {
-        dispatch(setProductFilters({
-            type: 'equals',
-            field: 'cat.id',
-            value: category.id,
-            label: category.name,
-        }));
+        dispatch(setProductFilters(
+            [
+                {
+                    type: 'equals',
+                    field: 'cat.id',
+                    value: category.id,
+                    label: category.name,
+                },
+            ]
+        ));
         router.push('/produtos');
     }
 

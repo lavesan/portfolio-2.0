@@ -57,11 +57,7 @@ export const productReducer = (state = initialState, action) => {
 
             })
 
-            console.log('action.productFilters: ', action.productFilters);
-
             const newFilter = action.productFilters.filter(filter => filter.value);
-
-            console.log('newFilter: ', newFilter);
 
             return {
                 ...state,
