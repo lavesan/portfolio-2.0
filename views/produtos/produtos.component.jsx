@@ -26,7 +26,7 @@ const ProdutosPage = ({ filteredProducts = [], promotions, productFilters, dispa
 
                 return filteredProducts.map(product => {
                     
-                    const promotionalProduct = productsFromPromotion.filter(prodPromo => prodPromo.id === product.id);
+                    const promotionalProduct = productsFromPromotion.filter(prodPromo => prodPromo && prodPromo.id === product.id);
 
                     let bestPromotion = '';
                     promotionalProduct.forEach(promo => {
