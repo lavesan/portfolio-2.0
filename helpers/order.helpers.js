@@ -56,6 +56,26 @@ export const priceByDistrictOpts = (() => {
 
 })();
 
+export const districtOpts = (() => {
+
+    const entries = Object.entries(priceByDistrict);
+
+    return entries.map(([key, value]) => {
+
+        const [char, ...resto] = key;
+        const novaString = `${char.toUpperCase()}${resto.join('')}`;
+
+        const formatedWithSpaceAhead = novaString.replace(/([A-Z])/g, ' $1');
+
+        return {
+            label: formatedWithSpaceAhead.replace(/ /, ''),
+            value: formatedWithSpaceAhead.replace(/ /, ''),
+        }
+
+    })
+
+})();
+
 export const paymentMethodOpts = [
     { label: 'Vou sim', value: 1 },
     { label: 'Não, pagarei em espécie', value: 0 },
@@ -70,14 +90,14 @@ export const districtNotValid = district => {
 }
 
 export const Brand = {
-    visa: 'visa',
-    visaElectron: 'visaelectron',
-    mastercard: 'mastercard',
-    americanExpress: 'americanexpress',
-    hipercard: 'hipercard',
-    elo: 'elo',
-    alelo: 'alelo',
-    sodexo: 'sodexo',
+    mastercard: 'Mastercard',
+    visa: 'Visa',
+    visaElectron: 'Visaelectron',
+    americanExpress: 'Amex',
+    elo: 'Elo',
+    hipercard: 'Hipercard',
+    alelo: 'Alelo',
+    sodexo: 'Sodexo',
 }
 
 export const brandOpts = [

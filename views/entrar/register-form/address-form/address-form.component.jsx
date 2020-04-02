@@ -4,7 +4,7 @@ import { useToasts } from "react-toast-notifications";
 
 import { onlyNumberMask } from '../../../../helpers/mask.helpers';
 import { validateOnlyNumber, isRequired, notNullable } from '../../../../helpers/validations.helpers';
-import { priceByDistrictOpts, districtNotValid } from '../../../../helpers/order.helpers';
+import { districtOpts, districtNotValid } from '../../../../helpers/order.helpers';
 import { removeDiacritics } from '../../../../helpers/removespecialCharacter.helpers';
 import { StyledFullRevSuccessButton } from '../../../../components/button';
 import { StyledAddressForm } from './address-form.styles';
@@ -119,7 +119,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
                     setFormValidations={setFormValidations}
                     value={addressRegisterForm.district}
                     onChange={setFieldValue}
-                    options={priceByDistrictOpts} />
+                    options={districtOpts} />
                 <FormTextMaterial
                     label="Complemento"
                     name="complement"

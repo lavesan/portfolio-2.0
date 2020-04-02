@@ -79,7 +79,7 @@ export const notNullable = value => {
 
 export const isCardNumber = value => {
     return {
-        valid: /^\d{4} \d{4} \d{4} \d{4}/.test(value),
+        valid: /^\d{4} \d{4} \d{4} \d{4}$/.test(value),
         message: 'Número do cartão inválido',
     }
 }

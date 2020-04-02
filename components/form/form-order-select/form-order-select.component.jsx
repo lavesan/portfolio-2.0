@@ -59,7 +59,7 @@ export default ({ label, name, value, setFieldValue, className, setFormValidatio
     };
 
     return (
-        <StyledOrderFormSelectField className={className} error={startErrorValidation}>
+        <StyledOrderFormSelectField className={className}>
             {label && <label htmlFor={name}>{label}</label>}
             <StyledOrderFormSelect
                 id={name}

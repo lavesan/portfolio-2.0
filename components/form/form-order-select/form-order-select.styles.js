@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import Select from 'react-select';
 
 export const StyledOrderFormSelectField = styled.div`
-    ${({ theme, error }) => css`
+    ${({ theme }) => css`
         color: ${theme.gray.secondary};
         display: flex;
         flex-flow: column nowrap;
@@ -16,10 +16,6 @@ export const StyledOrderFormSelectField = styled.div`
         .error-message {
             color: ${theme.danger.primary};
         }
-
-        ${error && css`
-            color: ${theme.danger.primary};
-        `}
     `}
 `;
 

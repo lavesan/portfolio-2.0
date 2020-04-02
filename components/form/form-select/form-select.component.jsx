@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import { makeStyles } from '@material-ui/core/styles';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 const FormSelectComponent = ({ label, value, name, options = [], onChange, validatesOnChange = [], setFormValidations, formValidations = {}, screenWidth, startValidations }) => {
@@ -87,7 +86,7 @@ const FormSelectComponent = ({ label, value, name, options = [], onChange, valid
                     label={label}
                 >
                     {options.map(opt => (
-                        <option value={opt.label}>{opt.label}</option>
+                        <option value={opt.label}>{opt.value}</option>
                     ))}
                 </Select>
                 {startErrorValidation && <FormHelperText>{formValidations[name].message}</FormHelperText>}

@@ -108,7 +108,7 @@ export const cardNumberMask = value => {
 
   let finalValue = "";
   for (let i = 0; i < slicedValues.length; i++) {
-    if (i % 4 === 0) {
+    if (i !== 0 && i % 4 === 0) {
       finalValue += ` ${slicedValues[i]}`;
     } else {
       finalValue += `${slicedValues[i]}`;

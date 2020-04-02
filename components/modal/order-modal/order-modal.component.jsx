@@ -61,14 +61,13 @@ const OrderModalComponent = ({ dispatch, orderData, openOrderToFinishModal, card
         if (!cardStep.payLatter) {
             body.card = {
                 id: cardStep.id,
-                paymentType: cardStep.paymentType,
-                legalDocument: cardStep.legalDocument,
-                cvv: cardStep.cvv,
-                fullname: cardStep.fullname,
-                number: cardStep.number,
-                dueDate: cardStep.dueDate,
+                legalDocument: cardStep.cpf ? cardStep.cpf.replace(/\D/g, '') : '',
+                securityCode: cardStep.cvv,
+                nameOnCard: cardStep.fullname,
+                number: cardStep.number.replace(/\D/g, ''),
+                expirationMonth: cardStep.dueDate.match(/^\d{2}/),
+                expirationYear: cardStep.dueDate.match(/\d{2}$/),
                 brand: cardStep.brand.value,
-                saveCard: cardStep.saveCard,
             }
         }
 

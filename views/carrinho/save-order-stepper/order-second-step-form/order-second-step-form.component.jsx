@@ -136,7 +136,7 @@ const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userI
                                     value={cardStep.number}
                                     startValidations={submitted}
                                     className="first-column"
-                                    placeholder="00000-000"
+                                    placeholder="0000 0000 0000 0000"
                                     setFieldValue={setFieldValue} />
                                 <FormFieldComponent
                                     label="Vencimento"
@@ -184,8 +184,8 @@ const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userI
                                 startValidations={submitted}
                                 validatesOnChange={[isRequired]}
                                 setFormValidations={setFormValidations}
-                                formValidation={addressValidations.brand}
-                                value={addressStep.brand}
+                                formValidation={cardValidations.brand}
+                                value={cardStep.brand}
                                 setFieldValue={setFieldValue}
                                 options={brandOpts} />
                             {token &&
