@@ -6,9 +6,10 @@ import { toggleProductModal } from '../../../store/actions/modalActions';
 import { StyledProductModal } from './product-modal.styles';
 import { addProduct } from '../../../store/actions/cartActions';
 import { onlyNumberStringToFloatNumber, numberToReal } from '../../../helpers/calc.helpers';
-import { StyledSuccessButton } from '../../button';
+import { SucessButtonComponent } from '../../button';
+import { productSuffixes } from '../../../helpers/product.helper';
 
-const ProductModal = ({ dispatch, openProductModal, selectedProduct }) => {
+const ProductModal = ({ dispatch, openProductModal, selectedProduct, screenWidth }) => {
 
     const [initialValues, setInitialValues] = useState({
         quantity: 1,
@@ -27,6 +28,20 @@ const ProductModal = ({ dispatch, openProductModal, selectedProduct }) => {
             return numberToReal(finalValue);
         },
         [initialValues.quantity, selectedProduct.actualValueCents]
+    )
+
+    const suffixText = useMemo(
+        () => {
+            return selectedProduct.quantitySuffix === productSuffixes.UNITY ? productSuffixes.UNITY : productSuffixes.KILOGRAM;
+        },
+        [selectedProduct.quantitySuffix]
+    )
+
+    const isResponsive = useMemo(
+        () => {
+            return screenWidth <= 650;
+        },
+        [screenWidth]
     )
 
     const manageQuantity = (plus) => {
@@ -53,7 +68,7 @@ const ProductModal = ({ dispatch, openProductModal, selectedProduct }) => {
                 </div>
                 <div className="product-info">
                     <div className="product-info-description">
-                        <h2>{selectedProduct.name} 1{selectedProduct.quantitySuffix}</h2>
+                        <h2>{selectedProduct.name} {suffixText}</h2>
                         <h3>Descrição</h3>
                         <p>
                             {selectedProduct.description}
@@ -78,13 +93,14 @@ const ProductModal = ({ dispatch, openProductModal, selectedProduct }) => {
                                 </strong>
                             </div>
                         </div>
-                        <div>
-                            <StyledSuccessButton
+                        <div className="button-container">
+                            <SucessButtonComponent
+                                type="button"
+                                notDense={isResponsive}
+                                text="Adicionar ao carrinho"
                                 type="button"
                                 onClick={addToCart}
-                                disabled={hasStock ? '' : 'true'}>
-                                Adicionar ao carrinho
-                            </StyledSuccessButton>
+                                disabled={hasStock ? '' : 'true'} />
                         </div>
                     </div>
                 </div>
@@ -96,6 +112,7 @@ const ProductModal = ({ dispatch, openProductModal, selectedProduct }) => {
 const mapStateToProps = store => ({
     openProductModal: store.modalState.openProductModal,
     selectedProduct: store.modalState.selectedProduct,
+    screenWidth: store.uiState.screenWidth,
 })
 
 export default connect(mapStateToProps)(ProductModal);

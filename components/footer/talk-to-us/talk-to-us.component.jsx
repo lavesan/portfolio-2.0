@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { StyledTalkToUsParagraph } from './talk-to-us.styles';
 
-export default ({ icon, value, title, href }) => {
+export default ({ icon, value, title, href, ...props }) => {
     return (
-        <StyledTalkToUsParagraph href={href} target="_blank" rel="noopener noreferrer">
+        <StyledTalkToUsParagraph href={href} target="_blank" rel="noopener noreferrer" {...props}>
             <span title={title}>
                 <FontAwesomeIcon icon={icon} />
             </span>

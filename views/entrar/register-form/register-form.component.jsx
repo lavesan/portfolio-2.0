@@ -337,7 +337,6 @@ const mapStateToProps = store => ({
     personalRegisterForm: store.authState.personalRegisterForm,
     addressRegisterForm: store.authState.addressRegisterForm,
     screenWidth: store.uiState.screenWidth,
-
 })
 
 export default connect(mapStateToProps)(RegisterFormComponent);
