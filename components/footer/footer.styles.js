@@ -60,7 +60,7 @@ export const StyledFooter = styled.footer`
         }
 
         .footer-responsive-info {
-            display: flex;
+            display: none;
             flex-flow: column nowrap;
             justify-content: center;
             align-items: center;
