@@ -28,37 +28,50 @@ const ProductCardComponent = ({ dispatch, ...product }) => {
         [product.actualValueCents, product.promotionalValueCents]
     )
 
+    const isDisabled = useMemo(
+        () => {
+            return product.quantityOnStock <= 0;
+        },
+        [product.quantityOnStock]
+    )
+
     return (
-        <StyledProductCard>
-            {product.promotionalValueCents &&
-                <div className="promotional-tag">
-                    <strong>{percentageMask(promotionalPercentage)}</strong>
+        <StyledProductCard isDisabled={isDisabled}>
+            {isDisabled && <>
+                <p className="disabled-paragraph"><b>Indisponível</b></p>
+                <div className="court"></div>
+            </>}
+            <div className="product-container">
+                {product.promotionalValueCents &&
+                    <div className="promotional-tag">
+                        <strong>{percentageMask(promotionalPercentage)}</strong>
+                    </div>
+                }
+                <div className="product-image-container">
+                    <img src={product.imgUrl} alt={`image-do-produto-${product.name}`} />
                 </div>
-            }
-            <div className="product-image-container">
-                <img src={product.imgUrl} alt={`image-do-produto-${product.name}`} />
-            </div>
-            <h3 className="product-name"><b>{product.name} {product.quantitySuffix}</b></h3>
-            <section className="price-section">
-                {product.promotionalValueCents
-                    ? <>
-                        <p className="price-promotion-paragraph">De: {numberStringToReal(product.promotionalValueCents)}</p>
-                        <p className="price-paragraph">
-                            <span className="price-text">Por:</span> 
+                <h3 className="product-name"><b>{product.name} {product.quantitySuffix}</b></h3>
+                <section className="price-section">
+                    {product.promotionalValueCents
+                        ? <>
+                            <p className="price-promotion-paragraph">De: {numberStringToReal(product.promotionalValueCents)}</p>
+                            <p className="price-paragraph">
+                                <span className="price-text">Por:</span> 
+                                <span className="price-value">{numberStringToReal(product.actualValueCents)}</span>
+                            </p>
+                        </>
+                        : <p className="price-paragraph">
+                            <span className="price-text">Preço:</span> 
                             <span className="price-value">{numberStringToReal(product.actualValueCents)}</span>
                         </p>
-                    </>
-                    : <p className="price-paragraph">
-                        <span className="price-text">Preço:</span> 
-                        <span className="price-value">{numberStringToReal(product.actualValueCents)}</span>
-                    </p>
-                }
-            </section>
-            <StyledSuccessButton
-                className="submit-button"
-                onClick={addToCart}>
-                    Adicionar ao carrinho
-            </StyledSuccessButton>
+                    }
+                </section>
+                <StyledSuccessButton
+                    className="submit-button"
+                    onClick={addToCart}>
+                        Adicionar ao carrinho
+                </StyledSuccessButton>
+            </div>
         </StyledProductCard>
     )
 }
