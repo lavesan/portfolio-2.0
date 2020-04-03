@@ -19,6 +19,7 @@ import { categoryInstance } from '../services/category.service';
 import { comboInstance } from '../services/combo.service';
 import { authInstance } from '../services/auth.service';
 import { productInstance } from '../services/product.service';
+import zeroVenenoLogo from '../public/static/imgs/zero-veneno-logo.jpeg';
 
 const StyledPage = styled.div`
   padding: 20px 60px;
@@ -189,7 +190,14 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
               name="viewport"
               content="minimum-scale=1, initial-scale=1, width=device-width"
             />
-            <title>Zero veneno</title>
+            <link rel="icon" href={zeroVenenoLogo} />
+            <meta
+              name="description"
+              content="Delivery de hortaliças e frutas orgânicas certificadas, e oleaginosas e outros a granel não orgânicos"
+            />
+            <meta name="keywords" content="delivery,orgânico,recife,hortaliças,natural,saudável,vegetariano,vegano,frutas" />
+            <meta name="author" content="Valdery Alves Paes Júnior <valdery.jur@gmail.com> (http://valderyalves.com)" />
+            <title>Zero Veneno- Produtos Orgânicos</title>
           </Head>
           {showHeader ? <HeaderComponent /> : ''}
           {applyPageStyle
