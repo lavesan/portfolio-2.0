@@ -138,6 +138,8 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
 
     return (
         <StyledStartPage>
+            <p>Clique nessa barrinha logo abaixo</p>
+            <input id="date" type="date" />
             <section className="promo-combos-section">
                 {promotions && promotions.length ?
                     <>
