@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const validateEmail = value => {
     return {
         valid: /^[.a-zA-Z0-9]+@(?:[a-zA-Z]+\.?)+[a-zA-Z]$/g.test(value),
@@ -95,5 +97,23 @@ export const isCellphoneNumber = value => {
     return {
         valid: /^\(?\d{2}\)? ?\d{5}-?\d{4}$/.test(value),
         message: 'Número inválido',
+    }
+}
+
+export const isValidDate = value => {
+
+    const momentDate = moment(value, 'YYYY-MM-DD');
+
+    return {
+        valid: momentDate.isBefore(moment()),
+        message: 'Selecione uma data depois da atual.',
+    }
+
+}
+
+export const isBrDate = value => {
+    return {
+        valid: /^\d{2}\/\d{2}\/\d{2}$/.test(value),
+        message: 'Data inválida',
     }
 }

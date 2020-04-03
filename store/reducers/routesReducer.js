@@ -2,6 +2,7 @@ const initialState = {
     showHeader: true,
     showFooter: true,
     applyPageStyle: true,
+    actualRoute: '',
 };
 export const routesReducer = (state = initialState, action) => {
     // Este 'state' é o state total passado
@@ -13,6 +14,12 @@ export const routesReducer = (state = initialState, action) => {
                 showHeader: action.showHeader,
                 showFooter: action.showFooter,
                 applyPageStyle: action.applyPageStyle,
+            }
+        },
+        SET_ACTUAL_ROUTE() {
+            return {
+                ...state,
+                actualRoute: action.actualRoute,
             }
         },
     }

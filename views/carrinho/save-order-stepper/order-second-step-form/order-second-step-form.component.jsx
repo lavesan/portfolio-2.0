@@ -18,7 +18,7 @@ import { FormOrderSelectComponent } from '../../../../components/form/form-order
 import { brandOpts } from '../../../../helpers/order.helpers';
 
 const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userInfo, submitted }) => {
-    
+
     const setFormValidations = (validation) => {
         dispatch(setCardValidation(validation));
     }

@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const onlyNumberMask = value => {
     return value.replace(/\D/g, '');
 }
@@ -153,5 +155,12 @@ export const integerMoneyMask = value => {
   }
 
   return `R$ ${onlyNumber}`;
+
+}
+
+export const usToBrDate = usDate => {
+
+  const momentDate = moment(usDate, 'YYYY-MM-DD');
+  return momentDate.format('DD/MM/YYYY');
 
 }

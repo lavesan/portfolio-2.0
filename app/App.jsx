@@ -9,7 +9,7 @@ import globalStyle from './style.css'
 import { HeaderComponent } from '../components/header';
 import { FooterComponent } from '../components/footer';
 import GlobalStyle from './global-styles';
-import { setShowHeaderAndFooter } from '../store/actions/routesActions';
+import { setShowHeaderAndFooter, setActualRoute } from '../store/actions/routesActions';
 import { setCategories } from '../store/actions/categoryActions';
 import { setUserInfo, clearUserInfo } from '../store/actions/authActions';
 import { screenResize } from '../store/actions/uiActions';
@@ -133,9 +133,15 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
         dispatch(setShowHeaderAndFooter({
             showHeader: false,
             showFooter: false,
-        }))
+        }));
       }
-      Router.events.on('routeChangeComplete', (url) => {
+      if (window && window.history && window.history.state && window.history.state.url) {
+        dispatch(setActualRoute(window.history.state.url));
+      }
+      Router.events.on('routeChangeComplete', url => {
+
+        dispatch(setActualRoute(url));
+
         if (/.*entrar.*/.test(url)) {
               dispatch(setShowHeaderAndFooter({
                   showHeader: false,

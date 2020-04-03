@@ -24,6 +24,15 @@ export const StyledFieldset = styled.div`
             color: ${theme.gray.primary};
         }
 
+        .responsive-datepicker-icon {
+            position: absolute;
+            bottom: 33px;
+            right: 16px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: ${theme.gray.secondary};
+        }
+
         ${error && css`
             color: ${theme.danger.primary};
         `}

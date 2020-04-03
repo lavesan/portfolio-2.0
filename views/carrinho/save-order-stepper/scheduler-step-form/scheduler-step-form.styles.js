@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const StyledSchedulerStepForm = styled.section`
-    ${({ theme }) => css`
+    ${({ theme, isResponsive }) => css`
 
         > * {
             width: 50%;
@@ -66,6 +66,24 @@ export const StyledSchedulerStepForm = styled.section`
                 background-color: transparent;
             }
         }
+
+        ${isResponsive && css`
+            .scheduler-form-container {
+                flex-direction: column;
+
+                .scheduler-form-container--time-form {
+                    margin-top: 20px;
+                }
+
+                > * {
+                    width: 100%;
+                }
+            }
+
+            > * {
+                width: 100%;
+            }
+        `}
 
     `}
 `;

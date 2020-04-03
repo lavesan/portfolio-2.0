@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useToasts } from "react-toast-notifications";
 
@@ -9,7 +9,6 @@ import { OrderCardStepForm } from './order-second-step-form';
 import { SucessButtonComponent } from '../../../components/button';
 import { toogleAddOrderCommentModal } from '../../../store/actions/modalActions';
 import { moveResponsiveStep } from '../../../store/actions/orderActions';
-import { useMemo } from 'react';
 
 const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressValidations, scheduleValidations, cardValidations, token, isResponsive, responsiveStep }) => {
 
@@ -144,11 +143,11 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
         () => {
 
             const manageFormStep = {
-                1: {
+                2: {
                     Component: OrderAddressStepForm,
                     submitted: submittedStep.address,
                 },
-                2: {
+                1: {
                     Component: SchedulerStepFormComponent,
                     submitted: submittedStep.schedule,
                 },
@@ -167,7 +166,7 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
     return (
         <StyledSaveOrderForm className={className} onSubmit={onSubmit}>
             {isResponsive
-                ? <ResponsiveFormStep.Component submitted={ResponsiveFormStep.submitted || submitted} />
+                ? <ResponsiveFormStep.Component isResponsive={isResponsive} submitted={ResponsiveFormStep.submitted || submitted} />
                 : <>
                     <OrderAddressStepForm submitted={submitted} />
                     <SchedulerStepFormComponent submitted={submitted} />

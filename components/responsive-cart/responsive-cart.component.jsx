@@ -12,7 +12,7 @@ import { ResponsiveProductCart } from './responsive-product-cart';
 import { ProductCartComponent } from '../cart/product-cart';
 import { SucessButtonComponent } from '../button';
 
-const ResponsiveCartComponent = ({ dispatch, products, openResponsiveCart, screenHeight, screenWidth }) => {
+const ResponsiveCartComponent = ({ dispatch, products, openResponsiveCart, screenHeight, screenWidth, actualRoute }) => {
 
     const router = useRouter();
 
@@ -44,7 +44,7 @@ const ResponsiveCartComponent = ({ dispatch, products, openResponsiveCart, scree
         <>
             {screenWidth < 750 &&
                 <>
-                    <StyledResponsiveCard openResponsiveCart={openResponsiveCart && products.length} screenHeight={screenHeight || 2000} openCartHeader={products.length}>
+                    <StyledResponsiveCard openResponsiveCart={openResponsiveCart && products.length && !(/.*carrinho.*/.test(actualRoute))} screenHeight={screenHeight || 2000} openCartHeader={products.length && !(/.*carrinho.*/.test(actualRoute))}>
                         <header className="cart-header" onClick={toggleCart}>
                             <div className="icon-container">
                                 <StyledIconNotification className="notify">{products.length}</StyledIconNotification>
@@ -85,6 +85,7 @@ const mapStateToProps = store => ({
     openResponsiveCart: store.responsiveState.openResponsiveCart,
     screenHeight: store.uiState.screenHeight,
     screenWidth: store.uiState.screenWidth,
+    actualRoute: store.routesState.actualRoute,
 })
 
 export default connect(mapStateToProps)(ResponsiveCartComponent);
