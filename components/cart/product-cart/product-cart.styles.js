@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
 
 export const StyledProductCart = styled.div`
-    ${({ theme }) => css`
+    ${({ theme, hideRemove }) => css`
         display: grid;
-        grid-template-columns: 2fr 2fr 1fr;
+        grid-template-columns: ${hideRemove ? '1fr 1fr' : '2fr 2fr 1fr'};
         grid-gap: 20px;
         color: ${theme.gray.secondary};
         border-bottom: thin solid ${theme.gray.primary};

@@ -1,5 +1,6 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
+import { useRouter } from "next/router";
 
 import { StyledResponsiveCard } from './responsive-cart.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,11 +9,19 @@ import { numberToReal, onlyNumberStringToFloatNumber } from '../../helpers/calc.
 import { toggleResponsiveOpenresponsiveCart } from '../../store/actions/responsiveActions';
 import { StyledIconNotification } from '../icon-notifications/icon-notifications.styles';
 import { ResponsiveProductCart } from './responsive-product-cart';
+import { ProductCartComponent } from '../cart/product-cart';
+import { SucessButtonComponent } from '../button';
 
 const ResponsiveCartComponent = ({ dispatch, products, openResponsiveCart, screenHeight, screenWidth }) => {
 
+    const router = useRouter();
+
     const toggleCart = () => {
         dispatch(toggleResponsiveOpenresponsiveCart());
+    }
+
+    const goToPayment = () => {
+        router.push('/carrinho');
     }
 
     const totalValue = useMemo(
@@ -33,7 +42,7 @@ const ResponsiveCartComponent = ({ dispatch, products, openResponsiveCart, scree
 
     return (
         <>
-            {screenWidth < 700 &&
+            {screenWidth < 750 &&
                 <>
                     <StyledResponsiveCard openResponsiveCart={openResponsiveCart && products.length} screenHeight={screenHeight || 2000} openCartHeader={products.length}>
                         <header className="cart-header" onClick={toggleCart}>
@@ -41,21 +50,28 @@ const ResponsiveCartComponent = ({ dispatch, products, openResponsiveCart, scree
                                 <StyledIconNotification className="notify">{products.length}</StyledIconNotification>
                                 <FontAwesomeIcon className="icon" icon={faShoppingCart} />
                             </div>
-                            <p>Abrir carrinho</p>
+                            <p>{openResponsiveCart ? 'Fechar' : 'Abrir'} carrinho</p>
                             <b>{numberToReal(totalValue)}</b>
                         </header>
                         <section className="cart-container">
                             <div className="cart-title-container">
-                                <h2>Seu carrinho</h2>
-                                <p>Excluir item</p>
+                                <p>EXCLUIR ITEMS</p>
                             </div>
-                            {products.map(product =>
-                                <ResponsiveProductCart
-                                    key={product.id}
-                                    className="responsive-cart"
-                                    {...product} />)
-                            }
+                            <div className="products-container">
+                                {products.map(product =>
+                                    <ProductCartComponent key={product.id} hideRemove={true} {...product} />)
+                                }
+                            </div>
                         </section>
+                        <div className="complete-container">
+                            <p className="total-text">TOTAL: <b>{numberToReal(totalValue)}</b></p>
+                            <SucessButtonComponent
+                                type="button"
+                                notDents={'true'}
+                                onClick={goToPayment}
+                                text="Escolher forma de pagamento"
+                                className="success-button" />
+                        </div>
                     </StyledResponsiveCard>
                 </>
             }

@@ -11,7 +11,7 @@ import { onlyNumberStringToThreeDigit } from '../../../helpers/mask.helpers';
 import { numberStringToFloatThreeDigit } from '../../../helpers/unmask.helpers';
 import { floatToOneDigit } from '../../../helpers/pipes.helpers';
 
-const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValueCents, quantitySuffix, quantityOnStock }) => {
+const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValueCents, quantitySuffix, quantityOnStock, hideRemove }) => {
 
     const totalProductValue = useMemo(
         () => {
@@ -101,7 +101,7 @@ const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValu
     }
 
     return (
-        <StyledProductCart>
+        <StyledProductCart hideRemove={hideRemove}>
             <div className="image-container">
                 <p className="product-name">{name}</p>
                 <img src={imgUrl} alt="Imagem do produto" />
@@ -130,10 +130,12 @@ const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValu
                 }
                 <p className="value-text"><span>Valor:</span> <strong>{numberToReal(totalProductValue)}</strong></p>
             </div>
-            <div className="cart-action-container" onClick={remove}>
-                <FontAwesomeIcon icon={faTrashAlt} />
-                <p>Remover</p>
-            </div>
+            {!hideRemove &&
+                <div className="cart-action-container" onClick={remove}>
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                    <p>Remover</p>
+                </div>
+            }
         </StyledProductCart>
     )
 

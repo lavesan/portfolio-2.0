@@ -2,13 +2,15 @@ import styled, { css } from 'styled-components';
 
 export const StyledResponsiveCard = styled.div`
     ${({ theme, openResponsiveCart, screenHeight, openCartHeader }) => css`
-        background-color: ${theme.green.terciary};
         position: fixed;
         transition: top .3s;
         top: ${screenHeight}px;
         width: 100vw;
-        height: 100vh;
         z-index: 2;
+        background-color: #fff;
+        height: ${screenHeight - 100}px;
+        display: flex;
+        flex-flow: column nowrap;
 
         .cart-header {
             display: flex;
@@ -18,6 +20,8 @@ export const StyledResponsiveCard = styled.div`
             padding: 20px 32px;
             font-size: 1rem;
             color: #fff;
+            background-color: ${theme.green.primary};
+            color: ${theme.green.terciary};
 
             .icon-container {
                 position: relative;
@@ -27,7 +31,8 @@ export const StyledResponsiveCard = styled.div`
                     top: -8px;
                     left: 18px;
                     color: #fff;
-                    background-color: ${theme.green.quaternary};
+                    background-color: ${theme.green.hexaternary};
+                    color: ${theme.green.terciary};
                 }
 
                 .icon {
@@ -41,28 +46,43 @@ export const StyledResponsiveCard = styled.div`
 
         .cart-container {
             padding: 0 20px;
-            color: #fff;
+            flex: 1;
 
             .cart-title-container {
-                
-                display: flex;
-                flex-flow: row nowrap;
-                justify-content: space-between;
-                align-items: center;
-
-                h2 {
-                    margin: 0;
-                    font-size: 1.1rem;
-                }
+                padding-top: 10px;
                 p {
                     margin: 0;
                     cursor: pointer;
                     font-size: .8rem;
+                    text-align: end;
+                    color: ${theme.danger.primary};
                 }
+            }
+
+            .products-container {
+                overflow-y: scroll;
             }
             
             .responsive-cart {
                 margin-top: 20px;
+            }
+        }
+        
+        .complete-container {
+
+            .success-button {
+                width: 100%;
+                border-radius: 0;
+                text-align: center;
+                padding: 20px 0;
+                font-size: 1rem;
+            }
+
+            .total-text {
+                font-size: 1.4rem;
+                color: ${theme.green.terciary};
+                margin: 20px 0;
+                text-align: center;
             }
         }
 

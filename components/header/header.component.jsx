@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock, faMapMarkerAlt, faUserCircle, faShoppingCart, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { connect } from "react-redux";
@@ -70,10 +70,17 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
         dispatch(setInputSearchField(e.target.value));
     }
 
+    const isResponsive = useMemo(
+        () => {
+            return screenWidth < 750;
+        },
+        [screenWidth]
+    )
+
     return (
         <>
             <StyledHeader>
-                {screenWidth >= 700 &&
+                {!isResponsive &&
                     <div className="header-info">
                         <div className="header-info-actions" onClick={() => dispatch(toggleAddressModal())} title="Abrir modal com locais de entrega">
                             <FontAwesomeIcon icon={faMapMarkerAlt}  /> Locais que entregamos
@@ -87,7 +94,7 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
                     <aside className="header-acition-logo">
                         <img onClick={goToHome} src={logo} alt="Logo zero veneno" />
                     </aside>
-                    {screenWidth >= 700
+                    {!isResponsive
                         ? <>
                             <div>
                                 <SearchInputComponent
@@ -130,7 +137,7 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
                         </>
                     }
                 </div>
-                {screenWidth > 750 &&
+                {!isResponsive &&
                     <nav className="header-nav">
                         <NavLinkComponent
                             href="/inicio"
@@ -149,7 +156,7 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
                         )}
                     </nav>
                 }
-                {screenWidth <= 700 &&
+                {isResponsive &&
                     <div className="responsive-search-container">
                         <ResponsiveSearchInputComponent
                             type="text"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 
 import { CartComponent } from '../../components/cart';
@@ -7,10 +7,19 @@ import { StyledCarrinhoPage } from './carrinho.styles';
 
 const CarrinhoPage = ({ screenWidth }) => {
 
+    const isResponsive = useMemo(
+        () => {
+            return screenWidth < 750;
+        },
+        [screenWidth]
+    )
+
     return (
-        <StyledCarrinhoPage screenWidth={screenWidth}>
-            <SaveOrderStepper className="stepper-container" />
-            <CartComponent className="cart-container" />
+        <StyledCarrinhoPage screenWidth={screenWidth} isResponsive={isResponsive}>
+            <SaveOrderStepper isResponsive={isResponsive} className="stepper-container" />
+            {!isResponsive &&
+                <CartComponent className="cart-container" />
+            }
         </StyledCarrinhoPage>
     )
 

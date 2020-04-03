@@ -1,6 +1,7 @@
 const initialState = {
     activeOrders: [],
     ordersData: [],
+    responsiveStep: 1,
     addressStep: {
         id: '',
         cep: '',
@@ -144,7 +145,16 @@ export const orderReducer = (state = initialState, action) => {
                 scheduleStep,
                 cardStep,
             }
-        }
+        },
+        MOVE_RESPONSIVE_STEP() {
+
+            const goBack = state.responsiveStep === 1 && !action.plus ? state.responsiveStep : state.responsiveStep - 1;
+
+            return {
+                ...state,
+                responsiveStep: action.plus ? state.responsiveStep + 1 : goBack,
+            }
+        },
     }
 
     return handleReducer[action.type] ?

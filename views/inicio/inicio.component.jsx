@@ -190,7 +190,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                     : ''
                 }
             </section>
-            {screenWidth <= 750
+            {screenWidth < 750
                 ? <div className="categories-section">
                     <h2>Categoria de produtos</h2>
                     <div className="categories-row">

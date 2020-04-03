@@ -5,6 +5,7 @@ export default {
         terciary: '#005240',
         quaternary: '#012D23',
         penternary: '#E7F6E5',
+        hexaternary: '#57F53B',
     },
     gray: {
         primary: '#C4C4C4',

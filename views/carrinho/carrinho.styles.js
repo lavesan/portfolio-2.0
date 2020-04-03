@@ -1,13 +1,14 @@
 import styled, { css } from 'styled-components';
 
 export const StyledCarrinhoPage = styled.div`
-    ${({ screenWidth }) => css`
+    ${({ screenWidth, isResponsive }) => css`
         display: flex;
         flex-flow: row nowrap;
         position: relative;
 
         .stepper-container {
             margin-right: 30px;
+            width: 50%;
 
             > * {
                 margin-bottom: 20px;
@@ -22,8 +23,10 @@ export const StyledCarrinhoPage = styled.div`
             height: 100%;
         }
 
-        > * {
-            width: 50%;
-        }
+        ${isResponsive && css`
+            .stepper-container {
+                width: 100%;
+            }
+        `}
     `}
 `;
