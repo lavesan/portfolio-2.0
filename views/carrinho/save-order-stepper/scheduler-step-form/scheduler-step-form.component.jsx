@@ -11,7 +11,7 @@ import { StyledOrderFormTitle } from '../save-order-stepper.styles';
 import { FormResponsiveDatePicker } from '../../../../components/form/form-responsive-date-picker';
 import { isRequired, isValidDate, isBrDate } from '../../../../helpers/validations.helpers';
 
-const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidations, submitted, isResponsive }) => {
+const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidations, submitted, isResponsive, screenWidth }) => {
 
     const orderSerivce = orderInstance.getInstance();
 
@@ -81,8 +81,14 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
     }, [handleChange])
 
     useEffect(() => {
+
+        let initialDate = new Date();
+        if (screenWidth > 0 && isResponsive) {
+            initialDate = moment().format('DD/MM/YYYY');
+        }
         setFieldValue('date', new Date());
-    }, []);
+
+    }, [isResponsive]);
 
     return (
         <StyledSchedulerStepForm isResponsive={isResponsive}>
@@ -127,6 +133,7 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
 const mapStateToProps = store => ({
     scheduleStep: store.orderState.scheduleStep,
     scheduleValidations: store.orderState.scheduleValidations,
+    screenWidth: store.uiState.screenWidth,
 })
 
 export default connect(mapStateToProps)(SchedulerStepFormComponent);

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const StyledAddOrderCommentModal = styled.form`
-    ${({ theme }) => css`
+    ${({ theme, isResponsive }) => css`
         color: ${theme.gray.secondary};
         font-weight: 600;
 
@@ -89,5 +89,15 @@ export const StyledAddOrderCommentModal = styled.form`
                 margin-top: 20px;
             }
         }
+
+        ${isResponsive && css`
+            .modal-body .button-container {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                box-sizing: border-box;
+                margin: 0;
+            }
+        `}
     `}
 `;

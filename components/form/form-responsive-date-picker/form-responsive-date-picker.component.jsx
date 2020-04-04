@@ -74,7 +74,7 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
         <StyledFieldset className={className}>
             <label htmlFor={name}>{label}</label>
             <StyledInputDatePicker ref={inputRef} onBlur={activateOnFocusOut} type="date" min={moment().format('YYYY-MM-DD')} onChange={onChange} {...inputProps} />
-            <StyledParagraphDate onClick={onIconClick}>{value}</StyledParagraphDate>
+            <StyledParagraphDate onClick={onIconClick}>{typeof value === 'object' ? '' : value}</StyledParagraphDate>
             <FontAwesomeIcon onClick={onIconClick} className="responsive-datepicker-icon" icon={faCalendarAlt} />
             {startErrorValidation ? <small className="error-message">{formValidation.message}</small> : ''}
         </StyledFieldset>

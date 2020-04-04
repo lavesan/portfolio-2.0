@@ -9,7 +9,7 @@ import globalStyle from './style.css'
 import { HeaderComponent } from '../components/header';
 import { FooterComponent } from '../components/footer';
 import GlobalStyle from './global-styles';
-import { setShowHeaderAndFooter, setActualRoute } from '../store/actions/routesActions';
+import { setShowHeaderAndFooter, setActualRoute, setShowHeaderInput } from '../store/actions/routesActions';
 import { setCategories } from '../store/actions/categoryActions';
 import { setUserInfo, clearUserInfo } from '../store/actions/authActions';
 import { screenResize } from '../store/actions/uiActions';
@@ -134,6 +134,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
             showHeader: false,
             showFooter: false,
         }));
+        console.log('chegou aqui')
       }
       if (window && window.history && window.history.state && window.history.state.url) {
         dispatch(setActualRoute(window.history.state.url));
@@ -148,12 +149,16 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
                   showFooter: false,
                   applyPageStyle: false,
               }))
+              dispatch(setShowHeaderInput(true))
+          } else if (/.*carrinho.*/.test(url)) {
+
           } else {
               dispatch(setShowHeaderAndFooter({
                   showHeader: true,
                   showFooter: true,
                   applyPageStyle: true,
               }))
+              dispatch(setShowHeaderInput(true))
           }
       })
     },

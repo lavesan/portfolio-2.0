@@ -9,6 +9,9 @@ import { OrderCardStepForm } from './order-second-step-form';
 import { SucessButtonComponent } from '../../../components/button';
 import { toogleAddOrderCommentModal } from '../../../store/actions/modalActions';
 import { moveResponsiveStep } from '../../../store/actions/orderActions';
+import { AddCommentCompoent } from '../../../components/modal/add-order-comment/add-comment';
+import { ConfirmOrder } from '../../../components/modal/order-modal/confirm-order';
+import { FinishOrder } from '../../../components/modal/finished-order-modal/finish-order';
 
 const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressValidations, scheduleValidations, cardValidations, token, isResponsive, responsiveStep }) => {
 
@@ -143,17 +146,29 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
         () => {
 
             const manageFormStep = {
-                2: {
+                1: {
                     Component: OrderAddressStepForm,
                     submitted: submittedStep.address,
                 },
-                1: {
+                2: {
                     Component: SchedulerStepFormComponent,
                     submitted: submittedStep.schedule,
                 },
                 3: {
                     Component: OrderCardStepForm,
                     submitted: submittedStep.card,
+                },
+                4: {
+                    Component: AddCommentCompoent,
+                    submitted: true,
+                },
+                5: {
+                    Component: ConfirmOrder,
+                    submitted: true,
+                },
+                6: {
+                    Component: FinishOrder,
+                    submitted: true,
                 },
             }
 
@@ -166,7 +181,9 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
     return (
         <StyledSaveOrderForm className={className} onSubmit={onSubmit}>
             {isResponsive
-                ? <ResponsiveFormStep.Component isResponsive={isResponsive} submitted={ResponsiveFormStep.submitted || submitted} />
+                ? <div className="responsive-form">
+                    <ResponsiveFormStep.Component isResponsive={isResponsive} submitted={ResponsiveFormStep.submitted || submitted} />
+                </div>
                 : <>
                     <OrderAddressStepForm submitted={submitted} />
                     <SchedulerStepFormComponent submitted={submitted} />
@@ -175,18 +192,30 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
             }
             {isResponsive
                 ? <div>
-                    {responsiveStep !== 3
+                    {responsiveStep <= 4
                         ? <SucessButtonComponent
                             type="button"
                             onClick={goToNextStep}
                             className="responsive-success-button"
                             text="Avançar" />
-                        : <SucessButtonComponent
-                            type="button"
-                            onClick={onSubmit}
-                            className="responsive-success-button"
-                            text="Finalizar o pedido" />
+                        : ''
                     }
+                    {/* {responsiveStep === 5
+                        ? <SucessButtonComponent
+                            type="button"
+                            onClick={goToNextStep}
+                            className="responsive-success-button"
+                            text="Confirmar pedido" />
+                        : ''
+                    }
+                    {responsiveStep === 6
+                        ? <SucessButtonComponent
+                            type="button"
+                            onClick={goToNextStep}
+                            className="responsive-success-button"
+                            text="Ver status do pedido" />
+                        : ''
+                    } */}
                 </div>
                 : <div className="action-button-row">
                     <SucessButtonComponent

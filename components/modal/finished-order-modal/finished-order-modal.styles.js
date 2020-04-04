@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const StyledFinishedOrderModal = styled.section`
-    ${({ theme }) => css`
+    ${({ theme, isResponsive }) => css`
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
@@ -17,5 +17,23 @@ export const StyledFinishedOrderModal = styled.section`
             color: ${theme.green.terciary};
             margin: 0 0 40px 0;
         }
+
+        .return-link {
+            margin: auto 0 20px 0;
+            text-align: center;
+            font-size: .9rem;
+            color: ${theme.gray.primary};
+            text-decoration-color: ${theme.gray.primary};
+        }
+        
+        ${isResponsive && css`
+            .see-order-button {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                box-sizing: border-box;
+                margin: 0;
+            }
+        `}
     `}
 `;

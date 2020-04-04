@@ -38,6 +38,31 @@ export const StyledOrderSecondStepForm = styled.section`
     .payment-method-radio {
         margin-bottom: 10px;
     }
+    
+    @media(max-width: 749px) {
+        .first-row {
+            flex-direction: column;
+            .first-column {
+                margin: 0 0 10px 0;
+                width: 100%;
+            }
+            .second-column {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        .second-row {
+            flex-direction: column;
+            .first-column {
+                margin: 0 0 10px 0;
+                width: 100%;
+            }
+            .second-column {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    }
 `;
 
 export const StyledCardInfoRadio = styled.div`

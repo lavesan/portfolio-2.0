@@ -2,6 +2,7 @@ const initialState = {
     showHeader: true,
     showFooter: true,
     applyPageStyle: true,
+    showSearchInput: true,
     actualRoute: '',
 };
 export const routesReducer = (state = initialState, action) => {
@@ -11,9 +12,9 @@ export const routesReducer = (state = initialState, action) => {
         SET_SHOW_HEADER_AND_FOOTER() {
             return {
                 ...state,
-                showHeader: action.showHeader,
-                showFooter: action.showFooter,
-                applyPageStyle: action.applyPageStyle,
+                showHeader: typeof action.showHeader === 'boolean'  ? action.showHeader : state.showHeader,
+                showFooter: typeof action.showFooter === 'boolean' ? action.showFooter : state.showFooter,
+                applyPageStyle: typeof action.applyPageStyle === 'boolean' ? action.applyPageStyle : state.applyPageStyle,
             }
         },
         SET_ACTUAL_ROUTE() {
@@ -22,6 +23,12 @@ export const routesReducer = (state = initialState, action) => {
                 actualRoute: action.actualRoute,
             }
         },
+        SET_SHOW_SEARCH_INPUT() {
+            return {
+                ...state,
+                showSearchInput: action.showSearchInput,
+            }
+        }
     }
 
     return handleReducer[action.type] ?

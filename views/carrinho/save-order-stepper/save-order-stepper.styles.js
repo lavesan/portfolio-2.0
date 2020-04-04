@@ -11,12 +11,18 @@ export const StyledSaveOrderForm = styled.form`
         align-items: center;
     }
 
+    .responsive-form {
+        padding: 0 20px;
+        position: relative;
+    }
+
     .responsive-success-button {
         width: 100%;
         border-radius: 0;
         text-align: center;
         padding: 20px 0;
         font-size: 1rem;
+        margin-bottom: 0 !important;
     }
 `;
 

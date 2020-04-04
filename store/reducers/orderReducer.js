@@ -155,6 +155,12 @@ export const orderReducer = (state = initialState, action) => {
                 responsiveStep: action.plus ? state.responsiveStep + 1 : goBack,
             }
         },
+        SET_RESPONSIVE_STEP() {
+            return {
+                ...state,
+                responsiveStep: action.responsiveStep,
+            }
+        }
     }
 
     return handleReducer[action.type] ?

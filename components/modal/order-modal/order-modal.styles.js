@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const StyledOrderModalComponent = styled.section`
-    ${({ theme }) => css`
+    ${({ theme, isResponsive }) => css`
         color: ${theme.gray.secondary};
         font-weight: 600;
 
@@ -105,5 +105,26 @@ export const StyledOrderModalComponent = styled.section`
             }
         }
 
+        ${isResponsive && css`
+            .modal-body .confirm-row {
+                flex-direction: column;
+
+                .total-value-container {
+                    width: 100%;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .submit-button-container {
+                    margin-top: 20px;
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    box-sizing: border-box;
+                    margin: 0
+                }
+            }
+        `}
     `}
 `;

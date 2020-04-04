@@ -18,7 +18,7 @@ import { FilterProductComponent } from './filter-products';
 import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';
 import theme from '../../app/app.theme';
 
-const HeaderComponent = ({ dispatch, categories, products, screenWidth, selectedFilters, inputField }) => {
+const HeaderComponent = ({ dispatch, categories, products, screenWidth, selectedFilters, inputField, showSearchInput }) => {
 
     const router = useRouter();
 
@@ -156,7 +156,7 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
                         )}
                     </nav>
                 }
-                {isResponsive &&
+                {isResponsive && showSearchInput &&
                     <div className="responsive-search-container">
                         <ResponsiveSearchInputComponent
                             type="text"
@@ -181,6 +181,7 @@ const mapStateToProps = store => ({
     screenWidth: store.uiState.screenWidth,
     selectedFilters: store.productState.selectedFilters,
     inputField: store.productState.inputField,
+    showSearchInput: store.routesState.showSearchInput,
 })
 
 export default connect(mapStateToProps)(HeaderComponent);

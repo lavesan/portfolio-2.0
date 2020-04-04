@@ -15,8 +15,8 @@ const CartComponent = ({ products, className }) => {
 
             let sumOfPrices = 0;
 
-            products.forEach(({ quantity, actualValueCents }) => {
-                const price = onlyNumberStringToFloatNumber(actualValueCents);
+            products.forEach(({ quantity, actualValueCents, promotionalValueCents }) => {
+                const price = promotionalValueCents ? onlyNumberStringToFloatNumber(promotionalValueCents) : onlyNumberStringToFloatNumber(actualValueCents);
                 sumOfPrices += price * quantity;
             })
 

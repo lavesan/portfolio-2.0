@@ -11,6 +11,7 @@ import { StyledIconNotification } from '../icon-notifications/icon-notifications
 import { ResponsiveProductCart } from './responsive-product-cart';
 import { ProductCartComponent } from '../cart/product-cart';
 import { SucessButtonComponent } from '../button';
+import { setResponsiveStep } from '../../store/actions/orderActions';
 
 const ResponsiveCartComponent = ({ dispatch, products, openResponsiveCart, screenHeight, screenWidth, actualRoute }) => {
 
@@ -21,6 +22,7 @@ const ResponsiveCartComponent = ({ dispatch, products, openResponsiveCart, scree
     }
 
     const goToPayment = () => {
+        dispatch(setResponsiveStep(1));
         router.push('/carrinho');
     }
 
