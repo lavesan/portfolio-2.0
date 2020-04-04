@@ -5,7 +5,8 @@ export const StyledProductsRow = styled.div`
         .products-category-header {
             display: flex;
             flex-flow: row nowrap;
-            justify-content: space-between;
+            /* justify-content: space-between; */
+            justify-content: flex-start;
             align-items: center;
             h3 {
                 margin: 0 0 10px 0;

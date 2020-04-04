@@ -18,7 +18,7 @@ const ProductsRowComponent = ({ category, products, page, dispatch }) => {
         <StyledProductsRow>
             <div className="products-category-header">
                 <h3>{category.name}</h3>
-                <div className="navigate-buttons">
+                {/* <div className="navigate-buttons">
                     <button
                         className={`navigate-left ${page <= 1 ? 'disabled' : ''}`}
                         onClick={() => paginateCategory({
@@ -34,7 +34,7 @@ const ProductsRowComponent = ({ category, products, page, dispatch }) => {
                         })}>
                         <FontAwesomeIcon icon={faChevronRight} />
                     </button>
-                </div>
+                </div> */}
             </div>
             <HorizontalSlideComponent className="products-container">
                 {products.map(product =>
