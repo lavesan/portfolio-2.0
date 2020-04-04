@@ -72,16 +72,19 @@ const SobrePage = ({ comments, screenWidth, dispatch }) => {
                     <p>{aboutText}</p>
                 </div>
             </section>
-            <section>
-                <h2 className="comments-title">Comentários dos clientes</h2>
-                <HorizontalSlideComponent className="comments-container">
-                    {comments.map(comment => 
-                        <div key={comment.id}>
-                            <CommentCardComponent {...comment} />
-                        </div>)
-                    }
-                </HorizontalSlideComponent>
-            </section>
+            {comments && comments.length
+                ? <section>
+                    <h2 className="comments-title">Comentários dos clientes</h2>
+                    <HorizontalSlideComponent className="comments-container">
+                        {comments.map(comment => 
+                            <div key={comment.id}>
+                                <CommentCardComponent {...comment} />
+                            </div>)
+                        }
+                    </HorizontalSlideComponent>
+                </section>
+                : ''
+            }
         </StyledAboutPage>
     )
 }
