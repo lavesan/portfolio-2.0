@@ -8,8 +8,9 @@ import { PeriodCardComponent } from '../../components/period-card';
 import { setProductFilters } from '../../store/actions/productActions';
 import { CategoryResponsiveCardComponent } from  '../../components/category-responsive-card';
 import { ProductsRowComponent } from './products-row';
+import { ProductCardComponent } from '../../components/product-card';
 
-const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promotions, combos }) => {
+const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promotions, combos = [] }) => {
 
     const router = useRouter();
 
@@ -106,6 +107,28 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
         [promotions]
     )
 
+    const productsAndCombos = useMemo(
+        () => {
+
+            let productWithCombos = combos;
+
+            mappedProductsWithPromotions.forEach(catProduct => {
+                productWithCombos = productWithCombos.concat(catProduct.products);
+            })
+
+            return productWithCombos;
+
+        },
+        [mappedProductsWithPromotions, combos]
+    )
+
+    const isResponsive = useMemo(
+        () => {
+            return screenWidth < 750;
+        },
+        [screenWidth]
+    )
+
     const params = {
         slidesPerView: 1,
         pagination: {
@@ -190,7 +213,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                     : ''
                 }
             </section>
-            {screenWidth < 750
+            {isResponsive
                 ? <div className="categories-section">
                     <h2>Categoria de produtos</h2>
                     <div className="categories-row">
@@ -199,33 +222,41 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                 </div>
                 : ''
             }
-            <section className="product-section">
-                {combos.length
-                    ? <ProductsRowComponent
-                        products={combos.map(combo => ({
-                            ...combo,
-                            quantitySuffix: "x",
-                            imgUrl: combo.imgUrl,
-                            isCombo: true,
-                            name: combo.title,
-                            actualValueCents: combo.totalValue,
-                        }))}
-                        category={{
-                            name: 'Combos',
-                            id: 0,
-                        }} />
-                    : <></>
-                }
-                {mappedProductsWithPromotions.map((data) => (
-                    <>
-                        {data.products.length ?
-                            <ProductsRowComponent key={data.category.id} {...data} />
-                            : <></>
-                        }
-                    </>
-                )
-                )}
-            </section>
+            {!isResponsive
+                ? <section className="product-section">
+                    {combos.length
+                        ? <ProductsRowComponent
+                            products={combos.map(combo => ({
+                                ...combo,
+                                quantitySuffix: "x",
+                                imgUrl: combo.imgUrl,
+                                isCombo: true,
+                                name: combo.title,
+                                actualValueCents: combo.totalValue,
+                            }))}
+                            category={{
+                                name: 'Combos',
+                                id: 0,
+                            }} />
+                        : <></>
+                    }
+                    {mappedProductsWithPromotions.map((data) => (
+                        <>
+                            {data.products.length ?
+                                <ProductsRowComponent key={data.category.id} {...data} />
+                                : <></>
+                            }
+                        </>
+                    )
+                    )}
+                </section>
+                : <section className="responsive-products-container">
+                    <h2>Todos</h2>
+                    <div className="products-container">
+                        {productsAndCombos.map(product => <ProductCardComponent key={product.id} {...product} />)}
+                    </div>
+                </section>
+            }
         </StyledStartPage>
     )
 }
