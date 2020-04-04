@@ -55,12 +55,17 @@ export const StyledResponsiveCard = styled.div`
                     cursor: pointer;
                     font-size: .8rem;
                     text-align: end;
+                    color: ${theme.green.terciary};
+                }
+
+                .danger-text {
                     color: ${theme.danger.primary};
                 }
             }
 
             .products-container {
                 overflow-y: scroll;
+                height: ${screenHeight - 320}px;
             }
             
             .responsive-cart {

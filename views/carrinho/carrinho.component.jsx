@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { CartComponent } from '../../components/cart';
 import { SaveOrderStepper } from './save-order-stepper';
 import { StyledCarrinhoPage } from './carrinho.styles';
-import { numberToReal } from '../../helpers/calc.helpers';
+import { numberToReal, onlyNumberStringToFloatNumber } from '../../helpers/calc.helpers';
 import { setShowHeaderAndFooter, setShowHeaderInput } from '../../store/actions/routesActions';
 import { moveResponsiveStep } from '../../store/actions/orderActions';
 
@@ -69,7 +69,7 @@ const CarrinhoPage = ({ screenWidth, products, dispatch, responsiveStep }) => {
             {isResponsive &&
                 <>
                     {responsiveStep < 6
-                        ? <div className="responsive-cart-container">}
+                        ? <div className="responsive-cart-container">
                             <div className="return-responsive-page">
                                 <FontAwesomeIcon icon={faArrowLeft} onClick={returnStep} />
                                 <a href="#" onClick={returnStep}>Voltar</a>

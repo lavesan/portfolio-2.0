@@ -37,15 +37,16 @@ export const StyledCarrinhoPage = styled.div`
                 h2 {
                     font-weight: 500;
                     margin: 0;
-                    font-size: 1.7rem;
+                    font-size: 1.4rem;
                 }
 
                 .product-info-row {
                     display: flex;
                     flex-flow: column nowrap;
                     align-items: space-between;
-                    font-size: 1rem;
+                    font-size: .8rem;
                     color: ${theme.green.terciary};
+                    white-space: nowrap;
 
                     > * {
                         margin: 0;

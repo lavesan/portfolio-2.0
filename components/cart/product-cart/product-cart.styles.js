@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const StyledProductCart = styled.div`
-    ${({ theme, hideRemove }) => css`
+    ${({ theme, hideRemove, isResponsive }) => css`
         display: grid;
         grid-template-columns: ${hideRemove ? '1fr 1fr' : '2fr 2fr 1fr'};
         grid-gap: 20px;
@@ -16,6 +16,7 @@ export const StyledProductCart = styled.div`
         .image-container {
             .product-name {
                 font-size: .9rem;
+                white-space: nowrap;
             }
 
             img {
@@ -115,6 +116,13 @@ export const StyledProductCart = styled.div`
             }
 
         }
+        
+        ${!hideRemove && isResponsive && css`
+            grid-template-columns: 2fr 3fr 1fr;
 
+            .cart-action-container p {
+                display: none;
+            }
+        `}
     `}
 `

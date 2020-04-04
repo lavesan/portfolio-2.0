@@ -11,7 +11,7 @@ import { onlyNumberStringToThreeDigit } from '../../../helpers/mask.helpers';
 import { numberStringToFloatThreeDigit } from '../../../helpers/unmask.helpers';
 import { floatToOneDigit } from '../../../helpers/pipes.helpers';
 
-const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValueCents, quantitySuffix, quantityOnStock, hideRemove }) => {
+const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValueCents, quantitySuffix, quantityOnStock, hideRemove, isResponsive }) => {
 
     const totalProductValue = useMemo(
         () => {
@@ -101,7 +101,7 @@ const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValu
     }
 
     return (
-        <StyledProductCart hideRemove={hideRemove}>
+        <StyledProductCart hideRemove={hideRemove} isResponsive={isResponsive}>
             <div className="image-container">
                 <p className="product-name">{name}</p>
                 <img src={imgUrl} alt="Imagem do produto" />

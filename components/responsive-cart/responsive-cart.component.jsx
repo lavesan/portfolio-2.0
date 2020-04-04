@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from "next/router";
 
@@ -16,6 +16,12 @@ import { setResponsiveStep } from '../../store/actions/orderActions';
 const ResponsiveCartComponent = ({ dispatch, products, openResponsiveCart, screenHeight, screenWidth, actualRoute }) => {
 
     const router = useRouter();
+
+    const [removeItems, setRemoveItems] = useState(false);
+
+    const productsAction = () => {
+        setRemoveItems(f => !f);
+    }
 
     const toggleCart = () => {
         dispatch(toggleResponsiveOpenresponsiveCart());
@@ -57,11 +63,14 @@ const ResponsiveCartComponent = ({ dispatch, products, openResponsiveCart, scree
                         </header>
                         <section className="cart-container">
                             <div className="cart-title-container">
-                                <p>EXCLUIR ITEMS</p>
+                            {removeItems
+                                ? <p onClick={productsAction}><b>CANCELAR AÇÃO</b></p>
+                                : <p onClick={productsAction} className="danger-text"><b>EXCLUIR ITEMS</b></p>
+                            }
                             </div>
                             <div className="products-container">
                                 {products.map(product =>
-                                    <ProductCartComponent key={product.id} hideRemove={true} {...product} />)
+                                    <ProductCartComponent key={product.id} isResponsive={true} hideRemove={!removeItems} {...product} />)
                                 }
                             </div>
                         </section>

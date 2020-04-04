@@ -4,6 +4,7 @@ export const StyledSaveOrderForm = styled.form`
     display: flex;
     flex-flow: column nowrap;
     color: ${({ theme }) => theme.gray.secondary};
+    scroll-behavior: smooth;
 
     .action-button-row {
         display: flex;
