@@ -83,12 +83,9 @@ export const StyledStartPage = styled.div`
                 margin-top: 20px;
             }
             .products-container {
-                /* display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-                grid-gap: 20px; */
-        
                 > * {
                     padding-right: 20px;
+                    width: 200px;
                 }
             }
         }

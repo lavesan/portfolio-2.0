@@ -59,7 +59,7 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
 
     useEffect(() => {
         applyValidations();
-    }, [startValidations, activateValidation])
+    }, [value])
 
     return (
         <StyledFieldset className={className}>

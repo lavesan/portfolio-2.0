@@ -5,6 +5,7 @@ export const StyledRegisterForm = styled.section`
         flex: 1;
         display: flex;
         flex-flow: column nowrap;
+        scroll-behavior: smooth;
 
         .register-header {
             grid-template-columns: 1fr 1fr;
@@ -14,10 +15,6 @@ export const StyledRegisterForm = styled.section`
             margin-top: 37px;
             height: 2px;
             background-color: ${theme.gray.primary};
-
-            div {
-                animation
-            }
         }
         .form-container {
             color: ${theme.gray.secondary};

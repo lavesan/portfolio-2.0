@@ -35,7 +35,14 @@ const initialState = {
         description: '',
     },
     addressValidations: {},
-    scheduleValidations: {},
+    scheduleValidations: {
+        time: {
+            invalid: true,
+        },
+        date: {
+            invalid: true,
+        },
+    },
     cardValidations: {},
 };
 

@@ -6,7 +6,7 @@ export const StyledResponsiveCard = styled.div`
         transition: top .3s;
         top: ${screenHeight + 50}px;
         width: 100vw;
-        z-index: 2;
+        z-index: 3;
         background-color: #fff;
         height: ${screenHeight - 100}px;
         display: flex;

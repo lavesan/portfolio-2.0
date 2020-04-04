@@ -6,6 +6,7 @@ const TOGGLE_ORDER_FINISHED_MODAL = 'TOGGLE_ORDER_FINISHED_MODAL';
 const TOOGLE_ADD_ORDER_COMMENT_MODAL = 'TOOGLE_ADD_ORDER_COMMENT_MODAL';
 const TOOGLE_FORGOT_PASSWORD_MODAL = 'TOOGLE_FORGOT_PASSWORD_MODAL';
 const TOOGLE_FORGOT_PASSWORD_SUCCESS_MODAL = 'TOOGLE_FORGOT_PASSWORD_SUCCESS_MODAL';
+const SET_ORDER_DATA = 'SET_ORDER_DATA';
 
 export const toggleAddressModal = () => ({
     type: TOGGLE_ADDRESS_MODAL,
@@ -22,6 +23,11 @@ export const toggleTermOfContractModal = () => ({
 
 export const toogleOrderToFinishModal = (orderData) => ({
     type: TOGGLE_ORDER_TO_FINISH_MODAL,
+    orderData,
+})
+
+export const setOrderData = orderData => ({
+    type: SET_ORDER_DATA,
     orderData,
 })
 

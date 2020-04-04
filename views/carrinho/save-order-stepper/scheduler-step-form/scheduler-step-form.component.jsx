@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
+import { useToasts } from "react-toast-notifications";
 import Calendar from "react-calendar";
 import moment from 'moment';
 
@@ -15,8 +16,17 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
 
     const orderSerivce = orderInstance.getInstance();
 
+    const { addToast } = useToasts();
+
     const [freeTimes, setFreeTimes] = useState([]);
     const [loadingTime, setLoadingTime] = useState(false);
+
+    const showToast = message => {
+        addToast(message, {
+            appearance: "error",
+            autoDismiss: true
+          })
+    }
 
     const setFormValidations = validation => {
         dispatch(setScheduleValidation(validation));
@@ -42,13 +52,11 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
 
     useEffect(
         () => {
-            if (!scheduleStep.date) {
-                dispatch(setScheduleValidation({
-                    time: {
-                        invalid: !Boolean(scheduleStep.time),
-                    },
-                }));
-            }
+            dispatch(setScheduleValidation({
+                time: {
+                    invalid: !Boolean(scheduleStep.time),
+                },
+            }));
         },
         [scheduleStep.time]
     );
@@ -61,8 +69,14 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
                 : moment().format('DD/MM/YYYY');
 
             setLoadingTime(true);
-            const times = await orderSerivce.getFreeTimesFromDate(parsedDate)
-                .catch(err => console.log('erro: ', err));
+            await orderSerivce.getFreeTimesFromDate(parsedDate)
+                .then(res => {
+                    setFreeTimes(res ? res.activeTimes : []);
+                })
+                .catch(({ message }) => {
+                    showToast(message);
+                    setFreeTimes([]);
+                });
             setLoadingTime(false);
 
             dispatch(setScheduleStepValues({
@@ -70,7 +84,11 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
                 value: '',
             }));
 
-            setFreeTimes(times ? times.activeTimes : []);
+            dispatch(setScheduleValidation({
+                date: {
+                    invalid: !Boolean(parsedDate),
+                },
+            }));
 
         },
         [scheduleStep.date]
@@ -84,9 +102,9 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
 
         let initialDate = new Date();
         if (screenWidth > 0 && isResponsive) {
-            initialDate = moment().format('DD/MM/YYYY');
+            initialDate = moment().format('MM/DD/YYYY');
         }
-        setFieldValue('date', new Date());
+        setFieldValue('date', initialDate);
 
     }, [isResponsive]);
 

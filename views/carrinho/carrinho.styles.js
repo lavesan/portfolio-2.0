@@ -4,7 +4,7 @@ export const StyledCarrinhoPage = styled.div`
     ${({ screenWidth, theme }) => css`
         display: flex;
         flex-flow: row nowrap;
-        position: relative;
+        /* position: relative; */
 
         .responsive-cart-container {
             margin: 30px 20px 20px 20px;

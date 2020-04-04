@@ -10,7 +10,7 @@ import { SucessButtonComponent } from '../../../../components/button';
 import { FormBlankTextarea } from '../../../../components/form/form-blank-textarea';
 import { setCommentStepValues } from '../../../../store/actions/orderActions';
 import { StyledAddOrderCommentModal } from '../add-order-comment.styles';
-import { toogleOrderToFinishModal } from '../../../../store/actions/modalActions';
+import { toogleOrderToFinishModal, setOrderData } from '../../../../store/actions/modalActions';
 import { moveResponsiveStep } from '../../../../store/actions/orderActions';
 
 const AddCommentCompoent = ({
@@ -118,10 +118,13 @@ const AddCommentCompoent = ({
 
         await orderService.save(body)
             .then(res => {
+                console.log('resposta: ', res);
                 if (toggleModal) {
                     toggleModal();
                     dispatch(toogleOrderToFinishModal(res));
                 } else {
+                    console.log('res: ', res);
+                    dispatch(setOrderData(res));
                     dispatch(moveResponsiveStep(true));
                 }
             })
@@ -135,9 +138,11 @@ const AddCommentCompoent = ({
 
     return (
         <StyledAddOrderCommentModal onSubmit={onSubmit} isResponsive={!toggleModal}>
-            <div className="title-container">
-                <h2>Adicionar comentário</h2>
-            </div>
+            {toggleModal &&
+                <div className="title-container">
+                    <h2>Adicionar comentário</h2>
+                </div>
+            }
             <div className="modal-body">
                 <h3 className="products-title" style={{ marginBottom: 0 }}>Produtos</h3>
                 {products.map(product =>
@@ -148,7 +153,7 @@ const AddCommentCompoent = ({
                     )
                 }
                 <h3 className="products-title second-titles">Deseja adicionar um comentário sobre os produtos?</h3>
-                <div>
+                <div className="product-description-textarea-container">
                     <FormBlankTextarea
                         legend="Ex.: abacates bem maduros"
                         name="description"
@@ -159,6 +164,7 @@ const AddCommentCompoent = ({
                 <div className="button-container">
                     <SucessButtonComponent
                         type="submit"
+                        notDense={!toggleModal}
                         text="Prosseguir"
                         loading={loading} />
                 </div>

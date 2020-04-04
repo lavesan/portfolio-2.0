@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 export const StyledProductCard = styled.div`
     ${({ theme, isDisabled }) => css`
         position: relative;
+        height: 100%;
 
         .disabled-paragraph {
             margin: 0;
@@ -21,6 +22,8 @@ export const StyledProductCard = styled.div`
             position: relative;
             box-shadow: 0 0 6px -1px ${theme.gray.primary};
             border-radius: 4px;
+            height: 100%;
+            box-sizing: border-box;
 
             .promotional-tag {
                 position: absolute;
@@ -89,6 +92,7 @@ export const StyledProductCard = styled.div`
 
             .submit-button {
                 width: 100%;
+                margin-top: auto;
             }
 
             ${isDisabled && css`

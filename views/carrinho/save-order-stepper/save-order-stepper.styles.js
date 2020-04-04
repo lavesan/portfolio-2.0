@@ -14,7 +14,7 @@ export const StyledSaveOrderForm = styled.form`
 
     .responsive-form {
         padding: 0 20px;
-        position: relative;
+        height: 100%;
     }
 
     .responsive-success-button {

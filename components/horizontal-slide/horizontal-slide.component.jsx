@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import { StyledHorizontalSlide } from './horsizontal-slide.styles';
 
 export default ({ children, className }) => {
+
   const [slide, setSlide] = useState({
     actual: 0,
     last: 0,
@@ -76,4 +77,5 @@ export default ({ children, className }) => {
       {children}
     </StyledHorizontalSlide>
   );
+
 };

@@ -21,19 +21,20 @@ export default ({ toggleModal }) => {
     }
 
     return (
-        <StyledFinishedOrderModal isResponsive={toggleModal}>
+        <StyledFinishedOrderModal isResponsive={!toggleModal}>
             <img src={okIcon} alt="Ícone de ordem finalizada"/>
             <p>Compra realizada com sucesso</p>
             {toggleModal
                 ? ''
                 : <a href="#" onClick={goToHome} className="return-link">Voltar a navegar</a>
             }
-            <SucessButtonComponent
-                type="button"
-                notDense={'true'}
-                text="Ver status do pedido"
-                className="see-order-button"
-                onClick={navigateToOrder} />
+            <div className="see-order-button">
+                <SucessButtonComponent
+                    type="button"
+                    notDense={'true'}
+                    text="Ver status do pedido"
+                    onClick={navigateToOrder} />
+            </div>
         </StyledFinishedOrderModal>
     )
 

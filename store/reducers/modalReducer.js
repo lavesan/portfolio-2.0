@@ -77,6 +77,15 @@ export const modalReducer = (state = initialState, action) => {
                 openForgotPassworSuccessdModal: !state.openForgotPassworSuccessdModal,
             }
         },
+        SET_ORDER_DATA() {
+
+            console.log('action.orderData: ', action.orderData);
+
+            return {
+                ...state,
+                orderData: action.orderData ? action.orderData : state.orderData,
+            }
+        }
     }
 
     return handleReducer[action.type] ?

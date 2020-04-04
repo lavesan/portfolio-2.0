@@ -98,9 +98,11 @@ const ConfirmOrder = ({ toggleModal, dispatch, orderData, cardStep }) => {
 
     return (
         <StyledOrderModalComponent isResponsive={!toggleModal}>
-            <div className="title-container">
-                <h2>Total detalhado da sua compra</h2>
-            </div>
+            {toggleModal &&
+                <div className="title-container">
+                    <h2>Total detalhado da sua compra</h2>
+                </div>
+            }
             <div className="modal-body">
                 <h3 className="products-title" style={{ marginBottom: 0 }}>Produtos</h3>
                 {orderData.products.map(product =>
@@ -131,7 +133,8 @@ const ConfirmOrder = ({ toggleModal, dispatch, orderData, cardStep }) => {
                         <SucessButtonComponent
                             type="button"
                             text="Confirmar pedido"
-                            style={{ height: '100%' }}
+                            notDense={!toggleModal}
+                            style={toggleModal && { height: '100%' }}
                             loading={loading}
                             onClick={activateOrder} />
                     </div>

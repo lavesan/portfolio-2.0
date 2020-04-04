@@ -45,7 +45,7 @@ export default ({ label, name, value, setFieldValue, className, setFormValidatio
     
     useEffect(() => {
         applyValidations();
-    }, [startValidations])
+    }, [value])
   
     const colourStyles = {
         control: styles => ({

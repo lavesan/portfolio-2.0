@@ -19,7 +19,7 @@ export const StyledFinishedOrderModal = styled.section`
         }
 
         .return-link {
-            margin: auto 0 20px 0;
+            margin: auto 0 70px 0;
             text-align: center;
             font-size: .9rem;
             color: ${theme.gray.primary};
@@ -27,12 +27,21 @@ export const StyledFinishedOrderModal = styled.section`
         }
         
         ${isResponsive && css`
-            .see-order-button {
+            margin-top: 100px;
+
+            img {
+                width: 100px;
+            }
+
+            .see-order-button button {
                 position: absolute;
                 bottom: 0;
                 width: 100%;
                 box-sizing: border-box;
                 margin: 0;
+                left: 0;
+                border-radius: 0;
+                padding: 20px 0;
             }
         `}
     `}

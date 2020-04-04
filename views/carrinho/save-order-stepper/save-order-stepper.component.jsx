@@ -42,6 +42,8 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
     }
 
     const addressStepInvalid = () => {
+
+        console.log('validando o endereço mesmo')
         
         const addressStepValidate = token
             ? ['id', 'cep', 'district', 'address', 'number', 'complement']
@@ -95,11 +97,14 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
         return new Promise((resolve, reject) => {
 
             if (!submittedStep[stepName.name]) {
+                console.log('entrou aqui sim')
                 setSubmittedStep(f => ({
                     ...f,
                     [stepName.name]: true,
                 }));
             }
+
+            console.log('Validações mo vei: ', stepName.validateFunc());
 
             if (validateProducts() || stepName.validateFunc()) {
                 reject();
@@ -112,6 +117,12 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
     const goToNextStep = async () => {
 
         await validateResponsiveStep();
+        
+        // Navigates to the top of the page
+        const link = document.getElementById('click-link-page-top');
+        if (link) {
+            link.click();
+        }
         
         dispatch(moveResponsiveStep(true));
 
@@ -138,7 +149,9 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
 
         await validateOrderForm();
 
-        dispatch(toogleAddOrderCommentModal());
+        if (!isResponsive) {
+            dispatch(toogleAddOrderCommentModal());
+        }
 
     }
 
@@ -175,11 +188,13 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
             return manageFormStep[responsiveStep];
 
         },
-        [responsiveStep]
+        [responsiveStep, submittedStep]
     )
 
     return (
         <StyledSaveOrderForm className={className} onSubmit={onSubmit}>
+            <div id="top-page"></div>
+            <a id="click-link-page-top" href="#top-page" style={{ display: 'none' }}></a>
             {isResponsive
                 ? <div className="responsive-form">
                     <ResponsiveFormStep.Component isResponsive={isResponsive} submitted={ResponsiveFormStep.submitted || submitted} />
@@ -192,7 +207,7 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
             }
             {isResponsive
                 ? <div>
-                    {responsiveStep <= 4
+                    {responsiveStep <= 3
                         ? <SucessButtonComponent
                             type="button"
                             onClick={goToNextStep}
@@ -200,22 +215,6 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
                             text="Avançar" />
                         : ''
                     }
-                    {/* {responsiveStep === 5
-                        ? <SucessButtonComponent
-                            type="button"
-                            onClick={goToNextStep}
-                            className="responsive-success-button"
-                            text="Confirmar pedido" />
-                        : ''
-                    }
-                    {responsiveStep === 6
-                        ? <SucessButtonComponent
-                            type="button"
-                            onClick={goToNextStep}
-                            className="responsive-success-button"
-                            text="Ver status do pedido" />
-                        : ''
-                    } */}
                 </div>
                 : <div className="action-button-row">
                     <SucessButtonComponent

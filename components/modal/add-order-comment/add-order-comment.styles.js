@@ -91,12 +91,27 @@ export const StyledAddOrderCommentModal = styled.form`
         }
 
         ${isResponsive && css`
-            .modal-body .button-container {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                box-sizing: border-box;
-                margin: 0;
+            .modal-body {
+                padding: 0;
+
+                .products-title {
+                    margin: 0;
+                }
+                .product-description-textarea-container {
+                    margin-bottom: 70px;
+                }
+                .button-container button {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    border-radius: 0;
+                    width: 100%;
+                    padding: 20px 0;
+                    font-size: 1rem;
+                    box-sizing: border-box;
+                    margin: 0;
+                    margin-top: auto;
+                }
             }
         `}
     `}

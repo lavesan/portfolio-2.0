@@ -106,24 +106,41 @@ export const StyledOrderModalComponent = styled.section`
         }
 
         ${isResponsive && css`
-            .modal-body .confirm-row {
-                flex-direction: column;
-
-                .total-value-container {
-                    width: 100%;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
+            .modal-body {
+                .products-title {
+                    margin-top: 0;
                 }
 
-                .submit-button-container {
-                    margin-top: 20px;
-                    position: absolute;
-                    bottom: 0;
-                    width: 100%;
-                    box-sizing: border-box;
-                    margin: 0
-                }
+                .confirm-row {
+                   flex-direction: column;
+   
+                   .total-value-container {
+                       width: 100%;
+                       flex-direction: row;
+                       justify-content: center;
+                       align-items: center;
+                       margin-bottom: 30px;
+
+                       .value-total-big {
+                           margin-left: 10px;
+                       }
+                   }
+   
+                   .submit-button-container {
+                       margin-top: 20px;
+
+                       button {
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            width: 100%;
+                            padding: 20px 0;
+                            box-sizing: border-box;
+                            border-radius: 0;
+                            margin: 0
+                       }
+                   }
+               }
             }
         `}
     `}
