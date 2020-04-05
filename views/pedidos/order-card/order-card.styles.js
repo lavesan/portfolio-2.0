@@ -48,6 +48,26 @@ export const StyledOrderCard = styled.div`
                 width: 100%;
             }
             
+            .products-container {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: space-between;
+                align-items: center;
+
+                > * {
+                    width: 20%;
+                    margin-bottom: 10px;
+                }
+                
+                .total-value-text {
+                    border: thin solid ${theme.green.primary};
+                    border-radius: 5px;
+                    color: ${theme.green.terciary};
+                    padding: 10px 20px;
+                    font-size: .7rem;
+                }
+            }
+
             .text-field {
                 height: 65px;
             }
@@ -108,6 +128,12 @@ export const StyledOrderCard = styled.div`
                 display: block;
                 text-align: center;
                 box-sizing: border-box;
+            }
+        }
+
+        @media(max-width: 400px) {
+            .order-details-container .products-container > * {
+                width: 32%;
             }
         }
     `}

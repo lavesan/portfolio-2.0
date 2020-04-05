@@ -11,6 +11,7 @@ import { SucessButtonComponent } from '../../../components/button';
 import { setSelectedOrder } from '../../../store/actions/orderActions';
 import { FormTextareaComponent } from '../../../components/form/form-textarea';
 import { FormFieldComponent } from '../../../components/form/form-field';
+import { StyledProductOrderCard } from '../../pedido/product-order-card';
 
 const OrderCard = ({ dispatch, isResponsive, ...order }) => {
 
@@ -88,6 +89,10 @@ const OrderCard = ({ dispatch, isResponsive, ...order }) => {
             {showDetails
                 ? <div className="order-details-container">
                     <h2 className="details-title">Informações do seu pedido</h2>
+                    <div className="products-container">
+                        {productsWithCombos.map(prodComb => <StyledProductOrderCard>{formatedQuantity(prodComb)}</StyledProductOrderCard>)}
+                        <p className="total-value-text"><strong>TOTAL {order.payed ? 'PAGO' : 'A PAGAR'}: {numberStringToReal(order.totalValueCents)}</strong></p>
+                    </div>
                     <FormFieldComponent
                         label={<b>Nome</b>}
                         value={userName}
