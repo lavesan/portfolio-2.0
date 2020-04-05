@@ -43,7 +43,7 @@ const ProdutosPage = ({ filteredProducts = [], promotions, productFilters, dispa
                         return {
                             ...product,
                             promotionalValueCents: bestPromotion.promotionalValueCents,
-                            promotion: promo,
+                            promotion: bestPromotion,
                         }
                     }
 

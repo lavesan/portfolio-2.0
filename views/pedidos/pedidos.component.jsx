@@ -63,7 +63,11 @@ const PedidosPage = ({ activeOrders, ordersData, commentForm, commentValidations
         () => {
             orderService.findAllActiveByIds(activeOrders)
                 .then(res => {
+
                     dispatch(setOrdersData(res));
+                    const ordersId = res.map(order => order.id);
+                    localStorage.setItem('orders', JSON.stringify(ordersId));
+
                 })
                 .catch(({ message }) => {
                     showToast(message);
@@ -92,9 +96,12 @@ const PedidosPage = ({ activeOrders, ordersData, commentForm, commentValidations
     return (
         <StyledPedidosPage>
             <h2 className="title">Pedidos realizados</h2>
-            <div className="orders-container">
-                {ordersData.map(order => <OrderCardComponent key={order.id} isResponsive={isResponsive} {...order} />)}
-            </div>
+            {ordersData.length
+                ? <div className="orders-container">
+                    {ordersData.map(order => <OrderCardComponent key={order.id} isResponsive={isResponsive} {...order} />)}
+                </div>
+                : <p className="no-order-text">Não há pedidos ativos</p>
+            }
             {token &&
                 <div>
                     <h2 className="comment-title">Comentários sobre a compra no ecommerce?</h2>

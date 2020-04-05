@@ -32,5 +32,16 @@ export const StyledResponsiveSearchComponent = styled.div`
             font-size: 1.1rem;
             color: ${theme.green.secondary};
         }
+
+        .search-button {
+            background-color: ${theme.green.terciary};
+            padding: 7px 20px;
+            border-radius: 5px;
+            color: #fff;
+            border: none;
+            position: absolute;
+            right: 7px;
+            top: 7px;
+        }
     `}
 `;

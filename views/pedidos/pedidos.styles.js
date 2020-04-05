@@ -39,6 +39,11 @@ export const StyledPedidosPage = styled.section`
             height: 130px;
         }
 
+        .no-order-text {
+            color: ${theme.gray.secondary};
+            font-size: 1rem;
+        }
+
         @media(max-width: 750px) {
             .orders-container {
                 flex-direction: column;

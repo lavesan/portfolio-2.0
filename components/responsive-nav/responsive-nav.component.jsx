@@ -9,7 +9,7 @@ import { setSelectedForm } from '../../store/actions/authActions';
 import { setProductFilters } from '../../store/actions/productActions';
 import { StyledResponsiveNav } from './responsive-nav.styles';
 
-const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, screenWidth, activeOrders }) => {
+const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, screenWidth, activeOrders, token }) => {
 
     const router = useRouter();
 
@@ -85,8 +85,13 @@ const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, scre
                 <a onClick={() => goToPage('/sobre')}>Sobre nós</a>
             </nav>
             <aside className="loggin-container">
-                <p onClick={navigateToLogin}>Login</p>
-                <p onClick={navigateToRegister}>Cadastre-se</p>
+                {token
+                    ? <p onClick={() => goToPage('/perfil')}>Meu perfil</p>
+                    : <>
+                        <p onClick={navigateToLogin}>Login</p>
+                        <p onClick={navigateToRegister}>Cadastre-se</p>
+                    </>
+                }
                 {activeOrders && activeOrders.length
                     ? <a href="#" onClick={() => goToPage('/sobre')} className="orders-link">Ver meus pedidos</a>
                     : ''
@@ -102,7 +107,7 @@ const mapStateToProps = store => ({
     categories: store.categoryState.categories,
     screenWidth: store.uiState.screenWidth,
     activeOrders: store.orderState.activeOrders,
-
+    token: store.authState.token,
 })
 
 export default connect(mapStateToProps)(ResponsiveNavComponent);

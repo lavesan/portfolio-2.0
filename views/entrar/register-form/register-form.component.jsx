@@ -171,6 +171,9 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
         }
 
         if (formInvalid()) {
+            if (!accessRegisterForm.termOfContract) {
+                showToast('Aceite os termos de contrato para continuar');
+            }
             return;
         }
 

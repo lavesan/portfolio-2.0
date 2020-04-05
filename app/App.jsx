@@ -48,7 +48,6 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
       
       if (ordersIdsStorage) {
         const orderIds = JSON.parse(ordersIdsStorage);
-        console.log('orderIds: ', orderIds);
         if (orderIds) {
           dispatch(setActiveOrders(orderIds));
         }

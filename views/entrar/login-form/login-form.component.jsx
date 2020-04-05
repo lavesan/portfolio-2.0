@@ -70,8 +70,12 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidati
             password: loginForm.password,
         })
             .then(res => {
+
                 dispatch(setUserInfo(res.user, res.token));
+                const ordersIds = res.user.orders.map(order => order.id);
+                localStorage.setItem('orders', JSON.stringify(ordersIds));
                 router.push('/inicio');
+
             })
             .catch((err) => {
                 const message = err.error ? err.error : err.message;

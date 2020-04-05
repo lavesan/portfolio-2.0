@@ -9,8 +9,12 @@ import { translateOrderStatus } from '../../helpers/order.helpers';
 import { numberStringToReal } from '../../helpers/calc.helpers';
 import { FormFieldComponent } from '../../components/form/form-field';
 import { FormTextareaComponent } from '../../components/form/form-textarea';
+import { orderInstance } from '../../services/order.service';
+import { setSelectedOrder } from '../../store/actions/orderActions';
 
 const PedidoView = ({ selectedOrder = {} }) => {
+
+    const orderService = orderInstance.getInstance();
 
     const zeroVenenoNumber = '(81) 99412-2409';
 
@@ -62,6 +66,32 @@ const PedidoView = ({ selectedOrder = {} }) => {
         return `${formatedQuantity}${suffix}`;
 
     }
+
+    useEffect(() => {
+        if (!selectedOrder.id) {
+
+            const orderId = localStorage.getItem('selectedOrderId')
+
+            orderService.findAllActiveByIds([orderId])
+                .then(res => {
+                    if (!res.length) {
+                        localStorage.removeItem('selectedOrderId')
+                    } else {
+                        dispatch(setSelectedOrder(res[0]));
+                    }
+                })
+                .catch(({ message }) => {
+                    showToast(message);
+                });
+   
+            if (activeOrders && activeOrders.length) {
+                setTimeout(() => {
+                    reloadOrders();
+                }, 120000);
+            }
+
+        }
+    }, [])
 
     return (
         <StyledPedidoView>

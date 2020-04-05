@@ -18,12 +18,10 @@ export class AuthService {
 
         return axios.post('/oauth/auth', body)
             .then(res => new Promise((resolve, reject) => {
-                    const isInvalid = Boolean(res.error);
+                    const isInvalid = Boolean(res.error) || Boolean(res.message);
                     if (isInvalid) {
-                        console.log('é inválido.')
                         reject(res);
                     } else {
-                        console.log('é válido.')
                         localStorage.setItem('userData', JSON.stringify(res.user));
                         localStorage.setItem('auth', res.token);
                         resolve(res);
@@ -81,6 +79,10 @@ export class AuthService {
 
     forgotPassword({ email }) {
         return axios.put('/oauth/auth/user/forgot-password', { email });
+    }
+
+    updateUser(body) {
+        return axios.put('/client/user', body);
     }
 
     findCep(cep) {

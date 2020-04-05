@@ -21,6 +21,7 @@ const OrderCard = ({ dispatch, isResponsive, ...order }) => {
 
     const goToOrder = () => {
         dispatch(setSelectedOrder(order))
+        localStorage.setItem('selectedOrderId', order.id);
         if (isResponsive) {
             setShowDetails(true);
         } else {

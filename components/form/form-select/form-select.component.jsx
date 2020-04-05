@@ -86,7 +86,7 @@ const FormSelectComponent = ({ label, value, name, options = [], onChange, valid
                     label={label}
                 >
                     {options.map(opt => (
-                        <option value={opt.label}>{opt.value}</option>
+                        <option value={opt.value}>{opt.label}</option>
                     ))}
                 </Select>
                 {startErrorValidation && <FormHelperText>{formValidations[name].message}</FormHelperText>}

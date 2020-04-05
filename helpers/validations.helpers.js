@@ -117,3 +117,17 @@ export const isBrDate = value => {
         message: 'Data inválida',
     }
 }
+
+export const validateOnlyCharacter = value => {
+    return {
+        valid: /\D/g.test(value),
+        message: 'apenas caractéres',
+    }
+}
+
+export const validateCep = value => {
+    return {
+        valid: /\d{5}-?\d{3}/.test(value),
+        message: 'CEP inválido.',
+    }
+}

@@ -16,8 +16,9 @@ export default ({ children, onSubmit, onClick, setFieldValue, ...inputAttrs }) =
 
     return (
         <StyledResponsiveSearchComponent>
-            {showSearchIcon && <FontAwesomeIcon className="search-icon" onClick={onSubmit} icon={faSearch} />}
+            {showSearchIcon && <FontAwesomeIcon className="search-icon" onClick={onClick} icon={faSearch} />}
             <StyledResponsiveSearchInput onClick={onClick} onChange={setFieldValue} {...inputAttrs} />
+            <button type="button" onClick={onSubmit} className="search-button">Buscar</button>
             {children}
         </StyledResponsiveSearchComponent>
     )

@@ -11,7 +11,7 @@ import { userRoleOpts, userGenderOpts } from '../../../../helpers/register.helpe
 import { setRegisterFormPersonalValue } from '../../../../store/actions/authActions';
 
 const PersonalFormComponent = ({ setFormValidations, formValidations, personalRegisterForm, isResponsive, startValidations, dispatch }) => {
-    
+
     const ageMask = value => {
         const onlyNumber = onlyNumberMask(value);
         return maxLengthMask(onlyNumber, 3);

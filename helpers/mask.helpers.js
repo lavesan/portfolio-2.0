@@ -164,3 +164,20 @@ export const usToBrDate = usDate => {
   return momentDate.format('DD/MM/YYYY');
 
 }
+
+export const cepMask = value => {
+
+  const onlyNumbers = String(value).replace(/\D/g, "");
+  const slicedValues = onlyNumbers.slice(0, 8);
+
+  let finalValue = "";
+  for (let i = 0; i < slicedValues.length; i++) {
+    if (i === 5) {
+      finalValue += `-${slicedValues[i]}`;
+    } else {
+      finalValue += `${slicedValues[i]}`;
+    }
+  }
+  return finalValue;
+
+}

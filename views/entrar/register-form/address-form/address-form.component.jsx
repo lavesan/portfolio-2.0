@@ -13,6 +13,8 @@ import { FormSelectComponent } from '../../../../components/form/form-select';
 import { StyledFormTitle } from '../register-form.styles';
 import { authInstance } from '../../../../services/auth.service';
 import { setRegisterFormAddressManyValues, setRegisterFormAddressValue } from '../../../../store/actions/authActions';
+import { cepMask } from '../../../../helpers/mask.helpers';
+import { validateCep } from '../../../../helpers/validations.helpers';
 
 const AddressFormComponent = ({ setFormValidations, formValidations, addressRegisterForm, isResponsive, startValidations, dispatch }) => {
 
@@ -24,7 +26,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
         addToast(message, {
             appearance: "error",
             autoDismiss: true
-          })
+        })
     }
     
     const setFieldValue = (name, value) => {
@@ -36,7 +38,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
 
     const searchCep = () => {
 
-        authService.findCep(addressRegisterForm.cep)
+        authService.findCep(addressRegisterForm.cep.replace(/\D/g, ''))
             .then(({ data }) => {
 
                 if (districtNotValid(data.bairro)) {
@@ -51,7 +53,12 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
 
             })
             .catch(err => {
-                showToast('Não achamos seu endereço pelo CEP.');
+                console.log('window.navigator.onLine: ', window.navigator.onLine)
+                if (window.navigator.onLine) {
+                    showToast('Não achamos seu endereço pelo CEP.');
+                } else {
+                    showToast('Você está offline');
+                }
             });
 
     }
@@ -70,8 +77,8 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
                         startValidations={startValidations}
                         formValidations={formValidations}
                         setFormValidations={setFormValidations}
-                        validatesOnChange={[isRequired, validateOnlyNumber]}
-                        maskOnChange={onlyNumberMask}
+                        validatesOnChange={[isRequired, validateCep]}
+                        maskOnChange={cepMask}
                         value={addressRegisterForm.cep}
                         onChange={setFieldValue} />
                 </div>
@@ -127,7 +134,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
                     onChange={setFieldValue} />
             </div>
             <FormTextMaterial
-                label="Descrição"
+                label="Favoritar como"
                 name="type"
                 startValidations={startValidations}
                 formValidations={formValidations}

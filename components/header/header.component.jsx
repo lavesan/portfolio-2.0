@@ -18,7 +18,7 @@ import { FilterProductComponent } from './filter-products';
 import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';
 import theme from '../../app/app.theme';
 
-const HeaderComponent = ({ dispatch, categories, products, screenWidth, selectedFilters, inputField, showSearchInput, activeOrders }) => {
+const HeaderComponent = ({ dispatch, categories, products, screenWidth, selectedFilters, inputField, showSearchInput, activeOrders, token }) => {
 
     const router = useRouter();
 
@@ -115,12 +115,20 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
                                 </SearchInputComponent>
                             </div>
                             <aside className="header-actions-aside">
-                                <Link href="/entrar">
-                                    <AsideIconComponent
-                                        icon={faUserCircle}
-                                        text="Login"
-                                        title="Efetuar o login" />
-                                </Link>
+                                {token
+                                    ? <Link href="/perfil">
+                                        <AsideIconComponent
+                                            icon={faUserCircle}
+                                            text="Perfil"
+                                            title="Olhar meu perfil" />
+                                    </Link>
+                                    : <Link href="/entrar">
+                                        <AsideIconComponent
+                                            icon={faUserCircle}
+                                            text="Login"
+                                            title="Efetuar o login" />
+                                    </Link>
+                                }
                                 <span className="header-actions-aside-divisor"></span>
                                 <Link href="/carrinho">
                                     <AsideIconComponent
@@ -189,6 +197,7 @@ const mapStateToProps = store => ({
     inputField: store.productState.inputField,
     showSearchInput: store.routesState.showSearchInput,
     activeOrders: store.orderState.activeOrders,
+    token: store.authState.token,
 })
 
 export default connect(mapStateToProps)(HeaderComponent);
