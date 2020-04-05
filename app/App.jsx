@@ -77,6 +77,9 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
       await categoryService.getAll()
         .then(res => {
           dispatch(setCategories(res))
+        })
+        .catch(err => {
+          console.log('erro: ', err);
         });
       // await promotionService.findAllFromUser()
       //   .then(res => {
