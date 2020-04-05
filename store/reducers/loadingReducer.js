@@ -1,5 +1,5 @@
 const initialState = {
-    showFullLoading: false,
+    showFullLoading: true,
 };
 
 export const loadingReducer = (state = initialState, action) => {

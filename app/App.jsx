@@ -44,8 +44,6 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
   const initiateStates = useCallback(
     async () => {
 
-      dispatch(toogleFullLoading(true));
-
       const ordersIdsStorage = localStorage.getItem('orders');
       
       if (ordersIdsStorage) {
@@ -110,8 +108,6 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
                 dispatch(setCombos([]));
               });
       }, 500)
-
-      console.log('chegou aqui...')
 
       dispatch(toogleFullLoading(false));
 
