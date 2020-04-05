@@ -43,6 +43,13 @@ export const StyledResponsiveNav = styled.div`
             margin-top: 70px;
         }
 
+        .orders-link {
+            padding: 20px 30px;
+            background-color: #fff;
+            border-radius: 5px;
+            color: ${theme.green.terciary};
+        }
+
         ${showResponsiveMenu && css`
             z-index: 4;
             opacity: 1;

@@ -6,6 +6,10 @@ export class CommentService {
         return axios.get(`/comment/all`);
     }
 
+    saveComment({ userId, briefComment }) {
+        return axios.post('/client/comment', { userId, briefComment })
+    }
+
 }
 
 let productServiceInstance = null;

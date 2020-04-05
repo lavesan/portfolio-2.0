@@ -7,7 +7,7 @@ import { orderInstance } from '../../../../services/order.service';
 import { numberStringToReal } from '../../../../helpers/calc.helpers';
 import { toogleOrderFinishedModal } from '../../../../store/actions/modalActions';
 import { removeAllFirstDigits } from '../../../../helpers/unmask.helpers';
-import { setActiveOrders, clearOrderForm } from '../../../../store/actions/orderActions';
+import { setActiveOrders, clearOrderForm, setOrderId } from '../../../../store/actions/orderActions';
 import { clearCart } from '../../../../store/actions/cartActions';
 import { moveResponsiveStep } from '../../../../store/actions/orderActions';
 import { StyledOrderModalComponent } from '../order-modal.styles';
@@ -38,8 +38,11 @@ const ConfirmOrder = ({ toggleModal, dispatch, orderData, cardStep }) => {
             }
         }
 
+        // Removes the invalid Values
+        orderIds = orderIds.filter(id => id);
+
         localStorage.setItem('orders', JSON.stringify(orderIds));
-        
+
         dispatch(setActiveOrders(orderIds));
 
     }
@@ -75,6 +78,9 @@ const ConfirmOrder = ({ toggleModal, dispatch, orderData, cardStep }) => {
                 dispatch(clearCart());
                 // Clear the order form
                 dispatch(clearOrderForm());
+                // Clears the order Id
+                dispatch(setOrderId(''));
+
                 if (toggleModal) {
                     toggleModal();
                     dispatch(toogleOrderFinishedModal());

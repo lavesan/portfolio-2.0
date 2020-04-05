@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 import { toggleResponsiveMenu } from '../../store/actions/responsiveActions';
 import { setSelectedForm } from '../../store/actions/authActions';
 import { StyledResponsiveNav } from './responsive-nav.styles';
 
-const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, screenWidth }) => {
+const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, screenWidth, activeOrders }) => {
 
     const router = useRouter();
 
@@ -73,6 +72,10 @@ const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, scre
             <aside className="loggin-container">
                 <p onClick={navigateToLogin}>Login</p>
                 <p onClick={navigateToRegister}>Cadastre-se</p>
+                {activeOrders && activeOrders.length
+                    ? <a href="#" onClick={() => goToPage('/sobre')} className="orders-link">Ver meus pedidos</a>
+                    : ''
+                }
             </aside>
         </StyledResponsiveNav>
     )
@@ -83,6 +86,8 @@ const mapStateToProps = store => ({
     showResponsiveMenu: store.responsiveState.showResponsiveMenu,
     categories: store.categoryState.categories,
     screenWidth: store.uiState.screenWidth,
+    activeOrders: store.orderState.activeOrders,
+
 })
 
 export default connect(mapStateToProps)(ResponsiveNavComponent);

@@ -8,6 +8,8 @@ const SET_ORDERS_DATA = 'SET_ORDERS_DATA';
 const CLEAR_ORDER_FORM = 'CLEAR_ORDER_FORM';
 const MOVE_RESPONSIVE_STEP = 'MOVE_RESPONSIVE_STEP';
 const SET_RESPONSIVE_STEP = 'SET_RESPONSIVE_STEP';
+const SET_ORDER_ID = 'SET_ORDER_ID';
+const SET_SELECTED_ORDER = 'SET_SELECTED_ORDER';
 
 export const setCardStepValues = ({ name, value }) => ({
     type: SET_STEP_VALUES,
@@ -104,4 +106,14 @@ export const moveResponsiveStep = plus => ({
 export const setResponsiveStep = responsiveStep => ({
     type: SET_RESPONSIVE_STEP,
     responsiveStep,
+})
+
+export const setOrderId = orderId => ({
+    type: SET_ORDER_ID,
+    orderId,
+})
+
+export const setSelectedOrder = selectedOrder => ({
+    type: SET_SELECTED_ORDER,
+    selectedOrder,
 })

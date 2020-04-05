@@ -14,11 +14,13 @@ import { setCategories } from '../store/actions/categoryActions';
 import { setUserInfo, clearUserInfo } from '../store/actions/authActions';
 import { screenResize } from '../store/actions/uiActions';
 import { setPromotions, setCombos, setPromotionalProducts, setCategoryProducts } from '../store/actions/productActions';
+import { toogleFullLoading } from '../store/actions/loadingActions';
 import { setActiveOrders } from '../store/actions/orderActions';
 import { categoryInstance } from '../services/category.service';
 import { comboInstance } from '../services/combo.service';
 import { authInstance } from '../services/auth.service';
 import { productInstance } from '../services/product.service';
+import { FullScreenLoading } from '../components/full-screen-loading';
 import zeroVenenoLogo from '../public/static/imgs/zero-veneno-logo.jpeg';
 
 const StyledPage = styled.div`
@@ -42,10 +44,13 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
   const initiateStates = useCallback(
     async () => {
 
-      const ordersIdsStorage = localStorage.getItem('orders');
+      dispatch(toogleFullLoading(true));
 
+      const ordersIdsStorage = localStorage.getItem('orders');
+      
       if (ordersIdsStorage) {
         const orderIds = JSON.parse(ordersIdsStorage);
+        console.log('orderIds: ', orderIds);
         if (orderIds) {
           dispatch(setActiveOrders(orderIds));
         }
@@ -106,6 +111,10 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
               });
       }, 500)
 
+      console.log('chegou aqui...')
+
+      dispatch(toogleFullLoading(false));
+
     },
     []
   )
@@ -134,7 +143,6 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
             showHeader: false,
             showFooter: false,
         }));
-        console.log('chegou aqui')
       }
       if (window && window.history && window.history.state && window.history.state.url) {
         dispatch(setActualRoute(window.history.state.url));
@@ -162,7 +170,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
           }
       })
     },
-    [Router]
+    []
   )
 
   useEffect(() => {
@@ -171,7 +179,6 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
     axios.get('files/bobby-jones.ttf')
     .then(res => {
       setFont(res);
-        // console.log('resposta: ', res);
     })
 
   }, [handleInit]);
@@ -219,6 +226,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
             : <Component {...pageProps} />
           }
           {showFooter && <FooterComponent />}
+          <FullScreenLoading />
       </div>
   )
 

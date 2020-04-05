@@ -110,3 +110,25 @@ export const brandOpts = [
     { label: 'Alelo', value: Brand.alelo },
     { label: 'Sodexo', value: Brand.sodexo },
 ]
+
+const OrderStatus = {
+    TO_FINISH: 0,
+    MADE: 1,
+    PREPARING: 2,
+    SENDING: 3,
+    SENDED: 4,
+    CANCELED: 5,   
+}
+
+const translatedStatus = {
+    [OrderStatus.TO_FINISH]: 'A confirmar',
+    [OrderStatus.MADE]: 'Iniciado',
+    [OrderStatus.PREPARING]: 'Preparando',
+    [OrderStatus.SENDING]: 'A caminho',
+    [OrderStatus.SENDED]: 'Entregue',
+    [OrderStatus.CANCELED]: 'Cancelada',
+}
+
+export const translateOrderStatus = status => {
+    return translatedStatus[status];
+}

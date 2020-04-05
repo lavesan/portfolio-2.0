@@ -11,7 +11,7 @@ import { FormBlankTextarea } from '../../../../components/form/form-blank-textar
 import { setCommentStepValues } from '../../../../store/actions/orderActions';
 import { StyledAddOrderCommentModal } from '../add-order-comment.styles';
 import { toogleOrderToFinishModal, setOrderData } from '../../../../store/actions/modalActions';
-import { moveResponsiveStep } from '../../../../store/actions/orderActions';
+import { moveResponsiveStep, setOrderId } from '../../../../store/actions/orderActions';
 
 const AddCommentCompoent = ({
     dispatch,
@@ -22,6 +22,7 @@ const AddCommentCompoent = ({
     commentStep,
     token,
     toggleModal,
+    orderId,
 }) => {
     
     const orderService = orderInstance.getInstance();
@@ -71,12 +72,14 @@ const AddCommentCompoent = ({
         const changeValuesFormated = cardStep.changeValueCents ? `${cardStep.changeValueCents.replace(/\D/g, '')}00` : '';
         const unmaskedDistrict = addressStep.district.label ? unmaskDistrictName(addressStep.district.label) : unmaskDistrictName(addressStep.district);
         const formatedDate = typeof scheduleStep.date === 'string' ? scheduleStep.date : moment(scheduleStep.date).format('DD/MM/YYYY');
+        const formatedLegalDocument = cardStep.cpf.replace(/\D/g, '');
 
         let body = {
             type: paymentMethod,
             payed: cardStep.payLatter,
             description: cardStep.descriptions,
             description: commentStep.description,
+            cpf: formatedLegalDocument,
             receive: {
                 date: formatedDate,
                 time: scheduleStep.time,
@@ -93,6 +96,10 @@ const AddCommentCompoent = ({
             products: onlyProducts,
             combos,
         };
+
+        if (orderId) {
+            body.id = orderId;
+        }
 
         if (changeValuesFormated) {
             body.changeValueCents = changeValuesFormated;
@@ -118,12 +125,11 @@ const AddCommentCompoent = ({
 
         await orderService.save(body)
             .then(res => {
-                console.log('resposta: ', res);
+                dispatch(setOrderId(res.id));
                 if (toggleModal) {
                     toggleModal();
                     dispatch(toogleOrderToFinishModal(res));
                 } else {
-                    console.log('res: ', res);
                     dispatch(setOrderData(res));
                     dispatch(moveResponsiveStep(true));
                 }
@@ -178,6 +184,7 @@ const mapStateToProps = store => ({
     products: store.cartState.products,
     scheduleStep: store.orderState.scheduleStep,
     cardStep: store.orderState.cardStep,
+    orderId: store.orderState.orderId,
     addressStep: store.orderState.addressStep,
     token: store.authState.token,
     commentStep: store.orderState.commentStep,

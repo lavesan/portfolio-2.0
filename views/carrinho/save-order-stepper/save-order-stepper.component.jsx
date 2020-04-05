@@ -34,8 +34,8 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
     const cardStepInvalid = () => {
         
         const cardStepValidate = cardStep.payLatter
-            ? ['paymentType', 'legalDocument', 'paymentoMethod', 'changeValueCents']
-            : ['paymentType', 'legalDocument', 'paymentoMethod', 'cvv', 'fullname', 'dueDate', 'brand'];
+            ? ['paymentType', 'cpf', 'paymentoMethod', 'changeValueCents']
+            : ['paymentType', 'cpf', 'paymentoMethod', 'cvv', 'fullname', 'dueDate', 'brand'];
 
         return cardStepValidate.some(value => cardValidations[value] && cardValidations[value].invalid);
 
@@ -103,8 +103,6 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
                     [stepName.name]: true,
                 }));
             }
-
-            console.log('Validações mo vei: ', stepName.validateFunc());
 
             if (validateProducts() || stepName.validateFunc()) {
                 reject();

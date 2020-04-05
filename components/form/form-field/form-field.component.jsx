@@ -63,7 +63,7 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
 
     return (
         <StyledFieldset className={className}>
-            <label htmlFor={name}>{label}</label>
+            {label && <label htmlFor={name}>{label}</label>}
             <StyledNeultralInput
                 id={name}
                 error={startErrorValidation}

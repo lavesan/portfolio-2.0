@@ -2,6 +2,20 @@ const initialState = {
     activeOrders: [],
     ordersData: [],
     responsiveStep: 1,
+    orderId: '',
+    selectedOrder: {
+        quantitySuffix: '',
+        totalValueCents: '',
+        address: {
+            cep: '',
+            district: '',
+            address: '',
+            number: '',
+            complement: '',
+        },
+        combos: [],
+        products: [],
+    },
     addressStep: {
         id: '',
         cep: '',
@@ -166,6 +180,18 @@ export const orderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 responsiveStep: action.responsiveStep,
+            }
+        },
+        SET_ORDER_ID() {
+            return {
+                ...state,
+                orderId: action.orderId,
+            }
+        },
+        SET_SELECTED_ORDER() {
+            return {
+                ...state,
+                selectedOrder: action.selectedOrder,
             }
         }
     }

@@ -1,5 +1,9 @@
 const initialState = {
     comments: [],
+    commentForm: {
+        newComment: '',
+    },
+    commentValidations: {},
 };
 
 export const commentReducer = (state = initialState, action) => {
@@ -12,6 +16,24 @@ export const commentReducer = (state = initialState, action) => {
                 comments: action.comments,
             }
         },
+        SET_COMMENT_FORM_VALUE() {
+            return {
+                ...state,
+                commentForm: {
+                    ...state,commentForm,
+                    [action.name]: action.value,
+                }
+            }
+        },
+        SET_COMMENT_FORM_VALIDATIONS() {
+            return {
+                ...state,
+                commentValidations: {
+                    ...state.commentValidations,
+                    ...action.formValidations,
+                }
+            }
+        }
     }
 
     return handleReducer[action.type] ?

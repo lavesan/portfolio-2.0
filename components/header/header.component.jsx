@@ -18,7 +18,7 @@ import { FilterProductComponent } from './filter-products';
 import logo from '../../public/static/imgs/zero-veneno-logo.jpeg';
 import theme from '../../app/app.theme';
 
-const HeaderComponent = ({ dispatch, categories, products, screenWidth, selectedFilters, inputField, showSearchInput }) => {
+const HeaderComponent = ({ dispatch, categories, products, screenWidth, selectedFilters, inputField, showSearchInput, activeOrders }) => {
 
     const router = useRouter();
 
@@ -145,6 +145,12 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
                         <NavLinkComponent
                             href="/sobre"
                             text="Sobre nós" />
+                        {activeOrders && activeOrders.length
+                            ? <NavLinkComponent
+                                href="/pedidos"
+                                text="Ver pedidos" />
+                            : ''
+                        }
                         {categories.map(({ name, childrens, ...body }, index) => 
                             <NavDropdownComponent
                                 key={index}
@@ -182,6 +188,7 @@ const mapStateToProps = store => ({
     selectedFilters: store.productState.selectedFilters,
     inputField: store.productState.inputField,
     showSearchInput: store.routesState.showSearchInput,
+    activeOrders: store.orderState.activeOrders,
 })
 
 export default connect(mapStateToProps)(HeaderComponent);
