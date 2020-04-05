@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 
 import { toggleResponsiveMenu } from '../../store/actions/responsiveActions';
 import { setSelectedForm } from '../../store/actions/authActions';
+import { setProductFilters } from '../../store/actions/productActions';
 import { StyledResponsiveNav } from './responsive-nav.styles';
 
 const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, screenWidth, activeOrders }) => {
@@ -14,6 +15,20 @@ const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, scre
 
     const toggleMenu = () => {
         dispatch(toggleResponsiveMenu());
+    }
+
+    const goToProducts = category => {
+        dispatch(setProductFilters(
+            [
+                {
+                    type: 'equals',
+                    field: 'cat.id',
+                    value: category.id,
+                    label: category.name,
+                },
+            ]
+        ));
+        goToPage('/produtos')
     }
 
     const goToPage = async (page) => {
@@ -66,7 +81,7 @@ const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, scre
             </aside>
             <nav className="nav-container">
                 <a onClick={() => goToPage('/inicio')}>Início</a>
-                {mapCategoriesToLinear.map(category => <p onClick={toggleMenu}>{category.name}</p>)}
+                {mapCategoriesToLinear.map(category => <p key={category.id} onClick={() => goToProducts(category)}>{category.name}</p>)}
                 <a onClick={() => goToPage('/sobre')}>Sobre nós</a>
             </nav>
             <aside className="loggin-container">
