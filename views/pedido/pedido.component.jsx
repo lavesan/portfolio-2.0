@@ -13,7 +13,7 @@ import { FormTextareaComponent } from '../../components/form/form-textarea';
 import { orderInstance } from '../../services/order.service';
 import { setSelectedOrder } from '../../store/actions/orderActions';
 
-const PedidoView = ({ selectedOrder = {}, activeOrders = [], orderId, dispatch }) => {
+const PedidoView = ({ selectedOrder = {}, activeOrders = [], dispatch, selectedOrderId }) => {
 
     const orderService = orderInstance.getInstance();
 
@@ -80,7 +80,7 @@ const PedidoView = ({ selectedOrder = {}, activeOrders = [], orderId, dispatch }
     const reloadOrder = useCallback(
         () => {
             
-            const ordId = localStorage.getItem('selectedOrderId') || orderId;
+            const ordId = localStorage.getItem('selectedOrderId') || selectedOrderId;
 
             orderService.findAllActiveByIds([ordId])
                 .then(res => {
@@ -95,7 +95,7 @@ const PedidoView = ({ selectedOrder = {}, activeOrders = [], orderId, dispatch }
                 });
 
         },
-        [orderId]
+        [selectedOrderId]
     )
 
     useEffect(() => {
@@ -194,7 +194,7 @@ const PedidoView = ({ selectedOrder = {}, activeOrders = [], orderId, dispatch }
 const mapStateToProps = store => ({
     selectedOrder: store.orderState.selectedOrder,
     activeOrders: store.orderState.activeOrders,
-    orderId: store.orderState.orderId,
+    selectedOrderId: store.orderState.selectedOrderId,
 })
 
 export default connect(mapStateToProps)(PedidoView);

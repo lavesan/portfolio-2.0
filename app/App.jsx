@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Router } from 'next/router';
 import Head from "next/head";
 import axios from 'axios';
+import moment from 'moment';
 
 import globalStyle from './style.css'
 import { HeaderComponent } from '../components/header';
@@ -15,11 +16,12 @@ import { setUserInfo, clearUserInfo } from '../store/actions/authActions';
 import { screenResize } from '../store/actions/uiActions';
 import { setPromotions, setCombos, setPromotionalProducts, setCategoryProducts, toogleProductFilter } from '../store/actions/productActions';
 import { toogleFullLoading } from '../store/actions/loadingActions';
-import { setActiveOrders } from '../store/actions/orderActions';
+import { setActiveOrders, setFreeTimes, setScheduleStepValues } from '../store/actions/orderActions';
 import { categoryInstance } from '../services/category.service';
 import { comboInstance } from '../services/combo.service';
 import { authInstance } from '../services/auth.service';
 import { productInstance } from '../services/product.service';
+import { orderInstance } from '../services/order.service';
 import { FullScreenLoading } from '../components/full-screen-loading';
 import zeroVenenoLogo from '../public/static/imgs/zero-veneno-logo.jpeg';
 
@@ -38,11 +40,26 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
   // const promotionService = promotionInstance.getInstance();
   const authService = authInstance.getInstance();
   const productService = productInstance.getInstance();
+  const orderService = orderInstance.getInstance();
 
   const [font, setFont] = useState('');
 
   const initiateStates = useCallback(
     async () => {
+
+      const today = moment().format('DD/MM/YYYY');
+      dispatch(setScheduleStepValues({
+        name: 'date',
+        value: today,
+      }))
+      await orderService.getFreeTimesFromDate(today)
+        .then(res => {
+            dispatch(setFreeTimes(res ? res.activeTimes : []));
+        })
+        .catch(({ message }) => {
+            showToast(message);
+            dispatch(setFreeTimes(res ? res.activeTimes : []));
+        });
 
       const ordersIdsStorage = localStorage.getItem('orders');
       

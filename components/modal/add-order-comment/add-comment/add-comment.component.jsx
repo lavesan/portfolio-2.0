@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useToasts } from "react-toast-notifications";
 import moment from 'moment';
 
-import { numberStringToReal } from '../../../../helpers/calc.helpers';
+import { numberToReal, onlyNumberStringToFloatNumber } from '../../../../helpers/calc.helpers';
 import { removeAllFirstDigits, unmaskDistrictName } from '../../../../helpers/unmask.helpers';
 import { orderInstance } from '../../../../services/order.service';
 import { SucessButtonComponent } from '../../../../components/button';
@@ -46,9 +46,13 @@ const AddCommentCompoent = ({
     }
 
     const valueFromProduct = product => {
-        return product.promotionalValueCents
-            ? numberStringToReal(product.promotionalValueCents)
-            : numberStringToReal(product.actualValueCents);
+
+        const prodValue = product.promotionalValueCents
+            ? onlyNumberStringToFloatNumber(product.promotionalValueCents) * product.quantity
+            : onlyNumberStringToFloatNumber(product.actualValueCents) * product.quantity;
+
+        return numberToReal(prodValue);
+
     }
 
     const onSubmit = async e => {
@@ -97,6 +101,8 @@ const AddCommentCompoent = ({
             combos,
         };
 
+        console.log('orderId: ', orderId);
+
         if (orderId) {
             body.id = orderId;
         }
@@ -125,7 +131,7 @@ const AddCommentCompoent = ({
 
         await orderService.save(body)
             .then(res => {
-                dispatch(setOrderId(res.id));
+                dispatch(setOrderId(res.order.id));
                 if (toggleModal) {
                     toggleModal();
                     dispatch(toogleOrderToFinishModal(res));

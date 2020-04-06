@@ -4,7 +4,7 @@ import { useToasts } from "react-toast-notifications";
 import Calendar from "react-calendar";
 import moment from 'moment';
 
-import { setScheduleStepValues, setScheduleValidation } from '../../../../store/actions/orderActions';
+import { setScheduleStepValues, setScheduleValidation, setFreeTimes } from '../../../../store/actions/orderActions';
 import { StyledSchedulerStepForm } from './scheduler-step-form.styles';
 import { TimeFormComponent } from './time-form';
 import { orderInstance } from '../../../../services/order.service';
@@ -12,13 +12,12 @@ import { StyledOrderFormTitle } from '../save-order-stepper.styles';
 import { FormResponsiveDatePicker } from '../../../../components/form/form-responsive-date-picker';
 import { isRequired, isValidDate, isBrDate } from '../../../../helpers/validations.helpers';
 
-const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidations, submitted, isResponsive, screenWidth }) => {
+const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidations, submitted, isResponsive, freeTimes }) => {
 
     const orderSerivce = orderInstance.getInstance();
 
     const { addToast } = useToasts();
 
-    const [freeTimes, setFreeTimes] = useState([]);
     const [loadingTime, setLoadingTime] = useState(false);
 
     const showToast = message => {
@@ -32,8 +31,6 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
         dispatch(setScheduleValidation(validation));
     }
 
-    const startDate = moment().day() !== 0 ? new Date() : moment().add(1, 'date').toDate();
-
     const deactiveDate = ({ date }) => {
         
         const momentDate = moment(date);
@@ -41,7 +38,31 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
 
     }
 
-    const setFieldValue = (name, value) => {
+    const setFieldValue = async (name, value) => {
+
+        if (name === 'date') {
+
+            const parsedDate = scheduleStep.date
+            ? moment(scheduleStep.date).format('DD/MM/YYYY')
+            : moment().format('DD/MM/YYYY');
+    
+            setLoadingTime(true);
+            await orderSerivce.getFreeTimesFromDate(parsedDate)
+                .then(res => {
+                    dispatch(setFreeTimes(res ? res.activeTimes : []));
+                })
+                .catch(({ message }) => {
+                    showToast(message);
+                    dispatch(setFreeTimes(res ? res.activeTimes : []));
+                });
+            setLoadingTime(false);
+    
+            dispatch(setScheduleStepValues({
+                name: 'time',
+                value: '',
+            }));
+
+        }
 
         dispatch(setScheduleStepValues({
             name,
@@ -62,31 +83,11 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
     );
 
     const handleChange = useCallback(
-        async () => {
-            
-            const parsedDate = scheduleStep.date
-                ? moment(scheduleStep.date).format('DD/MM/YYYY')
-                : moment().format('DD/MM/YYYY');
-
-            setLoadingTime(true);
-            await orderSerivce.getFreeTimesFromDate(parsedDate)
-                .then(res => {
-                    setFreeTimes(res ? res.activeTimes : []);
-                })
-                .catch(({ message }) => {
-                    showToast(message);
-                    setFreeTimes([]);
-                });
-            setLoadingTime(false);
-
-            dispatch(setScheduleStepValues({
-                name: 'time',
-                value: '',
-            }));
+        () => {
 
             dispatch(setScheduleValidation({
                 date: {
-                    invalid: !Boolean(parsedDate),
+                    invalid: !Boolean(scheduleStep.date),
                 },
             }));
 
@@ -100,11 +101,17 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
 
     useEffect(() => {
 
-        let initialDate = new Date();
-        if (screenWidth > 0 && isResponsive) {
-            initialDate = moment().format('MM/DD/YYYY');
+        if (isResponsive && typeof scheduleStep.date === 'object') {
+
+            const newDate = moment(scheduleStep.date).format('MM/DD/YYYY');
+            setFieldValue('date', newDate);
+            
+        } else if (!isResponsive && typeof scheduleStep.date === 'string') {
+
+            const newDate = moment(scheduleStep.date, 'DD/MM/YYYY').toDate();
+            setFieldValue('date', newDate);
+
         }
-        setFieldValue('date', initialDate);
 
     }, [isResponsive]);
 
@@ -127,7 +134,7 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
                         <h3>Selecione uma data</h3>
                         <Calendar
                             onChange={(value) => setFieldValue('date', value)}
-                            value={scheduleStep.date || startDate}
+                            value={typeof scheduleStep.date === 'string' ? new Date() : scheduleStep.date}
                             tileDisabled={deactiveDate}
                             locale="pt-br" />
                     </div>
@@ -151,7 +158,7 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
 const mapStateToProps = store => ({
     scheduleStep: store.orderState.scheduleStep,
     scheduleValidations: store.orderState.scheduleValidations,
-    screenWidth: store.uiState.screenWidth,
+    freeTimes: store.orderState.freeTimes,
 })
 
 export default connect(mapStateToProps)(SchedulerStepFormComponent);

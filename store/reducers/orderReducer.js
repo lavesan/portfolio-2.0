@@ -2,6 +2,7 @@ const initialState = {
     activeOrders: [],
     ordersData: [],
     responsiveStep: 1,
+    selectedOrderId: '',
     orderId: '',
     selectedOrder: {
         quantitySuffix: '',
@@ -27,6 +28,7 @@ const initialState = {
         phoneNumber: '',
         userName: '',
     },
+    freeTimes: [],
     scheduleStep: {
         date: '',
         time: '',
@@ -192,6 +194,18 @@ export const orderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedOrder: action.selectedOrder,
+            }
+        },
+        SET_SELECTED_ORDER_ID() {
+            return {
+                ...state,
+                selectedOrderId: action.selectedOrderId,
+            }
+        },
+        SET_FREE_TIMES() {
+            return {
+                ...state,
+                freeTimes: action.freeTimes,
             }
         }
     }

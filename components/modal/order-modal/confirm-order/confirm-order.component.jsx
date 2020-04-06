@@ -4,10 +4,10 @@ import { useToasts } from "react-toast-notifications";
 
 import { SucessButtonComponent } from '../../../button';
 import { orderInstance } from '../../../../services/order.service';
-import { numberStringToReal } from '../../../../helpers/calc.helpers';
+import { numberStringToReal, numberToReal, onlyNumberStringToFloatNumber } from '../../../../helpers/calc.helpers';
 import { toogleOrderFinishedModal } from '../../../../store/actions/modalActions';
 import { removeAllFirstDigits } from '../../../../helpers/unmask.helpers';
-import { setActiveOrders, clearOrderForm, setOrderId } from '../../../../store/actions/orderActions';
+import { setActiveOrders, clearOrderForm, setOrderId, setSelectedOrderId } from '../../../../store/actions/orderActions';
 import { clearCart } from '../../../../store/actions/cartActions';
 import { moveResponsiveStep } from '../../../../store/actions/orderActions';
 import { StyledOrderModalComponent } from '../order-modal.styles';
@@ -80,6 +80,8 @@ const ConfirmOrder = ({ toggleModal, dispatch, orderData, cardStep }) => {
                 dispatch(clearOrderForm());
                 // Clears the order Id
                 dispatch(setOrderId(''));
+                dispatch(setSelectedOrderId(res.id));
+                localStorage.setItem('selectedOrderId', res.id);
 
                 if (toggleModal) {
                     toggleModal();
@@ -95,11 +97,15 @@ const ConfirmOrder = ({ toggleModal, dispatch, orderData, cardStep }) => {
         setLoading(false);
 
     }
-    
+
     const valueFromProduct = product => {
-        return product.promotionalValueCents
-            ? numberStringToReal(product.promotionalValueCents)
-            : numberStringToReal(product.actualValueCents);
+
+        const prodValue = product.promotionalValueCents
+            ? onlyNumberStringToFloatNumber(product.promotionalValueCents) * product.quantity
+            : onlyNumberStringToFloatNumber(product.actualValueCents) * product.quantity;
+
+        return numberToReal(prodValue);
+
     }
 
     return (

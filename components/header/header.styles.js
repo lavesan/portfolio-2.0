@@ -73,6 +73,12 @@ export const StyledHeader = styled.header`
             }
         }
 
+        @media(max-width: 950px) {
+            .header-actions .header-actions-aside .header-actions-aside-divisor {
+                margin: 0 10px;
+            }
+        }
+
         @media(max-width: 700px) {
             padding: 10px 20px 0 20px;
 
