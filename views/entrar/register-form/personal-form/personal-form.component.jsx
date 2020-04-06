@@ -9,12 +9,20 @@ import { FormTextMaterial } from '../../../../components/form/form-text-material
 import { FormSelectComponent } from '../../../../components/form/form-select';
 import { userRoleOpts, userGenderOpts } from '../../../../helpers/register.helpers';
 import { setRegisterFormPersonalValue } from '../../../../store/actions/authActions';
+import { setPersoanlFormValidations } from '../../../../store/actions/authActions';
 
-const PersonalFormComponent = ({ setFormValidations, formValidations, personalRegisterForm, isResponsive, startValidations, dispatch }) => {
+const PersonalFormComponent = ({ personalFormValidations, personalRegisterForm, isResponsive, startValidations, dispatch }) => {
 
     const ageMask = value => {
         const onlyNumber = onlyNumberMask(value);
         return maxLengthMask(onlyNumber, 3);
+    }
+
+    const setFormValidations = (func) => {
+
+        const validations = func(personalFormValidations);
+        dispatch(setPersoanlFormValidations(validations));
+
     }
 
     const setFieldValue = (name, value) => {
@@ -37,7 +45,7 @@ const PersonalFormComponent = ({ setFormValidations, formValidations, personalRe
                         name="gender"
                         startValidations={startValidations}
                         validatesOnChange={[notNullable]}
-                        formValidations={formValidations}
+                        formValidations={personalFormValidations}
                         setFormValidations={setFormValidations}
                         value={personalRegisterForm.gender}
                         onChange={setFieldValue}
@@ -49,7 +57,7 @@ const PersonalFormComponent = ({ setFormValidations, formValidations, personalRe
                         name="age"
                         startValidations={startValidations}
                         validatesOnChange={[isRequired, validateOnlyNumber]}
-                        formValidations={formValidations}
+                        formValidations={personalFormValidations}
                         setFormValidations={setFormValidations}
                         maskOnChange={ageMask}
                         value={personalRegisterForm.age}
@@ -62,7 +70,7 @@ const PersonalFormComponent = ({ setFormValidations, formValidations, personalRe
                     label="Quant. de animais"
                     name="animalsQuantity"
                     startValidations={startValidations}
-                    formValidations={formValidations}
+                    formValidations={personalFormValidations}
                     setFormValidations={setFormValidations}
                     maskOnChange={onlyNumberMask}
                     value={personalRegisterForm.animalsQuantity}
@@ -72,7 +80,7 @@ const PersonalFormComponent = ({ setFormValidations, formValidations, personalRe
                     label="Quant. de crianças"
                     name="childrensQuantity"
                     startValidations={startValidations}
-                    formValidations={formValidations}
+                    formValidations={personalFormValidations}
                     setFormValidations={setFormValidations}
                     maskOnChange={onlyNumberMask}
                     value={personalRegisterForm.childrensQuantity}
@@ -84,7 +92,7 @@ const PersonalFormComponent = ({ setFormValidations, formValidations, personalRe
                     name="role"
                     startValidations={startValidations}
                     validatesOnChange={[notNullable]}
-                    formValidations={formValidations}
+                    formValidations={personalFormValidations}
                     setFormValidations={setFormValidations}
                     value={personalRegisterForm.role}
                     onChange={setFieldValue}
@@ -94,8 +102,6 @@ const PersonalFormComponent = ({ setFormValidations, formValidations, personalRe
                 label="Bio"
                 placeholder="Fale um pouco sobre você"
                 name="description"
-                formValidations={formValidations}
-                setFormValidations={setFormValidations}
                 value={personalRegisterForm.description}
                 onChange={setFieldValue} />
         </StyledPersonalForm>
@@ -105,6 +111,7 @@ const PersonalFormComponent = ({ setFormValidations, formValidations, personalRe
 
 const mapStateToProps = store => ({
     personalRegisterForm: store.authState.personalRegisterForm,
+    personalFormValidations: store.authState.personalFormValidations,
 })
 
 export default connect(mapStateToProps)(PersonalFormComponent);

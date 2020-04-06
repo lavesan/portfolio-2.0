@@ -15,13 +15,21 @@ import { authInstance } from '../../../../services/auth.service';
 import { setRegisterFormAddressManyValues, setRegisterFormAddressValue } from '../../../../store/actions/authActions';
 import { cepMask } from '../../../../helpers/mask.helpers';
 import { validateCep } from '../../../../helpers/validations.helpers';
+import { setAddressFormValidations } from '../../../../store/actions/authActions';
 
-const AddressFormComponent = ({ setFormValidations, formValidations, addressRegisterForm, isResponsive, startValidations, dispatch }) => {
+const AddressFormComponent = ({ addressFormValidations, addressRegisterForm, isResponsive, startValidations, dispatch }) => {
 
     const authService = authInstance.getInstance();
     
     const { addToast } = useToasts();
-    
+
+    const setFormValidations = (func) => {
+
+        const validations = func(addressFormValidations);
+        dispatch(setAddressFormValidations(validations));
+
+    }
+
     const showToast = message => {
         addToast(message, {
             appearance: "error",
@@ -75,7 +83,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
                         label="Seu CEP"
                         name="cep"
                         startValidations={startValidations}
-                        formValidations={formValidations}
+                        formValidations={addressFormValidations}
                         setFormValidations={setFormValidations}
                         validatesOnChange={[isRequired, validateCep]}
                         maskOnChange={cepMask}
@@ -98,7 +106,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
                         name="address"
                         startValidations={startValidations}
                         validatesOnChange={[isRequired]}
-                        formValidations={formValidations}
+                        formValidations={addressFormValidations}
                         setFormValidations={setFormValidations}
                         value={addressRegisterForm.address}
                         onChange={setFieldValue} />
@@ -109,7 +117,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
                         name="number"
                         startValidations={startValidations}
                         validatesOnChange={[isRequired, validateOnlyNumber]}
-                        formValidations={formValidations}
+                        formValidations={addressFormValidations}
                         setFormValidations={setFormValidations}
                         maskOnChange={onlyNumberMask}
                         value={addressRegisterForm.number}
@@ -122,7 +130,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
                     name="district"
                     startValidations={startValidations}
                     validatesOnChange={[isRequired]}
-                    formValidations={formValidations}
+                    formValidations={addressFormValidations}
                     setFormValidations={setFormValidations}
                     value={addressRegisterForm.district}
                     onChange={setFieldValue}
@@ -137,7 +145,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
                 label="Favoritar como"
                 name="type"
                 startValidations={startValidations}
-                formValidations={formValidations}
+                formValidations={addressFormValidations}
                 setFormValidations={setFormValidations}
                 validatesOnChange={[isRequired]}
                 value={addressRegisterForm.type}
@@ -149,6 +157,7 @@ const AddressFormComponent = ({ setFormValidations, formValidations, addressRegi
 
 const mapStateToProps = store => ({
     addressRegisterForm: store.authState.addressRegisterForm,
+    addressFormValidations: store.authState.addressFormValidations,
 })
 
 export default connect(mapStateToProps)(AddressFormComponent);

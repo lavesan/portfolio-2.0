@@ -9,11 +9,19 @@ import { StyledFormTitle } from '../register-form.styles';
 import { StyledAcessForm } from './access-form.styles';
 import { FormTextMaterial } from '../../../../components/form/form-text-material';
 import { FormCheckboxComponent } from '../../../../components/form/form-checkbox';
+import { setAccessFormValidations } from '../../../../store/actions/authActions';
 
-const AcessForm = ({ setFormValidations, formValidations, dispatch, accessRegisterForm, isResponsive, startValidations }) => {
+const AcessForm = ({ dispatch, accessRegisterForm, isResponsive, startValidations, accessFormValidations }) => {
 
     const toggleTermContractModal = () => {
         dispatch(toggleTermOfContractModal());
+    }
+
+    const setFormValidations = (func) => {
+
+        const validations = func(accessFormValidations);
+        dispatch(setAccessFormValidations(validations));
+
     }
 
     const setFieldValue = (name, value) => {
@@ -43,7 +51,7 @@ const AcessForm = ({ setFormValidations, formValidations, dispatch, accessRegist
                     name="name"
                     maskOnChange={onlyCharactersMask}
                     startValidations={startValidations}
-                    formValidations={formValidations}
+                    formValidations={accessFormValidations}
                     value={accessRegisterForm.name}
                     setFormValidations={setFormValidations}
                     validatesOnChange={[isRequired]}
@@ -52,7 +60,7 @@ const AcessForm = ({ setFormValidations, formValidations, dispatch, accessRegist
                     label="Digite seu CPF"
                     name="cpf"
                     startValidations={startValidations}
-                    formValidations={formValidations}
+                    formValidations={accessFormValidations}
                     setFormValidations={setFormValidations}
                     validatesOnChange={[isRequired, validateCpf]}
                     maskOnChange={cpfMask}
@@ -63,7 +71,7 @@ const AcessForm = ({ setFormValidations, formValidations, dispatch, accessRegist
                 label="Insira seu melhor e-mail"
                 name="email"
                 startValidations={startValidations}
-                formValidations={formValidations}
+                formValidations={accessFormValidations}
                 value={accessRegisterForm.email}
                 setFormValidations={setFormValidations}
                 validatesOnChange={[isRequired, validateEmail]}
@@ -73,7 +81,7 @@ const AcessForm = ({ setFormValidations, formValidations, dispatch, accessRegist
                 name="password"
                 type="password"
                 startValidations={startValidations}
-                formValidations={formValidations}
+                formValidations={accessFormValidations}
                 setFormValidations={setFormValidations}
                 validatesOnChange={[isRequired, validateMinFive]}
                 value={accessRegisterForm.password}
@@ -83,7 +91,7 @@ const AcessForm = ({ setFormValidations, formValidations, dispatch, accessRegist
                 name="confirmPassword"
                 type="password"
                 startValidations={startValidations}
-                formValidations={formValidations}
+                formValidations={accessFormValidations}
                 setFormValidations={setFormValidations}
                 validatesOnChange={[isRequired, validateMinFive, validatePassword]}
                 value={accessRegisterForm.confirmPassword}
@@ -96,7 +104,7 @@ const AcessForm = ({ setFormValidations, formValidations, dispatch, accessRegist
                 }}
                 validatesOnChange={[isRequireTrue]}
                 startValidations={startValidations}
-                formValidations={formValidations}
+                formValidations={accessFormValidations}
                 setFormValidations={setFormValidations}
                 value={accessRegisterForm.termOfContract}
                 onChange={setFieldValue} />
@@ -107,6 +115,7 @@ const AcessForm = ({ setFormValidations, formValidations, dispatch, accessRegist
 
 const mapStateToProps = store => ({
     accessRegisterForm: store.authState.accessRegisterForm,
+    accessFormValidations: store.authState.accessFormValidations,
 })
 
 export default connect(mapStateToProps)(AcessForm);

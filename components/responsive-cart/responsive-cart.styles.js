@@ -4,6 +4,7 @@ export const StyledResponsiveCard = styled.div`
     ${({ theme, openResponsiveCart, screenHeight, openCartHeader }) => css`
         position: fixed;
         transition: top .3s;
+        bottom: 0;
         top: ${screenHeight + 50}px;
         width: 100vw;
         z-index: 3;

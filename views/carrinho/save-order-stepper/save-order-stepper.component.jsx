@@ -42,8 +42,6 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
     }
 
     const addressStepInvalid = () => {
-
-        console.log('validando o endereço mesmo')
         
         const addressStepValidate = token
             ? ['id', 'cep', 'district', 'address', 'number', 'complement']

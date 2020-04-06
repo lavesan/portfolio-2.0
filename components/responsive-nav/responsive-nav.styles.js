@@ -22,7 +22,7 @@ export const StyledResponsiveNav = styled.div`
             text-align: center;
             display: flex;
             flex-flow: column nowrap;
-            font-size: 1.6rem;
+            font-size: 1.3rem;
 
             p {
                 margin: 0 0 20px 0;

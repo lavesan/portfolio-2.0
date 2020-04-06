@@ -73,7 +73,7 @@ export const StyledProductModal = styled.div`
                     .manage-quantity-container {
                         display: flex;
                         flex-flow: row nowrap;
-                        justify-content: space-evenly;
+                        justify-content: center;
                         align-items: center;
 
                         > * {

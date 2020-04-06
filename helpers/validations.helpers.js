@@ -2,7 +2,7 @@ import moment from "moment";
 
 export const validateEmail = value => {
     return {
-        valid: /^[.a-zA-Z0-9]+@(?:[a-zA-Z]+\.?)+[a-zA-Z]$/g.test(value),
+        valid: /^[.a-zA-Z0-9\-]+@(?:[a-zA-Z\-]+\.?)+[a-zA-Z\-]$/g.test(value),
         message: 'Email inválido.',
     };
 }

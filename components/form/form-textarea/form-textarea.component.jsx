@@ -43,8 +43,8 @@ export default ({ label, className, setFieldValue, name, legend, maskOnChange, v
     const onChange = (e) => {
 
         const finalValue = maskOnChange ? maskOnChange(e.target.value) : e.target.value;
-        onChange(name, finalValue);
-        applyValidations(value);
+        setFieldValue(name, finalValue);
+        applyValidations(finalValue);
 
     }
 

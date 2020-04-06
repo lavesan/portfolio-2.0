@@ -7,7 +7,6 @@ import { useToasts } from "react-toast-notifications";
 
 import {
     advanceReturnRegisterFormStep,
-    setRegisterFormValidations,
     setUserInfo,
 } from '../../../store/actions/authActions';
 import { StyledRegisterForm } from './register-form.styles';
@@ -21,7 +20,7 @@ import { StyledHeaderCotainer } from '../entrar.styles';
 import { setSelectedForm } from '../../../store/actions/authActions';
 import { sendBackendDistrict } from '../../../helpers/order.helpers';
 
-const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, returnPage, registerFormValidations, addressRegisterForm, personalRegisterForm, accessRegisterForm }) => {
+const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, returnPage, addressRegisterForm, personalRegisterForm, accessRegisterForm, accessFormValidations, personalFormValidations, addressFormValidations }) => {
 
     const authService = authInstance.getInstance();
     
@@ -77,39 +76,29 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
         [screenWidth]
     )
 
-    const setFormValidations = (func) => {
-
-        const validations = func(registerFormValidations);
-        dispatch(setRegisterFormValidations(validations));
-
-    }
-
     const firstStepInvalid = () => {
 
-        const values = Object.values(registerFormValidations.access);
+        const values = Object.values(accessFormValidations);
         return values.some(value => value.invalid);
 
     }
 
     const secondStepInvalid = () => {
 
-        const values = Object.values(registerFormValidations.personal);
+        const values = Object.values(personalFormValidations);
         return values.some(value => value.invalid);
 
     }
 
     const lastStepInvalid = () => {
 
-        const values = Object.values(registerFormValidations.address);
+        const values = Object.values(addressFormValidations);
         return values.some(value => value.invalid);
 
     }
 
     const formInvalid = () => {
-
-        const validations = Object.values(registerFormValidations);
-        return validations.some(validation => validation.invalid)
-
+        return firstStepInvalid() || secondStepInvalid() || lastStepInvalid();
     }
 
     const validateFirstStep = () => {
@@ -255,21 +244,15 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
                         ? <>
                             <div className="credentials-form">
                                 <AccessForm
-                                    startValidations={submittedBig}
-                                    setFormValidations={setFormValidations}
-                                    formValidations={registerFormValidations} />
+                                    startValidations={submittedBig} />
                             </div>
                             <div className="info-form">
                                 <PersonalForm
-                                    startValidations={submittedBig}
-                                    setFormValidations={setFormValidations}
-                                    formValidations={registerFormValidations} />
+                                    startValidations={submittedBig} />
                             </div>
                             <div className="address-form">
                                 <AddressForm
-                                    startValidations={submittedBig}
-                                    setFormValidations={setFormValidations}
-                                    formValidations={registerFormValidations} />
+                                    startValidations={submittedBig} />
                             </div>
                         </>
                         : <>
@@ -279,23 +262,17 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
                                 {registerFormStep === 1 && 
                                     <AccessForm
                                         isResponsive={isResponsive}
-                                        startValidations={submittedSteps.first}
-                                        setFormValidations={setFormValidations}
-                                        formValidations={registerFormValidations} />
+                                        startValidations={submittedSteps.first} />
                                 }
                                 {registerFormStep === 2 &&
                                     <PersonalForm
                                         isResponsive={isResponsive}
-                                        startValidations={submittedSteps.second}
-                                        setFormValidations={setFormValidations}
-                                        formValidations={registerFormValidations} />
+                                        startValidations={submittedSteps.second} />
                                 }
                                 {registerFormStep === 3 &&
                                     <AddressForm
                                         isResponsive={isResponsive}
-                                        startValidations={submittedSteps.finish}
-                                        setFormValidations={setFormValidations}
-                                        formValidations={registerFormValidations} />
+                                        startValidations={submittedSteps.finish} />
                                 }
                             </div>
                         </>
@@ -340,10 +317,12 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
 
 const mapStateToProps = store => ({
     registerFormStep: store.authState.registerFormStep,
-    registerFormValidations: store.authState.registerFormValidations,
     accessRegisterForm: store.authState.accessRegisterForm,
     personalRegisterForm: store.authState.personalRegisterForm,
     addressRegisterForm: store.authState.addressRegisterForm,
+    accessFormValidations: store.authState.accessFormValidations,
+    personalFormValidations: store.authState.personalFormValidations,
+    addressFormValidations: store.authState.addressFormValidations,
     screenWidth: store.uiState.screenWidth,
 })
 

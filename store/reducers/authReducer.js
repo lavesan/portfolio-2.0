@@ -38,7 +38,9 @@ const initialState = {
         type: '',
     },
     loginFormValidations: {},
-    registerFormValidations: {},
+    accessFormValidations: {},
+    personalFormValidations: {},
+    addressFormValidations: {},
     registerFormStep: 1,
 };
 export const authReducer = (state = initialState, action) => {
@@ -118,13 +120,31 @@ export const authReducer = (state = initialState, action) => {
                 },
             }
         },
-        SET_REGISTER_FORM_VALIDATIONS() {
+        SET_ACCESS_VALIDATIONS() {
             return {
                 ...state,
-                registerFormValidations: {
-                    ...state.registerFormValidations,
-                    ...action.registerFormValidations,
-                },
+                accessFormValidations: {
+                    ...state.accessFormValidations,
+                    ...action.accessFormValidations,
+                }
+            }
+        },
+        SET_PERSONAL_VALIDATIONS() {
+            return {
+                ...state,
+                personalFormValidations: {
+                    ...state.personalFormValidations,
+                    ...action.personalFormValidations,
+                }
+            }
+        },
+        SET_ADDRESS_VALIDATIONS() {
+            return {
+                ...state,
+                addressFormValidations: {
+                    ...state.addressFormValidations,
+                    ...action.addressFormValidations,
+                }
             }
         },
         ADVANCE_RETURN_REGISTER_FORM_STEP() {

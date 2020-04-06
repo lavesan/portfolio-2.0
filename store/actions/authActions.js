@@ -9,7 +9,9 @@ const SET_REGISTER_FORM_ADDRESS_MANY_VALUES = 'SET_REGISTER_FORM_ADDRESS_MANY_VA
 const SET_REGISTER_FORM_ACCESS = 'SET_REGISTER_FORM_ACCESS';
 const SET_REGISTER_FORM_PERSONAL = 'SET_REGISTER_FORM_PERSONAL';
 const SET_REGISTER_FORM_ADDRESS = 'SET_REGISTER_FORM_ADDRESS';
-const SET_REGISTER_FORM_VALIDATIONS = 'SET_REGISTER_FORM_VALIDATIONS';
+const SET_ACCESS_VALIDATIONS = 'SET_ACCESS_VALIDATIONS';
+const SET_PERSONAL_VALIDATIONS = 'SET_PERSONAL_VALIDATIONS';
+const SET_ADDRESS_VALIDATIONS = 'SET_ADDRESS_VALIDATIONS';
 
 export const setLoginFormValues = ({ name, value }) => ({
     type: SET_FORM_VALUES,
@@ -68,9 +70,19 @@ export const advanceReturnRegisterFormStep = plus => ({
     plus,
 })
 
-export const setRegisterFormValidations = registerFormValidations => ({
-    type: SET_REGISTER_FORM_VALIDATIONS,
-    registerFormValidations,
+export const setAccessFormValidations = accessFormValidations => ({
+    type: SET_ACCESS_VALIDATIONS,
+    accessFormValidations,
+})
+
+export const setPersoanlFormValidations = personalFormValidations => ({
+    type: SET_PERSONAL_VALIDATIONS,
+    personalFormValidations,
+})
+
+export const setAddressFormValidations = addressFormValidations => ({
+    type: SET_ADDRESS_VALIDATIONS,
+    addressFormValidations,
 })
 
 export const setLoginFormValidations = loginFormValidations => ({
