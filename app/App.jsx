@@ -201,7 +201,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
         flexFlow: 'column nowrap',
         minHeight: '100vh',
       }}>
-          <GlobalStyle font={font} />
+          <GlobalStyle font={font} screenWidth={screenWidth} />
           <Head>
             <meta
               name="viewport"

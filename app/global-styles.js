@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 import bobbyJonesFont from '../public/static/fonts/Bobby-Jones/BobbyJonesSoft.otf';
 
 export default createGlobalStyle`
@@ -15,5 +15,11 @@ export default createGlobalStyle`
         font-family: 'BobbyJonesSoft';
         src: url(${({ font }) => font}) format("truetype");
     }
+
+    ${({ screenWidth }) => screenWidth < 750 &&  css`
+        body {
+            overflow-x: hidden;
+        }
+    `}
 
 `
