@@ -140,6 +140,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
         dispatch(setShowHeaderAndFooter({
             showHeader: false,
             showFooter: false,
+            applyPageStyle: false,
         }));
       }
       if (window && window.history && window.history.state && window.history.state.url) {
