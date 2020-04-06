@@ -71,7 +71,11 @@ export const telephoneMask = value => {
 }
 
 export const onlyNumberStringToThreeDigit = value => {
+
+  console.log('value: ', value);
+
   let onlyNumberValue = String(value).replace(/\D/g, "").replace(/^[0]+/, "");
+  console.log("onlyNumberValue: ", onlyNumberValue);
   if (onlyNumberValue) {
     while (onlyNumberValue.length < 4) {
       onlyNumberValue = `0${onlyNumberValue}`;
@@ -79,6 +83,7 @@ export const onlyNumberStringToThreeDigit = value => {
     return onlyNumberValue.replace(/(\d{1,3})$/, ",$1");
   }
   return "0,000";
+
 }
 
 export const percentageMask = value => {

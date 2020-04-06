@@ -7,8 +7,6 @@ import { StyledProductCart } from './product-cart.styles';
 import { removeProduct, setProduct } from '../../../store/actions/cartActions';
 import { numberToReal, onlyNumberStringToFloatNumber } from '../../../helpers/calc.helpers';
 import { addAmountFromSuffix, removeAmountFromSuffix, deactivateCondition, productSuffixes } from '../../../helpers/product.helper';
-import { onlyNumberStringToThreeDigit } from '../../../helpers/mask.helpers';
-import { numberStringToFloatThreeDigit } from '../../../helpers/unmask.helpers';
 import { floatToOneDigit } from '../../../helpers/pipes.helpers';
 
 const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValueCents, quantitySuffix, quantityOnStock, hideRemove, isResponsive }) => {
@@ -36,10 +34,15 @@ const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValu
 
     const maskedValue = useMemo(
         () => {
-            if (fixedQuantitySuffix) {
-                return floatToOneDigit(quantity);
+
+            if (!freeToDigitInput) {
+                if (fixedQuantitySuffix) {
+                    return floatToOneDigit(quantity);
+                }
+                return quantity;
             }
-            return quantity;
+            return 0;
+
         },
         [quantity]
     )
@@ -56,7 +59,7 @@ const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValu
         [quantity, quantitySuffix, quantityOnStock]
     )
 
-    const manageQuantity = (plus) => {
+    const manageQuantity = plus => {
 
         const finalQuantity = plus
             ? addAmountFromSuffix({ quantitySuffix, quantity })
@@ -70,10 +73,12 @@ const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValu
 
     const inputValue = useMemo(
         () => {
+
             if (quantityOnStock === quantity) {
                 return quantity.toFixed(3).replace('.', ',');
             }
-            return onlyNumberStringToThreeDigit(quantity);
+            return quantity.toFixed(3).replace('.', ',');
+
         },
         [quantity]
     )
@@ -84,10 +89,15 @@ const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValu
 
     const onChangeQuantityInput = e => {
 
-        const lastNumbers = e.target.value.replace(/(\d{3})$/, ',$1');
-        const rightValue = lastNumbers.replace(/^(\d*)\,/, '$1');
+        let onlyNumbers = e.target.value.replace(/\D/g, '');
 
-        let unmaskedValue = numberStringToFloatThreeDigit(rightValue);
+        while (onlyNumbers.length < 4) {
+            onlyNumbers = `0${onlyNumbers}`;
+        }
+
+        onlyNumbers = onlyNumbers.replace(/(\d{3})$/, '.$1')
+
+        let unmaskedValue = Number(onlyNumbers).toFixed(3);
 
         if (unmaskedValue > quantityOnStock) {
             unmaskedValue = quantityOnStock;
@@ -95,7 +105,7 @@ const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValu
 
         dispatch(setProduct({
             id,
-            quantity: unmaskedValue,
+            quantity: Number(unmaskedValue),
         }))
 
     }

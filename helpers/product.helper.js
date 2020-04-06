@@ -51,14 +51,22 @@ const handleDeactivateCondition = {
 }
 
 export const addAmountFromSuffix = ({ quantitySuffix, quantity }) => {
-    return Number(handleAddAmount[quantitySuffix](quantity).toFixed(3));
+    if(handleAddAmount[quantitySuffix]) {
+        return Number(handleAddAmount[quantitySuffix](quantity).toFixed(3));
+    }
+    return 0
 }
 
 export const removeAmountFromSuffix = ({ quantitySuffix, quantity }) => {
-    return Number(handleRemoveAmount[quantitySuffix](quantity).toFixed(3));
+    if (handleRemoveAmount[quantitySuffix]) {
+        return Number(handleRemoveAmount[quantitySuffix](quantity).toFixed(3));
+    }
+    return 0;
 }
 
 export const deactivateCondition = ({ quantitySuffix, quantity, quantityOnStock }) => {
-    console.log('quantitySuffix: ', quantitySuffix);
-    return handleDeactivateCondition[quantitySuffix](quantity, quantityOnStock);
+    if (handleDeactivateCondition[quantitySuffix]) {
+        return handleDeactivateCondition[quantitySuffix](quantity, quantityOnStock);
+    }
+    return {};
 }

@@ -19,6 +19,7 @@ import { StyledSuccessButton, StyledFullRevSuccessButton, SucessButtonComponent 
 import { AuthenticationFooterComponent } from '../authentication-footer';
 import { StyledHeaderCotainer } from '../entrar.styles';
 import { setSelectedForm } from '../../../store/actions/authActions';
+import { sendBackendDistrict } from '../../../helpers/order.helpers';
 
 const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, returnPage, registerFormValidations, addressRegisterForm, personalRegisterForm, accessRegisterForm }) => {
 
@@ -195,7 +196,11 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
         const body = {
             ...personalRegisterForm,
             ...accessRegisterForm,
-            address: addressRegisterForm,
+            legalDocument: accessRegisterForm.cpf,
+            address: {
+                ...addressRegisterForm,
+                district: sendBackendDistrict(addressRegisterForm.district),
+            },
         }
 
         await authService.save(body)

@@ -27,6 +27,25 @@ export const StyledPerfilPage = styled.section`
                     margin-right: 5px;   
                 }
             }
+            
+            .logoff-button-container {
+                display: flex;
+                justify-content: flex-end;
+                flex: 1;
+
+                .logoff-button {
+                    color: ${theme.green.terciary};
+                    background-color: ${theme.green.penternary};
+                    cursor: pointer;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    border: none;
+
+                    > :first-child {
+                        margin-right: 10px;
+                    }
+                }
+            }
         }
         .perfil-form {
             display: flex;
@@ -86,7 +105,7 @@ export const StyledPerfilPage = styled.section`
             .buttons-container {
                 display: flex;
                 flex-flow: row nowrap;
-                justify-content: space-between;
+                justify-content: space-around;
 
                 > * {
                     width: 35%;
@@ -97,7 +116,7 @@ export const StyledPerfilPage = styled.section`
                     color: ${theme.gray.secondary};
                     border: thin solid ${theme.gray.secondary};
                     border-radius: 5px;
-                    padding: 10px 20px;
+                    padding: 10px 10px;
                     outline: none;
                     cursor: pointer;
                 }

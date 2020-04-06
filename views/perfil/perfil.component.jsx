@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faPen, faPowerOff } from '@fortawesome/free-solid-svg-icons';
+import { useToasts } from "react-toast-notifications";
+import { useRouter } from "next/router";
 
 import { StyledPerfilPage } from './perfil.styles';
 import { FormFieldComponent } from '../../components/form/form-field';
@@ -11,16 +13,29 @@ import { authInstance } from '../../services/auth.service';
 import { isRequired, validateCpf, validateEmail, isCellphoneNumber, validateOnlyNumber, validateOnlyCharacter, validateCep } from '../../helpers/validations.helpers';
 import { cpfMask, maxLengthMask, onlyCharactersMask, celphoneMask, onlyNumberMask, cepMask } from '../../helpers/mask.helpers';
 import { userRoleOpts, userGenderOpts } from '../../helpers/register.helpers';
-import { districtOpts } from '../../helpers/order.helpers';
+import { lowerCaseDistrictOpts } from '../../helpers/order.helpers';
+import { setUserInfo, clearUserInfo } from '../../store/actions/authActions';
 
 const PerfilPage = ({ dispatch, userInfo }) => {
 
     const authService = authInstance.getInstance();
 
+    const router = useRouter();
+
+    const { addToast } = useToasts();
+
+    const showToast = message => {
+        addToast(message, {
+            appearance: "error",
+            autoDismiss: true
+          })
+    }
+
     const [canEdit, setCanEdit] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [internalInfo, setInternalInfo] = useState(userInfo);
+    const [internalInfo, setInternalInfo] = useState({});
     const [formValidations, setFormValidations] = useState({});
+    const [submitted, setSubmitted] = useState(false);
 
     const toogleEdit = () => {
         setCanEdit(f => !f);
@@ -45,29 +60,166 @@ const PerfilPage = ({ dispatch, userInfo }) => {
 
     const allocateUserInfoOnValues = () => {
 
+        const contact = userInfo.contacts[0];
+        const phone = contact
+            ? `(${contact.ddd}) ${contact.number.match(/^\d{5}/)}-${contact.number.match(/\d{4}$/)}`
+            : '';
+
+        const contactId = contact ? contact.id : '';
+
+        const address = userInfo.addresses[0];
+        const addressData = address
+            ? {
+                addressId: address.id,
+                address: address.address,
+                cep: address.cep,
+                number: address.number,
+                complement: address.complement,
+                type: address.type,
+                district: '',
+            }
+            : {};
+        
+        if (address) {
+
+            const foundDistrictOpt = lowerCaseDistrictOpts.find(opt => opt.value === address.district);
+    
+            if (foundDistrictOpt) {
+                addressData.district = foundDistrictOpt;
+            }
+
+        }
+
+        const foundGender = userGenderOpts.find(opt => opt.value === userInfo.gender);
+        const foundRole = userRoleOpts.find(opt => opt.value === userInfo.role);
+
+        setInternalInfo({
+            phone,
+            contactId,
+            name: userInfo.name,
+            email: userInfo.email,
+            animalsQuantity: userInfo.animalsQuantity,
+            childrensQuantity: userInfo.childrensQuantity,
+            age: userInfo.age,
+            description: userInfo.description,
+            cpf: userInfo.cpf ? userInfo.cpf : userInfo.legalDocument,
+            gender: foundGender ? foundGender : {},
+            role: foundRole ? foundRole : {},
+            ...addressData,
+            cards: userInfo.cards.map(card => ({ ...card, actived: true })),
+        })
+
     }
+
+    const removeCard = card => {
+
+        setInternalInfo(f => ({
+            ...f,
+            cards: f.cards.map(car => {
+
+                if (car.id === card.id) {
+                    return {
+                        ...car,
+                        actived: false,
+                    }
+                }
+
+                return car;
+
+            })
+        }))
+
+    }
+
+    const validateFields = () => new Promise((resolve, reject) => {
+
+        setSubmitted(true);
+        const values = Object.values(formValidations);
+        if (values.some(value => value && value.invalid)) {
+            reject();
+        }
+        resolve();
+
+    })
 
     const onSubmit = async e => {
 
         e.preventDefault();
 
-        console.log('internalInfo: ', internalInfo);
+        await validateFields();
+
+        const contact = {
+            id: '',
+            ddd: '',
+            number: '',
+        }
+
+        if (internalInfo.phone) {
+
+            const onlyNumber = internalInfo.phone.replace(/\D/g, '');
+
+            contact.ddd = onlyNumber.match(/^\d{2}/)[0];
+            contact.number = onlyNumber.match(/\d{9}$/)[0];
+            contact.id = internalInfo.contactId;
+
+        }
+
+        const address = {
+            id: internalInfo.addressId,
+            address: internalInfo.address,
+            cep: internalInfo.cep,
+            number: internalInfo.number,
+            complement: internalInfo.complement,
+            type: internalInfo.type,
+            district: internalInfo.district ? internalInfo.district.value : '',
+        }
+
+        const body = {
+            name: internalInfo.name,
+            email: internalInfo.email,
+            animalsQuantity: internalInfo.animalsQuantity,
+            childrensQuantity: internalInfo.childrensQuantity,
+            description: internalInfo.description,
+            age: internalInfo.age,
+            legalDocument: internalInfo.cpf,
+            gender: internalInfo.gender.value,
+            role: internalInfo.role.value,
+            contact,
+            address,
+            cards: internalInfo.cards,
+        }
+
         setLoading(true);
-        // await authService.updateUser(internalInfo)
-        //     .then(res => {
-        //         console.log('res: ', res);
-        //     })
-        //     .catch(err => {
-        //         console.log('erro: ', err);
-        //     });
+        await authService.updateUser(body)
+            .then(res => {
+                dispatch(setUserInfo(res));
+                toogleEdit();
+            })
+            .catch(({ message }) => {
+                showToast(message);
+            });
         setLoading(false);
 
     }
 
+    const logoff = () => {
+        authService.logoff()
+            .then(res => {
+                dispatch(clearUserInfo());                
+                router.push('/inicio');
+            })
+            .catch(err => {
+                console.log('erro: ', err);
+            })
+    }
+
     useEffect(() => {
-        console.log('internalInfo: ', userInfo);
         allocateUserInfoOnValues();
     }, [userInfo])
+
+    useEffect(() => {
+        allocateUserInfoOnValues();
+    }, [canEdit])
 
     return (
         <StyledPerfilPage>
@@ -82,6 +234,9 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                         </button>
                     </div>
                 }
+                <div className="logoff-button-container">
+                    <button type="button" className="logoff-button" onClick={logoff}><FontAwesomeIcon icon={faPowerOff} /> Sair</button>
+                </div>
             </div>
             <form onSubmit={onSubmit} className="perfil-form">
                 <div>
@@ -94,7 +249,8 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                         validatesOnChange={[isRequired, validateOnlyCharacter]}
                         setFormValidations={setFormValidations}
                         formValidation={formValidations.name}
-                        disabled={canEdit} />
+                        startValidations={submitted}
+                        disabled={!canEdit} />
                     <FormFieldComponent
                         label="Telefone"
                         name="phone"
@@ -104,7 +260,8 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                         validatesOnChange={[isRequired, isCellphoneNumber]}
                         setFormValidations={setFormValidations}
                         formValidation={formValidations.name}
-                        disabled={canEdit} />
+                        startValidations={submitted}
+                        disabled={!canEdit} />
                     <FormFieldComponent
                         label="E-mail"
                         name="email"
@@ -113,19 +270,24 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                         validatesOnChange={[isRequired, validateEmail]}
                         setFormValidations={setFormValidations}
                         formValidation={formValidations.name}
-                        disabled={canEdit} />
+                        startValidations={submitted}
+                        disabled={!canEdit} />
                     {internalInfo.cards && internalInfo.cards.length
                         ? <>
                             <p className="title-paragraph">Método de pagamento</p>
                             {internalInfo.cards.map(card =>
-                                <button
-                                    type="button"
-                                    className="card-button">
-                                        {`Cartão de crédito ${card.lastDigits}`}
-                                        <FontAwesomeIcon className="remove-icon" icon={faTimes} />
-                                    </button>
-                                )
-                            }
+                                <>
+                                    {card.actived &&
+                                        <p className="card-button">
+                                            {`Cartão de crédito ${card.lastDigits}`}
+                                            <FontAwesomeIcon
+                                                className="remove-icon"
+                                                icon={faTimes}
+                                                onClick={() => removeCard(card)} />
+                                        </p>
+                                    }
+                                </>
+                            )}
                         </>
                         : ''
                     }
@@ -140,9 +302,10 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                         validatesOnChange={[isRequired, validateCpf]}
                         setFormValidations={setFormValidations}
                         formValidation={formValidations.cpf}
-                        disabled={canEdit} />
+                        startValidations={submitted}
+                        disabled={!canEdit} />
                     <div className="row">
-                        {/* <FormOrderSelectComponent
+                        <FormOrderSelectComponent
                             label="Gênero"
                             name="gender"
                             value={internalInfo.gender}
@@ -151,7 +314,8 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                             setFormValidations={setFormValidations}
                             formValidation={formValidations.gender}
                             options={userGenderOpts}
-                            disabled={canEdit} /> */}
+                            startValidations={submitted}
+                            disabled={!canEdit} />
                         <FormFieldComponent
                             label="Idade"
                             name="age"
@@ -161,7 +325,8 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                             validatesOnChange={[isRequired, validateOnlyNumber]}
                             setFormValidations={setFormValidations}
                             formValidation={formValidations.age}
-                            disabled={canEdit} />
+                            startValidations={submitted}
+                            disabled={!canEdit} />
                     </div>
                     <div className="row">
                         <FormFieldComponent
@@ -173,7 +338,8 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                             validatesOnChange={[isRequired]}
                             setFormValidations={setFormValidations}
                             formValidation={formValidations.animalsQuantity}
-                            disabled={canEdit} />
+                            startValidations={submitted}
+                            disabled={!canEdit} />
                         <FormFieldComponent
                             label="Quant. de crianças"
                             name="childrensQuantity"
@@ -183,9 +349,10 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                             validatesOnChange={[isRequired, validateOnlyNumber]}
                             setFormValidations={setFormValidations}
                             formValidation={formValidations.childrensQuantity}
-                            disabled={canEdit} />
+                            startValidations={submitted}
+                            disabled={!canEdit} />
                     </div>
-                    {/* <FormOrderSelectComponent
+                    <FormOrderSelectComponent
                         label="Seu papel"
                         name="role"
                         value={internalInfo.role}
@@ -193,14 +360,15 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                         validatesOnChange={[isRequired]}
                         setFormValidations={setFormValidations}
                         formValidation={formValidations.role}
-                        userRoleOpts={userRoleOpts}
-                        disabled={canEdit} /> */}
+                        options={userRoleOpts}
+                        startValidations={submitted}
+                        disabled={!canEdit} />
                     <FormFieldComponent
                         label="Bio"
                         name="description"
                         value={internalInfo.description}
                         setFieldValue={setFieldValue}
-                        disabled={canEdit} />
+                        disabled={!canEdit} />
                 </div>
                 <div>
                     <FormFieldComponent
@@ -212,7 +380,8 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                         setFormValidations={setFormValidations}
                         formValidation={formValidations.cep}
                         setFieldValue={setFieldValue}
-                        disabled={canEdit} />
+                        startValidations={submitted}
+                        disabled={!canEdit} />
                     <div className="address-1-row">
                         <FormFieldComponent
                             label="Endereço"
@@ -222,7 +391,8 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                             setFormValidations={setFormValidations}
                             formValidation={formValidations.address}
                             setFieldValue={setFieldValue}
-                            disabled={canEdit} />
+                            startValidations={submitted}
+                            disabled={!canEdit} />
                         <FormFieldComponent
                             label="Número"
                             name="number"
@@ -232,10 +402,11 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                             setFormValidations={setFormValidations}
                             formValidation={formValidations.number}
                             setFieldValue={setFieldValue}
-                            disabled={canEdit} />
+                            startValidations={submitted}
+                            disabled={!canEdit} />
                     </div>
                     <div className="row">
-                        {/* <FormOrderSelectComponent
+                        <FormOrderSelectComponent
                             label="Bairro"
                             name="district"
                             value={internalInfo.district}
@@ -243,8 +414,9 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                             setFormValidations={setFormValidations}
                             formValidation={formValidations.district}
                             setFieldValue={setFieldValue}
-                            options={districtOpts}
-                            disabled={canEdit} /> */}
+                            startValidations={submitted}
+                            options={lowerCaseDistrictOpts}
+                            disabled={!canEdit} />
                         <FormFieldComponent
                             label="Favoritado como"
                             name="type"
@@ -253,17 +425,15 @@ const PerfilPage = ({ dispatch, userInfo }) => {
                             setFormValidations={setFormValidations}
                             formValidation={formValidations.type}
                             setFieldValue={setFieldValue}
-                            disabled={canEdit} />
+                            startValidations={submitted}
+                            disabled={!canEdit} />
                     </div>
                     <FormFieldComponent
                         label="Complemento"
                         name="complement"
                         value={internalInfo.complement}
-                        validatesOnChange={[isRequired]}
-                        setFormValidations={setFormValidations}
-                        formValidation={formValidations.complement}
                         setFieldValue={setFieldValue}
-                        disabled={canEdit} />
+                        disabled={!canEdit} />
                     {canEdit &&
                         <div className="buttons-container">
                             <button type="button" onClick={onCancel} className="cancel-button">Cancelar</button>

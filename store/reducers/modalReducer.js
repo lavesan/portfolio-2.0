@@ -1,7 +1,9 @@
 const initialState = {
     openAddressModal: false,
     openProductModal: false,
-    selectedProduct: {},
+    selectedProduct: {
+        quantitySuffix: '1k',
+    },
     openTermOfContractModal: false,
     openAddOrderCommentModal: false,
     openOrderToFinishModal: false,

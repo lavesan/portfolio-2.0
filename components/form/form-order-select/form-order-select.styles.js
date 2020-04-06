@@ -20,7 +20,7 @@ export const StyledOrderFormSelectField = styled.div`
 `;
 
 export const StyledOrderFormSelect = styled(Select)`
-    ${({ theme }) => css`
+    ${({ theme, disabled }) => css`
         > * {
             background-color: ${theme.gray.terciary} !important;
             border-color: ${theme.gray.terciary} !important;
@@ -31,5 +31,10 @@ export const StyledOrderFormSelect = styled(Select)`
             color: ${theme.green.primary};
             background-color: ${theme.green.penternary};
         }
+
+        ${disabled && css`
+            opacity: .7;
+            pointer-events: none;
+        `}
     `}
 `;

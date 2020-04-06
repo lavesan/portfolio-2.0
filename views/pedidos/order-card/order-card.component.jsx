@@ -12,6 +12,7 @@ import { setSelectedOrder } from '../../../store/actions/orderActions';
 import { FormTextareaComponent } from '../../../components/form/form-textarea';
 import { FormFieldComponent } from '../../../components/form/form-field';
 import { StyledProductOrderCard } from '../../pedido/product-order-card';
+import { translateOrderMethod } from '../../../helpers/order.helpers';
 
 const OrderCard = ({ dispatch, isResponsive, ...order }) => {
 
@@ -86,6 +87,9 @@ const OrderCard = ({ dispatch, isResponsive, ...order }) => {
             </div>
             <div>
                 <p><span className="labels">Data da entrega:</span> {receiveDateTime}</p>
+            </div>
+            <div>
+                <p><span className="labels">Pagamento:</span> {translateOrderMethod(order.type)}</p>
             </div>
             {showDetails
                 ? <div className="order-details-container">

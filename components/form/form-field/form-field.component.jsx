@@ -72,7 +72,7 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
                 onChange={onChange}
                 onBlur={activateOnFocusOut}
                 {...inputProps} />
-            {startErrorValidation ? <small className="error-message">{formValidation.message}</small> : ''}
+            {startErrorValidation && !inputProps.disabled ? <small className="error-message">{formValidation.message}</small> : ''}
         </StyledFieldset>
     )
 

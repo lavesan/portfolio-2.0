@@ -6,6 +6,10 @@ export const StyledProductModal = styled.div`
         flex-flow: row nowrap;
         align-items: center;
 
+        .deactivate-manage {
+            pointer-events: none;
+            opacity: .6;
+        }
         .product-image-container {
             width: 33%;
 
@@ -47,37 +51,71 @@ export const StyledProductModal = styled.div`
                 }
                 
                 .quantity-container {
-                    width: 20%;
+                    width: 30%;
+                    display: flex;
+                    flex-flow: column nowrap;
+                    align-items: flex-start;
+
+                    .quantity-label {
+                        font-size: 1rem;
+                        color: ${theme.gray.secondary};
+                        margin: 5px 0;
+                    }
                     .quantity-input {
-                        border: thin solid ${theme.gray.primary};
+                        border: 2px solid ${theme.gray.secondary};
+                        color: ${theme.gray.secondary};
+                        padding: 10px 10px;
                         border-radius: 5px;
-                        padding: 10px 5px;
+                        box-sizing: border-box;
+                        width: 100%;
+                    }
+
+                    .manage-quantity-container {
                         display: flex;
-                        justify-content: space-around;
+                        flex-flow: row nowrap;
+                        justify-content: space-evenly;
                         align-items: center;
-                        color: ${theme.gray.primary};
-                        width: 70px;
-                        height: 9px;
 
-                        .disabled {
-                            opacity: .7;
-                            pointer-events: none;
+                        > * {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            > * {
+                                height: 30px;
+                                border: thin solid ${theme.gray.primary};
+                                color: ${theme.green.terciary};
+                            }
                         }
 
-                        p {
+                        .left {
+                            border-right: none;
+                        }
+
+                        .right {
+                            border-left: none;
+                        }
+
+                        button {
                             cursor: pointer;
-                            user-select: none;
                             outline: none;
+                            background: none;
                         }
-                        .quantity-value {
-                            color: ${theme.gray.secondary};
-                            cursor: default;
+
+                        .quantity-text {
+                            height: 28px;
+                            user-select: none;
+                            white-space: nowrap;
+                            margin: 0;
+                            padding: 0 8px;
+                            display: flex;
+                            align-items: center;
                         }
                     }
                 }
 
                 .value-container {
-                    width: 40%;
+                    width: 30%;
                     display: flex;
                     flex-flow: column nowrap;
 

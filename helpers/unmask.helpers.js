@@ -3,6 +3,7 @@ export const onlyNumber = value => {
 }
 
 export const numberStringToFloatThreeDigit = value => {
+
     if (typeof value === 'number') {
         return Number(value.toFixed(3));
     }

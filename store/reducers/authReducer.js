@@ -33,7 +33,7 @@ const initialState = {
         cep: '',
         address: '',
         number: '',
-        district: '',
+        district: 'Piedade',
         complement: '',
         type: '',
     },
@@ -144,6 +144,7 @@ export const authReducer = (state = initialState, action) => {
                     addresses: [],
                     cards: [],
                 },
+                token: '',
             }
         },
     }

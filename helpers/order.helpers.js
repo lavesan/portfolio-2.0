@@ -89,6 +89,25 @@ export const districtNotValid = district => {
 
 }
 
+export const sendBackendDistrict = district => {
+
+    const formatedDistrict = removeDiacritics(district);
+
+    return formatedDistrict.replace(/^([A-Z])/, found => found.toLowerCase()).replace(/ /g, '');
+
+}
+
+export const lowerCaseDistrictOpts = (() => {
+
+    const mappedValues = districtOpts.map(opt => ({
+            ...opt,
+            value: sendBackendDistrict(opt.value),
+        })
+    )
+    return mappedValues;
+
+})()
+
 export const Brand = {
     mastercard: 'Mastercard',
     visa: 'Visa',
@@ -131,4 +150,20 @@ const translatedStatus = {
 
 export const translateOrderStatus = status => {
     return translatedStatus[status];
+}
+
+const OrderMethod = {
+    MONEY: 0,
+    CREDIT: 1,
+    DEBIT: 2,
+}
+
+const translateMethod = {
+    [OrderMethod.MONEY]: 'dinheiro',
+    [OrderMethod.CREDIT]: 'crédito',
+    [OrderMethod.DEBIT]: 'débito',
+}
+
+export const translateOrderMethod = method => {
+    return translateMethod[method];
 }

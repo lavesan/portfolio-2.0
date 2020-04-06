@@ -17,7 +17,7 @@ export const StyledResponsiveCard = styled.div`
             justify-content: space-between;
             align-items: center;
             flex-flow: row nowrap;
-            padding: 20px 32px;
+            padding: 25px 32px;
             font-size: 1rem;
             color: #fff;
             background-color: ${theme.green.primary};
@@ -92,7 +92,7 @@ export const StyledResponsiveCard = styled.div`
         }
 
         ${openCartHeader && css`
-            top: ${screenHeight - 60}px;
+            top: ${screenHeight - 70}px;
         `}
 
         ${openResponsiveCart && css`

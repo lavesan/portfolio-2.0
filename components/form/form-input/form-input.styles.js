@@ -14,7 +14,7 @@ export const StyledNeultralInput = styled.input`
             color: ${theme.gray.quaternary};
         }
 
-        ${error && css`
+        ${error && !disabled && css`
             border-color: ${theme.danger.primary};
             color: ${theme.danger.primary};
         `}

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { ModalComponent } from '../';
@@ -7,12 +7,13 @@ import { StyledProductModal } from './product-modal.styles';
 import { addProduct } from '../../../store/actions/cartActions';
 import { onlyNumberStringToFloatNumber, numberToReal } from '../../../helpers/calc.helpers';
 import { SucessButtonComponent } from '../../button';
-import { productSuffixes } from '../../../helpers/product.helper';
+import { productSuffixes, deactivateCondition, addAmountFromSuffix, removeAmountFromSuffix } from '../../../helpers/product.helper';
+import { floatToOneDigit } from '../../../helpers/pipes.helpers';
 
 const ProductModal = ({ dispatch, openProductModal, selectedProduct, screenWidth }) => {
 
     const [initialValues, setInitialValues] = useState({
-        quantity: 1,
+        quantity: 0,
     });
 
     const hasStock = useMemo(
@@ -29,6 +30,22 @@ const ProductModal = ({ dispatch, openProductModal, selectedProduct, screenWidth
         },
         [initialValues.quantity, selectedProduct.actualValueCents]
     )
+    
+    const deactivateQuantityManage = useMemo(
+        () => {
+            if (selectedProduct.quantitySuffix !== productSuffixes.KILOGRAM)
+                return deactivateCondition({
+                    quantitySuffix: selectedProduct.quantitySuffix,
+                    quantity: initialValues.quantity,
+                    quantityOnStock: selectedProduct.quantityOnStock,
+                });
+            return {
+                canAdd: false,
+                canRemove: false,
+            };
+        },
+        [initialValues.quantity, selectedProduct.quantitySuffix, selectedProduct.quantityOnStock]
+    )
 
     const suffixText = useMemo(
         () => {
@@ -44,8 +61,19 @@ const ProductModal = ({ dispatch, openProductModal, selectedProduct, screenWidth
         [screenWidth]
     )
 
-    const manageQuantity = (plus) => {
-        setInitialValues(({ quantity }) => plus ? ({ quantity: quantity + 1 }) : ({ quantity: quantity - 1 }));
+    const manageQuantity = plus => {
+
+        const finalQuantity = plus
+            ? addAmountFromSuffix({
+                quantitySuffix: selectedProduct.quantitySuffix,
+                quantity: initialValues.quantity,
+            })
+            : removeAmountFromSuffix({
+                quantitySuffix: selectedProduct.quantitySuffix,
+                quantity: initialValues.quantity,
+            });
+        setInitialValues({ quantity: finalQuantity });
+
     }
 
     const toggleModal = () => {
@@ -53,12 +81,89 @@ const ProductModal = ({ dispatch, openProductModal, selectedProduct, screenWidth
     }
 
     const addToCart = () => {
+
         dispatch(addProduct({
             ...selectedProduct,
-            quantity: 1,
+            quantity: initialValues.quantity,
         }));
         toggleModal();
+
     }
+
+    const inputValue = useMemo(
+        () => {
+
+            if (selectedProduct.quantityOnStock === initialValues.quantity) {
+                return initialValues.quantity.toFixed(3).replace('.', ',');
+            }
+            return initialValues.quantity.toFixed(3).replace('.', ',');
+
+        },
+        [initialValues.quantity]
+    )
+
+    const onChangeQuantityInput = e => {
+
+        let onlyNumbers = e.target.value.replace(/\D/g, '');
+
+        while (onlyNumbers.length < 4) {
+            onlyNumbers = `0${onlyNumbers}`;
+        }
+
+        onlyNumbers = onlyNumbers.replace(/(\d{3})$/, '.$1')
+
+        let unmaskedValue = Number(onlyNumbers).toFixed(3);
+
+        if (unmaskedValue > selectedProduct.quantityOnStock) {
+            unmaskedValue = selectedProduct.quantityOnStock;
+        }
+
+        setInitialValues({ quantity: Number(unmaskedValue) });
+
+    }
+    
+    const freeToDigitInput = useMemo(
+        () => {
+            return selectedProduct.quantitySuffix === productSuffixes.KILOGRAM;
+        },
+        [selectedProduct.quantitySuffix]
+    )
+
+    const fixedQuantitySuffix = useMemo(
+        () => {
+            return selectedProduct.quantitySuffix === productSuffixes.UNITY ? '' : 'KG';
+        },
+        [selectedProduct.quantitySuffix]
+    )
+
+    const maskedValue = useMemo(
+        () => {
+
+            if (!freeToDigitInput) {
+                if (fixedQuantitySuffix) {
+                    return floatToOneDigit(initialValues.quantity);
+                }
+                return initialValues.quantity;
+            }
+            return 0;
+
+        },
+        [initialValues.quantity]
+    )
+
+    useEffect(() => {
+
+        if (selectedProduct.quantitySuffix === productSuffixes.KILOGRAM) {
+            setInitialValues({ quantity: 0.1 });
+        } else if (selectedProduct.quantitySuffix === productSuffixes.TO_GRAM_100) {
+            setInitialValues({ quantity: 0.1 });
+        } else if (selectedProduct.quantitySuffix === productSuffixes.TO_GRAM_500) {
+            setInitialValues({ quantity: 0.5 });
+        } else {
+            setInitialValues({ quantity: 1 });
+        }
+
+    }, [selectedProduct.quantitySuffix, selectedProduct.id])
 
     return (
         <ModalComponent show={openProductModal} toggleModal={toggleModal}>
@@ -79,11 +184,34 @@ const ProductModal = ({ dispatch, openProductModal, selectedProduct, screenWidth
                     </div>
                     <div className="product-info--actions">
                         <div className="quantity-container">
-                            <div className="quantity-input">
-                                <p title="Subtrair" className={initialValues.quantity <= 1 ? 'disabled' : ''} onClick={() => manageQuantity(false)}>-</p>
-                                <p className="quantity-value">{initialValues.quantity}</p>
-                                <p title="Adicionar" onClick={() => manageQuantity(true)}>+</p>
-                            </div>
+                            <p className="quantity-label">Quantidade</p>
+                            {freeToDigitInput
+                                ? <div className="quantity-input-container">
+                                    <input
+                                        className="quantity-input"
+                                        type="text"
+                                        placeholder="0 kg"
+                                        onChange={onChangeQuantityInput}
+                                        value={inputValue} />
+                                </div>
+                                : <div className="manage-quantity-container">
+                                    <div>
+                                        <button
+                                            type="button"
+                                            className={deactivateQuantityManage.canRemove ? 'left' : 'left deactivate-manage'}
+                                            onClick={() => manageQuantity(false)}>-</button>
+                                    </div>
+                                    <div>
+                                        <p className="quantity-text"><b>{maskedValue} {fixedQuantitySuffix}</b></p>
+                                    </div>
+                                    <div>
+                                        <button
+                                            type="button"
+                                            className={deactivateQuantityManage.canAdd ? 'right' : 'right deactivate-manage'}
+                                            onClick={() => manageQuantity(true)}>+</button>
+                                    </div>
+                                </div>
+                            }
                         </div>
                         <div className="value-container">
                             <div>

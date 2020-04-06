@@ -6,6 +6,7 @@ import { StyledSuccessButton } from '../button';
 import { toggleProductModal } from '../../store/actions/modalActions';
 import { numberStringToReal, onlyNumberStringToFloatNumber } from '../../helpers/calc.helpers';
 import { percentageMask } from '../../helpers/mask.helpers';
+import { productSuffixes } from '../../helpers/product.helper';
 
 const ProductCardComponent = ({ dispatch, ...product }) => {
 
@@ -38,6 +39,13 @@ const ProductCardComponent = ({ dispatch, ...product }) => {
         [product.quantityOnStock]
     )
 
+    const productSuffix = useMemo(
+        () => {
+            return product.quantitySuffix === productSuffixes.UNITY ? productSuffixes.UNITY : productSuffixes.KILOGRAM;
+        },
+        [product.quantitySuffix]
+    )
+
     return (
         <StyledProductCard isDisabled={isDisabled}>
             {isDisabled && <>
@@ -53,7 +61,7 @@ const ProductCardComponent = ({ dispatch, ...product }) => {
                 <div className="product-image-container">
                     <img src={product.imgUrl} alt={`image-do-produto-${product.name}`} />
                 </div>
-                <h3 className="product-name"><b>{product.name} {product.quantitySuffix}</b></h3>
+                <h3 className="product-name"><b>{product.name} {productSuffix}</b></h3>
                 <section className="price-section">
                     {product.promotionalValueCents
                         ? <>

@@ -10,7 +10,7 @@ export default ({ label, name, value, setFieldValue, className, setFormValidatio
             
             for (const validationFunc of validatesOnChange) {
 
-                const validateValue = actualValue ? actualValue : (value.value ? value.value : value);
+                const validateValue = actualValue ? actualValue : (value && value.value ? value.value : value);
 
                 const validation = validationFunc(validateValue, name);
     
