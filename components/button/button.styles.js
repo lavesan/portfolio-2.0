@@ -46,9 +46,14 @@ export const StyledRevSuccessButton = styled.button`
 
 export const StyledFullRevSuccessButton = styled.button`
     ${ButtonCss}
-    ${({ theme }) => css`
+    ${({ theme, disabled }) => css`
         color: ${theme.green.primary};
         background-color: #fff;
         border: thin solid ${theme.green.primary};
+
+        ${disabled && css`
+            opacity: .7;
+            pointer-events: none;
+        `}
     `}
 `;

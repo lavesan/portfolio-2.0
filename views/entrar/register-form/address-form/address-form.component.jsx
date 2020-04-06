@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useToasts } from "react-toast-notifications";
 
@@ -23,6 +23,8 @@ const AddressFormComponent = ({ addressFormValidations, addressRegisterForm, isR
     
     const { addToast } = useToasts();
 
+    const [loadingCep, setLoadingCep] = useState(false);
+
     const setFormValidations = (func) => {
 
         const validations = func(addressFormValidations);
@@ -44,9 +46,10 @@ const AddressFormComponent = ({ addressFormValidations, addressRegisterForm, isR
         }));
     }
 
-    const searchCep = () => {
+    const searchCep = async () => {
 
-        authService.findCep(addressRegisterForm.cep.replace(/\D/g, ''))
+        setLoadingCep(true);
+        await authService.findCep(addressRegisterForm.cep.replace(/\D/g, ''))
             .then(({ data }) => {
 
                 if (districtNotValid(data.bairro)) {
@@ -68,6 +71,7 @@ const AddressFormComponent = ({ addressFormValidations, addressRegisterForm, isR
                     showToast('Você está offline');
                 }
             });
+        setLoadingCep(false);
 
     }
 
@@ -93,6 +97,7 @@ const AddressFormComponent = ({ addressFormValidations, addressRegisterForm, isR
                 <div className="w-30 search-button-container">
                     <StyledFullRevSuccessButton
                         type="button"
+                        disabled={loadingCep ? 'true' : ''}
                         notDense={isResponsive ? 'true' : ''}
                         onClick={searchCep}>
                         Pesquisar
