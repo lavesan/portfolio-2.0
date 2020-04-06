@@ -84,7 +84,7 @@ export const StyledStartPage = styled.div`
             }
             .products-container {
                 > * {
-                    padding-right: 20px;
+                    padding-right: 30px;
                     width: 200px;
                     min-width: 200px;
                 }

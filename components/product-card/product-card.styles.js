@@ -20,10 +20,14 @@ export const StyledProductCard = styled.div`
             flex-flow: column nowrap;
             padding: 10px;
             position: relative;
-            box-shadow: 0 0 6px -1px ${theme.gray.primary};
             border-radius: 4px;
             height: 100%;
             box-sizing: border-box;
+            transition: box-shadow .3s;
+
+            :hover {
+                box-shadow: 0 0 6px -1px ${theme.gray.primary};
+            }
 
             .promotional-tag {
                 position: absolute;
