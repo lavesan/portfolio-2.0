@@ -14,7 +14,9 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
 
     // Activates the validation
     const activateOnFocusOut = () => {
-        setActivationValidation(true);
+        if (!activateValidation) {
+            setActivationValidation(true);
+        }
     }
 
     const applyValidations = actualValue => {
@@ -57,6 +59,7 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
 
         setFieldValue(name, toBrDate);
         applyValidations(toBrDate);
+        activateOnFocusOut();
 
     }
 
@@ -73,7 +76,8 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
     return (
         <StyledFieldset className={className}>
             <label htmlFor={name}>{label}</label>
-            <StyledInputDatePicker ref={inputRef} onBlur={activateOnFocusOut} type="date" min={moment().format('YYYY-MM-DD')} onChange={onChange} {...inputProps} />
+            <input ref={inputRef} type="date" min={moment().format('YYYY-MM-DD')} onChange={onChange} style={{ opacity: 0, position: 'absolute', zIndex: -10 }} />
+            <StyledInputDatePicker onClick={onIconClick} {...inputProps} />
             <StyledParagraphDate onClick={onIconClick}>{typeof value === 'object' ? '' : value}</StyledParagraphDate>
             <FontAwesomeIcon onClick={onIconClick} className="responsive-datepicker-icon" icon={faCalendarAlt} />
             {startErrorValidation ? <small className="error-message">{formValidation.message}</small> : ''}

@@ -1,12 +1,13 @@
 import styled, { css } from 'styled-components';
 
-export const StyledInputDatePicker = styled.input`
+export const StyledInputDatePicker = styled.button`
     ${({ theme, error, disabled }) => css`
         border-radius: 5px;
         border: none;
         background-color: ${theme.gray.terciary};
         font-size: .9rem;
         padding: 10px 20px;
+        height: 40px;
         outline: none;
         color: ${theme.gray.terciary};
         width: 100%;

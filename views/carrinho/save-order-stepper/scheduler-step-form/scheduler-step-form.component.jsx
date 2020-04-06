@@ -53,7 +53,7 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
                 })
                 .catch(({ message }) => {
                     showToast(message);
-                    dispatch(setFreeTimes(res ? res.activeTimes : []));
+                    dispatch(setFreeTimes([]));
                 });
             setLoadingTime(false);
     

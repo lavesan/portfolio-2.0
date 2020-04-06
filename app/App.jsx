@@ -57,8 +57,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
             dispatch(setFreeTimes(res ? res.activeTimes : []));
         })
         .catch(({ message }) => {
-            showToast(message);
-            dispatch(setFreeTimes(res ? res.activeTimes : []));
+            dispatch(setFreeTimes([]));
         });
 
       const ordersIdsStorage = localStorage.getItem('orders');
