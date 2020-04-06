@@ -13,7 +13,7 @@ import { setShowHeaderAndFooter, setActualRoute, setShowHeaderInput } from '../s
 import { setCategories } from '../store/actions/categoryActions';
 import { setUserInfo, clearUserInfo } from '../store/actions/authActions';
 import { screenResize } from '../store/actions/uiActions';
-import { setPromotions, setCombos, setPromotionalProducts, setCategoryProducts } from '../store/actions/productActions';
+import { setPromotions, setCombos, setPromotionalProducts, setCategoryProducts, toogleProductFilter } from '../store/actions/productActions';
 import { toogleFullLoading } from '../store/actions/loadingActions';
 import { setActiveOrders } from '../store/actions/orderActions';
 import { categoryInstance } from '../services/category.service';
@@ -149,6 +149,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
       Router.events.on('routeChangeComplete', url => {
 
         dispatch(setActualRoute(url));
+        dispatch(toogleProductFilter(false));
 
         if (/.*entrar.*/.test(url)) {
               dispatch(setShowHeaderAndFooter({

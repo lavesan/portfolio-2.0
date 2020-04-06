@@ -72,8 +72,9 @@ export const setSelectedFilter = (selectedFilters) => ({
     ...selectedFilters, 
 })
 
-export const toogleProductFilter = () => ({
+export const toogleProductFilter = openFilter => ({
     type: TOOGLE_PRODUCT_FILTER,
+    openFilter,
 });
 
 export const setFilteredProducts = (filteredProducts) => ({

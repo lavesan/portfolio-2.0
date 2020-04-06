@@ -86,6 +86,7 @@ export const StyledStartPage = styled.div`
                 > * {
                     padding-right: 20px;
                     width: 200px;
+                    min-width: 200px;
                 }
             }
         }

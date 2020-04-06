@@ -153,7 +153,7 @@ export const productReducer = (state = initialState, action) => {
         TOOGLE_PRODUCT_FILTER() {
             return {
                 ...state,
-                openFilter: !state.openFilter,
+                openFilter: typeof action.openFilter === 'boolean' ? action.openFilter : !state.openFilter,
             }
         },
         SET_SELECTED_PROMOTION() {

@@ -1,5 +1,6 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
+import { useToasts } from "react-toast-notifications";
 import moment from 'moment';
 
 import { StyledPedidoView } from './pedido.styles';
@@ -12,9 +13,18 @@ import { FormTextareaComponent } from '../../components/form/form-textarea';
 import { orderInstance } from '../../services/order.service';
 import { setSelectedOrder } from '../../store/actions/orderActions';
 
-const PedidoView = ({ selectedOrder = {} }) => {
+const PedidoView = ({ selectedOrder = {}, activeOrders = [], orderId, dispatch }) => {
 
     const orderService = orderInstance.getInstance();
+
+    const { addToast } = useToasts();
+
+    const showToast = message => {
+        addToast(message, {
+            appearance: "error",
+            autoDismiss: true
+          })
+    }
 
     const zeroVenenoNumber = '(81) 99412-2409';
 
@@ -67,12 +77,12 @@ const PedidoView = ({ selectedOrder = {} }) => {
 
     }
 
-    useEffect(() => {
-        if (!selectedOrder.id) {
+    const reloadOrder = useCallback(
+        () => {
+            
+            const ordId = localStorage.getItem('selectedOrderId') || orderId;
 
-            const orderId = localStorage.getItem('selectedOrderId')
-
-            orderService.findAllActiveByIds([orderId])
+            orderService.findAllActiveByIds([ordId])
                 .then(res => {
                     if (!res.length) {
                         localStorage.removeItem('selectedOrderId')
@@ -83,10 +93,19 @@ const PedidoView = ({ selectedOrder = {} }) => {
                 .catch(({ message }) => {
                     showToast(message);
                 });
-   
+
+        },
+        [orderId]
+    )
+
+    useEffect(() => {
+        if (!selectedOrder.id) {
+
+            reloadOrder();
+
             if (activeOrders && activeOrders.length) {
                 setTimeout(() => {
-                    reloadOrders();
+                    reloadOrder();
                 }, 120000);
             }
 
@@ -174,6 +193,8 @@ const PedidoView = ({ selectedOrder = {} }) => {
 
 const mapStateToProps = store => ({
     selectedOrder: store.orderState.selectedOrder,
+    activeOrders: store.orderState.activeOrders,
+    orderId: store.orderState.orderId,
 })
 
 export default connect(mapStateToProps)(PedidoView);

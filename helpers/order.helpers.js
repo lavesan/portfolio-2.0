@@ -141,7 +141,7 @@ const OrderStatus = {
 
 const translatedStatus = {
     [OrderStatus.TO_FINISH]: 'A confirmar',
-    [OrderStatus.MADE]: 'Iniciado',
+    [OrderStatus.MADE]: 'Iniciada',
     [OrderStatus.PREPARING]: 'Preparando',
     [OrderStatus.SENDING]: 'A caminho',
     [OrderStatus.SENDED]: 'Entregue',

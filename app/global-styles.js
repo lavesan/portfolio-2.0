@@ -19,6 +19,7 @@ export default createGlobalStyle`
     ${({ screenWidth }) => screenWidth < 750 &&  css`
         body {
             overflow-x: hidden;
+            max-width: 100vw;
         }
     `}
 
