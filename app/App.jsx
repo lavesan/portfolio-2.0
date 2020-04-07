@@ -33,7 +33,7 @@ const StyledPage = styled.div`
   }
 `;
 
-const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPageStyle, screenWidth }) => {
+const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPageStyle, screenWidth, actualRoute }) => {
 
   const categoryService = categoryInstance.getInstance();
   const comboService = comboInstance.getInstance();
@@ -218,7 +218,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
         flexFlow: 'column nowrap',
         minHeight: '100vh',
       }}>
-          <GlobalStyle font={font} screenWidth={screenWidth} />
+          <GlobalStyle font={font} hideOverflowX={screenWidth < 750 || !(/.*carrinho.*/.test(actualRoute))} />
           <Head>
             <meta
               name="viewport"
@@ -253,6 +253,7 @@ const mapStateToProps = store => ({
     showFooter: store.routesState.showFooter,
     applyPageStyle: store.routesState.applyPageStyle,
     screenWidth: store.uiState.screenWidth,
+    actualRoute: store.routesState.actualRoute,
 });
 
 export const AppComponent = connect(mapStateToProps)(App);

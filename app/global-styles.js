@@ -16,7 +16,7 @@ export default createGlobalStyle`
         src: url(${({ font }) => font}) format("truetype");
     }
 
-    ${({ screenWidth }) => screenWidth < 750 &&  css`
+    ${({ hideOverflowX }) => hideOverflowX &&  css`
         body {
             overflow-x: hidden;
             max-width: 100vw;
