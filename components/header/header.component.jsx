@@ -80,6 +80,11 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
     return (
         <>
             <StyledHeader>
+                {isResponsive && <>
+                    <div id="top-page"></div>
+                    <a id="click-link-page-top" href="#top-page" style={{ display: 'none' }}></a>
+                </>
+                }
                 {!isResponsive &&
                     <div className="header-info">
                         <div className="header-info-actions" onClick={() => dispatch(toggleAddressModal())} title="Abrir modal com locais de entrega">

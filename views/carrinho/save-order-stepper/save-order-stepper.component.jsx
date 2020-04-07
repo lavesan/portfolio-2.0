@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useToasts } from "react-toast-notifications";
 
@@ -187,10 +187,15 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
         [responsiveStep, submittedStep]
     )
 
+    useEffect(() => {
+        const link = document.getElementById('click-link-page-top');
+        if (link) {
+            link.click();
+        }
+    }, [])
+
     return (
         <StyledSaveOrderForm className={className} onSubmit={onSubmit}>
-            <div id="top-page"></div>
-            <a id="click-link-page-top" href="#top-page" style={{ display: 'none' }}></a>
             {isResponsive
                 ? <div className="responsive-form">
                     <ResponsiveFormStep.Component isResponsive={isResponsive} submitted={ResponsiveFormStep.submitted || submitted} />

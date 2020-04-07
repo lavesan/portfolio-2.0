@@ -25,6 +25,10 @@ export const StyledSchedulerStepForm = styled.section`
                 font-weight: 500;
             }
 
+            .responsive-picker-container {
+                width: 70%;
+            }
+
             .scheduler-form-container--time-form {
                 margin-left: 20px;
             }

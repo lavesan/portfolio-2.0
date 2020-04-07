@@ -120,16 +120,18 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
             <StyledOrderFormTitle>Horário e data de entrega</StyledOrderFormTitle>
             <div className="scheduler-form-container">
                 {isResponsive
-                    ? <FormResponsiveDatePicker
-                        label="Selecione uma data"
-                        name="date"
-                        setFormValidations={setFormValidations}
-                        formValidation={scheduleValidations.date}
-                        validatesOnChange={[isRequired, isBrDate, isValidDate]}
-                        value={scheduleStep.date}
-                        startValidations={submitted}
-                        placeholder="Escolha uma data"
-                        setFieldValue={setFieldValue} />
+                    ? <div className="responsive-picker-container">
+                        <FormResponsiveDatePicker
+                            label="Selecione uma data"
+                            name="date"
+                            setFormValidations={setFormValidations}
+                            formValidation={scheduleValidations.date}
+                            validatesOnChange={[isRequired, isBrDate, isValidDate]}
+                            value={scheduleStep.date}
+                            startValidations={submitted}
+                            placeholder="Escolha uma data"
+                            setFieldValue={setFieldValue} />
+                    </div>
                     : <div>
                         <h3>Selecione uma data</h3>
                         <Calendar
