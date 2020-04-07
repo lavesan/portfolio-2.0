@@ -59,7 +59,7 @@ const ProductCardComponent = ({ dispatch, ...product }) => {
                     </div>
                 }
                 <div className="product-image-container">
-                    <img src={product.imgUrl} alt={`image-do-produto-${product.name}`} />
+                    <img src={product.imgUrl} alt={`image-do-produto-${product.name}`} onClick={addToCart} />
                 </div>
                 <h3 className="product-name"><b>{product.name} {productSuffix}</b></h3>
                 <section className="price-section">

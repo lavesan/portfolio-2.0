@@ -18,6 +18,7 @@ import { StyledSuccessButton, StyledFullRevSuccessButton, SucessButtonComponent 
 import { AuthenticationFooterComponent } from '../authentication-footer';
 import { StyledHeaderCotainer } from '../entrar.styles';
 import { setSelectedForm } from '../../../store/actions/authActions';
+import { setOrdersData } from '../../../store/actions/orderActions';
 import { sendBackendDistrict } from '../../../helpers/order.helpers';
 
 const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, returnPage, addressRegisterForm, personalRegisterForm, accessRegisterForm, accessFormValidations, personalFormValidations, addressFormValidations }) => {
@@ -156,6 +157,8 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
 
         e.preventDefault();
 
+        console.log('entrou aqui sim')
+
         if (!submittedBig) {
             setSubmittedBig(true);
         }
@@ -195,10 +198,11 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
         await authService.save(body)
             .then(res => {
                 dispatch(setUserInfo(res.user, res.token));
+                dispatch(setOrdersData([]));
                 router.push('/inicio');
             })
             .catch(({ message }) => {
-                showToast(message);
+                showToast(typeof message === 'string' ? message : 'Aconteceu um erro interno. Por favor tente mais tarde.');
             });
         setLoading(false);
     }

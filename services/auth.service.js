@@ -22,6 +22,16 @@ export class AuthService {
                     if (isInvalid) {
                         reject(res);
                     } else {
+
+                        if (res.user.orders && res.user.orders.length) {
+                            const ordersIds = res.user.orders.map(order => order.id);
+                            localStorage.setItem('orders', JSON.stringify(ordersIds));
+                            localStorage.setItem('selectedOrderId', ordersIds[0]);
+                        } else {
+                            localStorage.removeItem('orders');
+                            localStorage.removeItem('selectedOrderId');
+                        }
+
                         localStorage.setItem('userData', JSON.stringify(res.user));
                         localStorage.setItem('auth', res.token);
                         resolve(res);
@@ -38,6 +48,8 @@ export class AuthService {
                 if (isInvalid) {
                     reject(res);
                 } else {
+                    localStorage.removeItem('orders');
+                    localStorage.removeItem('selectedOrderId');
                     localStorage.setItem('userData', JSON.stringify(res.user));
                     localStorage.setItem('auth', res.token);
                     resolve(res);
@@ -52,9 +64,25 @@ export class AuthService {
                     if (isInvalid) {
                         reject(res);
                     } else {
+                        
+                        if (res.user.orders && res.user.orders.length) {
+
+                            const ordersIds = res.user.orders.map(order => order.id);
+                            localStorage.setItem('orders', JSON.stringify(ordersIds));
+
+                            if (!localStorage.getItem('selectedOrderId')) {
+                                localStorage.setItem('selectedOrderId', ordersIds[0]);
+                            }
+
+                        } else {
+                            localStorage.removeItem('orders');
+                            localStorage.removeItem('selectedOrderId');
+                        }
+
                         localStorage.setItem('userData', JSON.stringify(res.user));
                         localStorage.setItem('auth', res.token);
                         resolve(res);
+
                     }
             }))
             .catch(() => {

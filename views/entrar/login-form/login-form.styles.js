@@ -7,6 +7,7 @@ export const StyledLoginForm = styled.section`
         flex: 1;
 
         .login-form {
+            margin: 0 auto;
             max-width: 350px;
             margin-top: 20px;
             display: flex;

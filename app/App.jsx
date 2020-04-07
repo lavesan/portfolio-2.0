@@ -33,7 +33,7 @@ const StyledPage = styled.div`
   }
 `;
 
-const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPageStyle, screenWidth, actualRoute }) => {
+const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPageStyle, screenWidth, actualRoute, token }) => {
 
   const categoryService = categoryInstance.getInstance();
   const comboService = comboInstance.getInstance();
@@ -78,16 +78,20 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
 
       }
 
-      await authService.refreshToken()
-        .then(res => {
-          setTimeout(() => {
-            dispatch(setUserInfo(JSON.parse(res.user), res.token))
-          }, 500)
-        })
-        .catch(err => {
-          dispatch(clearUserInfo());
-          authService.logoff();
-        });
+      if (token) {
+
+        await authService.refreshToken()
+          .then(res => {
+            setTimeout(() => {
+              dispatch(setUserInfo(JSON.parse(res.user), res.token))
+            }, 500)
+          })
+          .catch(err => {
+            dispatch(clearUserInfo());
+            authService.logoff();
+          });
+
+      }
 
       await categoryService.getAll()
         .then(res => {
@@ -254,6 +258,7 @@ const mapStateToProps = store => ({
     applyPageStyle: store.routesState.applyPageStyle,
     screenWidth: store.uiState.screenWidth,
     actualRoute: store.routesState.actualRoute,
+    token: store.authState.token,
 });
 
 export const AppComponent = connect(mapStateToProps)(App);

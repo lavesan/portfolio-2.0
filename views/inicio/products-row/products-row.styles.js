@@ -6,7 +6,7 @@ export const StyledProductsRow = styled.div`
             display: flex;
             flex-flow: row nowrap;
             /* justify-content: space-between; */
-            justify-content: flex-start;
+            justify-content: space-between;
             align-items: center;
             h3 {
                 margin: 0 0 10px 0;
@@ -14,7 +14,7 @@ export const StyledProductsRow = styled.div`
             .navigate-buttons {
         
                 .navigate-left {
-                    margin-right: 20px;
+                    margin-right: 13px;
                 }
                 .disabled {
                     pointer-events: none;

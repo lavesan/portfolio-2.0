@@ -42,7 +42,7 @@ export const StyledProductCard = styled.div`
             }
 
             .product-image-container {
-
+                cursor: pointer;
                 overflow: hidden;
                 width: 100%;
                 height: 140px;

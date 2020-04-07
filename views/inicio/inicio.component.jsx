@@ -46,9 +46,13 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                 productsFromPromotion = productsFromPromotion.concat(promo.products);
             })
 
-            return categoryProducts.map(catProd => ({
-                ...catProd,
-                products: catProd.products.map(product => {
+            if (!categoryProducts || !categoryProducts.length) {
+                return [];
+            }
+
+            return categoryProducts.map(catProd => {
+
+                const mappedProds = catProd.products.map(product => {
 
                     const promotionalProduct = productsFromPromotion.filter(promoProd => promoProd && product && promoProd.id === product.id);
                     let bestPromotion = '';
@@ -80,8 +84,15 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                         promotionalValueCents: promotionalProduct && promotionalProduct.length ? value : '',
                     }
 
-                }),
-            }))
+                });
+
+                const filteredProds = mappedProds.filter(product => product.quantityOnStock > 0);
+
+                return {
+                    ...catProd,
+                    products: filteredProds,
+                }
+            })
         },
         [promotions, categoryProducts]
     )
