@@ -86,7 +86,15 @@ export class AuthService {
     }
 
     findCep(cep) {
-        return this.axiosInstance.get(`/${cep}/json/`);
+        return this.axiosInstance.get(`/${cep}/json/`)
+            .then(res => new Promise((resolve, reject) => {
+                if (res.status !== 200) {
+                    console.log('entrou aqui...')
+                    reject(res);
+                }
+
+                resolve(res);
+            }));
     }
 
 }

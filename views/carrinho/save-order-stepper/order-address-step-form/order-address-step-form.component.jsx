@@ -215,7 +215,7 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                         <FormTextareaComponent
                             label="Observações"
                             name="complement"
-                            legend="Se o seu endereço for de difícil acesso, por favor, nos forneça mais informações para que o Seu China, nosso entregador, consiga realizar a entrega :)"
+                            legend="Se o seu endereço for de difícil acesso, por favor, nos forneça mais informações para que Marcone e Felipe, nossos entregadores, consigam realizar a entrega :)"
                             value={addressStep.complement}
                             className="second-column"
                             setFieldValue={setFieldValue} />

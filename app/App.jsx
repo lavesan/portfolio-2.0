@@ -117,15 +117,15 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
           })
           .catch(err => {
           });
-        setTimeout(async () => {
-          await callUntilGetResult(comboService.findAll)
-              .then(res => {
-                dispatch(setCombos(res));
-              })
-              .catch(err => {
-                dispatch(setCombos([]));
-              });
-      }, 500)
+      // setTimeout(async () => {
+      //     await callUntilGetResult(comboService.findAll)
+      //         .then(res => {
+      //           dispatch(setCombos(res));
+      //         })
+      //         .catch(err => {
+      //           dispatch(setCombos([]));
+      //         });
+      // }, 500)
 
       dispatch(toogleFullLoading(false));
 

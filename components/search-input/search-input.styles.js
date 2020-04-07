@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const StyledSearchInput = styled.form`
-    ${({ theme, icon, button }) => css`
+    ${({ theme, icon, button, loading }) => css`
         position: relative;
         width: 100%;
         display: flex;
@@ -38,5 +38,10 @@ export const StyledSearchInput = styled.form`
             border: thin solid ${button.borderColor};
             background-color: ${button.backgroundColor};
         }
+
+        ${loading && css`
+            opacity: .7;
+            pointer-events: none;
+        `}
     `}
 `;

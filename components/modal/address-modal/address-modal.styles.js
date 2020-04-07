@@ -31,5 +31,15 @@ export const StyledAddressModal = styled.div`
             margin: 15px 0;
         }
 
+        .feedback {
+            color: ${theme.green.primary};
+            font-size: 1rem;
+            margin: 10px 0;
+            
+            &.error {
+                color: ${theme.danger.primary};
+            }
+        }
+
     `}
 `;

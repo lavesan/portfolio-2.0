@@ -85,9 +85,9 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
                         <div className="header-info-actions" onClick={() => dispatch(toggleAddressModal())} title="Abrir modal com locais de entrega">
                             <FontAwesomeIcon icon={faMapMarkerAlt}  /> Locais que entregamos
                         </div>
-                        <div className="header-info-actions" title="Abrir modal com horas de entrega disponíveis">
+                        {/* <div className="header-info-actions" title="Abrir modal com horas de entrega disponíveis">
                             <FontAwesomeIcon icon={faClock}  /> Horários de entrega
-                        </div>
+                        </div> */}
                     </div>
                 }
                 <div className="header-actions">
