@@ -6,9 +6,14 @@ export const StyledAboutPage = styled.section`
         flex-flow: column nowrap;
 
         .about-info-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
+            flex-flow: row nowrap;
             margin-top: 45px;
+            justify-content: space-between;
+
+            > * {
+                width: 45%;
+            }
 
             .about-us-title {
                 margin: 0;
@@ -39,7 +44,7 @@ export const StyledAboutPage = styled.section`
                 }
 
                 .big-image {
-                    height: 200px;
+                    height: 375px;
                 }
 
                 .small-images {
@@ -51,6 +56,7 @@ export const StyledAboutPage = styled.section`
 
                     > * {
                         min-width: 0;
+                        height: 100px;
                     }
                 }
             }
@@ -94,7 +100,11 @@ export const StyledAboutPage = styled.section`
         @media(max-width: 880px) {
             .about-info-container {
                 margin-top: 0;
-                grid-template-columns: 1fr;
+                flex-direction: column;
+
+                > * {
+                    width: 100%;
+                }
 
                 .images-container {
                     padding-right: 0;
