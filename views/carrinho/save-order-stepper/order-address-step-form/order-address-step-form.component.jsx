@@ -177,7 +177,7 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                         <FormOrderSelectComponent
                             label="Bairro"
                             name="district"
-                            placeholder="Ser bairro aqui"
+                            placeholder="Seu bairro aqui"
                             startValidations={submitted}
                             validatesOnChange={[isRequired]}
                             setFormValidations={setFormValidations}
