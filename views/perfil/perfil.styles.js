@@ -122,5 +122,16 @@ export const StyledPerfilPage = styled.section`
                 }
             }
         }
+
+        @media(max-width: 750px) {
+            .perfil-form {
+                flex-direction: column;
+
+                > * {
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+            }
+        }
     `}
 `

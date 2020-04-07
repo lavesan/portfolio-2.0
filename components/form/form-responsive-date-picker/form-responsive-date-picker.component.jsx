@@ -76,7 +76,7 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
     return (
         <StyledFieldset className={className}>
             <label htmlFor={name}>{label}</label>
-            <input ref={inputRef} type="date" min={moment().format('YYYY-MM-DD')} onChange={onChange} style={{ opacity: 0, position: 'absolute', zIndex: -10 }} />
+            <input ref={inputRef} type="date" min={moment().format('YYYY-MM-DD')} onChange={onChange} style={{ opacity: 0, position: 'absolute', zIndex: -99999999 }} />
             <StyledInputDatePicker onClick={onIconClick} {...inputProps} />
             <StyledParagraphDate onClick={onIconClick}>{typeof value === 'object' ? '' : value}</StyledParagraphDate>
             <FontAwesomeIcon onClick={onIconClick} className="responsive-datepicker-icon" icon={faCalendarAlt} />

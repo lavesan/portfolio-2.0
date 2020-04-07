@@ -95,7 +95,7 @@ const OrderCard = ({ dispatch, isResponsive, ...order }) => {
                 ? <div className="order-details-container">
                     <h2 className="details-title">Informações do seu pedido</h2>
                     <div className="products-container">
-                        {productsWithCombos.map(prodComb => <StyledProductOrderCard>{formatedQuantity(prodComb)}</StyledProductOrderCard>)}
+                        {productsWithCombos.map(prodComb => <StyledProductOrderCard>{formatedQuantity(prodComb)} {prodComb.product.name}</StyledProductOrderCard>)}
                         <p className="total-value-text"><strong>TOTAL {order.payed ? 'PAGO' : 'A PAGAR'}: {numberStringToReal(order.totalValueCents)}</strong></p>
                     </div>
                     <FormFieldComponent

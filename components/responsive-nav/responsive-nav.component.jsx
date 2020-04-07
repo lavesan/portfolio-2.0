@@ -93,7 +93,9 @@ const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, scre
                     </>
                 }
                 {activeOrders && activeOrders.length
-                    ? <a href="#" onClick={() => goToPage('/sobre')} className="orders-link">Ver meus pedidos</a>
+                    ? <div className="orders-link-container">
+                        <a href="#" onClick={() => goToPage('/pedidos')} className="orders-link">Ver meus pedidos</a>
+                    </div>
                     : ''
                 }
             </aside>
