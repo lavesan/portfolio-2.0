@@ -22,6 +22,16 @@ export const StyledProductCart = styled.div`
             img {
                 width: 80px;
             }
+
+            .no-image-cart-product {
+                width: 69px;
+                height: 65px;
+
+                p {
+                    font-size: .5rem;
+                }
+            }
+
         }
 
         .quantity-container {

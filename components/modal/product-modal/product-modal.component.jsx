@@ -9,6 +9,7 @@ import { onlyNumberStringToFloatNumber, numberToReal } from '../../../helpers/ca
 import { SucessButtonComponent } from '../../button';
 import { productSuffixes, deactivateCondition, addAmountFromSuffix, removeAmountFromSuffix } from '../../../helpers/product.helper';
 import { floatToOneDigit } from '../../../helpers/pipes.helpers';
+import { NoImageProduct } from '../../no-imagem-product';
 
 const ProductModal = ({ dispatch, openProductModal, selectedProduct, screenWidth }) => {
 
@@ -169,7 +170,10 @@ const ProductModal = ({ dispatch, openProductModal, selectedProduct, screenWidth
         <ModalComponent show={openProductModal} toggleModal={toggleModal}>
             <StyledProductModal>
                 <div className="product-image-container">
-                    <img src={selectedProduct.imgUrl} alt={`Image do produto ${selectedProduct.name}`}/>
+                    {selectedProduct.imgUrl
+                        ? <img src={selectedProduct.imgUrl} alt={`Image do produto ${selectedProduct.name}`}/>
+                        : <NoImageProduct className="no-image-product" />
+                    }
                 </div>
                 <div className="product-info">
                     <div className="product-info-description">

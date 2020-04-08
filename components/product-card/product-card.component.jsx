@@ -7,6 +7,7 @@ import { toggleProductModal } from '../../store/actions/modalActions';
 import { numberStringToReal, onlyNumberStringToFloatNumber } from '../../helpers/calc.helpers';
 import { percentageMask } from '../../helpers/mask.helpers';
 import { productSuffixes } from '../../helpers/product.helper';
+import { NoImageProduct } from '../../components/no-imagem-product';
 
 const ProductCardComponent = ({ dispatch, ...product }) => {
 
@@ -59,7 +60,10 @@ const ProductCardComponent = ({ dispatch, ...product }) => {
                     </div>
                 }
                 <div className="product-image-container">
-                    <img src={product.imgUrl} alt={`image-do-produto-${product.name}`} onClick={addToCart} />
+                    {product.imgUrl
+                        ? <img src={product.imgUrl} alt={`image-do-produto-${product.name}`} onClick={addToCart} />
+                        : <NoImageProduct />
+                    }
                 </div>
                 <h3 className="product-name"><b>{product.name} {productSuffix}</b></h3>
                 <section className="price-section">

@@ -8,6 +8,7 @@ import { removeProduct, setProduct } from '../../../store/actions/cartActions';
 import { numberToReal, onlyNumberStringToFloatNumber } from '../../../helpers/calc.helpers';
 import { addAmountFromSuffix, removeAmountFromSuffix, deactivateCondition, productSuffixes } from '../../../helpers/product.helper';
 import { floatToOneDigit } from '../../../helpers/pipes.helpers';
+import { NoImageProduct } from '../../../components/no-imagem-product';
 
 const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValueCents, quantitySuffix, quantityOnStock, hideRemove, isResponsive }) => {
 
@@ -114,7 +115,10 @@ const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValu
         <StyledProductCart hideRemove={hideRemove} isResponsive={isResponsive}>
             <div className="image-container">
                 <p className="product-name">{name}</p>
-                <img src={imgUrl} alt="Imagem do produto" />
+                {imgUrl
+                    ? <img src={imgUrl} alt="Imagem do produto" />
+                    : <NoImageProduct className="no-image-cart-product" />
+                }
             </div>
             <div className="quantity-container">
                 <p className="quantity-title">Quantidade</p>

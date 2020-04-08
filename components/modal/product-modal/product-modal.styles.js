@@ -17,6 +17,11 @@ export const StyledProductModal = styled.div`
                 width: 250px;
                 max-width: 100%;
             }
+            
+            .no-image-product {
+                height: 200px !important;
+            }
+            
         }
 
         .product-no-stock {
@@ -145,6 +150,11 @@ export const StyledProductModal = styled.div`
                 width: 100%;
 
                 img {
+                    width: 200px;
+                }
+
+                .no-image-product {
+                    height: 200px !important;
                     width: 200px;
                 }
             }
