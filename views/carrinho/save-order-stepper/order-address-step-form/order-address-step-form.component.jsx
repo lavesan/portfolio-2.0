@@ -11,7 +11,7 @@ import { StyledSuccessButton } from '../../../../components/button';
 import { StyledOrderFormTitle } from '../save-order-stepper.styles';
 import { setAddressValidation } from '../../../../store/actions/orderActions';
 import { isRequired, validateOnlyNumber, isCellphoneNumber } from '../../../../helpers/validations.helpers';
-import { onlyNumberMask, onlyCharactersMask, celphoneMask } from '../../../../helpers/mask.helpers';
+import { onlyNumberMask, onlyCharactersMask, celphoneMask, cepMask } from '../../../../helpers/mask.helpers';
 import { FormRadioComponent } from '../../../../components/form/form-radio';
 import { FormCheckboxComponent } from '../../../../components/form/form-checkbox';
 import { FormOrderSelectComponent } from '../../../../components/form/form-order-select';
@@ -63,7 +63,7 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
 
     const searchCep = () => {
 
-        authService.findCep(addressStep.cep)
+        authService.findCep(addressStep.cep.replace(/\D/g, ''))
             .then(({ data }) => {
 
                 const formatedDistrict = unmaskDistrictName(removeDiacritics(data.bairro));
@@ -167,7 +167,7 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                             name="cep"
                             onFocusOut={searchCep}
                             startValidations={submitted}
-                            maskOnChange={onlyNumberMask}
+                            maskOnChange={cepMask}
                             validatesOnChange={[isRequired, validateOnlyNumber]}
                             setFormValidations={setFormValidations}
                             formValidation={addressValidations.cep}

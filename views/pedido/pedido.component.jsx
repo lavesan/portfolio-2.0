@@ -30,7 +30,7 @@ const PedidoView = ({ selectedOrder = {}, activeOrders = [], dispatch, selectedO
 
     const userName = useMemo(
         () => {
-            return selectedOrder.clientName || selectedOrder.user ? selectedOrder.user.name : '';
+            return selectedOrder.userName || selectedOrder.user ? selectedOrder.user.name : '';
         },
         [selectedOrder]
     )
@@ -99,18 +99,8 @@ const PedidoView = ({ selectedOrder = {}, activeOrders = [], dispatch, selectedO
     )
 
     useEffect(() => {
-        if (!selectedOrder.id) {
-
-            reloadOrder();
-
-            if (activeOrders && activeOrders.length) {
-                setTimeout(() => {
-                    reloadOrder();
-                }, 120000);
-            }
-
-        }
-    }, [])
+        reloadOrder();
+    }, [reloadOrder])
 
     return (
         <StyledPedidoView>

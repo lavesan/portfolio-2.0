@@ -22,6 +22,7 @@ export const StyledPerfilPage = styled.section`
                 cursor: pointer;
                 outline: none;
                 margin-left: 40px;
+                white-space: nowrap;
                 
                 .pen-icon {
                     margin-right: 5px;   
@@ -124,6 +125,9 @@ export const StyledPerfilPage = styled.section`
         }
 
         @media(max-width: 750px) {
+            .title-container .logoff-button-container {
+                display: none;
+            }
             .perfil-form {
                 flex-direction: column;
 

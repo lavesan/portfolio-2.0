@@ -16,7 +16,7 @@ import { setUserInfo, clearUserInfo } from '../store/actions/authActions';
 import { screenResize } from '../store/actions/uiActions';
 import { setPromotions, setCombos, setPromotionalProducts, setCategoryProducts, toogleProductFilter } from '../store/actions/productActions';
 import { toogleFullLoading } from '../store/actions/loadingActions';
-import { setActiveOrders, setFreeTimes, setScheduleStepValues } from '../store/actions/orderActions';
+import { setActiveOrders, setFreeTimes, setScheduleStepValues, setSelectedOrder, clearSelectedOrder, setOrdersData } from '../store/actions/orderActions';
 import { categoryInstance } from '../services/category.service';
 import { comboInstance } from '../services/combo.service';
 import { authInstance } from '../services/auth.service';
@@ -33,7 +33,7 @@ const StyledPage = styled.div`
   }
 `;
 
-const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPageStyle, screenWidth, actualRoute, token }) => {
+const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPageStyle, screenWidth, actualRoute, token, activeOrders, selectedOrder }) => {
 
   const categoryService = categoryInstance.getInstance();
   const comboService = comboInstance.getInstance();
@@ -47,6 +47,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
   const initiateStates = useCallback(
     async () => {
 
+      // Init the values on the schedule step
       const today = moment().format('DD/MM/YYYY');
       dispatch(setScheduleStepValues({
         name: 'date',
@@ -60,8 +61,9 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
             dispatch(setFreeTimes([]));
         });
 
+      // Gets the order storage for that client
       const ordersIdsStorage = localStorage.getItem('orders');
-      
+
       if (ordersIdsStorage) {
         const orderIds = JSON.parse(ordersIdsStorage);
         if (orderIds) {
@@ -69,6 +71,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
         }
       }
 
+      // Refreshes the user data/token on site init
       const userData = localStorage.getItem('userData');
       const token = localStorage.getItem('auth');
 
@@ -93,6 +96,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
 
       }
 
+      // Gets the categories, products and promotions, to use on the ecommerce
       await categoryService.getAll()
         .then(res => {
           dispatch(setCategories(res))
@@ -131,11 +135,51 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
       //         });
       // }, 500)
 
+      reloadOrders();
+
+      // Finish the loading icon page
       dispatch(toogleFullLoading(false));
 
     },
     []
   )
+ 
+  const reloadOrders = () => {
+
+    if (activeOrders && activeOrders.length) {
+      
+      orderService.findAllActiveByIds(activeOrders)
+        .then(res => {
+  
+          const orderId = localStorage.getItem('selectedOrderId') || selectedOrder.id;
+          if (orderId) {
+  
+            const selectedOderResponse = res.find(order => order.id === orderId)
+            if (selectedOderResponse) {
+              dispatch(setSelectedOrder(selectedOderResponse));
+            } else {
+              dispatch(clearSelectedOrder());
+              localStorage.removeItem('selectedOrderId')
+            }
+  
+          }
+  
+          dispatch(setOrdersData(res));
+          const ordersId = res.map(order => order.id);
+          localStorage.setItem('orders', JSON.stringify(ordersId));
+  
+        })
+        .catch(({ message }) => {
+          console.log(message);
+        });
+
+    }
+
+    setTimeout(() => {
+        reloadOrders();
+    }, 120000);
+
+  }
 
   const callUntilGetResult = async (func, tries = 1) => {
 
@@ -259,6 +303,8 @@ const mapStateToProps = store => ({
     screenWidth: store.uiState.screenWidth,
     actualRoute: store.routesState.actualRoute,
     token: store.authState.token,
+    selectedOrder: store.orderState.selectedOrder,
+    activeOrders: store.orderState.activeOrders,
 });
 
 export const AppComponent = connect(mapStateToProps)(App);

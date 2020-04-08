@@ -157,8 +157,6 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
 
         e.preventDefault();
 
-        console.log('entrou aqui sim')
-
         if (!submittedBig) {
             setSubmittedBig(true);
         }

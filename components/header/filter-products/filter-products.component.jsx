@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { StyledFilterProducts } from './filter-products.styles';
@@ -7,7 +7,6 @@ import { setSelectedFilter, toogleProductFilter } from '../../../store/actions/p
 const FilterProductsComponent = ({ openFilter, selectedFilters, dispatch, className }) => {
 
     const addFilter = (filter) => {
-        // console.log('filter: ', filter);
         dispatch(setSelectedFilter(filter));
     }
 
@@ -15,10 +14,6 @@ const FilterProductsComponent = ({ openFilter, selectedFilters, dispatch, classN
         e.stopPropagation();
         dispatch(toogleProductFilter());
     }
-
-    useEffect(() => {
-        console.log('selectedFilters: ', selectedFilters);
-    }, [selectedFilters])
 
     return (
         <StyledFilterProducts show={openFilter} className={className}>

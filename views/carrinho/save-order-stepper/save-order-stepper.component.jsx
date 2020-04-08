@@ -115,7 +115,6 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
         return new Promise((resolve, reject) => {
 
             if (!submittedStep[stepName.name]) {
-                console.log('entrou aqui sim')
                 setSubmittedStep(f => ({
                     ...f,
                     [stepName.name]: true,

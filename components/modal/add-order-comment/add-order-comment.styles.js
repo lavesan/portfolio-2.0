@@ -37,8 +37,8 @@ export const StyledAddOrderCommentModal = styled.form`
             }
 
             .second-titles {
-                margin-top: 10px;
-                margin-bottom: 3px;
+                margin-top: 20px !important;
+                margin-bottom: 3px !important;
             }
 
             .product-row {

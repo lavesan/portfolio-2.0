@@ -29,7 +29,6 @@ axios.interceptors.request.use(req => {
   const token = localStorage.getItem('auth');
 
   if (token) {
-    // console.log('entrando aqui: ', token);
     req.headers = {
         ...req.headers,
         authorization: token, 

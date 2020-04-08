@@ -24,6 +24,10 @@ export const StyledPedidosPage = styled.section`
             > *:not(:last-child) {
                 margin-right: 20px;
             }
+            
+            > * {
+                margin-bottom: 20px;
+            }
         }
 
         .comment-button {

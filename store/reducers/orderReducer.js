@@ -207,6 +207,24 @@ export const orderReducer = (state = initialState, action) => {
                 ...state,
                 freeTimes: action.freeTimes,
             }
+        },
+        CLEAR_SELECTED_ORDER() {
+            return {
+                ...state,
+                selectedOrder: {
+                    quantitySuffix: '',
+                    totalValueCents: '',
+                    address: {
+                        cep: '',
+                        district: '',
+                        address: '',
+                        number: '',
+                        complement: '',
+                    },
+                    combos: [],
+                    products: [],
+                },
+            }
         }
     }
 

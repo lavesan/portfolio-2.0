@@ -46,13 +46,11 @@ const AddressModal = ({ dispatch, openAddressModal }) => {
                 const formatedDistrict = unmaskDistrictName(removeDiacritics(data.bairro));
 
                 if (priceByDistrictOpts.some(f => f.label == formatedDistrict)) {
-                    console.log('alterou sim')
                     setSucess({
                         text: 'Não fazemos entregas neste endereço :(',
                         status: false,
                     })
                 } else {
-                    console.log('chegou aqui...')
                     setSucess({
                         text: 'Entregamos no seu endereço!',
                         status: true,
@@ -61,7 +59,7 @@ const AddressModal = ({ dispatch, openAddressModal }) => {
 
             })
             .catch(err => {
-                console.log('deu pau nisto', err)
+                console.log('erro: ', err)
             });
         setLoading(false);
 

@@ -61,6 +61,7 @@ const PedidosPage = ({ activeOrders, ordersData, commentForm, commentValidations
 
     const reloadOrders = useCallback(
         () => {
+
             orderService.findAllActiveByIds(activeOrders)
                 .then(res => {
 
@@ -72,12 +73,7 @@ const PedidosPage = ({ activeOrders, ordersData, commentForm, commentValidations
                 .catch(({ message }) => {
                     showToast(message);
                 });
-   
-            if (activeOrders && activeOrders.length) {
-                setTimeout(() => {
-                    reloadOrders();
-                }, 120000);
-            }
+
         },
         [activeOrders]
     )

@@ -101,8 +101,6 @@ const AddCommentCompoent = ({
             combos,
         };
 
-        console.log('orderId: ', orderId);
-
         if (orderId) {
             body.id = orderId;
         }
@@ -114,8 +112,8 @@ const AddCommentCompoent = ({
         if (!token) {
 
             const phoneOnlyNumber = addressStep.phoneNumber.replace(/\D/g, '');
-            const ddd = phoneOnlyNumber.match(/^\d{2}/);
-            const number = phoneOnlyNumber.match(/\d{9}$/);
+            const ddd = phoneOnlyNumber.match(/^\d{2}/)[0];
+            const number = phoneOnlyNumber.match(/\d{9}$/)[0];
 
             body = {
                 ...body,

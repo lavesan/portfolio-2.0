@@ -96,11 +96,15 @@ export class AuthService {
             .then(res => {
                 localStorage.removeItem('userData');
                 localStorage.removeItem('auth');
+                localStorage.removeItem('selectedOrderId');
+                localStorage.removeItem('orders');
                 return res;
             })
             .catch(err => {
                 localStorage.removeItem('userData');
                 localStorage.removeItem('auth');
+                localStorage.removeItem('selectedOrderId');
+                localStorage.removeItem('orders');
                 return err;
             });
     }
@@ -117,7 +121,6 @@ export class AuthService {
         return this.axiosInstance.get(`/${cep}/json/`)
             .then(res => new Promise((resolve, reject) => {
                 if (res.status !== 200) {
-                    console.log('entrou aqui...')
                     reject(res);
                 }
 

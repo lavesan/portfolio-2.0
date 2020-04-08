@@ -15,6 +15,7 @@ import { cpfMask, maxLengthMask, onlyCharactersMask, celphoneMask, onlyNumberMas
 import { userRoleOpts, userGenderOpts } from '../../helpers/register.helpers';
 import { lowerCaseDistrictOpts } from '../../helpers/order.helpers';
 import { setUserInfo, clearUserInfo } from '../../store/actions/authActions';
+import { clearSelectedOrder, setOrdersData } from '../../store/actions/orderActions';
 
 const PerfilPage = ({ dispatch, userInfo }) => {
 
@@ -205,10 +206,16 @@ const PerfilPage = ({ dispatch, userInfo }) => {
     const logoff = () => {
         authService.logoff()
             .then(res => {
-                dispatch(clearUserInfo());                
+                dispatch(clearUserInfo());
+                dispatch(setOrdersData([]));
+                dispatch(clearSelectedOrder());
                 router.push('/inicio');
             })
             .catch(err => {
+                dispatch(clearUserInfo());
+                dispatch(setOrdersData([]));
+                dispatch(clearSelectedOrder());
+                router.push('/inicio');
                 console.log('erro: ', err);
             })
     }

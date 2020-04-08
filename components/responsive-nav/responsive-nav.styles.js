@@ -41,12 +41,13 @@ export const StyledResponsiveNav = styled.div`
         }
 
         .loggin-container {
-            margin-top: 70px;
+            margin-top: 45px;
+            padding-bottom: 20px;
         }
 
         .orders-link-container {
             padding: 0 20px;
-            margin: 0 auto;
+            margin: 0 auto 10px auto;
 
             .orders-link {
                 display: block;

@@ -12,6 +12,7 @@ const SET_ORDER_ID = 'SET_ORDER_ID';
 const SET_SELECTED_ORDER = 'SET_SELECTED_ORDER';
 const SET_SELECTED_ORDER_ID = 'SET_SELECTED_ORDER_ID';
 const SET_FREE_TIMES = 'SET_FREE_TIMES';
+const CLEAR_SELECTED_ORDER = 'CLEAR_SELECTED_ORDER';
 
 export const setCardStepValues = ({ name, value }) => ({
     type: SET_STEP_VALUES,
@@ -128,4 +129,8 @@ export const setSelectedOrderId = selectedOrderId => ({
 export const setFreeTimes = freeTimes => ({
     type: SET_FREE_TIMES,
     freeTimes,
+})
+
+export const clearSelectedOrder = () => ({
+    type: CLEAR_SELECTED_ORDER,
 })

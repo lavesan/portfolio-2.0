@@ -43,7 +43,7 @@ const OrderCard = ({ dispatch, isResponsive, ...order }) => {
     
     const userName = useMemo(
         () => {
-            return order.clientName || order.user ? order.user.name : '';
+            return order.userName || order.user ? order.user.name : '';
         },
         [order]
     )

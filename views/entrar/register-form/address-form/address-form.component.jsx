@@ -64,7 +64,6 @@ const AddressFormComponent = ({ addressFormValidations, addressRegisterForm, isR
 
             })
             .catch(err => {
-                console.log('window.navigator.onLine: ', window.navigator.onLine)
                 if (window.navigator.onLine) {
                     showToast('Não achamos seu endereço pelo CEP.');
                 } else {

@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 
 import { StyledPromocoesPage } from './promocoes.styles';
@@ -43,12 +43,6 @@ const PromocoesPage = ({ promotions, promotionalProducts, selectedPromotion, dis
         },
         [selectedPromotion]
     )
-
-    useEffect(() => {
-        console.log('promotions: ', promotions);
-        console.log('selectedPromotion: ', selectedPromotion);
-        console.log('produtos: ', selectedPromotion.products);
-    }, [])
 
     return (
         <StyledPromocoesPage>
