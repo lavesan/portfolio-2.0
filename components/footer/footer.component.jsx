@@ -69,10 +69,10 @@ const FooterComponent = ({ dispatch }) => {
                         {/* <p title="Facebook"><FontAwesomeIcon icon={faFacebook} /></p> */}
                     </div>
                 </div>
-                <div>
+                {/* <div>
                     <h3>Política de privacidade</h3>
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia mollitia ducimus totam, animi, modi iusto numquam officia earum id eligendi blanditiis neque distinctio. Repellat quas eligendi, dolores omnis reprehenderit eum!</p>
-                </div>
+                </div> */}
                 <div>
                     <h3>Fale conosco</h3>
                     <div className="whatsapp-container">

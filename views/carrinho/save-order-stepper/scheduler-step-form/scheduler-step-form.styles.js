@@ -41,6 +41,30 @@ export const StyledSchedulerStepForm = styled.section`
             border-radius: 5px;
             padding: 10px;
 
+            .react-calendar__navigation > * {
+                background: none !important;
+                color: ${theme.gray.secondary} !important;
+                border: none !important;
+                cursor: pointer !important;
+            }
+
+            .react-calendar__month-view__weekdays__weekday {
+                text-align: center !important;
+                > * {
+                    text-decoration: none !important;
+                }
+            }
+
+            .react-calendar__tile {
+                cursor: pointer;
+                border: none;
+                background: none;
+                height: 31px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
             .react-calendar__tile--active,
             .react-calendar__tile--active:hover,
             .react-calendar__month-view__days__day abbr:hover {

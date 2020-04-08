@@ -73,9 +73,8 @@ export const StyledCarrinhoPage = styled.div`
             position: sticky;
             top: 10px;
             right: 0;
-            /* width: ${screenWidth / 2}; */
             height: 100%;
-            width: 100%;
+            width: 50%;
         }
 
         @media(max-width: 749px) {
