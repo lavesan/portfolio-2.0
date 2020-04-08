@@ -42,7 +42,6 @@ export const StyledProductCard = styled.div`
             }
 
             .product-image-container {
-                cursor: pointer;
                 overflow: hidden;
                 width: 100%;
                 height: 140px;
@@ -51,6 +50,7 @@ export const StyledProductCard = styled.div`
                 align-items: center;
 
                 img {
+                    cursor: pointer;
                     width: 120px;
                     max-width: 100%;
                 }
