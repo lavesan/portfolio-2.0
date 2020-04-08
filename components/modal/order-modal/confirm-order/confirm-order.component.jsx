@@ -11,6 +11,7 @@ import { setActiveOrders, clearOrderForm, setOrderId, setSelectedOrderId } from 
 import { clearCart } from '../../../../store/actions/cartActions';
 import { moveResponsiveStep } from '../../../../store/actions/orderActions';
 import { StyledOrderModalComponent } from '../order-modal.styles';
+import { encode } from '../../../../helpers/auth.helpers';
 
 const ConfirmOrder = ({ toggleModal, dispatch, orderData, cardStep }) => {
 
@@ -57,16 +58,21 @@ const ConfirmOrder = ({ toggleModal, dispatch, orderData, cardStep }) => {
         }
 
         if (!cardStep.payLatter) {
-            body.card = {
+
+            const cardData = {
                 id: cardStep.id,
                 legalDocument: cardStep.cpf ? cardStep.cpf.replace(/\D/g, '') : '',
                 securityCode: cardStep.cvv,
                 nameOnCard: cardStep.fullname,
                 number: cardStep.number.replace(/\D/g, ''),
-                expirationMonth: cardStep.dueDate.match(/^\d{2}/),
-                expirationYear: cardStep.dueDate.match(/\d{2}$/),
+                expirationMonth: cardStep.dueDate.match(/^\d{2}/)[0],
+                expirationYear: cardStep.dueDate.match(/\d{2}$/)[0],
                 brand: cardStep.brand.value,
             }
+
+            // Encode the card data to send the back-end
+            body.card = encode(cardData);
+
         }
 
         await orderService.confirmOrder(body)

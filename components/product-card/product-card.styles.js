@@ -112,7 +112,7 @@ export const StyledProductCard = styled.div`
             opacity: .6;
             width: 100%;
             height: 100%;
-            z-index: 2;
+            z-index: 1;
             pointer-events: none;
             border-radius: 4px;
         }

@@ -13,7 +13,7 @@ import { AddCommentCompoent } from '../../../components/modal/add-order-comment/
 import { ConfirmOrder } from '../../../components/modal/order-modal/confirm-order';
 import { FinishOrder } from '../../../components/modal/finished-order-modal/finish-order';
 
-const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressValidations, scheduleValidations, cardValidations, token, isResponsive, responsiveStep }) => {
+const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressValidations, scheduleValidations, cardValidations, token, isResponsive, responsiveStep, userInfo, addressStep }) => {
 
     const { addToast } = useToasts();
 
@@ -33,9 +33,13 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
 
     const cardStepInvalid = () => {
         
-        const cardStepValidate = cardStep.payLatter
+        let cardStepValidate = cardStep.payLatter
             ? ['paymentType', 'cpf', 'paymentoMethod', 'changeValueCents']
             : ['paymentType', 'cpf', 'paymentoMethod', 'cvv', 'fullname', 'dueDate', 'brand'];
+
+        if (token && cardStep.id && !cardStep.payLatter) {
+            return false;
+        }
 
         return cardStepValidate.some(value => cardValidations[value] && cardValidations[value].invalid);
 
@@ -43,12 +47,16 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
 
     const addressStepInvalid = () => {
         
-        const addressStepValidate = token
+        let addressStepValidate = token
             ? ['id', 'cep', 'district', 'address', 'number', 'complement']
             : ['id', 'cep', 'district', 'address', 'number', 'complement', 'phoneNumber', 'userName'];
 
         if (token && !userInfo.contacts.length) {
             addressStepValidate.push('phoneNumber');
+        }
+
+        if (token && addressStep.id) {
+            addressStepValidate = ['phoneNumber'];
         }
 
         return addressStepValidate.some(value => addressValidations[value] && addressValidations[value].invalid);
@@ -70,7 +78,19 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
     }
 
     const formInvalid = () => {
-        return validateProducts() || cardStepInvalid() || addressStepInvalid() || scheduleStepInvalid();
+
+        const invalidProduct = validateProducts();
+
+        if (invalidProduct)
+            return invalidProduct;
+
+        const invalidForm = cardStepInvalid() || addressStepInvalid() || scheduleStepInvalid();
+
+        if (invalidForm) {
+            showToast('Parece que você deixou algum campo inválido. Por favor verifique-os.');
+        }
+
+        return invalidForm;
     }
 
     const validateResponsiveStep = () => {
@@ -229,6 +249,7 @@ const SaveOrderStepper = ({ className, cardStep, dispatch, products, addressVali
 
 const mapStateToProps = store => ({
     cardStep: store.orderState.cardStep,
+    addressStep: store.orderState.addressStep,
     scheduleValidations: store.orderState.scheduleValidations,
     addressValidations: store.orderState.addressValidations,
     cardValidations: store.orderState.cardValidations,
