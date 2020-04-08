@@ -13,7 +13,7 @@ import { FormTextareaComponent } from '../../components/form/form-textarea';
 import { orderInstance } from '../../services/order.service';
 import { setSelectedOrder } from '../../store/actions/orderActions';
 
-const PedidoView = ({ selectedOrder = {}, activeOrders = [], dispatch, selectedOrderId }) => {
+const PedidoView = ({ selectedOrder = {}, dispatch, selectedOrderId }) => {
 
     const orderService = orderInstance.getInstance();
 
@@ -30,7 +30,7 @@ const PedidoView = ({ selectedOrder = {}, activeOrders = [], dispatch, selectedO
 
     const userName = useMemo(
         () => {
-            return selectedOrder.userName || selectedOrder.user ? selectedOrder.user.name : '';
+            return selectedOrder.userName || (selectedOrder.user ? selectedOrder.user.name : '');
         },
         [selectedOrder]
     )
@@ -183,7 +183,6 @@ const PedidoView = ({ selectedOrder = {}, activeOrders = [], dispatch, selectedO
 
 const mapStateToProps = store => ({
     selectedOrder: store.orderState.selectedOrder,
-    activeOrders: store.orderState.activeOrders,
     selectedOrderId: store.orderState.selectedOrderId,
 })
 

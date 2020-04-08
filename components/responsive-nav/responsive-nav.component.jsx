@@ -7,11 +7,11 @@ import { useRouter } from 'next/router';
 import { toggleResponsiveMenu } from '../../store/actions/responsiveActions';
 import { setSelectedForm, clearUserInfo } from '../../store/actions/authActions';
 import { setProductFilters } from '../../store/actions/productActions';
-import { clearSelectedOrder, setOrdersData } from '../../store/actions/orderActions';
+import { clearSelectedOrder, setActiveOrders } from '../../store/actions/orderActions';
 import { StyledResponsiveNav } from './responsive-nav.styles';
 import { authInstance } from '../../services/auth.service';
 
-const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, screenWidth, ordersData, token }) => {
+const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, screenWidth, activeOrders, token }) => {
 
     const router = useRouter();
 
@@ -59,13 +59,13 @@ const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, scre
         authService.logoff()
             .then(res => {
                 dispatch(clearUserInfo());
-                dispatch(setOrdersData([]));
+                dispatch(setActiveOrders([]));
                 dispatch(clearSelectedOrder());
                 goToPage('/inicio')
             })
             .catch(err => {
                 dispatch(clearUserInfo());
-                dispatch(setOrdersData([]));
+                dispatch(setActiveOrders([]));
                 dispatch(clearSelectedOrder());
                 goToPage('/inicio')
             })
@@ -107,7 +107,7 @@ const ResponsiveNavComponent = ({ dispatch, showResponsiveMenu, categories, scre
                 <a onClick={() => goToPage('/sobre')}>Sobre nós</a>
             </nav>
             <aside className="loggin-container">
-                {ordersData && ordersData.length
+                {activeOrders && activeOrders.length
                     ? <div className="orders-link-container">
                         <a href="#" onClick={() => goToPage('/pedidos')} className="orders-link">Ver meus pedidos</a>
                     </div>
@@ -133,7 +133,7 @@ const mapStateToProps = store => ({
     showResponsiveMenu: store.responsiveState.showResponsiveMenu,
     categories: store.categoryState.categories,
     screenWidth: store.uiState.screenWidth,
-    ordersData: store.orderState.ordersData,
+    activeOrders: store.orderState.activeOrders,
     token: store.authState.token,
 })
 

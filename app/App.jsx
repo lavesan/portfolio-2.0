@@ -13,6 +13,7 @@ import GlobalStyle from './global-styles';
 import { setShowHeaderAndFooter, setActualRoute, setShowHeaderInput } from '../store/actions/routesActions';
 import { setCategories } from '../store/actions/categoryActions';
 import { setUserInfo, clearUserInfo } from '../store/actions/authActions';
+import { toggleResponsiveOpenresponsiveCart } from '../store/actions/responsiveActions';
 import { screenResize } from '../store/actions/uiActions';
 import { setPromotions, setCombos, setPromotionalProducts, setCategoryProducts, toogleProductFilter } from '../store/actions/productActions';
 import { toogleFullLoading } from '../store/actions/loadingActions';
@@ -87,6 +88,8 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
           .then(res => {
             setTimeout(() => {
               dispatch(setUserInfo(JSON.parse(res.user), res.token))
+              const ordersIds = res.user.orders.map(order => order.id);
+              dispatch(setActiveOrders(ordersIds))
             }, 500)
           })
           .catch(err => {
@@ -214,6 +217,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
 
         dispatch(setActualRoute(url));
         dispatch(toogleProductFilter(false));
+        dispatch(toggleResponsiveOpenresponsiveCart(false));
 
         if (/.*entrar.*/.test(url)) {
               dispatch(setShowHeaderAndFooter({

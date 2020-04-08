@@ -52,7 +52,7 @@ const ResponsiveCartComponent = ({ dispatch, products, openResponsiveCart, scree
         <>
             {screenWidth < 750 &&
                 <>
-                    <StyledResponsiveCard openResponsiveCart={openResponsiveCart && products.length && !(/.*carrinho.*/.test(actualRoute))} screenHeight={screenHeight || 2000} openCartHeader={products.length && !(/.*carrinho.*/.test(actualRoute))}>
+                    <StyledResponsiveCard openResponsiveCart={openResponsiveCart && products.length && !(/.*(?:carrinho|entrar).*/.test(actualRoute))} screenHeight={screenHeight || 2000} openCartHeader={products.length && !(/.*carrinho.*/.test(actualRoute))}>
                         <header className="cart-header" onClick={toggleCart}>
                             <div className="icon-container">
                                 <StyledIconNotification className="notify">{products.length}</StyledIconNotification>

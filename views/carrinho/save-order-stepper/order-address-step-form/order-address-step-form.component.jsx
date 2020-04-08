@@ -114,6 +114,12 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
     )
 
     useEffect(() => {
+        if (!token) {
+            setFieldValue('id', '');
+        }
+    }, [token])
+
+    useEffect(() => {
         if (userInfo.addresses.length) {
             dispatch(setAllAddressStepValues(userInfo.addresses[0]));
         }
@@ -152,7 +158,7 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                     : ''
                 }
             </div>
-            {userInfo.addresses.length ?
+            {userInfo.addresses && userInfo.addresses.length ?
                 <FormRadioComponent
                     value={addressStep.id}
                     setFieldValue={chooseAddress}

@@ -16,7 +16,7 @@ export const responsiveReducer = (state = initialState, action) => {
         TOGGLE_RESPONSIVE_OPEN_CART() {
             return {
                 ...state,
-                openResponsiveCart: !state.openResponsiveCart,
+                openResponsiveCart: typeof action.openResponsiveCart === 'boolean' ? action.openResponsiveCart : !state.openResponsiveCart,
             }
         },
     }

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import moment from 'moment';
 import { useRouter } from "next/router";
 import { connect } from 'react-redux';
@@ -43,7 +43,7 @@ const OrderCard = ({ dispatch, isResponsive, ...order }) => {
     
     const userName = useMemo(
         () => {
-            return order.userName || order.user ? order.user.name : '';
+            return order.userName || (order.user ? order.user.name : '');
         },
         [order]
     )
@@ -78,6 +78,10 @@ const OrderCard = ({ dispatch, isResponsive, ...order }) => {
         return `${formatedQuantity}${suffix}`;
 
     }
+
+    useEffect(() => {
+        console.log('productsWithCombos: ', productsWithCombos);
+    }, [productsWithCombos])
 
     return (
         <StyledOrderCard>

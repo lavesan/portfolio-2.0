@@ -11,7 +11,7 @@ import { setLoginFormValues, setLoginFormValidations } from '../../../store/acti
 import { FormTextMaterial } from '../../../components/form/form-text-material';
 import { setSelectedForm, setUserInfo } from '../../../store/actions/authActions';
 import { toogleForgotPasswordModal } from '../../../store/actions/modalActions';
-import { setOrdersData } from '../../../store/actions/orderActions';
+import { setActiveOrders } from '../../../store/actions/orderActions';
 import { isRequired, validateEmail } from '../../../helpers/validations.helpers';
 import { authInstance } from '../../../services/auth.service';
 import { AuthenticationFooterComponent } from '../authentication-footer';
@@ -73,7 +73,8 @@ const LoginFormComponent = ({ dispatch, loginForm, returnPage, loginFormValidati
             .then(res => {
 
                 dispatch(setUserInfo(res.user, res.token));
-                dispatch(setOrdersData([]));
+                const ordersIds = res.user.orders.map(order => order.id);
+                dispatch(setActiveOrders(ordersIds));
                 router.push('/inicio');
 
             })

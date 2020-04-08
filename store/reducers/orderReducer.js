@@ -44,7 +44,7 @@ const initialState = {
         dueDate: '',
         changeValueCents: '',
         paymentoMethod: 0,
-        payLatter: false,
+        payLatter: true,
         saveCard: false,
     },
     commentStep: {
@@ -153,8 +153,10 @@ export const orderReducer = (state = initialState, action) => {
             const cardStep = {};
             Object.keys(state.cardStep)
                 .map(key => {
-                    if (key === 'payLatter' || key == 'saveCard') {
+                    if (key == 'saveCard') {
                         addressStep[key] = false;
+                    } else if (key === 'payLatter') {
+                        addressStep[key] = true;
                     } else if (key === 'paymentType' || key == 'paymentoMethod') {
                         addressStep[key] = state.addressStep[key];
                     } else {

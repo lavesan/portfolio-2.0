@@ -62,7 +62,16 @@ const PedidosPage = ({ activeOrders, ordersData, commentForm, commentValidations
     const reloadOrders = useCallback(
         () => {
 
-            orderService.findAllActiveByIds(activeOrders)
+            let ordersIds = localStorage.getItem('orders');
+            ordersIds = JSON.parse(ordersIds);
+
+            if (ordersIds) {
+                ordersIds = ordersIds.map(id => Number(id));
+            } else {
+                ordersIds = [];
+            }
+
+            orderService.findAllActiveByIds(ordersIds || activeOrders)
                 .then(res => {
 
                     dispatch(setOrdersData(res));

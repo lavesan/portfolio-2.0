@@ -81,6 +81,12 @@ const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userI
     )
 
     useEffect(() => {
+        if (!token) {
+            setFieldValue('id', '');
+        }
+    }, [])
+
+    useEffect(() => {
         if (userInfo.cards.length) {
             dispatch(setAllCardStepValues(userInfo.cards[0]));
         }
@@ -94,10 +100,10 @@ const OrderSecondStepForm = ({ dispatch, cardStep, cardValidations, token, userI
                 setFieldValue={setFieldValue}
                 selected={cardStep.payLatter}
                 radios={[
-                    {
-                        label: 'Cartão de crédito',
-                        value: false,
-                    },
+                    // {
+                    //     label: 'Cartão de crédito',
+                    //     value: false,
+                    // },
                     {
                         label: 'Pagar na entrega',
                         value: true,
