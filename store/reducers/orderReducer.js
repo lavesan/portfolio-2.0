@@ -101,8 +101,10 @@ export const orderReducer = (state = initialState, action) => {
             const values = {};
 
             Object.entries(state[action.step]).forEach(([key, value]) => {
-                if (key === 'saveAddress' || key === 'saveCard' || key === 'payLatter') {
-                    values[key] = value;
+                if (key === 'saveAddress' || key === 'saveCard') {
+                    values[key] = false;
+                } else if (key === 'payLatter') {
+                    values[key] = true;
                 } else {
                     values[key] = '';
                 }

@@ -6,7 +6,7 @@ import { SucessButtonComponent } from '../../../button';
 import { orderInstance } from '../../../../services/order.service';
 import { numberStringToReal, numberToReal, onlyNumberStringToFloatNumber } from '../../../../helpers/calc.helpers';
 import { toogleOrderFinishedModal } from '../../../../store/actions/modalActions';
-import { removeAllFirstDigits } from '../../../../helpers/unmask.helpers';
+import { translateQuantitySuffixToUser } from '../../../../helpers/product.helper';
 import { setActiveOrders, clearOrderForm, setOrderId, setSelectedOrderId } from '../../../../store/actions/orderActions';
 import { clearCart } from '../../../../store/actions/cartActions';
 import { moveResponsiveStep } from '../../../../store/actions/orderActions';
@@ -125,7 +125,7 @@ const ConfirmOrder = ({ toggleModal, dispatch, orderData, cardStep }) => {
                 <h3 className="products-title" style={{ marginBottom: 0 }}>Produtos</h3>
                 {orderData.products.map(product =>
                     <div className="product-row">
-                        <p><b>{product.quantity}{removeAllFirstDigits(product.quantitySuffix)} {product.name}</b></p>
+                        <p><b>{product.quantity}{translateQuantitySuffixToUser(product.quantitySuffix)} {product.name}</b></p>
                         <p className="product-row--price">{valueFromProduct(product)}</p>
                     </div>
                     )

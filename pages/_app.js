@@ -49,6 +49,12 @@ axios.interceptors.response.use(
     
     error = error ? error : { message: 'Aconteceu um problema interno. Por favor tente mais tarde' };
 
+    if (typeof error.message !== 'string') {
+      error = {
+        message: 'Aconteceu um problema interno. Por favor tente mais tarde',
+      }
+    }
+
     return Promise.reject(error);
 
   })

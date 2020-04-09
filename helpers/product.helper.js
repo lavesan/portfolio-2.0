@@ -70,3 +70,11 @@ export const deactivateCondition = ({ quantitySuffix, quantity, quantityOnStock 
     }
     return {};
 }
+
+export const translateQuantitySuffixToUser = quantitySuffix => {
+    if (productSuffixes.UNITY === quantitySuffix) {
+        return 'x';
+    } else {
+        return 'kg';
+    }
+}

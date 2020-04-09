@@ -4,7 +4,8 @@ import { useToasts } from "react-toast-notifications";
 import moment from 'moment';
 
 import { numberToReal, onlyNumberStringToFloatNumber } from '../../../../helpers/calc.helpers';
-import { removeAllFirstDigits, unmaskDistrictName } from '../../../../helpers/unmask.helpers';
+import { unmaskDistrictName } from '../../../../helpers/unmask.helpers';
+import { translateQuantitySuffixToUser } from '../../../../helpers/product.helper';
 import { orderInstance } from '../../../../services/order.service';
 import { SucessButtonComponent } from '../../../../components/button';
 import { FormBlankTextarea } from '../../../../components/form/form-blank-textarea';
@@ -157,7 +158,7 @@ const AddCommentCompoent = ({
                 <h3 className="products-title" style={{ marginBottom: 0 }}>Produtos</h3>
                 {products.map(product =>
                     <div className="product-row">
-                        <p><b>{product.quantity}{removeAllFirstDigits(product.quantitySuffix)} {product.name}</b></p>
+                        <p><b>{product.quantity}{translateQuantitySuffixToUser(product.quantitySuffix)} {product.name}</b></p>
                         <p className="product-row--price">{valueFromProduct(product)}</p>
                     </div>
                     )
