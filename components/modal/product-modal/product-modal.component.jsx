@@ -26,7 +26,12 @@ const ProductModal = ({ dispatch, openProductModal, selectedProduct, screenWidth
 
     const totalValue = useMemo(
         () => {
-            const finalValue = selectedProduct.actualValueCents ? onlyNumberStringToFloatNumber(selectedProduct.actualValueCents) * initialValues.quantity : 0;
+
+            const valueToUse = selectedProduct.promotionalValueCents || selectedProduct.actualValueCents;
+
+            const finalValue = valueToUse
+                ? onlyNumberStringToFloatNumber(valueToUse) * initialValues.quantity
+                : 0;
             return numberToReal(finalValue);
         },
         [initialValues.quantity, selectedProduct.actualValueCents]

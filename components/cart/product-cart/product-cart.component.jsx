@@ -10,11 +10,11 @@ import { addAmountFromSuffix, removeAmountFromSuffix, deactivateCondition, produ
 import { floatToOneDigit } from '../../../helpers/pipes.helpers';
 import { NoImageProduct } from '../../../components/no-imagem-product';
 
-const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValueCents, quantitySuffix, quantityOnStock, hideRemove, isResponsive }) => {
+const ProductCartComponent = ({ name, quantity, id, dispatch, imgUrl, actualValueCents, promotionalValueCents, quantitySuffix, quantityOnStock, hideRemove, isResponsive }) => {
 
     const totalProductValue = useMemo(
         () => {
-            const unityPrice = onlyNumberStringToFloatNumber(actualValueCents);
+            const unityPrice = promotionalValueCents ? onlyNumberStringToFloatNumber(promotionalValueCents) : onlyNumberStringToFloatNumber(actualValueCents);
             return unityPrice * quantity;
         }, [actualValueCents, quantity]
     )
