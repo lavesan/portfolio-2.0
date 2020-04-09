@@ -8,10 +8,11 @@ import { productInstance } from '../../services/product.service';
 
 const PromocoesPage = ({ promotions, promotionalProducts, selectedPromotion, dispatch }) => {
 
-    const productService = productInstance.getInstance();
-
     const mapperedProducts = useMemo(
         () => {
+
+            console.log('promotions: ', promotions);
+            console.log('selectedPromotion: ', selectedPromotion);
 
             if (selectedPromotion.products && selectedPromotion.products.length) {
 
@@ -21,7 +22,7 @@ const PromocoesPage = ({ promotions, promotionalProducts, selectedPromotion, dis
 
                     selectedPromotion.products.forEach(promoProduct => {
 
-                        const comparePromoProd = promo.products.find(prod => prod.id === promoProduct.id);
+                        const comparePromoProd = promo.products.find(prod => prod.productId === promoProduct.productId);
 
                         const showProduct = comparePromoProd && onlyNumberStringToFloatNumber(comparePromoProd.valueCents) >= onlyNumberStringToFloatNumber(promoProduct.valueCents);
 

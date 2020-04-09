@@ -67,7 +67,10 @@ const HeaderComponent = ({ dispatch, categories, products, screenWidth, selected
     }
 
     const changeFilterInput = (e) => {
-        dispatch(setInputSearchField(e.target.value));
+
+        const value = typeof e === 'string' ? e : e.target.value;
+        dispatch(setInputSearchField(value));
+
     }
 
     const isResponsive = useMemo(

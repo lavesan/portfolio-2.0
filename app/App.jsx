@@ -117,6 +117,7 @@ const App = ({ Component, pageProps, dispatch, showFooter, showHeader, applyPage
       //   })
       await callUntilGetResult(productService.findProductsPromotions)
           .then(res => {
+            console.log('res: ', res);
             dispatch(setPromotions(res));
           })
           .catch(err => {

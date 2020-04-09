@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Swiper from 'react-id-swiper';
 import { useRouter } from "next/router";
@@ -54,7 +54,8 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
 
                 const mappedProds = catProd.products.map(product => {
 
-                    const promotionalProduct = productsFromPromotion.filter(promoProd => promoProd && product && promoProd.productId === product.id);
+                    const promotionalProduct = productsFromPromotion.filter(promoProd => promoProd && product && promoProd.id === product.id);
+
                     let bestPromotion = '';
                     promotionalProduct.forEach(promo => {
 
@@ -66,14 +67,16 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
                         
                     })
 
-                    let value = '0';
+                    let value = '';
                     if (promotionalProduct && promotionalProduct.length) {
 
-                        value = bestPromotion.promotionalValueCents;
-
                         promotionalProduct.forEach(promoProd => {
+                            if (!value) {
+                                value = promoProd.promotionalValueCents;
+                            }
+
                             if (Number(promoProd.promotionalValueCents) < Number(value)) {
-                                value = Number(promoProd.promotionalValueCents);
+                                value = promoProd.promotionalValueCents;
                             }
                         })
 
@@ -81,7 +84,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
 
                     return {
                         ...product,
-                        promotionalValueCents: promotionalProduct && promotionalProduct.length ? value : '',
+                        promotionalValueCents: value,
                     }
 
                 });
@@ -169,6 +172,12 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
         ));
         router.push('/produtos');
     }
+
+    useEffect(() => {
+
+        console.log('mappedProductsWithPromotions: ', mappedProductsWithPromotions);
+
+    }, [mappedProductsWithPromotions]);
 
     return (
         <StyledStartPage>
