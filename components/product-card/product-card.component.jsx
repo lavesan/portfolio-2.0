@@ -62,17 +62,17 @@ const ProductCardComponent = ({ dispatch, ...product }) => {
                 <div className="product-image-container">
                     {product.imgUrl
                         ? <img src={product.imgUrl} alt={`image-do-produto-${product.name}`} onClick={addToCart} />
-                        : <NoImageProduct />
+                        : <NoImageProduct style={{ cursor: 'pointer' }} onClick={addToCart} />
                     }
                 </div>
                 <h3 className="product-name"><b>{product.name} {productSuffix}</b></h3>
                 <section className="price-section">
                     {product.promotionalValueCents
                         ? <>
-                            <p className="price-promotion-paragraph">De: {numberStringToReal(product.promotionalValueCents)}</p>
+                            <p className="price-promotion-paragraph">De: {numberStringToReal(product.actualValueCents)}</p>
                             <p className="price-paragraph">
                                 <span className="price-text">Por:</span> 
-                                <span className="price-value">{numberStringToReal(product.actualValueCents)}</span>
+                                <span className="price-value">{numberStringToReal(product.promotionalValueCents)}</span>
                             </p>
                         </>
                         : <p className="price-paragraph">

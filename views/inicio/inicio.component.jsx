@@ -54,7 +54,7 @@ const InicioPage = ({ dispatch, screenWidth, categoryProducts, categories, promo
 
                 const mappedProds = catProd.products.map(product => {
 
-                    const promotionalProduct = productsFromPromotion.filter(promoProd => promoProd && product && promoProd.id === product.id);
+                    const promotionalProduct = productsFromPromotion.filter(promoProd => promoProd && product && promoProd.productId === product.id);
                     let bestPromotion = '';
                     promotionalProduct.forEach(promo => {
 
