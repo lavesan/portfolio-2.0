@@ -42,10 +42,12 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
 
         if (name === 'date') {
 
-            const parsedDate = scheduleStep.date
-            ? moment(scheduleStep.date).format('DD/MM/YYYY')
-            : moment().format('DD/MM/YYYY');
-    
+            const parsedDate = typeof value === 'string'
+                ? value
+                : moment(value).format('DD/MM/YYYY');
+
+            console.log('parsedDate: ', parsedDate);
+
             setLoadingTime(true);
             await orderSerivce.getFreeTimesFromDate(parsedDate)
                 .then(res => {

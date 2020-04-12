@@ -70,6 +70,7 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
     }
     
     useEffect(() => {
+
         applyValidations();
     }, [value])
 
@@ -78,7 +79,9 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
             <label htmlFor={name}>{label}</label>
             <input ref={inputRef} type="date" min={moment().format('YYYY-MM-DD')} onChange={onChange} style={{ opacity: 0, position: 'absolute', zIndex: -99999999 }} />
             <StyledInputDatePicker onClick={onIconClick} {...inputProps} />
-            <StyledParagraphDate onClick={onIconClick}>{typeof value === 'object' ? '' : value}</StyledParagraphDate>
+            {activateValidation &&
+                <StyledParagraphDate onClick={onIconClick}>{typeof value === 'object' ? '' : value}</StyledParagraphDate>
+            }
             <FontAwesomeIcon onClick={onIconClick} className="responsive-datepicker-icon" icon={faCalendarAlt} />
             {startErrorValidation ? <small className="error-message">{formValidation.message}</small> : ''}
         </StyledFieldset>
