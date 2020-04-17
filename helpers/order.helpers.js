@@ -42,6 +42,7 @@ export const priceByDistrict = {
     hipodromo: 12,
     sanMartin: 12,
     cordeiro: 12,
+    santoAmaro: 12,
     apipucos: 16,
     aguaFria: 16,
     arruda: 16,

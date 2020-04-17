@@ -66,16 +66,15 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
         authService.findCep(addressStep.cep.replace(/\D/g, ''))
             .then(({ data }) => {
 
-                const formatedDistrict = unmaskDistrictName(removeDiacritics(data.bairro));
+                const bairro = data.bairro || data.localidade;
 
-                console.log('priceByDistrict[formatedDistrict]: ', priceByDistrict[formatedDistrict]);
-                console.log('formatedDistrict: ', formatedDistrict);
+                const formatedDistrict = unmaskDistrictName(removeDiacritics(bairro));
 
                 if (!priceByDistrict[formatedDistrict]) {
                     showToast('Não fazemos entregas neste bairro :(');
                 } else {
                     const selectedDistrict = {
-                        label: data.bairro,
+                        label: bairro,
                         value: priceByDistrict[formatedDistrict],
                     };
     
