@@ -68,9 +68,11 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
 
                 const formatedDistrict = unmaskDistrictName(removeDiacritics(data.bairro));
 
-                if (priceByDistrictOpts.some(f => f.label == formatedDistrict)) {
+                console.log('priceByDistrict[formatedDistrict]: ', priceByDistrict[formatedDistrict]);
+                console.log('formatedDistrict: ', formatedDistrict);
+
+                if (!priceByDistrict[formatedDistrict]) {
                     showToast('Não fazemos entregas neste bairro :(');
-                    return;
                 } else {
                     const selectedDistrict = {
                         label: data.bairro,
@@ -234,7 +236,7 @@ const OrderAddressStepForm = ({ dispatch, addressStep, addressValidations, userI
                                 value={addressStep.saveAddress}
                                 onChange={setFieldValue} />
                         }
-                        {addressStep.district &&
+                        {addressStep.district && addressStep.district.value &&
                             <p className="freight-value-container">
                                 Valor do frete: {numberToReal(addressStep.district.value)}
                             </p>

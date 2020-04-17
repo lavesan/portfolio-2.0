@@ -70,7 +70,6 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
     }
     
     useEffect(() => {
-
         applyValidations();
     }, [value])
 

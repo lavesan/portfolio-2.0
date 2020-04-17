@@ -187,6 +187,7 @@ const RegisterFormComponent = ({ dispatch, screenWidth, registerFormStep, return
             ...personalRegisterForm,
             ...accessRegisterForm,
             legalDocument: accessRegisterForm.cpf,
+            role: Number(personalRegisterForm.role),
             address: {
                 ...addressRegisterForm,
                 district: sendBackendDistrict(addressRegisterForm.district),

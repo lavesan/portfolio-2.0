@@ -29,6 +29,7 @@ export const priceByDistrict = {
     jardimSaoPaulo: 12,
     aflitos: 12,
     torre: 12,
+    torroes: 12,
     torreao: 12,
     varzea: 12,
     bongi: 12,
@@ -40,6 +41,7 @@ export const priceByDistrict = {
     bairroNovo: 12,
     hipodromo: 12,
     sanMartin: 12,
+    cordeiro: 12,
     apipucos: 16,
     aguaFria: 16,
     arruda: 16,
@@ -49,6 +51,7 @@ export const priceByDistrict = {
     parnamirim: 16,
     casaForte: 16,
     casaAmarela: 16,
+    poco: 16,
     pocoDaPanela: 16,
     iputinga: 16,
     engenhoDoMeio: 16,
@@ -56,6 +59,7 @@ export const priceByDistrict = {
     peixinhos: 16,
     tamarineira: 16,
     tejipio: 16,
+    prazeres: 16,
 }
 
 export const priceByDistrictOpts = (() => {
