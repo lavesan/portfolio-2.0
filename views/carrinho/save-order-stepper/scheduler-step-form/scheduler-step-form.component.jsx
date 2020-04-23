@@ -32,9 +32,9 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
     }
 
     const deactiveDate = ({ date }) => {
-        
+
         const momentDate = moment(date);
-        return momentDate.day() === 0 || momentDate.isBefore(moment());
+        return momentDate.day() === 0 || momentDate.isSameOrBefore(moment().subtract(1, 'days'));
 
     }
 
@@ -45,8 +45,6 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
             const parsedDate = typeof value === 'string'
                 ? value
                 : moment(value).format('DD/MM/YYYY');
-
-            console.log('parsedDate: ', parsedDate);
 
             setLoadingTime(true);
             await orderSerivce.getFreeTimesFromDate(parsedDate)
@@ -128,7 +126,7 @@ const SchedulerStepFormComponent = ({ dispatch, scheduleStep, scheduleValidation
                             name="date"
                             setFormValidations={setFormValidations}
                             formValidation={scheduleValidations.date}
-                            validatesOnChange={[isRequired, isBrDate, isValidDate]}
+                            validatesOnChange={[isRequired, isBrDate]}
                             value={scheduleStep.date}
                             startValidations={submitted}
                             placeholder="Escolha uma data"

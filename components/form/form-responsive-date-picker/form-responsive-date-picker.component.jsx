@@ -27,6 +27,8 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
 
                 const validateValue = actualValue ? actualValue : value;
 
+                console.log('validateValue: ', validateValue);
+
                 const validation = validationFunc(validateValue, name);
     
                 setFormValidations({
@@ -71,12 +73,14 @@ export default ({ label, name, setFieldValue, className, setFormValidations, for
     
     useEffect(() => {
         applyValidations();
+        console.log('alterou: ', value);
     }, [value])
 
     return (
         <StyledFieldset className={className}>
             <label htmlFor={name}>{label}</label>
-            <input ref={inputRef} type="date" min={moment().format('YYYY-MM-DD')} onChange={onChange} style={{ opacity: 0, position: 'absolute', zIndex: -99999999 }} />
+            {/* style={{ opacity: 0, position: 'absolute', zIndex: -99999999 }} */}
+            <input ref={inputRef} type="date" min={moment().format('YYYY-MM-DD')} onChange={onChange} />
             <StyledInputDatePicker onClick={onIconClick} {...inputProps} />
             {activateValidation &&
                 <StyledParagraphDate onClick={onIconClick}>{typeof value === 'object' ? '' : value}</StyledParagraphDate>
