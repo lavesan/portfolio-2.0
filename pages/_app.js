@@ -4,9 +4,7 @@ import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux';
 import withRedux from "next-redux-wrapper";
 import { ToastProvider } from "react-toast-notifications";
-import axios from 'axios';
 import 'swiper/css/swiper.css';
-// import "react-calendar/dist/Calendar.css";
 
 import { makeStore } from "../store";
 import { AddressModal } from '../components/modal/address-modal';
