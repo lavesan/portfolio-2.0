@@ -1,26 +1,12 @@
 import { createGlobalStyle, css } from 'styled-components';
-import bobbyJonesFont from '../public/static/fonts/Bobby-Jones/BobbyJonesSoft.otf';
 
 export default createGlobalStyle`
-    
-    .styles_modal__gNwvD {
-        border-radius: 5px;
+    html {
+        scroll-behavior: smooth;
     }
 
-    .styles_closeButton__20ID4 {
-        display: none;
+    body {
+        overflow-x: hidden;
+        max-width: 100vw;
     }
-
-    @font-face {
-        font-family: 'BobbyJonesSoft';
-        src: url(${({ font }) => font}) format("truetype");
-    }
-
-    ${({ hideOverflowX }) => hideOverflowX &&  css`
-        body {
-            overflow-x: hidden;
-            max-width: 100vw;
-        }
-    `}
-
 `
