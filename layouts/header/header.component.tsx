@@ -6,23 +6,33 @@ import { IHeaderLayout } from './header.interfaces';
 export default ({ children }: IHeaderLayout) => {
 
     const goToSection = (sectionName: string): void => {
-
-        const link = document.getElementById(sectionName);
-        if (link) {
-            link.click();
-        }
-
+        location.href = "#";
+        location.href = `#${sectionName}`;
     }
 
     return (
         <HeaderLayout>
             <header className="nav-header">
-                <a
-                    href="#"
+                <button
+                    type="button"
                     className="nav-header--header-link"
                     onClick={() => goToSection('projetos')}>
-                        Projetos
-                </a>
+                    Projetos
+                </button>
+                {/* <div className="nav-header--line"></div> */}
+                <button
+                    type="button"
+                    className="nav-header--header-link"
+                    onClick={() => goToSection('sobre-mim')}>
+                    Sobre mim
+                </button>
+                {/* <div className="nav-header--line"></div> */}
+                <button
+                    type="button"
+                    className="nav-header--header-link"
+                    onClick={() => goToSection('contato')}>
+                    Contato
+                </button>
             </header>
             {children}
         </HeaderLayout>

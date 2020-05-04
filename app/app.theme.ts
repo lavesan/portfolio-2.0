@@ -13,6 +13,6 @@ export default {
         primary: '#d40404',
     },
     white: {
-        secondary: 'F9FCFF',
+        primary: '#F9FCFF',
     },
 }
