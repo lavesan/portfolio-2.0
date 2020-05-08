@@ -2,13 +2,9 @@ import React from 'react';
 
 import { HeaderLayout } from './header.styles';
 import { IHeaderLayout } from './header.interfaces';
+import { goToSection } from '../../helpers/location.helpers';
 
 export default ({ children }: IHeaderLayout) => {
-
-    const goToSection = (sectionName: string): void => {
-        location.href = "#";
-        location.href = `#${sectionName}`;
-    }
 
     return (
         <HeaderLayout>

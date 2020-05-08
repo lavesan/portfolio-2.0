@@ -1,0 +1,17 @@
+[
+    { "value": "JavaScript", "count": 30 },
+    { "value": "HTML", "count": 18 },
+    { "value": "CSS", "count": 20 },
+    { "value": "Reactjs", "count": 38 },
+    { "value": "React native", "count": 34 },
+    { "value": "Typescript", "count": 24 },
+    { "value": "Git", "count": 21 },
+    { "value": "Angular 2+", "count": 30 },
+    { "value": "Vue.js", "count": 27 },
+    { "value": "Nextjs", "count": 23 },
+    { "value": "Nodejs", "count": 38 },
+    { "value": "Nestjs", "count": 31 },
+    { "value": "Amazon AWS", "count": 38 },
+    { "value": "JQuery", "count": 20 },
+    { "value": "Regex", "count": 21 }
+]

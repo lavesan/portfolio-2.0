@@ -36,6 +36,7 @@ const App = ({ Component, pageProps }: IApp) => {
               name="description"
               content="Faço seu site do começo ao fim, utilizando tecnologias atuais e com ótimo suporte."
             />
+            <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600&display=swap" rel="stylesheet"></link>
             <meta name="keywords" content="portfolio,desenvolvedor,developer,javascript,react,nodejs,node,sites,freelancer,fullstack,frontend,backend" />
             <meta name="author" content="Valdery Alves Paes Júnior <valdery.jur@gmail.com> (http://valderyalves.com)" />
             <title>Valdery - desenvolvedor de sites</title>

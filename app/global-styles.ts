@@ -9,5 +9,6 @@ export default createGlobalStyle`
         overflow-x: hidden;
         max-width: 100vw;
         color: ${({ theme }: any) => theme.gray.secondary};
+        margin: 0;
     }
 `

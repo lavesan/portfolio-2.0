@@ -2,19 +2,20 @@ import styled, { css } from 'styled-components';
 
 export const HeaderLayout = styled.section`
     ${({ theme }) => css`
-        margin-left: 192px;
+        margin-left: 92px;
 
         .nav-header {
             display: flex;
             flex-flow: column nowrap;
             height: 100vh;
-            width: 180px;
+            width: 80px;
             position: fixed;
             top: 0;
             left: 0;
-            background-color: ${theme.white.primary};
+            background-color: ${theme.black.primary};
+            border-right: 2px solid ${theme.green.primary};
             padding-left: 20px;
-            box-shadow: 1px 1px 11px 1px ${theme.gray.primary};
+            /* box-shadow: 1px 1px 11px 1px ${theme.gray.primary}; */
 
             > * {
                 margin-top: 30px;
@@ -26,7 +27,7 @@ export const HeaderLayout = styled.section`
                 background: none;
                 border: none;
                 cursor: pointer;
-                font-size: 1.3rem;
+                font-size: .8rem;
                 outline: none;
                 text-align: start;
 

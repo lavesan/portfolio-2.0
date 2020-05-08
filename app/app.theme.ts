@@ -15,4 +15,13 @@ export default {
     white: {
         primary: '#F9FCFF',
     },
+    brands: {
+        whatsapp: '#25D366',
+        telegram: '#0088CC',
+        gmail: '#c71610',
+    },
+    black: {
+        primary: '#181818',
+        secondary: '#444',
+    },
 }
