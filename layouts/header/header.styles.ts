@@ -2,11 +2,12 @@ import styled, { css } from 'styled-components';
 
 export const HeaderLayout = styled.section`
     ${({ theme }) => css`
-        margin-left: 92px;
+        margin-left: 80px;
 
         .nav-header {
             display: flex;
             flex-flow: column nowrap;
+            justify-content: center;
             height: 100vh;
             width: 80px;
             position: fixed;
@@ -14,8 +15,6 @@ export const HeaderLayout = styled.section`
             left: 0;
             background-color: ${theme.black.primary};
             border-right: 2px solid ${theme.green.primary};
-            padding-left: 20px;
-            /* box-shadow: 1px 1px 11px 1px ${theme.gray.primary}; */
 
             > * {
                 margin-top: 30px;
@@ -29,11 +28,24 @@ export const HeaderLayout = styled.section`
                 cursor: pointer;
                 font-size: .8rem;
                 outline: none;
-                text-align: start;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-flow: column nowrap;
 
-                :hover {
-                    text-decoration: underline;
-                    text-decoration-color: ${theme.green.primary};
+                .nav-header--header-link--icon {
+                    width: 25px;
+                }
+
+                .nav-header--header-link--text {
+                    opacity: 0;
+                    height: 0;
+                    transition: .3s;
+                }
+
+                :hover .nav-header--header-link--text {
+                    opacity: 1;
+                    height: 10px;
                 }
             }
 

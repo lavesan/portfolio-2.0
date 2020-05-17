@@ -1,6 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faWhatsapp, faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
+// import { useViewportScroll, useTransform } from 'react-motion-ui-pack';
 
 import { TagcloudComponent } from '../../components/tagcloud';
 import { ProjectCardComponent } from '../../components/project-card';
@@ -19,7 +20,9 @@ export default () => {
         about: null,
         projects: null,
         contact: null,
-    });
+    })
+
+    const aboutSection = useRef<HTMLTableSectionElement>(null);
     
     const onRefChange = useCallback((node, refName) => {
         // ref value changed to node
@@ -34,9 +37,34 @@ export default () => {
         }
     }, []);
 
+    const isBottom = (el: any) => {
+        return el.getBoundingClientRect().bottom <= window.innerHeight;
+    }
+
+    const trackScrolling = () => {
+
+        if (aboutSection.current) {
+            const isto = aboutSection.current.getBoundingClientRect().bottom <= (window.innerHeight * 2);
+            console.log('isto: ', isto);
+        }
+
+    }
+
+    const handleInit = () => {
+        document.addEventListener('scroll', trackScrolling);
+    }
+      
+    const componentWillUnmount = () => {
+        document.removeEventListener('scroll', trackScrolling);
+    }
+
+    useEffect(() => {
+        handleInit();
+    }, [handleInit])
+
     return (
         <StyledInicioPage>
-            <section className="introduction-section">
+            <section className="introduction-section" id="inicio">
                 <div className="introduction-section--info">
                     <p className="introduction-section--info--name">Valdery Paes</p>
                     <h1>Desenvolvedor de sites/aplicativos</h1>
@@ -58,9 +86,9 @@ export default () => {
                 </div>
             </section>
             {/* <hr /> */}
-            <section className="about-section">
+            <section className="about-section" id="sobre-mim">
                 <div className="titles-container">
-                    <h2 id="sobre-mim" ref={useCallback((node) => onRefChange(node, 'about'), [])}>Sobre mim</h2>
+                    <h2 ref={useCallback((node) => onRefChange(node, 'about'), [])}>Sobre mim</h2>
                     <StyledUnderbarTitle width={titlesRef.about ? titlesRef.about.offsetWidth : 0} />
                 </div>
                 <div className="about-section--info-container">
@@ -74,17 +102,17 @@ export default () => {
                 </div>
             </section>
             {/* <hr /> */}
-            <section>
+            <section id="projetos" ref={aboutSection}>
                 <div className="titles-container">
-                    <h2 id="projetos" ref={useCallback((node) => onRefChange(node, 'projects'), [])}>Projetos</h2>
+                    <h2 ref={useCallback((node) => onRefChange(node, 'projects'), [])}>Projetos</h2>
                     <StyledUnderbarTitle width={titlesRef.projects ? titlesRef.projects.offsetWidth : 0} />
                 </div>
                 {projectsJSON.map(project => <ProjectCardComponent key={project.id} {...project} />)}
             </section>
             {/* <hr /> */}
-            <section className="contact-section">
+            <section className="contact-section" id="contato">
                 <div className="titles-container">
-                    <h2 id="contato" ref={useCallback((node) => onRefChange(node, 'contact'), [])}>Contato</h2>
+                    <h2 ref={useCallback((node) => onRefChange(node, 'contact'), [])}>Contato</h2>
                     <StyledUnderbarTitle width={titlesRef.contact ? titlesRef.contact.offsetWidth : 0} />
                 </div>
                 <p className="description">
