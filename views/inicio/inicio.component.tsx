@@ -1,13 +1,16 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faWhatsapp, faTelegramPlane } from '@fortawesome/free-brands-svg-icons';
-// import { useViewportScroll, useTransform } from 'react-motion-ui-pack';
+import ScrollTrigger from "react-scroll-trigger";
+import { motion } from "framer-motion";
 
 import { TagcloudComponent } from '../../components/tagcloud';
 import { ProjectCardComponent } from '../../components/project-card';
 import { StyledInicioPage, StyledUnderbarTitle } from './inicio.styles';
 import { ContactCardComponent } from '../../components/contact-card';
 import { goToSection } from '../../helpers/location.helpers';
+import { BounceWordAnimation } from '../../components/bounce-word';
+import { IShowSections } from './inicio.interfaces';
 // @ts-ignore
 import myImage from '../../public/static/imgs/foto-portfolio.jpeg';
 import projectsJSON from '../../public/static/projects.json';
@@ -19,10 +22,20 @@ export default () => {
     const [titlesRef, setTitlesRef] = useState<any>({
         about: null,
         projects: null,
+        blogs: null,
         contact: null,
-    })
+    });
+    const [showSection, setShowSection] = useState<IShowSections>({
+        about: false,
+        projects: false,
+        blogs: false,
+        contact: false,
+    });
 
-    const aboutSection = useRef<HTMLTableSectionElement>(null);
+    const aboutSection              = useRef<HTMLTableSectionElement>(null);
+    const name                      = Array.from('Valdery Paes');
+    const service                   = Array.from('Desenvolvedor de sites/aplicativos');
+    const role                      = Array.from('freelancer full-stack');
     
     const onRefChange = useCallback((node, refName) => {
         // ref value changed to node
@@ -37,38 +50,29 @@ export default () => {
         }
     }, []);
 
-    const isBottom = (el: any) => {
-        return el.getBoundingClientRect().bottom <= window.innerHeight;
+    const onScrollEnter = (name: string) => {
+        setShowSection(f => ({
+            ...f,
+            [name]: true,
+        }));
     }
 
-    const trackScrolling = () => {
-
-        if (aboutSection.current) {
-            const isto = aboutSection.current.getBoundingClientRect().bottom <= (window.innerHeight * 2);
-            console.log('isto: ', isto);
-        }
-
+    const onScrollExit = (name: string) => {
+        setShowSection(f => ({
+            ...f,
+            [name]: false,
+        }));
     }
-
-    const handleInit = () => {
-        document.addEventListener('scroll', trackScrolling);
-    }
-      
-    const componentWillUnmount = () => {
-        document.removeEventListener('scroll', trackScrolling);
-    }
-
-    useEffect(() => {
-        handleInit();
-    }, [handleInit])
 
     return (
         <StyledInicioPage>
             <section className="introduction-section" id="inicio">
                 <div className="introduction-section--info">
-                    <p className="introduction-section--info--name">Valdery Paes</p>
-                    <h1>Desenvolvedor de sites/aplicativos</h1>
-                    <p>freelancer full-stack</p>
+                    <p className="introduction-section--info--name">
+                        {name.map((word, index) =><BounceWordAnimation key={index} activateOnClick={true}>{word}</BounceWordAnimation>)}
+                    </p>
+                    <h1>{service.map((word, index) => <BounceWordAnimation key={index} activateOnClick={true}>{word}</BounceWordAnimation>)}</h1>
+                    <p>{role.map((word, index) => <BounceWordAnimation key={index} activateOnClick={true}>{word}</BounceWordAnimation>)}</p>
                     <div className="introduction-section--info--buttons-container">
                         <button
                             type="button"
@@ -85,23 +89,23 @@ export default () => {
                     </div>
                 </div>
             </section>
-            {/* <hr /> */}
-            <section className="about-section" id="sobre-mim">
-                <div className="titles-container">
-                    <h2 ref={useCallback((node) => onRefChange(node, 'about'), [])}>Sobre mim</h2>
-                    <StyledUnderbarTitle width={titlesRef.about ? titlesRef.about.offsetWidth : 0} />
-                </div>
-                <div className="about-section--info-container">
-                    <div className="about-section--info-container--img-container">
-                        <img src={myImage} alt="Minha foto" />
+            <ScrollTrigger onEnter={() => onScrollEnter('projects')} onExit={() => onScrollExit('projects')}>
+                <section className="about-section" id="sobre-mim">
+                    <div className="titles-container">
+                        <h2 ref={useCallback((node) => onRefChange(node, 'about'), [])}>Sobre mim</h2>
+                        <StyledUnderbarTitle width={titlesRef.about ? titlesRef.about.offsetWidth : 0} />
                     </div>
-                    <p>Algo ai</p>
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                    <TagcloudComponent data={languages} />
-                </div>
-            </section>
-            {/* <hr /> */}
+                    <div className="about-section--info-container">
+                        <div className="about-section--info-container--img-container">
+                            <img src={myImage} alt="Minha foto" />
+                        </div>
+                        <p>Algo ai</p>
+                    </div>
+                    <div style={{ textAlign: 'center' }}>
+                        <TagcloudComponent data={languages} />
+                    </div>
+                </section>
+            </ScrollTrigger>
             <section id="projetos" ref={aboutSection}>
                 <div className="titles-container">
                     <h2 ref={useCallback((node) => onRefChange(node, 'projects'), [])}>Projetos</h2>
@@ -109,7 +113,12 @@ export default () => {
                 </div>
                 {projectsJSON.map(project => <ProjectCardComponent key={project.id} {...project} />)}
             </section>
-            {/* <hr /> */}
+            <section id="blogs">
+                <div className="titles-container">
+                    <h2 ref={useCallback((node) => onRefChange(node, 'blogs'), [])}>Blogs</h2>
+                    <StyledUnderbarTitle width={titlesRef.blogs ? titlesRef.blogs.offsetWidth : 0} />
+                </div>
+            </section>
             <section className="contact-section" id="contato">
                 <div className="titles-container">
                     <h2 ref={useCallback((node) => onRefChange(node, 'contact'), [])}>Contato</h2>

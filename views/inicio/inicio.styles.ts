@@ -37,15 +37,21 @@ export const StyledInicioPage = styled.section`
                 flex-flow: row nowrap;
                 justify-content: space-between;
                 align-items: center;
-                width: 50%;
+                width: 370px;
                 margin: 0 auto;
-                margin-top: 40px;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translate(-50%, -50%);
             }
         }
 
         .introduction-section--info {
-            margin: auto 0;
             width: 100%;
+            position: relative;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
 
             h1 {
                 font-size: 2.5rem;
