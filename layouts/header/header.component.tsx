@@ -1,14 +1,12 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faEnvelope, faFolder, faUser } from '@fortawesome/free-solid-svg-icons';
-// import { faEnvelope, faFolder, faUser } from '@fortawesome/free-regular-svg-icons';
-// import { faEnvelope, faFolder, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faEnvelope, faFolder, faUser, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 
 import { HeaderLayout } from './header.styles';
-import { IHeaderLayout } from './header.interfaces';
+import { IChildren } from './header.interfaces';
 import { goToSection } from '../../helpers/location.helpers';
 
-export default ({ children }: IHeaderLayout) => {
+export default ({ children }: IChildren) => {
 
     return (
         <HeaderLayout>
@@ -23,19 +21,24 @@ export default ({ children }: IHeaderLayout) => {
                 <button
                     type="button"
                     className="nav-header--header-link"
-                    onClick={() => goToSection('projetos')}>
-                    <FontAwesomeIcon icon={faFolder} className="nav-header--header-link--icon" />
-                    <span className="nav-header--header-link--text">Projetos</span>
-                </button>
-                {/* <div className="nav-header--line"></div> */}
-                <button
-                    type="button"
-                    className="nav-header--header-link"
                     onClick={() => goToSection('sobre-mim')}>
                     <FontAwesomeIcon icon={faUser} className="nav-header--header-link--icon" />
                     <span className="nav-header--header-link--text">Sobre mim</span>
                 </button>
-                {/* <div className="nav-header--line"></div> */}
+                <button
+                    type="button"
+                    className="nav-header--header-link"
+                    onClick={() => goToSection('projetos')}>
+                    <FontAwesomeIcon icon={faFolder} className="nav-header--header-link--icon" />
+                    <span className="nav-header--header-link--text">Projetos</span>
+                </button>
+                <button
+                    type="button"
+                    className="nav-header--header-link"
+                    onClick={() => goToSection('blogs')}>
+                    <FontAwesomeIcon icon={faCommentDots} className="nav-header--header-link--icon" />
+                    <span className="nav-header--header-link--text">Blogs</span>
+                </button>
                 <button
                     type="button"
                     className="nav-header--header-link"

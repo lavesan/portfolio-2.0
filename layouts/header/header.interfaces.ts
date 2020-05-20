@@ -1,5 +1,6 @@
 import React from 'react';
 
-export interface IHeaderLayout {
+// IHeaderLayout
+export interface IChildren {
     children: React.ReactNode;
 }
