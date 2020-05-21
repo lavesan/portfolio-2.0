@@ -6,6 +6,21 @@ export const StyledInicioPage = styled.section`
             padding: 35px;
         }
 
+        > hr {
+            width: 95%;
+            margin: 0 auto;
+            border-color: ${theme.gray.primary};
+        }
+
+        .black-bg {
+            background-color: ${theme.black.secondary};
+            color: ${theme.white.primary};
+        }
+
+        .white-bg {
+            background-color: ${theme.white.primary};
+        }
+
         h2 {
             font-size: 1.9rem;
             margin: 0;
@@ -27,8 +42,6 @@ export const StyledInicioPage = styled.section`
             display: flex;
             flex-flow: row nowrap;
             height: 100vh;
-            background-color: ${theme.black.secondary};
-            color: ${theme.white.primary};
             box-sizing: border-box;
             font-family: 'Lora', serif;
 
@@ -71,6 +84,7 @@ export const StyledInicioPage = styled.section`
             .about-section--info-container {
                 display: flex;
                 flex-flow: row nowrap;
+                margin-bottom: 20px;
 
                 .about-section--info-container--img-container {
                     border-radius: 50%;
@@ -82,6 +96,11 @@ export const StyledInicioPage = styled.section`
                     img {
                         width: inherit;
                     }
+                }
+
+                .about-section--info-container--text-title {
+                    margin: 0;
+                    color: ${theme.green.primary};
                 }
             }
 
