@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faEnvelope, faFolder, faUser, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 import { HeaderLayout } from './header.styles';
 import { IChildren } from './header.interfaces';
@@ -46,6 +47,23 @@ export default ({ children }: IChildren) => {
                     <FontAwesomeIcon icon={faEnvelope} className="nav-header--header-link--icon" />
                     <span className="nav-header--header-link--text">Contato</span>
                 </button>
+                <aside className="nav-header--social-links-container">
+                    <a
+                        href="https://github.com/lavesan"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Github">
+                        <FontAwesomeIcon icon={faGithub} />
+                    </a>
+                    <a
+                        href="https://www.linkedin.com/in/valdery-alves-a32653160/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Linkedin"
+                        className="nav-header--social-links-container--linkedin">
+                        <FontAwesomeIcon icon={faLinkedin} />
+                    </a>
+                </aside>
             </header>
             {children}
         </HeaderLayout>

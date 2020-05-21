@@ -11,6 +11,7 @@ export const HeaderLayout = styled.section`
             height: 100vh;
             width: 80px;
             position: fixed;
+            z-index: 2;
             top: 0;
             left: 0;
             background-color: ${theme.black.primary};
@@ -53,6 +54,32 @@ export const HeaderLayout = styled.section`
                 height: 20px;
                 width: 2px;
                 background-color: ${theme.green.primary};
+            }
+
+            .nav-header--social-links-container {
+                position: absolute;
+                bottom: 5px;
+                left: 0;
+                z-index: 3;
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: center;
+                width: 100%;
+
+                > :not(:last-child) {
+                    margin-bottom: 10px;
+                }
+
+                > * {
+                    display: inline-block;
+                    text-align: center;
+                    width: 30px;
+                    color: ${theme.green.primary};
+                }
+
+                .nav-header--social-links-container--linkedin:hover {
+                    color: ${theme.brands.telegram};
+                }
             }
         }
         /* .nav-responsive-header {
