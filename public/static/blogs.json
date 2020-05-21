@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "title": "Capturando alteração da referência de um elemento",
+        "briefText": "Muitas vezes utilizando function components no React, já me peguei com um problema peculiar: ao carregar a página...",
+        "href": "https://medium.com/@valdery.jur/capturando-a-referência-de-um-elemento-483d04b4faf6",
+        "imgUrl": ""
+    },
+    {
+        "id": 2,
+        "title": "Configuração de API .NET core 3.1 com PostgreSQL utilizando EntityFramework, com o CORS configurado",
+        "briefText": "Uns dias atrás eu me deparei com a necessidade de construir do 0 uma API em .NET utilizando o PostgreSQL. Até...",
+        "href": "https://medium.com/@valdery.jur/configuração-de-api-net-core-3-1-com-postgresql-utilizando-entityframework-e-do-cors-9e441ab87200",
+        "imgUrl": ""
+    }
+]
