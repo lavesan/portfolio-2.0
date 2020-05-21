@@ -4,16 +4,16 @@ export default {
         secondary: '#8FD694',
     },
     gray: {
-        primary: '#C4C4C4',
+        primary: '#FAFAFA',
         secondary: '#4E4D4D',
-        terciary: '#FAFAFA',
+        terciary: '#C4C4C4',
         quaternary: '#B2B2B2',
     },
     danger: {
         primary: '#d40404',
     },
     white: {
-        primary: '#F9FCFF',
+        primary: '#f5f5f5',
     },
     brands: {
         whatsapp: '#25D366',
