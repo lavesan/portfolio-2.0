@@ -7,5 +7,6 @@ export const StyledSucessButton = styled.button`
         cursor: pointer;
         border: thin solid ${theme.gray.secondary};
         color: ${theme.gray.secondary};
+        padding: 10px 20px;
     `}
 `;

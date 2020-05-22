@@ -1,13 +1,14 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { StyledSlideShow } from './slide-show.styles';
-import { ISlideShow } from './slide-show.interfaces';
+import { ISlideShow, IProject } from './slide-show.interfaces';
 import { ProjectCardComponent } from './project-card';
 
 export default ({ projects, frameworks }: ISlideShow) => {
 
     const [selectedFramework, setSelectedFramework] = useState<string>(frameworks[0]);
     const [selectedProject, setSelectedProject]     = useState<any>({ id: 0 });
+    const [projectsToDisplay, setProjectToDisplay]  = useState<IProject[]>([]);
 
     const onFrameworkClick = (framework: string) => {
         setSelectedFramework(framework);
@@ -17,12 +18,22 @@ export default ({ projects, frameworks }: ISlideShow) => {
         setSelectedProject(project);
     }
 
-    const projectsToDisplay = useMemo(
-        () => {
-            return projects.filter(project => project.tools.includes(selectedFramework));
-        },
-        [selectedFramework]
-    )
+    useEffect(() => {
+        
+        const disappearProjects = projects.map(project =>
+            project.tools.includes(selectedFramework)
+                ? project
+                : { ...project, disappear: true }
+        )
+        setProjectToDisplay(disappearProjects);
+        setTimeout(() => {
+
+            const filteredProjects = projects.filter(project => project.tools.includes(selectedFramework));
+            setProjectToDisplay(filteredProjects);
+
+        }, 300);
+
+    }, [selectedFramework]);
 
     return (
         <StyledSlideShow>
@@ -41,11 +52,12 @@ export default ({ projects, frameworks }: ISlideShow) => {
                 ))}
             </header>
             <div className="slide-show-projects">
-                {projectsToDisplay.map(project => <ProjectCardComponent
-                    key={project.id}
-                    selected={selectedProject.id === project.id}
-                    onTouchStart={() => onProjectclick(project)}
-                    {...project} />)}
+                {projectsToDisplay.map(project => 
+                    <ProjectCardComponent
+                        key={project.id}
+                        selected={selectedProject.id === project.id}
+                        onTouchStart={() => onProjectclick(project)}
+                        {...project} />)}
             </div>
         </StyledSlideShow>
     )

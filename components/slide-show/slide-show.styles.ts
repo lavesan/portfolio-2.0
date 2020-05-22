@@ -37,6 +37,7 @@ export const StyledSlideShow = styled.div`
             justify-content: center;
             align-items: center;
             margin-top: 20px;
+            transition: .5s;
         }
     `}
 `;
