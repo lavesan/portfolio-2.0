@@ -1,0 +1,82 @@
+import React, { useEffect } from 'react';
+import { connect, useDispatch, ConnectedProps } from 'react-redux';
+import Swiper from 'react-id-swiper';
+
+import { StyledProjectModal, StyledProjectImage } from './project-modal.styles';
+import { toggleProjectModal } from '../../../store/actions/modalActions';
+import { ModalComponent } from '../';
+import { IReduxStates } from '../../../store/types';
+import { StyledSucessLink } from '../../button';
+
+const mapStateToProps = (store: IReduxStates) => ({
+    showProjectModal: store.modalState.showProjectModal,
+    selectedProject: store.modalState.selectedProject,
+});
+
+const connector = connect(mapStateToProps);
+
+const ProjectModalComponent = ({ selectedProject, showProjectModal }: ConnectedProps<typeof connector>) => {
+
+    const dispatch = useDispatch();
+
+    const toggleModal = () => {
+        dispatch(toggleProjectModal());
+    }
+
+    const swipperPàrams = {
+        slidesPerView: 1,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+    }
+
+    return (
+        <ModalComponent show={showProjectModal} toggleModal={toggleModal}>
+            <StyledProjectModal>
+                {selectedProject && (
+                    <>
+                        <Swiper {...swipperPàrams}>
+                            {selectedProject.imgs.map(img => <StyledProjectImage key={img} imgUrl={img} />)}
+                        </Swiper>
+                        {selectedProject.imgs.map(img => <img src={img} alt={`Imagem do ${selectedProject.name}`} />)}
+                        <h2>{selectedProject.name}</h2>
+                        <p>{selectedProject.description}</p>
+                        <ul>
+                            {selectedProject.tools.map(tool => <li key={tool}>{tool}</li>)}
+                        </ul>
+                        <div className="action-buttons">
+                            {selectedProject.codeUrl && 
+                                <StyledSucessLink
+                                    href={selectedProject.codeUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    Ver código
+                                </StyledSucessLink>
+                            }
+                            {selectedProject.url &&
+                                <StyledSucessLink
+                                    href={selectedProject.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    Ver site
+                                </StyledSucessLink>
+                            }
+                        </div>
+                    </>
+                )}
+            </StyledProjectModal>
+        </ModalComponent>
+    )
+
+}
+
+export default connector(ProjectModalComponent);
