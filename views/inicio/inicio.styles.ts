@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 
 export const StyledInicioPage = styled.section`
     ${({ theme }) => css`
+        background-color: ${theme.white.primary};
+
         > :not(hr) {
             padding: 35px;
         }
@@ -76,48 +78,6 @@ export const StyledInicioPage = styled.section`
 
             .introduction-section--info--name {
                 margin-bottom: 0;
-            }
-        }
-
-        .about-section {
-
-            .about-section--info-container {
-                display: flex;
-                flex-flow: row nowrap;
-                margin-bottom: 20px;
-
-                .about-section--info-container--img-container {
-                    border-radius: 50%;
-                    width: 200px;
-                    height: 200px;
-                    overflow: hidden;
-                    margin-right: 30px;
-
-                    img {
-                        width: inherit;
-                    }
-                }
-
-                .about-section--info-container--text-title {
-                    margin: 0;
-                    color: ${theme.green.primary};
-                }
-            }
-
-        }
-
-        .contact-section {
-            background-color: ${theme.black.secondary};
-            color: ${theme.white.primary};
-
-            .contact-container {
-                display: flex;
-                justify-content: space-between;
-                flex-flow: row nowrap;
-
-                > * {
-                    width: 28%;
-                }
             }
         }
 
