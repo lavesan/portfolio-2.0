@@ -9,25 +9,25 @@
             "Nextjs",
             "Nodejs",
             "Nestjs",
-            "Amazon AWS"
+            "Amazon AWS",
+            "Redux"
         ],
         "url": "https://zeroveneno.com.br",
         "imgs": [
-            ""
+            "https://www.folha1.com.br/_midias/jpg/2019/01/11/320x285/1_gabriel_pensador2-1259268.jpg"
         ]
     },
     {
         "id": 2,
-        "name": "Metal bird",
+        "name": "Elosun",
         "description": "Jogo adaptado do flappy bird",
         "tools": [
-            "Javascript",
-            "HTML",
-            "Css"
+            "React",
+            "PWA"
         ],
-        "url": "https://zeroveneno.com.br",
+        "url": "https://elosun.com.br",
         "imgs": [
-            ""
+            "https://media.gazetadopovo.com.br/2010/05/291ee7cf9275e1de5fbfb93f03b7fb38-gpMedium.jpg"
         ]
     }
 ]
