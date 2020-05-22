@@ -5,9 +5,11 @@ import { IStyledProjectCard } from './project-card.interfaces';
 const scaleChange = keyframes`
     from {
         transform: scale(0);
+        width: 0;
     }
     to {
         transform: scale(1);
+        width: 150px;
     }
 `;
 

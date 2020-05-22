@@ -1,10 +1,6 @@
-export interface IProjectCard {
-    id: number,
-    name: string,
-    description: string,
-    tools: string[],
-    url: string,
-    imgs: string[];
+import { IProject } from '../slide-show.interfaces';
+
+export interface IProjectCard extends IProject {
     selected: boolean;
     onTouchStart: VoidFunction;
     disappear?: boolean;

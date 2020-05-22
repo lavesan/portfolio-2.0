@@ -1,10 +1,11 @@
 export interface IProject {
     id: number;
-    name: string;
-    description: string;
-    tools: string[];
     url: string;
+    name: string;
     imgs: string[];
+    tools: string[];
+    codeUrl: string;
+    description: string;
 }
 
 export interface ISlideShow {

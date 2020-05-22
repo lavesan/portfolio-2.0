@@ -1,20 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
+import { connect, useDispatch } from 'react-redux';
 
 import { StyledProjectCard } from './project-card.styles';
 import { IProjectCard } from './project-card.interfaces';
 import { StyledSucessButton } from '../../button';
+import { toggleProjectModal } from '../../../store/actions/modalActions';
 // @ts-ignore
 import myImage from '../../../public/static/imgs/gabriel-pensador.jpg';
 
-export default ({ name, imgs, selected, onTouchStart, disappear }: IProjectCard) => {
+const ProjectCardComponent = ({ selected, onTouchStart, disappear, ...project }: IProjectCard) => {
+
+    const dispatch = useDispatch();
+
+    const toggleModal = useCallback(
+        () => {
+            dispatch(toggleProjectModal(project));
+        },
+        []
+    )
 
     return (
-        <StyledProjectCard imgUrl={imgs[0] ? imgs[0] : myImage} selected={selected} onTouchStart={onTouchStart} disappear={disappear}>
+        <StyledProjectCard imgUrl={project.imgs[0] ? project.imgs[0] : myImage} selected={selected} onTouchStart={onTouchStart} disappear={disappear}>
             <div className={`project-brief-info ${selected && 'selected-project'}`}>
-                <p className="project-name">{name}</p>
-                <StyledSucessButton>Ver mais</StyledSucessButton>
+                <p className="project-name">{project.name}</p>
+                <StyledSucessButton onClick={toggleModal}>Ver mais</StyledSucessButton>
             </div>
         </StyledProjectCard>
     )
 
 }
+
+export default connect()(ProjectCardComponent);
