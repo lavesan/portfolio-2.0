@@ -19,6 +19,7 @@ export default {
         whatsapp: '#25D366',
         telegram: '#0088CC',
         gmail: '#c71610',
+        github: '#24292E',
     },
     black: {
         primary: '#181818',
