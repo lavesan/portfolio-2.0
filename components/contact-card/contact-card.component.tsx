@@ -13,7 +13,7 @@ export default ({ href, icon, text, backgroundColor }: IContactCard) => {
             rel="noopener noreferrer"
             backgroundColor={backgroundColor}>
             <FontAwesomeIcon className="icon" icon={icon} />
-            <p className="text">{text}</p>
+            {text && <p className="text">{text}</p>}
         </StyledContactCard>
     )
 
