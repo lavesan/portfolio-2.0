@@ -7,6 +7,7 @@ import 'swiper/css/swiper.css';
 
 import { makeStore } from "../store";
 import { AppComponent } from '../app/App';
+import { ProjectModal } from '../components/modal/project-modal';
 import theme from '../app/app.theme';
 
 class MyApp extends App {
@@ -18,6 +19,7 @@ class MyApp extends App {
           <AppComponent
             Component={Component}
             pageProps={pageProps} />
+          <ProjectModal />
         </ThemeProvider>
       </Provider>
     )
