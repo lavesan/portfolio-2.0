@@ -1,12 +1,31 @@
 import styled, { css } from 'styled-components';
 
+const ButtonStyled = css`
+    outline: none;
+    cursor: pointer;
+`;
+
 export const StyledSucessButton = styled.button`
     ${({ theme }) => css`
-        outline: none;
+        ${ButtonStyled}
         background-color: ${theme.white.primary};
-        cursor: pointer;
         border: thin solid ${theme.gray.secondary};
         color: ${theme.gray.secondary};
         padding: 10px 20px;
+    `}
+`;
+
+export const StyledSucessLink = styled.a`
+    ${({ theme }) => css`
+        ${ButtonStyled}
+        background-color: ${theme.white.primary};
+        border: thin solid ${theme.gray.secondary};
+        color: ${theme.gray.secondary};
+        padding: 10px 20px;
+        text-decoration: none;
+
+        :active, :hover {
+            text-decoration: none;
+        }
     `}
 `;
