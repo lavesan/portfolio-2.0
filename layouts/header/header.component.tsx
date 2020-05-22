@@ -52,7 +52,8 @@ export default ({ children }: IChildren) => {
                         href="https://github.com/lavesan"
                         target="_blank"
                         rel="noopener noreferrer"
-                        title="Github">
+                        title="Github"
+                        className="nav-header--social-links-container--github">
                         <FontAwesomeIcon icon={faGithub} />
                     </a>
                     <a
