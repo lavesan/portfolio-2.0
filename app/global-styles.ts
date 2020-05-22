@@ -11,4 +11,8 @@ export default createGlobalStyle`
         color: ${({ theme }: any) => theme.gray.secondary};
         margin: 0;
     }
+
+    .styles_modal__gNwvD {
+        border-radius: 5px;
+    }
 `
