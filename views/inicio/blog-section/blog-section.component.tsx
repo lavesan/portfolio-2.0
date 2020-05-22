@@ -21,7 +21,8 @@ export default ({ triggerAnimation, initialLeftStyle, initialRightStyle, animati
                     key={blog.id}
                     initial={fromAnimation(index)}
                     animate={triggerAnimation ? animationStyle : fromAnimation(index)}
-                    transition={animationTransition}>
+                    transition={animationTransition}
+                    className="blog-container">
                     <BlogCardComponent {...blog} />
                 </motion.div>
             ))}
