@@ -3,6 +3,9 @@ import styled, { css } from 'styled-components';
 const ButtonStyled = css`
     outline: none;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const StyledSucessButton = styled.button`

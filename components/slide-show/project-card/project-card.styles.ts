@@ -6,10 +6,12 @@ const scaleChange = keyframes`
     from {
         transform: scale(0);
         width: 0;
+        height: 0;
     }
     to {
         transform: scale(1);
         width: 150px;
+        height: 200px;
     }
 `;
 
@@ -20,9 +22,11 @@ const scaleHide = keyframes`
     50% {
         transform: scale(0);
         width: 150px;
+        height: 200px;
     }
     100% {
         width: 0;
+        height: 0;
     }
 `;
 
@@ -37,7 +41,6 @@ export const StyledProjectCard = styled.div<IStyledProjectCard>`
         animation-name: ${disappear ? scaleHide : scaleChange};
         animation-duration: .3s;
         animation-fill-mode: forwards;
-        /* ${disappear ? 'backwards' : 'forwards'} */
 
         .project-brief-info {
             display: flex;

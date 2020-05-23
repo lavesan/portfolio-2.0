@@ -5,4 +5,7 @@ export interface IReduxStates {
         showProjectModal: boolean;
         selectedProject: IProject | null;
     };
+    uiState: {
+        smoothScroll: boolean;
+    };
 }

@@ -18,20 +18,34 @@ export default ({ projects, frameworks }: ISlideShow) => {
         setSelectedProject(project);
     }
 
+    const filterProjects = () => {
+
+        const filteredProjects = projects.filter(project => project.tools.includes(selectedFramework));
+        setProjectToDisplay(filteredProjects);
+
+    }
+
     useEffect(() => {
-        
-        const disappearProjects = projects.map(project =>
-            project.tools.includes(selectedFramework)
-                ? project
-                : { ...project, disappear: true }
-        )
-        setProjectToDisplay(disappearProjects);
-        setTimeout(() => {
 
-            const filteredProjects = projects.filter(project => project.tools.includes(selectedFramework));
-            setProjectToDisplay(filteredProjects);
+        const projectsToHide = projectsToDisplay.some(project => !project.tools.includes(selectedFramework));
 
-        }, 300);
+        // If there's projects to hide, shows the hide animation
+        if (projectsToHide) {
+            setProjectToDisplay(actualValue => {
+                return actualValue.map(project =>
+                    project.tools.includes(selectedFramework)
+                        ? project
+                        : { ...project, disappear: true }
+                )
+            });
+            setTimeout(() => {
+                filterProjects();
+            }, 300);
+
+        } else {
+            // If There's no projects to hide, filters the projects ASAP
+            filterProjects();
+        }
 
     }, [selectedFramework]);
 

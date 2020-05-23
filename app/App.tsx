@@ -1,12 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import Head from "next/head";
 
 import GlobalStyle from './global-styles';
 import { HeaderLayout } from '../layouts/header';
 import { IApp } from './app.interfaces';
+import { IReduxStates } from '../store/types';
 
-const App = ({ Component, pageProps }: IApp) => {
+const mapStateToProps = (store: IReduxStates) => ({
+  smoothScroll: store.uiState.smoothScroll,
+});
+
+const connector = connect(mapStateToProps);
+
+const App = ({ Component, pageProps, smoothScroll }: IApp & ConnectedProps<typeof connector>) => {
 
   // useEffect(() => {
   //   dispatch(screenResize({
@@ -25,7 +32,7 @@ const App = ({ Component, pageProps }: IApp) => {
       <div style={{
         minHeight: '100vh',
       }}>
-          <GlobalStyle />
+          <GlobalStyle smoothScroll={smoothScroll} />
           <Head>
             <meta
               name="viewport"
@@ -49,4 +56,4 @@ const App = ({ Component, pageProps }: IApp) => {
 
 }
 
-export const AppComponent = connect()(App);
+export const AppComponent = connector(App);

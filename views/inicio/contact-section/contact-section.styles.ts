@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const StyledContactSection = styled.div`
-    min-height: 100vh;
     box-sizing: border-box;
+    font-size: 1.2rem;
 
     * {
         box-sizing: border-box;

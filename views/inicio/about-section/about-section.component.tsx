@@ -23,7 +23,7 @@ export default ({ triggerAnimation, initialLeftStyle, initialRightStyle, animati
                     <img src={myImage} alt="Minha foto" />
                 </div>
                 <div>
-                    <h3 className="about-section--info-container--text-title"><b>Quem é esse cara?</b></h3>
+                    <h3 className="about-section--info-container--text-title"><b>Quem sou eu?</b></h3>
                     <p>Algo ai</p>
                 </div>
             </motion.div>

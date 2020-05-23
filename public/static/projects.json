@@ -2,9 +2,8 @@
     {
         "id": 1,
         "name": "Ecommerce zero-veneno",
-        "description": "Ecommerce feito para a loja zeroveneno",
+        "description": "Ecommerce feito para a loja zeroveneno. Eu fiz todo o código para o site funcionar (não fiz o design), incluindo um administrador para a loja.",
         "tools": [
-            "Javascript",
             "React",
             "Nextjs",
             "Nodejs",
@@ -21,7 +20,7 @@
     {
         "id": 2,
         "name": "Elosun",
-        "description": "Jogo adaptado do flappy bird",
+        "description": "Uma landing page para Elosun, onde fiz o designer e o código da parte visual do site (front-end). Eu o fiz utilizando uma nova ferramenta que o permite se comportar como um aplicativo (PWA).",
         "tools": [
             "React",
             "PWA"
@@ -30,6 +29,35 @@
         "codeUrl": "",
         "imgs": [
             "https://media.gazetadopovo.com.br/2010/05/291ee7cf9275e1de5fbfb93f03b7fb38-gpMedium.jpg"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Aplicativo Luna",
+        "description": "Um jogo de celular voltado para educação de crianças. Utilizado na apresentação de uma idéia em São Paulo.",
+        "tools": [
+            "React Native"
+        ],
+        "url": "",
+        "codeUrl": "https://github.com/lavesan/LunaGame",
+        "imgs": [
+            "https://media.gazetadopovo.com.br/2010/05/291ee7cf9275e1de5fbfb93f03b7fb38-gpMedium.jpg"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Meu portfólio",
+        "description": "Este portfólio que vocês está navegando. Eu o fiz com o intuito de mostrar meu trabalho e quem eu sou, ter um cartão de visitas online. Fiz tanto o design quanto o código.",
+        "tools": [
+            "React",
+            "Nextjs",
+            "Redux",
+            "Framer motion"
+        ],
+        "url": "",
+        "codeUrl": "https://github.com/lavesan/portfolio-2.0",
+        "imgs": [
+            "https://www.folha1.com.br/_midias/jpg/2019/01/11/320x285/1_gabriel_pensador2-1259268.jpg"
         ]
     }
 ]

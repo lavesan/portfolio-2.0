@@ -4,6 +4,7 @@ import Swiper from 'react-id-swiper';
 
 import { StyledProjectModal, StyledProjectImage } from './project-modal.styles';
 import { toggleProjectModal } from '../../../store/actions/modalActions';
+import { setSmoothScroll } from '../../../store/actions/uiActions';
 import { ModalComponent } from '../';
 import { IReduxStates } from '../../../store/types';
 import { StyledSucessLink } from '../../button';
@@ -20,7 +21,13 @@ const ProjectModalComponent = ({ selectedProject, showProjectModal }: ConnectedP
     const dispatch = useDispatch();
 
     const toggleModal = () => {
+
+        dispatch(setSmoothScroll(false));
         dispatch(toggleProjectModal());
+        setTimeout(() => {
+            dispatch(setSmoothScroll(true));
+        }, 1000);
+
     }
 
     const swipperPàrams = {
@@ -44,12 +51,14 @@ const ProjectModalComponent = ({ selectedProject, showProjectModal }: ConnectedP
             <StyledProjectModal>
                 {selectedProject && (
                     <>
-                        <Swiper {...swipperPàrams}>
-                            {selectedProject.imgs.map(img => <StyledProjectImage key={img} imgUrl={img} />)}
-                        </Swiper>
-                        {selectedProject.imgs.map(img => <img src={img} alt={`Imagem do ${selectedProject.name}`} />)}
+                        <div className="modal-projects-container">
+                            <Swiper {...swipperPàrams}>
+                                {selectedProject.imgs.map(img => <StyledProjectImage key={img} imgUrl={img} />)}
+                            </Swiper>
+                        </div>
                         <h2>{selectedProject.name}</h2>
                         <p>{selectedProject.description}</p>
+                        <p>Tecnologias</p>
                         <ul>
                             {selectedProject.tools.map(tool => <li key={tool}>{tool}</li>)}
                         </ul>

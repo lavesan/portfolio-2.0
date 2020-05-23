@@ -6,6 +6,7 @@ export const StyledAboutSection = styled.div`
             display: flex;
             flex-flow: row nowrap;
             margin-bottom: 20px;
+            padding: 0 150px;
 
             .about-section--info-container--img-container {
                 border-radius: 50%;

@@ -131,7 +131,7 @@ export default () => {
                         animationTransition={animationTransition} />
                 </ScrollTrigger>
             </section>
-            <section className="contact-section black-bg" id="contato">
+            <section className="black-bg" id="contato">
                 <ScrollTrigger onEnter={() => onScrollEnter('contact')} onExit={() => onScrollExit('contact')}>
                     <div className="titles-container">
                         <h2 ref={useCallback((node) => onRefChange(node, 'contact'), [])}>Contato</h2>
