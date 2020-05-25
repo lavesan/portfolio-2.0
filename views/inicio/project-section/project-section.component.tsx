@@ -7,11 +7,7 @@ import { SlideShowComponent } from '../../../components/slide-show';
 import projectsJSON from '../../../public/static/projects.json';
 import frameworksJSON from '../../../public/static/frameworks.json';
 
-export default ({ triggerAnimation, initialLeftStyle, initialRightStyle, animationStyle, animationTransition }: ISection) => {
-
-    const initialStyle  = { scale: 0 };
-    const biggerStyle   = { scale: 1 };
-    const duration      = { duration: 0.5 };
+export default ({}: ISection) => {
 
     return (
         <StyledProjectSection>

@@ -27,4 +27,8 @@ export const StyledContactSection = styled.div`
             }
         }
     }
+
+    @media(max-width: 850px) {
+        min-height: 100vh;
+    }
 `;

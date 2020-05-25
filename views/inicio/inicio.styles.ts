@@ -26,6 +26,7 @@ export const StyledInicioPage = styled.section`
         h2 {
             font-size: 1.9rem;
             margin: 0;
+            white-space: nowrap;
         }
 
         .titles-container {
@@ -95,6 +96,24 @@ export const StyledInicioPage = styled.section`
             :hover {
                 color: ${theme.black.secondary};
                 background-color: ${theme.green.primary};
+            }
+        }
+
+        @media(max-width: 740px) {
+            .introduction-section--info h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .introduction-section--info h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media(max-width: 430px) {
+            .introduction-section .introduction-section--info--buttons-container {
+                width: 330px;
             }
         }
     `}

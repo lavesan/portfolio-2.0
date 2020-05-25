@@ -1,11 +1,12 @@
-import React from 'react';
-import { connect, ConnectedProps } from 'react-redux';
+import React, { useEffect } from 'react';
+import { connect, ConnectedProps, useDispatch } from 'react-redux';
 import Head from "next/head";
 
 import GlobalStyle from './global-styles';
 import { HeaderLayout } from '../layouts/header';
 import { IApp } from './app.interfaces';
 import { IReduxStates } from '../store/types';
+import { setScreenSize } from '../store/actions/uiActions';
 
 const mapStateToProps = (store: IReduxStates) => ({
   smoothScroll: store.uiState.smoothScroll,
@@ -15,18 +16,20 @@ const connector = connect(mapStateToProps);
 
 const App = ({ Component, pageProps, smoothScroll }: IApp & ConnectedProps<typeof connector>) => {
 
-  // useEffect(() => {
-  //   dispatch(screenResize({
-  //     width: window.innerWidth,
-  //     height: window.innerHeight,
-  //   }));
-  //   window.addEventListener('resize', () => {
-  //       dispatch(screenResize({
-  //           width: window.innerWidth,
-  //           height: window.innerHeight,
-  //       }));
-  //   });
-  // }, []);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setScreenSize({
+      screenWidth: window.innerWidth,
+      screenHeight: window.innerHeight,
+    }));
+    window.addEventListener('resize', () => {
+        dispatch(setScreenSize({
+          screenWidth: window.innerWidth,
+          screenHeight: window.innerHeight,
+        }));
+    });
+  }, []);
 
   return (
       <div style={{

@@ -32,7 +32,7 @@ const scaleHide = keyframes`
 
 export const StyledProjectCard = styled.div<IStyledProjectCard>`
     ${({ imgUrl, selected, disappear, theme }) => css`
-        width: 150px;
+        width: 130px;
         height: 200px;
         background: url(${imgUrl});
         background-repeat: no-repeat;

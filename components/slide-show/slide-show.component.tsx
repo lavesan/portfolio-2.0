@@ -20,14 +20,14 @@ export default ({ projects, frameworks }: ISlideShow) => {
 
     const filterProjects = () => {
 
-        const filteredProjects = projects.filter(project => project.tools.includes(selectedFramework));
+        const filteredProjects = projects.filter(project => project.type === selectedFramework);
         setProjectToDisplay(filteredProjects);
 
     }
 
     useEffect(() => {
 
-        const projectsToHide = projectsToDisplay.some(project => !project.tools.includes(selectedFramework));
+        const projectsToHide = projectsToDisplay.some(project => project.type !== selectedFramework);
 
         // If there's projects to hide, shows the hide animation
         if (projectsToHide) {

@@ -7,5 +7,12 @@ export interface IReduxStates {
     };
     uiState: {
         smoothScroll: boolean;
+        screenWidth: number;
+        screenHeight: number;
     };
+}
+
+export interface ISetScreenSizeParams {
+    screenWidth: number;
+    screenHeight: number;
 }

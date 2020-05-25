@@ -6,6 +6,7 @@ export interface IProject {
     tools: string[];
     codeUrl: string;
     description: string;
+    type: string;
 }
 
 export interface ISlideShow {

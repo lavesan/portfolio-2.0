@@ -25,5 +25,24 @@ export const StyledAboutSection = styled.div`
                 color: ${theme.green.primary};
             }
         }
+
+        @media(max-width: 1000px) {
+            .about-section--info-container {
+                padding: 0 80px;
+            }
+        }
+        @media(max-width: 850px) {
+            .about-section--info-container {
+                padding: 0 20px;
+                flex-flow: column nowrap;
+                justify-content: center;
+                align-items: center;
+
+                .about-section--info-container--img-container {
+                    margin-right: 0;
+                    margin-bottom: 20px;
+                }
+            }
+        }
     `}
 `;

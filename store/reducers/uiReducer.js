@@ -1,5 +1,7 @@
 const initialState = {
     smoothScroll: true,
+    screenWidth: 0,
+    screenHeight: 0,
 };
 
 export const uiReducer = (state = initialState, action) => {
@@ -12,6 +14,13 @@ export const uiReducer = (state = initialState, action) => {
                 smoothScroll: Boolean(action.smoothScroll),
             }
         },
+        SET_SCREEN_SIZE() {
+            return {
+                ...state,
+                screenWidth: action.screenWidth,
+                screenHeight: action.screenHeight,
+            }
+        }
     }
 
     return handleReducer[action.type] ?

@@ -11,6 +11,7 @@
             "Amazon AWS",
             "Redux"
         ],
+        "type": "Sites",
         "url": "https://zeroveneno.com.br",
         "codeUrl": "",
         "imgs": [
@@ -25,6 +26,7 @@
             "React",
             "PWA"
         ],
+        "type": "Sites",
         "url": "https://elosun.com.br",
         "codeUrl": "",
         "imgs": [
@@ -38,6 +40,7 @@
         "tools": [
             "React Native"
         ],
+        "type": "Aplicativos",
         "url": "",
         "codeUrl": "https://github.com/lavesan/LunaGame",
         "imgs": [
@@ -54,6 +57,7 @@
             "Redux",
             "Framer motion"
         ],
+        "type": "Sites",
         "url": "",
         "codeUrl": "https://github.com/lavesan/portfolio-2.0",
         "imgs": [

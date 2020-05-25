@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components';
 
-export const StyledBlogCard = styled.a`
-    ${({ theme }) => css`
+import { IStyledBlogCard } from './blog-card.interfaces';
+
+export const StyledBlogCard = styled.a<IStyledBlogCard>`
+    ${({ theme, isResponsive }) => css`
         cursor: pointer;
         display: flex;
         flex-flow: row nowrap;
@@ -19,5 +21,14 @@ export const StyledBlogCard = styled.a`
         .blog-description {
             color: ${theme.black.primary};
         }
+
+        ${isResponsive && css`
+            flex-flow: column nowrap;
+
+            .blog-img {
+                width: 150px;
+                margin: 0 auto;
+            }
+        `}
     `}
 `;

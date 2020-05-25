@@ -4,4 +4,9 @@ export interface IBlogCard {
     briefText: string;
     href: string;
     imgUrl: string;
+    isResponsive: boolean;
+}
+
+export interface IStyledBlogCard {
+    isResponsive: boolean;
 }

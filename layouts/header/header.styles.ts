@@ -4,6 +4,10 @@ export const HeaderLayout = styled.section`
     ${({ theme }) => css`
         margin-left: 80px;
 
+        a, button {
+            outline: none;
+        }
+
         .nav-header {
             display: flex;
             flex-flow: column nowrap;
@@ -16,6 +20,7 @@ export const HeaderLayout = styled.section`
             left: 0;
             background-color: ${theme.black.primary};
             border-right: 2px solid ${theme.green.primary};
+            transition: top .3s;
 
             > * {
                 margin-top: 30px;
@@ -61,61 +66,62 @@ export const HeaderLayout = styled.section`
                 bottom: 5px;
                 left: 0;
                 z-index: 3;
-                display: flex;
-                flex-flow: column nowrap;
-                align-items: center;
+
+                > div {
+                    display: flex;
+                    flex-flow: column nowrap;
+                    align-items: center;
+                }
                 width: 100%;
-
-                > :not(:last-child) {
-                    margin-bottom: 10px;
-                }
-
-                > * {
-                    display: inline-block;
-                    text-align: center;
-                    width: 20px;
-                    color: ${theme.green.primary};
-                }
-
-                > :active {
-                    color: ${theme.green.primary};
-                }
-
-                .nav-header--social-links-container--linkedin:hover {
-                    color: ${theme.brands.telegram};
-                }
-
-                .nav-header--social-links-container--github:hover {
-                    color: ${theme.brands.github};
-                }
             }
         }
-        /* .nav-responsive-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
+
+        .footer-links {
             position: fixed;
-            top: 0;
-            left: 0;
-            background-color: ${theme.white.primary};
+            bottom: -10px;
+            right: 20px;
+            display: none;
+            border: 2px solid ${theme.green.primary};
+            background-color: ${theme.black.primary};
+            border-radius: 5px;
+            padding: 5px 10px 10px 10px;
+            flex-flow: column nowrap;
+            align-items: center;
 
-            .nav-responsive-header--header-link {
-                padding: 5px 10px;
-                text-decoration: none;
-                color: ${theme.green.primary};
-                background: none;
-                border: none;
-                cursor: pointer;
-                font-size: 1.2rem;
-                margin: 0 auto;
+            > div {
+                display: flex;
+                flex-flow: column nowrap;
             }
 
-            .nav-responsive-header--line {
-                height: 20px;
-                width: 2px;
-                background-color: ${theme.green.primary};
+            .footer-links-toogle {
+                margin-bottom: 10px;
             }
-        } */
+        }
+
+        @media(max-width: 850px) {
+            margin-left: 0;
+
+            .nav-header {
+                flex-flow: row nowrap;
+                width: 100vw;
+                height: 53px;
+                border-right: none;
+                border-bottom: 2px solid ${theme.green.primary};
+                align-items: center;
+
+                > * {
+                    margin-top: 0;
+                }
+
+                .nav-header--social-links-container {
+                    display: none;
+                }
+            }
+
+            .footer-links {
+                display: flex;
+            }
+
+        }
     `}
 `;
