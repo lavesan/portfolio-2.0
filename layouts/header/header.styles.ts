@@ -95,6 +95,7 @@ export const HeaderLayout = styled.section`
 
             .footer-links-toogle {
                 margin-bottom: 10px;
+                cursor: pointer;
             }
         }
 
