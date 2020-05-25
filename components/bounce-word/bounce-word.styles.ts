@@ -21,6 +21,7 @@ const bounce = keyframes`
 export const StyledBounceWord = styled.span<IStyledBounceWord>`
     ${({ activate }) => css`
         display: inline-block;
+        user-select: none;
 
         ${activate && css`
             animation-name: ${bounce};
