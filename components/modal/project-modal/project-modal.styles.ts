@@ -18,6 +18,38 @@ export const StyledProjectModal = styled.div`
             width: 100px;
         }
     }
+
+    .technology-title {
+        font-weight: bolder;
+        margin-bottom: 3px;
+    }
+
+    .technology-list {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .technology-list--dot {
+            width: 10px;
+        }
+
+        > * {
+            width: 33%;
+        }
+    }
+
+    @media(max-width: 670px) {
+        width: 400px;
+
+        .technology-list > * {
+            width: 50%;
+        }
+    }
+    @media(max-width: 510px) {
+        width: calc(100vw - 120px);
+    }
 `;
 
 export const StyledProjectImage = styled.div<IStyledProjectImage>`
@@ -25,7 +57,7 @@ export const StyledProjectImage = styled.div<IStyledProjectImage>`
         background-image: url(${imgUrl});
         background-repeat: no-repeat;
         background-position: center;
-        background-size: cover;
+        background-size: auto 100%;
         width: 100%;
         height: 300px;
     `}

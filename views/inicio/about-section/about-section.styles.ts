@@ -11,12 +11,14 @@ export const StyledAboutSection = styled.div`
             .about-section--info-container--img-container {
                 border-radius: 50%;
                 width: 200px;
+                min-width: 200px;
                 height: 200px;
                 overflow: hidden;
                 margin-right: 30px;
+                box-sizing: border-box;
 
                 img {
-                    width: inherit;
+                    width: 100%;
                 }
             }
 
@@ -32,6 +34,9 @@ export const StyledAboutSection = styled.div`
             }
         }
         @media(max-width: 850px) {
+            .about-section-info {
+                text-align: center;
+            }
             .about-section--info-container {
                 padding: 0 20px;
                 flex-flow: column nowrap;

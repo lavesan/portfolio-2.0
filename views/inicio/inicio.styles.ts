@@ -36,11 +36,6 @@ export const StyledInicioPage = styled.section`
             align-items: center;
         }
 
-        /* > hr {
-            width: 93%;
-            margin: 0 auto;
-        } */
-
         .introduction-section {
             display: flex;
             flex-flow: row nowrap;
@@ -96,6 +91,12 @@ export const StyledInicioPage = styled.section`
             :hover {
                 color: ${theme.black.secondary};
                 background-color: ${theme.green.primary};
+            }
+        }
+
+        @media(max-width: 850px) {
+            .titles-container {
+                margin: 20px 0;   
             }
         }
 

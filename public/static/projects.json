@@ -2,7 +2,7 @@
     {
         "id": 1,
         "name": "Ecommerce zero-veneno",
-        "description": "Ecommerce feito para a loja zeroveneno. Eu fiz todo o código para o site funcionar (não fiz o design), incluindo um administrador para a loja.",
+        "description": "Ecommerce feito para a loja zeroveneno. Ela estava tendo muita demanda e já não dava mais para atender os seus clientes apenas pelo whatsapp, então eu preparei um ecommerce junto com a designer Carla Medeiros, incluindo um administrador para ela puder gerenciar a loja :)",
         "tools": [
             "React",
             "Nextjs",
@@ -15,7 +15,15 @@
         "url": "https://zeroveneno.com.br",
         "codeUrl": "",
         "imgs": [
-            "https://www.folha1.com.br/_midias/jpg/2019/01/11/320x285/1_gabriel_pensador2-1259268.jpg"
+            "https://valderyportfolio.s3.amazonaws.com/projetos/zero-veneno-login-mobile.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/zero-veneno-carrinho-mobile.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/zero-veneno-inicio-mobile.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/zero-veneno-menu-mobile.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/zero-veneno-produt-mobile.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/zero-veneno-carrinho-web.png",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/zero-veneno-login-web.png",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/zero-veneno-pesquisa-web.png",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/zero-veneno-sobre-web.png"
         ]
     },
     {
@@ -30,27 +38,35 @@
         "url": "https://elosun.com.br",
         "codeUrl": "",
         "imgs": [
-            "https://media.gazetadopovo.com.br/2010/05/291ee7cf9275e1de5fbfb93f03b7fb38-gpMedium.jpg"
+            "https://valderyportfolio.s3.amazonaws.com/projetos/elosun-inicio-mobile.png",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/elosun-inicio.png",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/elosun-contato.png",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/elosun-faq.png"
         ]
     },
     {
         "id": 3,
-        "name": "Aplicativo Luna",
+        "name": "Jogo Luna",
         "description": "Um jogo de celular voltado para educação de crianças. Utilizado na apresentação de uma idéia em São Paulo.",
         "tools": [
-            "React Native"
+            "React Native",
+            "Expo"
         ],
         "type": "Aplicativos",
         "url": "",
         "codeUrl": "https://github.com/lavesan/LunaGame",
         "imgs": [
-            "https://media.gazetadopovo.com.br/2010/05/291ee7cf9275e1de5fbfb93f03b7fb38-gpMedium.jpg"
+            "https://valderyportfolio.s3.amazonaws.com/projetos/luna-apresentacao.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/luna-inicio.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/luna-primeira-fase.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/luna-segunda-fase.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/luna-final.jpeg"
         ]
     },
     {
         "id": 4,
         "name": "Meu portfólio",
-        "description": "Este portfólio que vocês está navegando. Eu o fiz com o intuito de mostrar meu trabalho e quem eu sou, ter um cartão de visitas online. Fiz tanto o design quanto o código.",
+        "description": "Este portfólio que vocês está navegando. Eu o fiz com o intuito de mostrar meu trabalho e quem eu sou, ter um cartão de visitas online :). Fiz tanto o design quanto o código, aproveitando o projeto para utilizar animações.",
         "tools": [
             "React",
             "Nextjs",

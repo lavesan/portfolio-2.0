@@ -41,14 +41,28 @@ export const StyledProjectCard = styled.div<IStyledProjectCard>`
         animation-name: ${disappear ? scaleHide : scaleChange};
         animation-duration: .3s;
         animation-fill-mode: forwards;
+        position: relative;
+
+        .project-filter {
+            position: absolute;
+            z-index: 1;
+            background-color: ${theme.gray.secondary};
+            transition: .5s;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+        }
 
         .project-brief-info {
+            position: absolute;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-flow: column nowrap;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background-color: ${theme.gray.secondary};
             opacity: 0;
             transition: .5s;
             height: 100%;
@@ -66,8 +80,11 @@ export const StyledProjectCard = styled.div<IStyledProjectCard>`
         }
 
         :hover {
-            .project-brief-info {
+            .project-filter {
                 opacity: .7;
+            }
+            .project-brief-info {
+                opacity: 1;
 
                 > * {
                     display: flex;

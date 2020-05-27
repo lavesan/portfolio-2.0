@@ -28,34 +28,35 @@ const HeaderComponent = ({ children, screenWidth }: IChildren & ConnectedProps<t
 
     const isResponsive = useMemo(
         () => {
+            console.log('screenWidth: ', screenWidth);
             return screenWidth <= 850;
         },
         [screenWidth]
     )
+
+    const setHeaderPosition = (value: string) => {
+        if (headerRef.current) {
+            headerRef.current.style.top = value;
+        }
+    }
 
     const reloadShowMenu = () => {
 
         if (isResponsive) {
             const currentScrollPos = window.pageYOffset;
             if (teste > currentScrollPos) {
-                if (headerRef.current) {
-                    headerRef.current.style.top = '-55px';
-                }
+                setHeaderPosition('-55px');
             } else {
-                if (headerRef.current) {
-                    headerRef.current.style.top = '0';
-                }
+                setHeaderPosition('0');
             }
             teste = currentScrollPos;
         } else {
-            if (headerRef.current) {
-                headerRef.current.style.top = '0';
-            }
+            setHeaderPosition('0');
         }
 
     }
 
-    const toogleFooter = () => {
+    const toogleFooter = (): void => {
         setShowFotter(f => !f);
     }
 

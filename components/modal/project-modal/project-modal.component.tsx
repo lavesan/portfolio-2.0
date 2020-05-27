@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect, useDispatch, ConnectedProps } from 'react-redux';
 import Swiper from 'react-id-swiper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDotCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { StyledProjectModal, StyledProjectImage } from './project-modal.styles';
 import { toggleProjectModal } from '../../../store/actions/modalActions';
@@ -58,10 +60,17 @@ const ProjectModalComponent = ({ selectedProject, showProjectModal }: ConnectedP
                         </div>
                         <h2>{selectedProject.name}</h2>
                         <p>{selectedProject.description}</p>
-                        <p>Tecnologias</p>
-                        <ul>
+                        <p className="technology-title">Tecnologias</p>
+                        <div className="technology-list">
+                            {selectedProject.tools.map(tool => (
+                                <p key={tool}>
+                                    <FontAwesomeIcon className="technology-list--dot" icon={faDotCircle} /> {tool}
+                                </p>
+                            ))}
+                        </div>
+                        {/* <ul>
                             {selectedProject.tools.map(tool => <li key={tool}>{tool}</li>)}
-                        </ul>
+                        </ul> */}
                         <div className="action-buttons">
                             {selectedProject.codeUrl && 
                                 <StyledSucessLink
