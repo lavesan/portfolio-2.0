@@ -51,7 +51,7 @@ const App = ({ Component, pageProps, smoothScroll }: IApp & ConnectedProps<typeo
             <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600&display=swap" rel="stylesheet"></link>
             <meta name="keywords" content="portfolio,desenvolvedor,developer,javascript,react,nodejs,node,sites,freelancer,fullstack,frontend,backend" />
             <meta name="author" content="Valdery Alves Paes Júnior <valdery.jur@gmail.com> (http://valderyalves.com)" />
-            <meta name="theme-color" content="#72A276" />
+            <meta name="theme-color" content="#86f786" />
             <title>Valdery - desenvolvedor de sites</title>
           </Head>
           <HeaderLayout>
