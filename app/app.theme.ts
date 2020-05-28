@@ -1,7 +1,10 @@
 export default {
     green: {
-        primary: '#72A276',
+        primary: '#86f786',
+        // primary: '#65fc65',
+        // primary: '#72A276',
         secondary: '#8FD694',
+        terciary: '#36cf36',
     },
     gray: {
         primary: '#FAFAFA',

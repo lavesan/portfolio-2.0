@@ -84,7 +84,7 @@ const ProjectModalComponent = ({ selectedProject, showProjectModal }: ConnectedP
                             {selectedProject.url &&
                                 <ButtonComponent
                                     color={theme.white.primary}
-                                    backgroundColor={theme.green.primary}
+                                    backgroundColor={theme.green.terciary}
                                     href={selectedProject.url}
                                     target="_blank"
                                     rel="noopener noreferrer">
