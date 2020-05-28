@@ -17,6 +17,11 @@ export const StyledProjectModal = styled.div`
         > * {
             width: 100px;
         }
+
+        .action-buttons--icon {
+            width: 15px;
+            margin-right: 10px;
+        }
     }
 
     .technology-title {
@@ -37,6 +42,21 @@ export const StyledProjectModal = styled.div`
 
         > * {
             width: 33%;
+        }
+    }
+
+    @media(max-width: 450px) {
+        .action-buttons {
+            flex-flow: column nowrap;
+            justify-content: center;
+
+            > * {
+                width: 100%;
+            }
+
+            > :not(:last-child) {
+                margin-bottom: 20px;
+            }
         }
     }
 

@@ -46,6 +46,7 @@
     "react-scroll-trigger": "^0.6.2",
     "react-select": "^3.1.0",
     "react-tagcloud": "^2.0.0",
+    "react-typing-animation": "^1.6.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.0.0",
@@ -56,6 +57,7 @@
     "@types/react-motion-ui-pack": "^0.10.2",
     "@types/react-redux": "^7.1.7",
     "@types/react-tagcloud": "^1.1.5",
+    "@types/react-typing-animation": "^1.6.2",
     "@types/styled-components": "^5.1.0",
     "babel-plugin-styled-components": "^1.10.7",
     "typescript": "^3.8.3"

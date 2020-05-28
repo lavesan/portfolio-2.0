@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import { IStyledIconButton } from './button.interfaces';
+
 const ButtonStyled = css`
     outline: none;
     cursor: pointer;
@@ -30,5 +32,17 @@ export const StyledSucessLink = styled.a`
         :active, :hover {
             text-decoration: none;
         }
+    `}
+`;
+
+export const StyledIconButton = styled.a<IStyledIconButton>`
+    ${({ theme, backgroundColor, color }) => css`
+        ${ButtonStyled}
+        background-color: ${backgroundColor};
+        border: thin solid ${backgroundColor};
+        border-radius: 2px;
+        color: ${color};
+        padding: 10px 20px;
+        text-decoration: none;
     `}
 `;

@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect, useDispatch, ConnectedProps } from 'react-redux';
 import Swiper from 'react-id-swiper';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDotCircle } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 import { StyledProjectModal, StyledProjectImage } from './project-modal.styles';
 import { toggleProjectModal } from '../../../store/actions/modalActions';
 import { setSmoothScroll } from '../../../store/actions/uiActions';
 import { ModalComponent } from '../';
 import { IReduxStates } from '../../../store/types';
-import { StyledSucessLink } from '../../button';
+import { ButtonComponent } from '../../button';
+import theme from '../../../app/app.theme';
 
 const mapStateToProps = (store: IReduxStates) => ({
     showProjectModal: store.modalState.showProjectModal,
@@ -68,25 +70,26 @@ const ProjectModalComponent = ({ selectedProject, showProjectModal }: ConnectedP
                                 </p>
                             ))}
                         </div>
-                        {/* <ul>
-                            {selectedProject.tools.map(tool => <li key={tool}>{tool}</li>)}
-                        </ul> */}
                         <div className="action-buttons">
                             {selectedProject.codeUrl && 
-                                <StyledSucessLink
+                                <ButtonComponent
+                                    color={theme.white.primary}
+                                    backgroundColor={theme.brands.github}
                                     href={selectedProject.codeUrl}
                                     target="_blank"
                                     rel="noopener noreferrer">
-                                    Ver código
-                                </StyledSucessLink>
+                                    <FontAwesomeIcon className="action-buttons--icon" icon={faGithub} /> Ver código
+                                </ButtonComponent>
                             }
                             {selectedProject.url &&
-                                <StyledSucessLink
+                                <ButtonComponent
+                                    color={theme.white.primary}
+                                    backgroundColor={theme.green.primary}
                                     href={selectedProject.url}
                                     target="_blank"
                                     rel="noopener noreferrer">
                                     Ver site
-                                </StyledSucessLink>
+                                </ButtonComponent>
                             }
                         </div>
                     </>

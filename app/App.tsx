@@ -7,6 +7,8 @@ import { HeaderLayout } from '../layouts/header';
 import { IApp } from './app.interfaces';
 import { IReduxStates } from '../store/types';
 import { setScreenSize } from '../store/actions/uiActions';
+// @ts-ignore
+import myIcon from '../public/static/imgs/close-tag.png';
 
 const mapStateToProps = (store: IReduxStates) => ({
   smoothScroll: store.uiState.smoothScroll,
@@ -41,10 +43,10 @@ const App = ({ Component, pageProps, smoothScroll }: IApp & ConnectedProps<typeo
               name="viewport"
               content="minimum-scale=1, initial-scale=1, width=device-width"
             />
-            {/* <link rel="icon" href={zeroVenenoLogo} /> */}
+            <link rel="icon" href={myIcon} />
             <meta
               name="description"
-              content="Faço seu site do começo ao fim, utilizando tecnologias atuais e com ótimo suporte."
+              content="Faço seu site do começo ao fim, utilizando tecnologias atuais e com ótimo suporte!"
             />
             <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600&display=swap" rel="stylesheet"></link>
             <meta name="keywords" content="portfolio,desenvolvedor,developer,javascript,react,nodejs,node,sites,freelancer,fullstack,frontend,backend" />

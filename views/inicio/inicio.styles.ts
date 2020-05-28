@@ -63,17 +63,34 @@ export const StyledInicioPage = styled.section`
             display: flex;
             flex-flow: column nowrap;
             justify-content: center;
+            position: relative;
 
             h1 {
                 font-size: 2.5rem;
                 margin: 0;
             }
             p {
+                margin: 0;
                 font-size: 1.2rem;
+            }
+
+            > :not(div) {
+                margin-left: 20px;
+            }
+
+            .introduction-section--info--cursor {
+                color: ${theme.white.primary};
+                font-style: italic;
             }
 
             .introduction-section--info--name {
                 margin-bottom: 0;
+            }
+
+            .introduction-section--info--typed-tag {
+                font-size: .9rem;
+                font-style: italic;
+                user-select: none;
             }
         }
 
@@ -106,9 +123,15 @@ export const StyledInicioPage = styled.section`
             }
         }
 
+        @media(min-width: 630px) {
+            .break-on-responsive {
+                display: none;
+            }
+        }
+
         @media(max-width: 600px) {
             .introduction-section--info h1 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
         }
 

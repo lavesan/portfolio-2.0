@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { StyledBounceWord } from './bounce-word.styles';
 import { IBounceWord } from './bounce-word.interfaces';
 
-export default ({ children, activateOnClick }: IBounceWord) => {
+export default ({ children, activateOnClick, ...attrs }: IBounceWord & React.HTMLAttributes<HTMLSpanElement>) => {
 
     const [activate, setActivate] = useState<boolean>(false);
 
@@ -25,7 +25,8 @@ export default ({ children, activateOnClick }: IBounceWord) => {
                 : <StyledBounceWord
                     activate={activate}
                     onMouseEnter={activateAnimation}
-                    onTouchStart={activateAnimation}>
+                    onTouchStart={activateAnimation}
+                    {...attrs}>
                     {children}
                 </StyledBounceWord>
             }

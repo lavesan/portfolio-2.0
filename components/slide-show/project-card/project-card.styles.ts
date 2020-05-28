@@ -38,6 +38,7 @@ export const StyledProjectCard = styled.div<IStyledProjectCard>`
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
+        background-color: ${theme.gray.terciary};
         animation-name: ${disappear ? scaleHide : scaleChange};
         animation-duration: .3s;
         animation-fill-mode: forwards;
