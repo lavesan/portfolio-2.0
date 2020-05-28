@@ -1,4 +1,5 @@
-import { MotionStyle, Transition } from 'framer-motion';
+import React, { RefObject } from 'react';
+import { Transition } from 'framer-motion';
 
 export interface IShowSections {
     about: boolean,
@@ -13,4 +14,11 @@ export interface ISection {
     initialRightStyle: any;
     animationStyle: any;
     animationTransition: Transition;
+}
+
+export interface ISectionReferences {
+    about: HTMLTableSectionElement | null,
+    projects: HTMLTableSectionElement | null,
+    blogs: HTMLTableSectionElement | null,
+    contact: HTMLTableSectionElement | null,
 }

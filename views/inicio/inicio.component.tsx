@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import ScrollTrigger from "react-scroll-trigger";
 
 import { StyledInicioPage, StyledUnderbarTitle } from './inicio.styles';
-import { IShowSections } from './inicio.interfaces';
+import { IShowSections, ISectionReferences } from './inicio.interfaces';
 import { BlogSectionComponent } from './blog-section';
 import { AboutSectionComponent } from './about-section';
 import { ProjectSectionComponent } from './project-section';
@@ -11,7 +11,7 @@ import { HomeSectionComponent } from './home-section';
 
 export default () => {
 
-    const [titlesRef, setTitlesRef] = useState<any>({
+    const [titlesRef, setTitlesRef] = useState<ISectionReferences>({
         about: null,
         projects: null,
         blogs: null,
