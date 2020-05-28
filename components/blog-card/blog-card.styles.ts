@@ -12,6 +12,11 @@ export const StyledBlogCard = styled.a<IStyledBlogCard>`
         .blog-img {
             width: 100px;
             margin-right: 20px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+            }
         }
 
         .blog-title {
