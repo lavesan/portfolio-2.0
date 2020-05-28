@@ -57,7 +57,7 @@ export default () => {
     const animationStyle            = { opacity: 1, transform: 'translateX(0px)' };
     const animationTransition       = { duration: 1.2 };
 
-    const typingSpeed               = 0;
+    const typingSpeed               = 100;
 
     const activateTypingAnimation = (step: number) => {
         setTypingAnimation(f => ({ ...f, [step]: true }));
