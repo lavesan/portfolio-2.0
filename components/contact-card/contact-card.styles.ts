@@ -7,14 +7,22 @@ export const StyledContactCard = styled.a<IStyledContactCard>`
         text-decoration: none;
         outline: none;
         box-sizing: border-box;
-        color: ${theme.white.primary};
+        color: ${theme.green.primary};
+        border: thin solid ${theme.green.primary};
         border-radius: 5px;
         display: flex;
         flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
-        background-color: ${backgroundColor};
+        background-color: transparent;
         padding: 20px;
+        transition: .3s;
+
+        :hover {
+            background-color: ${backgroundColor};
+            color: ${theme.white.primary};
+            border-color: ${backgroundColor};
+        }
 
         .icon {
             font-size: 2.5rem;

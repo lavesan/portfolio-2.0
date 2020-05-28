@@ -12,6 +12,7 @@ export default createGlobalStyle`
         max-width: 100vw;
         color: ${({ theme }: any) => theme.gray.secondary};
         margin: 0;
+        overflow-x: hidden;
     }
 
     .styles_modal__gNwvD {

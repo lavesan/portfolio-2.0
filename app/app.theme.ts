@@ -5,6 +5,7 @@ export default {
         // primary: '#72A276',
         secondary: '#8FD694',
         terciary: '#36cf36',
+        quaternary: '#72A276',
     },
     gray: {
         primary: '#FAFAFA',

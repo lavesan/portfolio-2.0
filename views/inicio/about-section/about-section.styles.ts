@@ -24,7 +24,7 @@ export const StyledAboutSection = styled.div`
 
             .about-section--info-container--text-title {
                 margin: 0;
-                color: ${theme.green.primary};
+                color: ${theme.green.quaternary};
             }
         }
 

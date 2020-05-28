@@ -21,7 +21,6 @@ const ProjectCardComponent = ({ selected, onTouchStart, disappear, ...project }:
 
     return (
         <StyledProjectCard imgUrl={project.imgs[0] ? project.imgs[0] : myImage} selected={selected} onTouchStart={onTouchStart} disappear={disappear}>
-
             <div className={`project-filter ${selected && ''}`} />
             <div className={`project-brief-info ${selected && 'selected-project'}`}>
                 <p className="project-name">{project.name}</p>

@@ -66,7 +66,7 @@
     {
         "id": 4,
         "name": "Meu portfólio",
-        "description": "Este portfólio que vocês está navegando. Eu o fiz com o intuito de mostrar meu trabalho e quem eu sou, ter um cartão de visitas online :). Fiz tanto o design quanto o código, aproveitando o projeto para utilizar animações.",
+        "description": "Este portfólio que você está navegando. Eu o fiz com o intuito de mostrar meu trabalho e quem eu sou, ter um cartão de visitas online :). Fiz tanto o design quanto o código, aproveitando o projeto para utilizar animações e otimizando o SEO da página (O algoritmo do google recomenda o meu site de maneira mais fácil).",
         "tools": [
             "React",
             "Nextjs",
@@ -77,7 +77,7 @@
         "url": "",
         "codeUrl": "https://github.com/lavesan/portfolio-2.0",
         "imgs": [
-            "https://www.folha1.com.br/_midias/jpg/2019/01/11/320x285/1_gabriel_pensador2-1259268.jpg"
+            "https://valderyportfolio.s3.amazonaws.com/projetos/portfolio-mobile.jpeg"
         ]
     }
 ]

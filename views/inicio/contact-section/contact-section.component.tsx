@@ -27,7 +27,7 @@ export default ({ triggerAnimation, initialLeftStyle, initialRightStyle, animati
                 initial={initialLeftStyle}
                 animate={triggerAnimation ? animationStyle : initialLeftStyle}
                 transition={middleTransition}>
-                <p className="description second-description">Utilize um dos contatos abaixo!</p>
+                <p className="description second-description">Me envie uma mensagem por email ou whatsapp clicando em um dos botões abaixo!</p>
             </motion.div>
             <motion.div
                 initial={initialLeftStyle}

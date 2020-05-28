@@ -19,8 +19,8 @@ export const StyledSlideShow = styled.div`
                 font-size: 1.2rem;
 
                 &.framework-button--selected {
-                    color: ${theme.green.primary};
-                    border-bottom-color: ${theme.green.primary};
+                    color: ${theme.green.quaternary};
+                    border-bottom-color: ${theme.green.quaternary};
                 }
             }
             .slide-show-header--divisor {
