@@ -76,7 +76,7 @@ export default () => {
                 </ScrollTrigger>
             </section>
             <hr />
-            <section className="white-bg" id="projetos">
+            <section className="white-bg project-section" id="projetos">
                 <ScrollTrigger onEnter={() => onScrollEnter('projects')} onExit={() => onScrollExit('projects')}>
                     <div className="titles-container">
                         <h2 ref={useCallback((node) => onRefChange(node, 'projects'), [])}>Projetos</h2>

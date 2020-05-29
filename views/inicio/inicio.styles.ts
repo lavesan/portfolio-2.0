@@ -65,6 +65,10 @@ export const StyledInicioPage = styled.section`
             .titles-container {
                 margin: 20px 0;   
             }
+
+            .project-section {
+                padding: 35px 0;
+            }
         }
     `}
 `;

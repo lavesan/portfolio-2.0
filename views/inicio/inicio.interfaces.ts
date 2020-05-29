@@ -1,4 +1,3 @@
-import React, { RefObject } from 'react';
 import { Transition } from 'framer-motion';
 
 export interface IShowSections {
