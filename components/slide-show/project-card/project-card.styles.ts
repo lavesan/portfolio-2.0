@@ -32,7 +32,7 @@ const scaleHide = keyframes`
 
 export const StyledProjectCard = styled.div<IStyledProjectCard>`
     ${({ imgUrl, selected, disappear, theme }) => css`
-        width: 130px;
+        width: 110px;
         height: 200px;
         background: url(${imgUrl});
         background-repeat: no-repeat;
@@ -43,6 +43,16 @@ export const StyledProjectCard = styled.div<IStyledProjectCard>`
         animation-duration: .3s;
         animation-fill-mode: forwards;
         position: relative;
+
+        .project-clickable-icon {
+            display: none;
+            position: absolute;
+            z-index: 1;
+            top: 5px;
+            right: 5px;
+            width: 20px;
+            color: ${theme.white.primary};
+        }
 
         .project-filter {
             position: absolute;
@@ -105,6 +115,12 @@ export const StyledProjectCard = styled.div<IStyledProjectCard>`
 
         .project-name {
             color: ${theme.white.primary};
+        }
+
+        @media(max-width: 850px) {
+            .project-clickable-icon {
+                display: block;
+            }
         }
     `}
 `;

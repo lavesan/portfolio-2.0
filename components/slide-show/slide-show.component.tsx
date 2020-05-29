@@ -60,7 +60,7 @@ export default ({ projects, frameworks }: ISlideShow) => {
                             {framework}
                         </button>
                         {index < frameworks.length - 1 &&
-                        <   div className="slide-show-header--divisor" />
+                            <div className="slide-show-header--divisor" />
                         }
                     </React.Fragment>
                 ))}
