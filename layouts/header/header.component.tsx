@@ -27,7 +27,6 @@ const HeaderComponent = ({ children, screenWidth }: IChildren & ConnectedProps<t
 
     const isResponsive = useMemo(
         () => {
-            console.log('screenWidth: ', screenWidth);
             return screenWidth <= 850;
         },
         [screenWidth]
@@ -41,7 +40,7 @@ const HeaderComponent = ({ children, screenWidth }: IChildren & ConnectedProps<t
 
     const reloadShowMenu = () => {
 
-        if (isResponsive) {
+        if (window.innerWidth <= 850) {
             const currentScrollPos = window.pageYOffset;
             if (teste > currentScrollPos) {
                 setHeaderPosition('-55px');
