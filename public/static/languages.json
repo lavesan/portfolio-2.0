@@ -13,5 +13,8 @@
     { "value": "Nestjs", "count": 31 },
     { "value": "Amazon AWS", "count": 38 },
     { "value": "JQuery", "count": 20 },
-    { "value": "Regex", "count": 21 }
+    { "value": "Regex", "count": 21 },
+    { "value": "Scrum", "count": 27 },
+    { "value": "PostgreSQL", "count": 25 },
+    { "value": "SQL", "count": 30 }
 ]
