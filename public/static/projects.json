@@ -79,5 +79,25 @@
         "imgs": [
             "https://valderyportfolio.s3.amazonaws.com/projetos/portfolio-mobile.jpeg"
         ]
+    },
+    {
+        "id": 5,
+        "name": "Movfit",
+        "description": "Um gympass para ser utilizado por funcionários de empresas. Eu fiz a parte visual (front-end) juntamente com Marcel Souza :)",
+        "tools": [
+            "Vue.js",
+            "Quasar",
+            "Redux"
+        ],
+        "type": "Sites",
+        "url": "https://movfitness.com.br",
+        "codeUrl": "",
+        "imgs": [
+            "https://valderyportfolio.s3.amazonaws.com/projetos/movfit-mobile-3.png",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/movfit-web-2.png",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/movfit-mobile-2.png",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/movfit-mobile-1.png",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/movfit-web-1.png"
+        ]
     }
 ]
