@@ -83,7 +83,7 @@
     {
         "id": 5,
         "name": "Movfit",
-        "description": "Um gympass para ser utilizado por funcionários de empresas. Eu fiz a parte visual (front-end) juntamente com Marcel Souza :)",
+        "description": "Um gympass para ser utilizado por funcionários de empresas. Eu fiz o design e a parte visual (front-end) juntamente com Marcel Souza :)",
         "tools": [
             "Vue.js",
             "Quasar",
