@@ -1,8 +1,34 @@
 [
     {
+        "id": 6,
+        "name": "Izi Benefícios",
+        "description": "Entrei na Zeropay há pouco tempo e tive a oportunidade de alavancar um projeto novo onde se tem vários benefícios para seus clientes.<br />Estou como full-stack (fazendo o front-end e parte do back-end) e adorei o desafio que eu precisei enfrentar para deixar de forma organizada tanto o código quando o design, que deixou tudo bem fácil para os usuários :)<br />Alterar a tecnologia do projeto (React puro para Nextjs) para obter um melhor SEO foi ótimo, juntamente com fazer um onboarding customizado!",
+        "tools": [
+            "React",
+            "Nextjs",
+            "PWA",
+            "Push notifications",
+            "Redux"
+        ],
+        "type": "Sites",
+        "url": "https://whitelabel.zeropay.io",
+        "codeUrl": "",
+        "imgs": [
+            "https://valderyportfolio.s3.amazonaws.com/projetos/izi-login-mobile.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/izi-registro-mobile.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/izi-ob1-mobile.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/izi-ob2-mobile.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/izi-ob4-mobile.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/izi-ob5-mobile.jpeg",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/izi-login-desktop.png",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/izi-home-desktop.png",
+            "https://valderyportfolio.s3.amazonaws.com/projetos/izi-categoria-desktop.png"
+        ]
+    },
+    {
         "id": 1,
         "name": "Ecommerce zero-veneno",
-        "description": "Ecommerce feito para a loja zeroveneno. Ela estava tendo muita demanda e já não dava mais para atender os seus clientes apenas pelo whatsapp, então eu preparei um ecommerce junto com a designer Carla Medeiros, incluindo um administrador para ela puder gerenciar a loja :)",
+        "description": "Ecommerce feito para a loja zeroveneno.<br />A dona da loja estava tendo muita demanda e já não dava mais para atender os seus clientes apenas pelo whatsapp, então eu preparei um ecommerce junto com a designer Carla Medeiros, incluindo um administrador para ela puder gerenciar tudo (produtos, pedidos, clientes, promoções...) :)",
         "tools": [
             "React",
             "Nextjs",
@@ -29,7 +55,7 @@
     {
         "id": 2,
         "name": "Elosun",
-        "description": "Uma landing page para Elosun, onde fiz o designer e o código da parte visual do site (front-end). Eu o fiz utilizando uma nova ferramenta que o permite se comportar como um aplicativo (PWA).",
+        "description": "Uma landing page para Elosun, onde fiz o designer e o código da parte visual do site (front-end).<br />O fiz utilizando uma nova ferramenta que o permite se comportar como um aplicativo (PWA).",
         "tools": [
             "React",
             "PWA"
