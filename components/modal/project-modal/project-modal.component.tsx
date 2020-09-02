@@ -61,7 +61,7 @@ const ProjectModalComponent = ({ selectedProject, showProjectModal }: ConnectedP
                             </Swiper>
                         </div>
                         <h2>{selectedProject.name}</h2>
-                        <p>{selectedProject.description}</p>
+                        <p dangerouslySetInnerHTML={{ __html: selectedProject.description }} />
                         <p className="technology-title">Tecnologias</p>
                         <div className="technology-list">
                             {selectedProject.tools.map(tool => (
