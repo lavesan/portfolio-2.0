@@ -1,5 +1,5 @@
 {
-  "name": "zero-veneno-ecommerce",
+  "name": "valdery-portfolio-2.0",
   "version": "1.0.0",
   "description": "Zero veneno user interactive\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[1;5D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C ecommerce\u001b[2~ user interactive",
   "main": "index.js",
@@ -10,12 +10,10 @@
   },
   "keywords": [
     "next",
-    "ecommerce",
-    "react",
-    "axios",
-    "styled-components"
+    "portfolio",
+    "react"
   ],
-  "author": "Valdery Alves Paes Júnior (http://valderyalves.com) <valdery.jur@gmail.com>",
+  "author": "Valdery Alves Paes Júnior (http://valderyalves.com.br) <valdery.jur@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",

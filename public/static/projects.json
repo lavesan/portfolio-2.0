@@ -1,5 +1,27 @@
 [
     {
+        "id": 7,
+        "name": "Marketplace Whitelabel",
+        "description": "Projeto que criei para ser uma solução de vendas online seja no modelo ecommerce ou seja no marketplace. Deixei de uma forma que consegue se adaptar de acordo com o que o cliente precisar",
+        "tools": [
+            "React",
+            "Nextjs",
+            "Nodejs",
+            "PostgreSQL"
+        ],
+        "type": "Sites",
+        "url": "https://ecommerce-front-delta.vercel.app/",
+        "codeUrl": "",
+        "imgs": [
+            "/projects/whitelabel-marketplace-2.PNG",
+            "/projects/whitelabel-marketplace-3.PNG",
+            "/projects/whitelabel-marketplace-4.PNG",
+            "/projects/whitelabel-marketplace-5.PNG",
+            "/projects/whitelabel-marketplace-6.PNG",
+            "/projects/whitelabel-marketplace-1.PNG"
+        ]
+    },
+    {
         "id": 6,
         "name": "Izi Benefícios",
         "description": "Entrei na Zeropay há pouco tempo e tive a oportunidade de alavancar um projeto novo onde se tem vários benefícios para seus clientes.<br />Estou como full-stack (fazendo o front-end e parte do back-end) e adorei o desafio que eu precisei enfrentar para deixar de forma organizada tanto o código quando o design, que deixou tudo bem fácil para os usuários :)<br />Alterar a tecnologia do projeto (React puro para Nextjs) para obter um melhor SEO foi ótimo, juntamente com fazer um onboarding customizado!",
